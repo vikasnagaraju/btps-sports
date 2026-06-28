@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>57th Foundation Day Sports Events at BTPS</title>
+<script>
+  window.addEventListener('error', function(e){
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;inset:0;background:#fff;z-index:99999;padding:20px;font-family:monospace;font-size:13px;color:#b00020;overflow:auto;white-space:pre-wrap;';
+    box.textContent = 'A loading error occurred — please screenshot this and send it back:\n\n' + e.message + '\n\nFile: ' + e.filename + '\nLine: ' + e.lineno + ', Col: ' + e.colno + (e.error && e.error.stack ? '\n\nStack:\n' + e.error.stack : '');
+    document.body.appendChild(box);
+  });
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -144,4 +152,1293 @@
     background:linear-gradient(160deg,#fff 0%, #fbfdf9 100%);
     border-color:#dceadd;
   }
-  .event-card-cricket::before{background:linear-gradient(180deg,var(--green),#0d7a4f);}...
+  .event-card-cricket::before{background:linear-gradient(180deg,var(--green),#0d7a4f);}
+  .ec-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding-left:4px;}
+  .ec-name{font-size:14.5px;font-weight:800;color:var(--ink);line-height:1.3;}
+  .ec-cat{font-size:10.5px;color:var(--navy-600);font-weight:700;margin-top:2px;letter-spacing:.2px;}
+  .status-chip{
+    font-size:9.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+    padding:4px 9px;border-radius:99px;white-space:nowrap;flex-shrink:0;
+    display:inline-flex;align-items:center;gap:4px;
+  }
+  .status-chip.upcoming{background:#eef1fb;color:var(--navy-600);}
+  .status-chip.live{background:#fff0db;color:#b06a06;}
+  .status-chip.completed{background:#e8f6ee;color:var(--green);}
+  .live-dot-inline{
+    width:6px;height:6px;border-radius:50%;background:#b06a06;display:inline-block;
+    animation:pulse 1.4s infinite;
+  }
+  .ec-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-left:4px;}
+  .ec-meta-item{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-soft);font-weight:500;}
+  .ec-meta-item svg{width:12.5px;height:12.5px;flex-shrink:0;opacity:.7;}
+
+  /* Scorecard — signature element: stadium LED scoreboard panel */
+  .scorecard{
+    margin-top:12px;padding:14px 14px 12px;border-radius:10px;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0px, rgba(255,255,255,.025) 1px, transparent 1px, transparent 3px),
+      linear-gradient(160deg,#0a1228,var(--navy-800));
+    color:#fff;
+    border:1px solid rgba(245,166,35,.18);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+    position:relative;
+    overflow:hidden;
+  }
+  .scorecard::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--amber-400),transparent);
+    opacity:.6;
+  }
+  .sc-row{
+    display:flex;align-items:center;justify-content:space-between;padding:6px 2px;
+    border-radius:6px;transition:background .15s;
+  }
+  .sc-row.sc-winner{background:rgba(245,166,35,.13);padding:6px 9px;margin:0 -9px;}
+  .sc-team{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px;letter-spacing:.2px;color:#dfe4f5;}
+  .sc-row.sc-winner .sc-team{color:#fff;}
+  .sc-trophy{font-size:13px;line-height:1;}
+  .sc-runs{
+    font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;
+    font-variant-numeric:tabular-nums;letter-spacing:.5px;color:var(--amber-400);
+    text-shadow:0 0 12px rgba(245,166,35,.35);
+  }
+  .sc-row.sc-winner .sc-runs{color:var(--amber-400);}
+  .sc-divider{
+    text-align:center;font-size:8.5px;color:#6b76a0;font-weight:700;letter-spacing:1px;
+    text-transform:uppercase;padding:2px 0;
+  }
+  .sc-result-tag{
+    margin-top:8px;padding:6px 0 0;border-top:1px solid rgba(255,255,255,.1);
+    font-size:10.5px;font-weight:700;color:#9aa6cc;text-align:center;letter-spacing:.3px;text-transform:uppercase;
+  }
+  .sc-result-tag.win{color:var(--amber-400);}
+  .result-pending{
+    margin-top:10px;padding:9px 11px;border-radius:9px;background:#fdf6ec;color:#9a6b1f;
+    font-size:11.5px;font-weight:700;display:flex;align-items:center;gap:6px;
+  }
+
+  .ec-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-left:4px;}
+  .participant-pill{
+    font-size:11px;color:var(--navy-700);font-weight:700;background:#eef1fb;
+    padding:4px 10px;border-radius:99px;display:inline-flex;align-items:center;gap:5px;
+  }
+
+  /* empty state */
+  .empty{
+    text-align:center;padding:36px 20px;color:var(--ink-soft);
+  }
+  .empty svg{width:38px;height:38px;opacity:.35;margin-bottom:10px;}
+  .empty p{font-size:13px;margin:0;font-weight:500;}
+
+  /* Search/filter row */
+  .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:4px;-ms-overflow-style:none;scrollbar-width:none;}
+  .filter-row::-webkit-scrollbar{display:none;}
+  .chip-filter{
+    flex-shrink:0;font-size:12px;font-weight:700;padding:7px 13px;border-radius:99px;
+    border:1px solid var(--line);background:var(--white);color:var(--ink-soft);cursor:pointer;
+    transition:all .12s; white-space:nowrap;
+  }
+  .chip-filter.active{background:var(--navy-900);color:#fff;border-color:var(--navy-900);}
+
+  /* CricHeroes quick-link cards */
+  .cricheroes-link-card{
+    display:flex;align-items:center;gap:13px;background:var(--white);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px;margin-bottom:10px;text-decoration:none;color:var(--ink);
+    box-shadow:var(--shadow-sm);transition:box-shadow .15s, transform .1s;
+  }
+  .cricheroes-link-card:hover{box-shadow:var(--shadow-md);}
+  .cricheroes-link-card:active{transform:scale(.99);}
+  .clc-icon{
+    width:42px;height:42px;border-radius:11px;background:#eef1fb;color:var(--navy-600);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .clc-icon svg{width:19px;height:19px;}
+  .clc-text{flex:1;min-width:0;}
+  .clc-label{font-size:14px;font-weight:800;color:var(--ink);}
+  .clc-sub{font-size:11.5px;color:var(--ink-soft);margin-top:1px;}
+  .clc-arrow{color:var(--ink-soft);flex-shrink:0;}
+  .embed-note{font-size:11px;color:var(--ink-soft);text-align:center;margin:4px 0 2px;display:flex;align-items:center;justify-content:center;gap:5px;}
+  .embed-note svg{width:11px;height:11px;flex-shrink:0;}
+
+  /* Detail sheet (modal) */
+  .sheet-overlay{
+    position:fixed;inset:0;background:rgba(11,21,48,.55);z-index:100;
+    display:none;align-items:flex-end;justify-content:center;
+    backdrop-filter:blur(2px);
+  }
+  .sheet-overlay.open{display:flex;animation:fadeIn .15s ease;}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  .sheet{
+    background:var(--white);width:100%;max-width:520px;border-radius:20px 20px 0 0;
+    max-height:88vh;overflow-y:auto;padding:0 20px 28px;
+    animation:slideUp .22s cubic-bezier(.2,.9,.3,1);
+  }
+  @media (min-width:680px){.sheet{max-width:560px;}}
+  @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+  .sheet-handle{width:36px;height:4px;background:var(--line);border-radius:99px;margin:12px auto 6px;}
+  .sheet-head{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 0 4px;gap:10px;}
+  .sheet-head h3{font-size:18px;font-weight:800;margin:0;line-height:1.3;}
+  .sheet-close{
+    width:30px;height:30px;border-radius:50%;background:var(--paper);border:none;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink-soft);
+  }
+  .sheet-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+  .meta-box{background:var(--paper);border-radius:10px;padding:10px 12px;}
+  .meta-box .lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-soft);font-weight:700;margin-bottom:3px;}
+  .meta-box .val{font-size:13px;font-weight:700;color:var(--ink);}
+  .score-edit-row{display:flex;align-items:center;gap:10px;background:var(--navy-950);border-radius:12px;padding:16px;margin:14px 0;color:#fff;}
+  .winner-row{margin:0 0 14px;}
+  .winner-label{font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
+  .winner-btns{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .winner-btn{
+    padding:9px 8px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
+    font-size:12px;font-weight:700;color:var(--ink-soft);cursor:pointer;text-align:center;
+  }
+  .winner-btn.selected{background:var(--amber-100);border-color:var(--amber-500);color:#8a5d04;}
+  .winner-btn.tie.selected{background:#eef1fb;border-color:var(--navy-600);color:var(--navy-600);}
+  .winner-btn.none{grid-column:1 / -1;}
+  .winner-btn.none.selected{background:var(--paper);border-color:var(--ink-soft);color:var(--ink-soft);}
+  .score-input{
+    flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;
+    border-radius:8px;padding:9px 10px;font-size:13px;font-weight:600;font-family:inherit;
+  }
+  .score-input::placeholder{color:#8a95bd;}
+  .vs-divider{font-size:11px;color:#8a95bd;font-weight:700;}
+  .status-row{display:flex;gap:8px;margin:14px 0;}
+  .status-btn{
+    flex:1;padding:9px 6px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
+    font-size:11.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;text-transform:uppercase;letter-spacing:.3px;
+  }
+  .status-btn.sel-upcoming.selected{background:#eef1fb;border-color:var(--navy-600);color:var(--navy-600);}
+  .status-btn.sel-live.selected{background:#fff0db;border-color:var(--amber-500);color:#b06a06;}
+  .status-btn.sel-completed.selected{background:#e8f6ee;border-color:var(--green);color:var(--green);}
+
+  .divider-label{font-size:11.5px;font-weight:800;color:var(--ink);margin:18px 0 10px;display:flex;align-items:center;justify-content:space-between;}
+  .coord-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);gap:10px;}
+  .coord-row:last-child{border-bottom:none;}
+  .coord-name{font-size:13px;font-weight:700;color:var(--ink);}
+  .coord-call{
+    font-size:12.5px;color:var(--green);font-weight:800;text-decoration:none;
+    display:flex;align-items:center;gap:6px;background:#e8f6ee;padding:8px 13px;border-radius:99px;
+    flex-shrink:0;white-space:nowrap;transition:transform .1s;
+  }
+  .coord-call:active{transform:scale(.95);}
+  .coord-call svg{width:13px;height:13px;}
+
+  .participant-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);}
+  .participant-row:last-child{border-bottom:none;}
+  .p-info{display:flex;align-items:center;gap:10px;}
+  .p-avatar{
+    width:32px;height:32px;border-radius:50%;background:var(--navy-700);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;
+  }
+  .p-name{font-size:13px;font-weight:700;color:var(--ink);}
+  .p-phone{font-size:10.5px;color:var(--ink-soft);margin-top:1px;}
+  .remove-btn{
+    width:26px;height:26px;border-radius:50%;border:none;background:#fdeceb;color:var(--red);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
+  }
+  .add-participant-form{display:flex;gap:8px;margin-top:12px;}
+  .add-participant-form input{
+    flex:1;border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;font-size:13px;font-family:inherit;
+  }
+  .add-participant-form input:focus{outline:none;border-color:var(--navy-600);}
+
+  .btn{
+    width:100%;padding:13px;border-radius:11px;border:none;font-size:13.5px;font-weight:700;
+    cursor:pointer;text-align:center;font-family:inherit;
+  }
+  .btn-primary{background:var(--navy-900);color:#fff;margin-top:6px;}
+  .btn-primary:active{background:var(--navy-950);}
+  .btn-amber{background:var(--amber-500);color:var(--navy-950);}
+  .btn-ghost{background:var(--paper);color:var(--ink);}
+  .btn-danger-outline{background:#fff;color:var(--red);border:1.5px solid #f6cbc7;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  /* Notifications view */
+  .notif-item{
+    display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--line);
+  }
+  .notif-icon{
+    width:34px;height:34px;border-radius:9px;background:#eef1fb;color:var(--navy-600);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .notif-icon svg{width:16px;height:16px;}
+  .notif-icon.alert{background:#fff0db;color:#b06a06;}
+  .notif-body .ttl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+  .notif-body .msg{font-size:12.5px;color:var(--ink-soft);line-height:1.45;}
+  .notif-body .time{font-size:10.5px;color:#9aa6cc;margin-top:4px;font-weight:600;}
+
+  /* Admin toggle / login */
+  .admin-banner{
+    background:linear-gradient(135deg,var(--amber-100),#fff8eb);border:1px solid #f4dba7;
+    border-radius:12px;padding:11px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;
+  }
+  .admin-banner svg{width:18px;height:18px;color:var(--amber-500);flex-shrink:0;}
+  .admin-banner span{font-size:12px;font-weight:700;color:#8a5d04;}
+
+  .form-group{margin-bottom:12px;}
+  .form-group label{font-size:11.5px;font-weight:700;color:var(--ink-soft);display:block;margin-bottom:5px;}
+  .form-group input, .form-group select, .form-group textarea{
+    width:100%;border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;font-size:13.5px;
+    font-family:inherit;background:#fff;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none;border-color:var(--navy-600);}
+  .form-row{display:flex;gap:10px;}
+  .form-row .form-group{flex:1;}
+
+  /* Bottom nav */
+  .bottomnav{
+    position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);
+    display:flex;justify-content:center;z-index:40;box-shadow:0 -4px 16px rgba(15,23,55,.06);
+  }
+  .bottomnav-inner{max-width:520px;width:100%;display:flex;}
+  @media (min-width:680px){.bottomnav-inner{max-width:900px;}}
+  .nav-item{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 4px 9px;
+    color:#aab4d6;cursor:pointer;position:relative;
+  }
+  .nav-item svg{width:20px;height:20px;}
+  .nav-item span{font-size:10px;font-weight:700;}
+  .nav-item.active{color:var(--navy-700);}
+  .nav-item .nav-badge{
+    position:absolute;top:6px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:var(--red);
+  }
+
+  .toast{
+    position:fixed;bottom:84px;left:50%;transform:translateX(-50%);
+    background:var(--navy-950);color:#fff;padding:11px 20px;border-radius:99px;font-size:12.5px;font-weight:700;
+    box-shadow:var(--shadow-lg);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;
+    white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+
+  .login-screen{
+    position:fixed;inset:0;background:linear-gradient(160deg,var(--navy-950),var(--navy-800));
+    z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .login-box{background:#fff;border-radius:18px;padding:28px 24px;width:100%;max-width:340px;box-shadow:var(--shadow-lg);}
+  .login-box h3{font-size:17px;font-weight:800;margin:0 0 4px;}
+  .login-box p{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;}
+  .login-err{color:var(--red);font-size:12px;font-weight:600;margin-top:8px;}
+
+  .fab{
+    position:fixed;bottom:90px;right:calc(50% - 260px + 18px);width:52px;height:52px;border-radius:50%;
+    background:var(--amber-500);color:var(--navy-950);border:none;box-shadow:var(--shadow-lg);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;
+  }
+  @media (max-width:520px){.fab{right:18px;}}
+  .fab svg{width:22px;height:22px;}
+
+  .skeleton{background:linear-gradient(90deg,#eceef5 25%,#f5f6fa 37%,#eceef5 63%);background-size:400% 100%;animation:shimmer 1.4s infinite;border-radius:var(--radius);height:84px;margin-bottom:10px;}
+  @keyframes shimmer{0%{background-position:100% 50%;}100%{background-position:0 50%;}}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="topbar">
+    <div class="topbar-row">
+      <div class="brand">
+        <div class="brand-mark">KP</div>
+        <div class="brand-text">
+          <h1>57th Foundation Day<br>Sports Events at BTPS</h1>
+          <p style="font-size:8.5px;color:#7c87ad;text-transform:none;letter-spacing:0;font-weight:600;margin-top:3px;">build 2026-06-28 · v4</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="icon-btn" id="connStatusBtn" title="Connection status" style="cursor:default;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="connIcon"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+          <div class="badge-dot" id="connDot" style="display:none;background:var(--red);"></div>
+        </div>
+        <div class="icon-btn" id="adminToggleBtn" title="Admin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
+        </div>
+        <div class="icon-btn" id="bellBtn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div class="badge-dot" id="bellDot" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker-wrap" id="tickerWrap">
+      <div class="live-pulse" id="tickerPulse"></div>
+      <div class="ticker-text">
+        <div class="ticker-label" id="tickerLabel">LOADING</div>
+        <div class="ticker-main" id="tickerMain">Fetching schedule…</div>
+        <div class="ticker-sub" id="tickerSub"></div>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Dashboard
+      </div>
+      <div class="tab" data-tab="events">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Events
+      </div>
+      <div class="tab" data-tab="cricket">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 19L19 5"/></svg>
+        Cricket
+      </div>
+      <div class="tab" data-tab="alerts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        Alerts
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="content" id="content">
+    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><p>Loading sports hub…</p></div>
+  </div>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <div class="bottomnav">
+    <div class="bottomnav-inner">
+      <div class="nav-item active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        <span>Home</span>
+      </div>
+      <div class="nav-item" data-tab="events">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span>Events</span>
+      </div>
+      <div class="nav-item" data-tab="cricket">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+        <span>Cricket</span>
+      </div>
+      <div class="nav-item" data-tab="alerts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span>Alerts</span>
+        <div class="nav-badge" id="navBellDot" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="fab" id="fabAdd" style="display:none;" title="Add event">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<!-- ===== EVENT DETAIL SHEET ===== -->
+<div class="sheet-overlay" id="sheetOverlay">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<!-- ===== ADMIN LOGIN ===== -->
+<div class="login-screen" id="loginScreen" style="display:none;">
+  <div class="login-box">
+    <h3>Admin sign-in</h3>
+    <p>Enter the sports committee password to manage events, participants, and broadcasts.</p>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="adminPw" placeholder="Enter password" autocomplete="off">
+    </div>
+    <div class="login-err" id="loginErr" style="display:none;">Incorrect password. Try again.</div>
+    <button class="btn btn-primary" id="loginSubmit" style="margin-top:14px;">Sign in</button>
+    <button class="btn btn-ghost" id="loginCancel" style="margin-top:8px;">Cancel</button>
+  </div>
+</div>
+
+<script>
+(function(){
+
+const ADMIN_PASSWORD = "KPCL57th";
+let isAdmin = false;
+let currentTab = "dashboard";
+let activeFilter = "all";
+let state = { events: [], notifications: [] };
+let lastSeenNotifCount = 0;
+
+// ---------- Seed data (from uploaded PDF + cricket fixture image) ----------
+const SEED_EVENTS = [
+  // Cricket league fixtures (from BTPS Cricket Tournament 2026 image)
+  {id:"cr-1", name:"Electrical vs CHP (I&C)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-24", time:"10:00 AM", status:"completed", scoreA:"", scoreB:"", teamA:"Electrical", teamB:"CHP (I&C)", coordinators:[]},
+  {id:"cr-2", name:"CHP-2 vs CHP-3", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-24", time:"2:00 PM", status:"completed", scoreA:"", scoreB:"", teamA:"CHP-2", teamB:"CHP-3", coordinators:[]},
+  {id:"cr-3", name:"SE (MM-1) vs ED (BTPS)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-25", time:"10:00 AM", status:"completed", scoreA:"", scoreB:"", teamA:"SE (MM-1)", teamB:"ED (BTPS)", coordinators:[]},
+  {id:"cr-4", name:"SE (MM-2) vs SE (O)-1", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-25", time:"2:00 PM", status:"completed", scoreA:"", scoreB:"", teamA:"SE (MM-2)", teamB:"SE (O)-1", coordinators:[]},
+  {id:"cr-5", name:"Royal Civil vs CHP-3", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-29", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"Royal Civil", teamB:"CHP-3", coordinators:[]},
+  {id:"cr-6", name:"CHP-1 vs SE (O)-1", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-29", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"CHP-1", teamB:"SE (O)-1", coordinators:[]},
+  {id:"cr-7", name:"ED (BTPS) vs SE (O)-3", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-30", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"ED (BTPS)", teamB:"SE (O)-3", coordinators:[]},
+  {id:"cr-8", name:"SE (O)-2 vs SE (E)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-30", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"SE (O)-2", teamB:"SE (E)", coordinators:[]},
+  {id:"cr-9", name:"Royal Civil vs CHP-2", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-01", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"Royal Civil", teamB:"CHP-2", coordinators:[]},
+  {id:"cr-10", name:"SE (O)-3 vs SE (MM-1)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-01", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"SE (O)-3", teamB:"SE (MM-1)", coordinators:[]},
+  {id:"cr-11", name:"SE (MM-2) vs CHP-1", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-02", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"SE (MM-2)", teamB:"CHP-1", coordinators:[]},
+  {id:"cr-12", name:"CHP (I&C) vs SE (O)-2", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-02", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"CHP (I&C)", teamB:"SE (O)-2", coordinators:[]},
+
+  // Indoor games at BTPS Canteen
+  {id:"ev-1", name:"Carrom — Singles", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
+    {name:"G.J. Raghavendra",phone:"9448290702"},{name:"Prabhudeva J",phone:"9480830610"},{name:"Naveed Asmal Hej Mulla",phone:"998635707"},{name:"Sagar D.M",phone:"9480830699"},{name:"Hanumanthappa",phone:"8867973677"}
+  ]},
+  {id:"ev-2", name:"Chess", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
+    {name:"Nawaz M",phone:"8073029015"},{name:"Lokesh M",phone:"7353556048"},{name:"Rajashekar M",phone:"8884561762"},{name:"Honnurswamy",phone:"8722423745"}
+  ]},
+  {id:"ev-3", name:"Jackpot", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
+    {name:"Rajashekar Choudri",phone:"9481044510"},{name:"T.Eshwarswamy",phone:"8497813312"}
+  ]},
+  {id:"ev-4", name:"T.T. (Table Tennis)", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
+    {name:"Sandeep Kumar",phone:"8660806196"},{name:"Tippeswamy Hej",phone:"9743718084"},{name:"Paramesh Char",phone:"9019625580"},{name:"Madhu J",phone:"7892917772"},{name:"Honnur J",phone:"9880516605"}
+  ]},
+  {id:"ev-5", name:"Shuttle Badminton (Men, Above/Below 45)", category:"Indoor Games", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
+    {name:"Prakash M.",phone:"9448290770"},{name:"B.J. Raghavendra",phone:"9448290702"},{name:"B.L. Mahesh",phone:"9480830356"},{name:"Manuraj",phone:"9480830356"},{name:"Haresh T.",phone:"9480849625"}
+  ]},
+  {id:"ev-6", name:"Tennis Ball Cricket", category:"Outdoor Games", venue:"BTPS Mumbhag Sports Ground", date:"2026-06-24", time:"TBA", status:"upcoming", note:"Matches begin from 24.06.2026", coordinators:[
+    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Gopayya Kawali",phone:"9448290722"},{name:"Ajith Patil",phone:"9480489616"},{name:"Virupaksha K",phone:"9480830668"},{name:"Hulirajiv",phone:"9480830550"}
+  ]},
+  {id:"ev-7", name:"Kabaddi", category:"Outdoor Games", venue:"BTPS", date:"2026-07-10", time:"TBA", status:"upcoming", note:"Matches begin from 10.07.2026", coordinators:[
+    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Dr. Ashok",phone:"9448290785"},{name:"Haresh V.",phone:"8792646436"},{name:"Hanumanthappa",phone:"8867973677"},{name:"J.S. Raghavendra",phone:"9480399046"}
+  ]},
+  {id:"ev-8", name:"Cross-Country Run/Walk (45+/45-, Men)", category:"Athletics", venue:"BTPS", date:"2026-07-14", time:"TBA", status:"upcoming", note:"Event held from 14.07.2026", coordinators:[
+    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Arun",phone:"9743043316"},{name:"Nawaz M",phone:"8073029015"},{name:"Haresh V.",phone:"9480849625"}
+  ]},
+  {id:"ev-9", name:"Track & Field — 100m/200m, Shot Put, Discus, Javelin, Volleyball (Men)", category:"Athletics", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"TBA", status:"upcoming", note:"Sunday event — 05.07.2026", coordinators:[
+    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Prabhudeva J",phone:"9480830610"},{name:"Shyamsundar S",phone:"9480830387"},{name:"Dr. Ashok",phone:"9448290785"},{name:"B.L. Mahesh",phone:"9480830356"}
+  ]},
+  {id:"ev-10", name:"Shuttle Badminton & Throwball (Women)", category:"Women's Events", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Coordinator: Smt. Sharada K (9480830377) · Reg. close 25.06.2026", coordinators:[
+    {name:"Ashe",phone:"9480849610"},{name:"Chaitra",phone:"9480849642"},{name:"Basavarajeshwari",phone:"9448282644"},{name:"Madhuri K.R",phone:"8971589264"}
+  ]},
+  {id:"ev-11", name:"Carrom, Chess, 30 Yard Cricket, Tennis Court (Women)", category:"Women's Events", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Reg. close 25.06.2026", coordinators:[
+    {name:"Arundhati",phone:"9480830554"},{name:"Vani D",phone:"9480830330"},{name:"Swetha K",phone:"8618727606"},{name:"Bhuvaneshwari Y",phone:"9972219905"}
+  ]},
+  {id:"ev-12", name:"Women's & Children's Track Events (100m, Shot Put etc.)", category:"Women's Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"TBA", status:"upcoming", note:"Sunday event — 05.07.2026", coordinators:[
+    {name:"Nandini Hosur",phone:"9480830336"},{name:"Rajarajeshwari Vibhuti",phone:"9480830688"},{name:"Savitha M",phone:"9141615413"}
+  ]},
+];
+
+const SEED_NOTIFS = [
+  {id:"n1", title:"Foundation Day Sports — Schedule Released", message:"57th Foundation Day sports activities are confirmed. Registrations and matches begin from 24.06.2026. Check the Events tab for your event's registration deadline and coordinator.", type:"info", time:Date.now() - 1000*60*60*26},
+  {id:"n2", title:"Cricket League Begins", message:"BTPS Cricket Tournament 2026 league matches start today at the BTPS Cricket Ground. First match: Electrical vs CHP (I&C), 10:00 AM.", type:"alert", time:Date.now() - 1000*60*60*20},
+];
+
+// ---------- Backend: Google Apps Script Web App ----------
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwIZUqDnapaxZjFNKVfZ1GBE99a2YS-16Xjt1ychX3SC3lV8ryaeRlSM2zx0_OtagEt/exec";
+let backendOk = true;
+
+function normalizeDateValue(v){
+  if(!v) return '';
+  if(typeof v === 'string'){
+    // Apps Script sometimes serializes Date objects to ISO strings like "2026-06-24T00:00:00.000Z"
+    const isoMatch = v.match(/^(\d{4}-\d{2}-\d{2})/);
+    if(isoMatch) return isoMatch[1];
+    return v;
+  }
+  // Google Sheets returns native Date objects for date-looking cells, which JSON.stringify
+  // turns into ISO strings before they even reach the client, but guard for the raw case too.
+  if(v instanceof Date || Object.prototype.toString.call(v) === '[object Date]'){
+    const d = new Date(v);
+    if(isNaN(d.getTime())) return '';
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  }
+  return String(v);
+}
+
+function rowsToEvents(rows){
+  return rows.map(r => {
+    let participants = [];
+    let coordinators = [];
+    try{ participants = r.participants ? (typeof r.participants==='string' ? JSON.parse(r.participants) : r.participants) : []; }catch(e){ participants = []; }
+    try{ coordinators = r.coordinators ? (typeof r.coordinators==='string' ? JSON.parse(r.coordinators) : r.coordinators) : []; }catch(e){ coordinators = []; }
+    return {
+      id: String(r.id), name: r.name||'', category: r.category||'', venue: r.venue||'',
+      date: normalizeDateValue(r.date), time: r.time||'', status: r.status||'upcoming',
+      teamA: r.teamA||'', teamB: r.teamB||'', scoreA: r.scoreA||'', scoreB: r.scoreB||'',
+      winner: r.winner||'', note: r.note||'', participants, coordinators
+    };
+  });
+}
+
+function eventsToRows(events){
+  return events.map(e => ({
+    id: e.id, name: e.name, category: e.category, venue: e.venue, date: e.date, time: e.time,
+    status: e.status, teamA: e.teamA||'', teamB: e.teamB||'', scoreA: e.scoreA||'', scoreB: e.scoreB||'',
+    winner: e.winner||'',
+    note: e.note||'',
+    participants: JSON.stringify(e.participants||[]),
+    coordinators: JSON.stringify(e.coordinators||[])
+  }));
+}
+
+function rowsToNotifs(rows){
+  return rows.map(r => ({
+    id: String(r.id), title: r.title||'', message: r.message||'', type: r.type||'info',
+    time: Number(r.time) || Date.now()
+  }));
+}
+
+async function backendGetAll(){
+  const res = await fetch(BACKEND_URL + "?action=getAll", { method: "GET" });
+  if(!res.ok) throw new Error("Backend GET failed: " + res.status);
+  return res.json();
+}
+
+async function backendSave(action, data){
+  const body = new URLSearchParams();
+  body.set("action", action);
+  body.set("data", JSON.stringify(data));
+  const res = await fetch(BACKEND_URL, { method: "POST", body });
+  if(!res.ok) throw new Error("Backend POST failed: " + res.status);
+  const json = await res.json();
+  if(json.error) throw new Error(json.error);
+  return json;
+}
+
+// ---------- Storage helpers (now backed by Google Sheets via Apps Script) ----------
+// Recovers fields the sheet may be missing (e.g. coordinators wiped before the column existed)
+// by pulling them back from the known seed data, matched by event id. Never overwrites real
+// admin-entered data (scores, status, participants) — only fills genuinely empty fields.
+function mergeMissingSeedFields(events){
+  const seedById = {};
+  SEED_EVENTS.forEach(s => seedById[s.id] = s);
+  return events.map(ev => {
+    const seed = seedById[ev.id];
+    if(!seed) return ev;
+    const merged = {...ev};
+    if((!merged.coordinators || merged.coordinators.length === 0) && seed.coordinators && seed.coordinators.length){
+      merged.coordinators = seed.coordinators;
+    }
+    if(!merged.teamA && seed.teamA) merged.teamA = seed.teamA;
+    if(!merged.teamB && seed.teamB) merged.teamB = seed.teamB;
+    return merged;
+  });
+}
+
+async function loadState(){
+  try{
+    const data = await backendGetAll();
+    backendOk = true;
+
+    let events = (data.events && data.events.length) ? rowsToEvents(data.events) : null;
+    if(!events){
+      events = SEED_EVENTS.map(e => ({...e, participants: []}));
+      state.events = events;
+      await saveEvents(); // seed the sheet on first run
+    }else{
+      const merged = mergeMissingSeedFields(events);
+      const healedSomething = JSON.stringify(merged) !== JSON.stringify(events);
+      state.events = merged;
+      if(healedSomething){
+        await saveEvents(); // write the recovered coordinator/team data back to the sheet permanently
+      }
+    }
+
+    let notifs = (data.notifications && data.notifications.length) ? rowsToNotifs(data.notifications) : null;
+    if(!notifs){
+      notifs = SEED_NOTIFS;
+      state.notifications = notifs;
+      await saveNotifs(); // seed the sheet on first run
+    }else{
+      state.notifications = notifs;
+    }
+  }catch(e){
+    console.error('Backend unreachable, using local seed data', e);
+    backendOk = false;
+    if(!state.events || !state.events.length){
+      state.events = SEED_EVENTS.map(ev => ({...ev, participants: []}));
+    }
+    if(!state.notifications || !state.notifications.length){
+      state.notifications = SEED_NOTIFS;
+    }
+  }
+}
+
+let suppressPollUntil = 0;
+
+async function saveEvents(){
+  try{
+    await backendSave('saveEvents', eventsToRows(state.events));
+    backendOk = true;
+    suppressPollUntil = Date.now() + 12000; // give Sheets a moment to settle before our own poll re-reads it
+    return true;
+  }catch(e){
+    console.error('save events failed', e);
+    backendOk = false;
+    showToast('Could not reach the server — change saved locally only');
+    return false;
+  }
+}
+async function saveNotifs(){
+  try{
+    await backendSave('saveNotifications', state.notifications);
+    backendOk = true;
+    suppressPollUntil = Date.now() + 12000;
+    return true;
+  }catch(e){
+    console.error('save notifs failed', e);
+    backendOk = false;
+    showToast('Could not reach the server — broadcast not sent to others');
+    return false;
+  }
+}
+async function saveSeenCount(){
+  lastSeenNotifCount = state.notifications.length;
+}
+
+
+// ---------- Utilities ----------
+function uid(prefix){ return prefix + '-' + Math.random().toString(36).slice(2,9); }
+function initials(name){
+  return name.trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase();
+}
+function fmtDate(d){
+  if(!d) return 'Date TBA';
+  const dt = new Date(d + 'T00:00:00');
+  if(isNaN(dt.getTime())) return d; // show raw value rather than "Invalid Date"
+  return dt.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short'});
+}
+function timeAgo(ts){
+  const diff = Date.now() - ts;
+  const mins = Math.floor(diff/60000);
+  if(mins < 1) return 'just now';
+  if(mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins/60);
+  if(hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs/24) + 'd ago';
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ---------- Ticker (signature element) ----------
+function getTickerEvent(){
+  const all = state.events;
+  const live = all.find(e => e.status === 'live');
+  if(live) return {ev: live, mode:'live'};
+  const upcoming = all.filter(e => e.status === 'upcoming')
+    .sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
+  if(upcoming.length) return {ev: upcoming[0], mode:'upcoming'};
+  return {ev: null, mode:'none'};
+}
+function renderTicker(){
+  const {ev, mode} = getTickerEvent();
+  const wrap = document.getElementById('tickerWrap');
+  const label = document.getElementById('tickerLabel');
+  const main = document.getElementById('tickerMain');
+  const sub = document.getElementById('tickerSub');
+  const pulse = document.getElementById('tickerPulse');
+
+  if(mode === 'none'){
+    wrap.classList.remove('is-live');
+    pulse.style.background = '#aab4d6';
+    label.textContent = 'ALL CLEAR';
+    main.textContent = 'No events scheduled right now';
+    sub.innerHTML = '';
+    return;
+  }
+  if(mode === 'live'){
+    wrap.classList.add('is-live');
+    label.textContent = '● LIVE NOW';
+    main.textContent = ev.name;
+    if(ev.scoreA || ev.scoreB){
+      sub.innerHTML = `<span style="font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3px;">${escapeHtml(ev.scoreA||'—')}</span> vs <span style="font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3px;">${escapeHtml(ev.scoreB||'—')}</span>`;
+    }else{
+      sub.textContent = ev.venue;
+    }
+  }else{
+    wrap.classList.remove('is-live');
+    pulse.style.background = 'var(--amber-400)';
+    label.textContent = 'UP NEXT';
+    main.textContent = ev.name;
+    sub.textContent = `${fmtDate(ev.date)} · ${ev.time} · ${ev.venue}`;
+  }
+}
+
+// ---------- Rendering: Dashboard ----------
+function renderDashboard(){
+  const c = document.getElementById('content');
+  const total = state.events.length;
+  const live = state.events.filter(e=>e.status==='live').length;
+  const done = state.events.filter(e=>e.status==='completed').length;
+  const upcoming = state.events.filter(e=>e.status==='upcoming')
+    .sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,4);
+  const liveEvents = state.events.filter(e=>e.status==='live');
+
+  let html = '';
+  if(isAdmin){
+    html += `<div class="admin-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
+      <span>Admin mode — you can edit events, scores, participants, and send broadcasts.</span>
+    </div>
+    <button class="btn btn-ghost" id="forceResyncBtn" style="margin-bottom:16px;font-size:12px;padding:9px;">↻ Re-check sheet for missing data</button>`;
+  }
+
+  html += `<div class="stat-strip">
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-lbl">Total events</div></div>
+    <div class="stat-card"><div class="stat-num amber">${live}</div><div class="stat-lbl">Live now</div></div>
+    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-lbl">Completed</div></div>
+  </div>`;
+
+  if(liveEvents.length){
+    html += `<div class="section-head"><h2>Live right now</h2></div>`;
+    liveEvents.forEach(e => html += eventCardHtml(e));
+  }
+
+  const recentResults = state.events.filter(e=>e.status==='completed' && e.winner && e.category==='Cricket').slice(-3).reverse();
+  if(recentResults.length){
+    html += `<div class="section-head"><h2>Latest results</h2></div>`;
+    recentResults.forEach(e => html += eventCardHtml(e));
+  }
+
+  html += `<div class="section-head"><h2>Coming up</h2><span class="count">${upcoming.length} of ${state.events.filter(e=>e.status==='upcoming').length}</span></div>`;
+  if(upcoming.length === 0){
+    html += emptyHtml('No upcoming events right now.');
+  }else{
+    upcoming.forEach(e => html += eventCardHtml(e));
+  }
+
+  c.innerHTML = html;
+  bindEventCards();
+  const resyncBtn = document.getElementById('forceResyncBtn');
+  if(resyncBtn){
+    resyncBtn.onclick = async ()=>{
+      resyncBtn.textContent = 'Checking…';
+      resyncBtn.disabled = true;
+      const beforeCount = state.events.filter(e=>e.coordinators&&e.coordinators.length).length;
+      await loadState();
+      const afterCount = state.events.filter(e=>e.coordinators&&e.coordinators.length).length;
+      updateConnectionDot();
+      if(afterCount > beforeCount){
+        showToast(`Recovered contacts for ${afterCount - beforeCount} event(s)`);
+      }else if(!backendOk){
+        showToast('Could not reach the sheet — check your connection');
+      }else{
+        showToast('Sheet data is already up to date');
+      }
+      renderDashboard();
+    };
+  }
+}
+
+function emptyHtml(msg){
+  return `<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><p>${escapeHtml(msg)}</p></div>`;
+}
+
+function eventCardHtml(e){
+  const pCount = (e.participants||[]).length;
+  const isCricket = e.category === 'Cricket';
+  let scoreBlock = '';
+  if(e.status !== 'upcoming' && e.teamA && e.teamB){
+    if(e.scoreA || e.scoreB || e.winner){
+      const aWon = e.winner === 'A';
+      const bWon = e.winner === 'B';
+      const tie = e.winner === 'tie';
+      scoreBlock = `<div class="scorecard">
+        <div class="sc-row ${aWon?'sc-winner':''}">
+          <span class="sc-team">${aWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(e.teamA)}</span>
+          <span class="sc-runs">${escapeHtml(e.scoreA||'—')}</span>
+        </div>
+        <div class="sc-divider">vs</div>
+        <div class="sc-row ${bWon?'sc-winner':''}">
+          <span class="sc-team">${bWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(e.teamB)}</span>
+          <span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span>
+        </div>
+        ${tie ? '<div class="sc-result-tag">Match Tied</div>' : (aWon||bWon) ? `<div class="sc-result-tag win">${escapeHtml(aWon?e.teamA:e.teamB)} won</div>` : ''}
+      </div>`;
+    }else if(e.status === 'completed'){
+      scoreBlock = `<div class="result-pending"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Result not entered yet</div>`;
+    }
+  }
+  return `<div class="event-card ${isCricket?'event-card-cricket':''}" data-id="${e.id}">
+    <div class="ec-top">
+      <div>
+        <div class="ec-name">${escapeHtml(e.name)}</div>
+        <div class="ec-cat">${escapeHtml(e.category)}</div>
+      </div>
+      <span class="status-chip ${e.status}">${e.status==='live' ? '<span class=\"live-dot-inline\"></span>LIVE' : e.status}</span>
+    </div>
+    <div class="ec-meta">
+      <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${fmtDate(e.date)}</div>
+      <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${escapeHtml(e.time)}</div>
+      <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>${escapeHtml(e.venue)}</div>
+    </div>
+    ${scoreBlock}
+    <div class="ec-foot">
+      <span class="participant-pill"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>${pCount} registered</span>
+    </div>
+  </div>`;
+}
+
+// ---------- Rendering: Events list ----------
+function renderEvents(){
+  const c = document.getElementById('content');
+  const cats = ['all', ...new Set(state.events.map(e=>e.category))];
+  let filtered = activeFilter === 'all' ? state.events : state.events.filter(e=>e.category===activeFilter);
+  filtered = filtered.filter(e => e.category !== 'Cricket'); // cricket has its own tab
+  if(activeFilter === 'all'){
+    // still exclude cricket from "all" in this tab since it has a dedicated view
+  }
+  filtered = filtered.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+
+  let html = `<div class="filter-row" id="filterRow">`;
+  cats.filter(c=>c!=='Cricket').forEach(cat=>{
+    html += `<div class="chip-filter ${activeFilter===cat?'active':''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</div>`;
+  });
+  html += `</div>`;
+
+  html += `<div class="section-head"><h2>All sports events</h2><span class="count">${filtered.length} events</span></div>`;
+  if(filtered.length === 0){
+    html += emptyHtml('No events in this category.');
+  }else{
+    filtered.forEach(e => html += eventCardHtml(e));
+  }
+  c.innerHTML = html;
+  bindEventCards();
+  document.querySelectorAll('.chip-filter').forEach(el=>{
+    el.onclick = ()=>{ activeFilter = el.dataset.cat; renderEvents(); };
+  });
+}
+
+// ---------- Cricket tab: CricHeroes quick links ----------
+const CRICHEROES_HOME = "https://cricheroes.com/";
+const CRICHEROES_LINKS = [
+  {key:"live",     label:"Live scores",      sub:"See matches happening right now",  icon:'<circle cx="12" cy="12" r="9"/><path d="M12 12l3 3"/>'},
+  {key:"upcoming", label:"Upcoming matches",  sub:"Check who's playing next",         icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'},
+  {key:"past",     label:"Completed matches", sub:"View results and scorecards",      icon:'<path d="M20 6L9 17l-5-5"/>'}
+];
+
+function renderCricket(){
+  const c = document.getElementById('content');
+  const matches = state.events.filter(e=>e.category==='Cricket').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+
+  let html = `<div class="section-head"><h2>BTPS Cricket Tournament 2026</h2></div>`;
+
+  CRICHEROES_LINKS.forEach(l=>{
+    html += `<a href="${CRICHEROES_HOME}" target="_blank" rel="noopener" class="cricheroes-link-card">
+      <div class="clc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">${l.icon}</svg></div>
+      <div class="clc-text">
+        <div class="clc-label">${l.label}</div>
+        <div class="clc-sub">${l.sub} on CricHeroes</div>
+      </div>
+      <svg class="clc-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+    </a>`;
+  });
+  html += `<div class="embed-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>Opens CricHeroes in a new tab — sign in there to see live tournament scores</div>`;
+
+  html += `<div class="section-head" style="margin-top:24px;"><h2>League fixture list</h2><span class="count">${matches.length} matches</span></div>`;
+  const grouped = {};
+  matches.forEach(m=>{ (grouped[m.date] = grouped[m.date]||[]).push(m); });
+  Object.keys(grouped).sort().forEach(date=>{
+    html += `<div class="eyebrow" style="margin-top:18px;">${fmtDate(date)}</div>`;
+    grouped[date].forEach(m => html += eventCardHtml(m));
+  });
+
+  c.innerHTML = html;
+  bindEventCards();
+}
+
+// ---------- Rendering: Alerts / notifications ----------
+async function renderAlerts(){
+  const c = document.getElementById('content');
+  lastSeenNotifCount = state.notifications.length;
+  await saveSeenCount();
+  document.getElementById('bellDot').style.display = 'none';
+  document.getElementById('navBellDot').style.display = 'none';
+
+  let html = '';
+  if(isAdmin){
+    html += `<div class="section-head"><h2>Send a broadcast</h2></div>
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" id="broadcastTitle" placeholder="e.g. Match rescheduled">
+    </div>
+    <div class="form-group">
+      <label>Message</label>
+      <textarea id="broadcastMsg" rows="3" placeholder="Details employees should know..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Type</label>
+      <select id="broadcastType">
+        <option value="info">Info</option>
+        <option value="alert">Alert / Urgent</option>
+      </select>
+    </div>
+    <button class="btn btn-amber" id="sendBroadcastBtn">Push notification to all employees</button>`;
+  }
+
+  html += `<div class="section-head"><h2>Notification feed</h2><span class="count">${state.notifications.length}</span></div>`;
+  const sorted = state.notifications.slice().sort((a,b)=>b.time-a.time);
+  if(sorted.length === 0){
+    html += emptyHtml('No notifications yet.');
+  }else{
+    sorted.forEach(n => {
+      html += `<div class="notif-item">
+        <div class="notif-icon ${n.type==='alert'?'alert':''}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${n.type==='alert' ? '<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>' : '<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>'}</svg>
+        </div>
+        <div class="notif-body">
+          <div class="ttl">${escapeHtml(n.title)}</div>
+          <div class="msg">${escapeHtml(n.message)}</div>
+          <div class="time">${timeAgo(n.time)}</div>
+        </div>
+      </div>`;
+    });
+  }
+  c.innerHTML = html;
+
+  if(isAdmin){
+    document.getElementById('sendBroadcastBtn').onclick = async ()=>{
+      const title = document.getElementById('broadcastTitle').value.trim();
+      const msg = document.getElementById('broadcastMsg').value.trim();
+      const type = document.getElementById('broadcastType').value;
+      if(!title || !msg){ showToast('Add a title and message first'); return; }
+      state.notifications.push({id: uid('n'), title, message: msg, type, time: Date.now()});
+      await saveNotifs();
+      showToast('Broadcast sent to all employees');
+      renderAlerts();
+    };
+  }
+}
+
+function refreshBellDot(){
+  const unseen = state.notifications.length > lastSeenNotifCount;
+  document.getElementById('bellDot').style.display = unseen ? 'block' : 'none';
+  document.getElementById('navBellDot').style.display = unseen ? 'block' : 'none';
+}
+
+function updateConnectionDot(){
+  const dot = document.getElementById('connDot');
+  const btn = document.getElementById('connStatusBtn');
+  if(backendOk){
+    dot.style.display = 'none';
+    btn.title = 'Connected — synced with all employees';
+  }else{
+    dot.style.display = 'block';
+    btn.title = 'Offline — showing local data, not synced';
+  }
+}
+
+// ---------- Event detail sheet ----------
+function bindEventCards(){
+  document.querySelectorAll('.event-card').forEach(card=>{
+    card.onclick = ()=> openEventSheet(card.dataset.id);
+  });
+}
+
+function openEventSheet(id){
+  const ev = state.events.find(e=>e.id===id);
+  if(!ev) return;
+  const sheet = document.getElementById('sheet');
+  const pCount = (ev.participants||[]).length;
+
+  let body = `<div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h3>${escapeHtml(ev.name)}</h3>
+      <button class="sheet-close" id="sheetCloseBtn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <span class="status-chip ${ev.status}">${ev.status}</span>
+
+    <div class="sheet-meta-grid">
+      <div class="meta-box"><div class="lbl">Category</div><div class="val">${escapeHtml(ev.category)}</div></div>
+      <div class="meta-box"><div class="lbl">Venue</div><div class="val">${escapeHtml(ev.venue)}</div></div>
+      <div class="meta-box"><div class="lbl">Date</div><div class="val">${fmtDate(ev.date)}</div></div>
+      <div class="meta-box"><div class="lbl">Time</div><div class="val">${escapeHtml(ev.time)}</div></div>
+    </div>`;
+
+  if(ev.note){
+    body += `<div class="meta-box" style="margin-bottom:14px;"><div class="lbl">Note</div><div class="val" style="font-weight:600;">${escapeHtml(ev.note)}</div></div>`;
+  }
+
+  // Score section
+  if(isAdmin){
+    body += `<div class="divider-label">Live score / result</div>`;
+    if(ev.teamA && ev.teamB){
+      body += `<div class="score-edit-row">
+        <input class="score-input" id="scoreAInput" placeholder="${escapeHtml(ev.teamA)} score" value="${escapeHtml(ev.scoreA||'')}">
+        <span class="vs-divider">VS</span>
+        <input class="score-input" id="scoreBInput" placeholder="${escapeHtml(ev.teamB)} score" value="${escapeHtml(ev.scoreB||'')}">
+      </div>
+      <div class="winner-row">
+        <div class="winner-label">Winner</div>
+        <div class="winner-btns">
+          <button class="winner-btn ${ev.winner==='A'?'selected':''}" data-winner="A">🏆 ${escapeHtml(ev.teamA)}</button>
+          <button class="winner-btn ${ev.winner==='B'?'selected':''}" data-winner="B">🏆 ${escapeHtml(ev.teamB)}</button>
+          <button class="winner-btn tie ${ev.winner==='tie'?'selected':''}" data-winner="tie">Tie</button>
+          <button class="winner-btn none ${(!ev.winner)?'selected':''}" data-winner="">Not decided</button>
+        </div>
+      </div>`;
+    }
+    body += `<div class="status-row">
+      <button class="status-btn sel-upcoming ${ev.status==='upcoming'?'selected':''}" data-status="upcoming">Upcoming</button>
+      <button class="status-btn sel-live ${ev.status==='live'?'selected':''}" data-status="live">Live</button>
+      <button class="status-btn sel-completed ${ev.status==='completed'?'selected':''}" data-status="completed">Completed</button>
+    </div>
+    <button class="btn btn-primary" id="saveEventBtn">Save changes</button>`;
+  }else if(ev.teamA && ev.teamB && (ev.scoreA || ev.scoreB || ev.winner)){
+    const aWon = ev.winner === 'A', bWon = ev.winner === 'B', tie = ev.winner === 'tie';
+    body += `<div class="divider-label">Result</div>
+    <div class="scorecard" style="margin-top:0;">
+      <div class="sc-row ${aWon?'sc-winner':''}">
+        <span class="sc-team">${aWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(ev.teamA)}</span>
+        <span class="sc-runs">${escapeHtml(ev.scoreA||'—')}</span>
+      </div>
+      <div class="sc-divider">vs</div>
+      <div class="sc-row ${bWon?'sc-winner':''}">
+        <span class="sc-team">${bWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(ev.teamB)}</span>
+        <span class="sc-runs">${escapeHtml(ev.scoreB||'—')}</span>
+      </div>
+      ${tie ? '<div class="sc-result-tag">Match Tied</div>' : (aWon||bWon) ? `<div class="sc-result-tag win">${escapeHtml(aWon?ev.teamA:ev.teamB)} won the match</div>` : ''}
+    </div>`;
+  }
+
+
+  // Coordinators
+  if(ev.coordinators && ev.coordinators.length){
+    body += `<div class="divider-label">Registration contacts <span style="color:var(--ink-soft);font-weight:600;font-size:11px;text-transform:none;">tap to call</span></div>`;
+    ev.coordinators.slice(0,10).forEach(co=>{
+      body += `<div class="coord-row">
+        <span class="coord-name">${escapeHtml(co.name)}</span>
+        <a class="coord-call" href="tel:${escapeHtml(co.phone)}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          ${escapeHtml(co.phone)}
+        </a>
+      </div>`;
+    });
+  }
+
+  // Participants
+  body += `<div class="divider-label">Participants <span style="color:var(--ink-soft);font-weight:700;">${pCount}</span></div>`;
+  const parts = ev.participants || [];
+  if(parts.length === 0){
+    body += `<div class="empty" style="padding:20px 0;"><p>No participants added yet.</p></div>`;
+  }else{
+    parts.forEach((p, idx)=>{
+      body += `<div class="participant-row">
+        <div class="p-info">
+          <div class="p-avatar">${initials(p.name)}</div>
+          <div><div class="p-name">${escapeHtml(p.name)}</div>${p.phone ? `<div class="p-phone">${escapeHtml(p.phone)}</div>`:''}</div>
+        </div>
+        ${isAdmin ? `<button class="remove-btn" data-idx="${idx}" title="Remove"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>` : ''}
+      </div>`;
+    });
+  }
+
+  if(isAdmin){
+    body += `<div class="add-participant-form">
+      <input type="text" id="newPartName" placeholder="Employee name">
+      <input type="text" id="newPartPhone" placeholder="Phone (optional)" style="max-width:120px;">
+    </div>
+    <button class="btn btn-ghost" id="addPartBtn" style="margin-top:8px;">+ Add participant</button>`;
+  }
+
+  sheet.innerHTML = body;
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.getElementById('sheetCloseBtn').onclick = closeSheet;
+
+  if(isAdmin){
+    document.querySelectorAll('.status-btn').forEach(btn=>{
+      btn.onclick = ()=>{
+        document.querySelectorAll('.status-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        btn.dataset.picked = '1';
+      };
+    });
+    document.querySelectorAll('.winner-btn').forEach(btn=>{
+      btn.onclick = ()=>{
+        document.querySelectorAll('.winner-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+      };
+    });
+    const saveBtn = document.getElementById('saveEventBtn');
+    if(saveBtn){
+      saveBtn.onclick = async ()=>{
+        const picked = document.querySelector('.status-btn.selected');
+        if(picked) ev.status = picked.dataset.status;
+        const sa = document.getElementById('scoreAInput');
+        const sb = document.getElementById('scoreBInput');
+        if(sa) ev.scoreA = sa.value.trim();
+        if(sb) ev.scoreB = sb.value.trim();
+        const pickedWinner = document.querySelector('.winner-btn.selected');
+        if(pickedWinner) ev.winner = pickedWinner.dataset.winner;
+        saveBtn.textContent = 'Saving…';
+        saveBtn.disabled = true;
+        const ok = await saveEvents();
+        if(ok){
+          showToast('Event updated — synced to all employees');
+          closeSheet();
+        }else{
+          saveBtn.textContent = 'Save changes';
+          saveBtn.disabled = false;
+        }
+        renderCurrentTab();
+      };
+    }
+    const addBtn = document.getElementById('addPartBtn');
+    if(addBtn){
+      addBtn.onclick = async ()=>{
+        const nameInput = document.getElementById('newPartName');
+        const phoneInput = document.getElementById('newPartPhone');
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        if(!name){ showToast('Enter a name first'); return; }
+        ev.participants = ev.participants || [];
+        ev.participants.push({name, phone});
+        await saveEvents();
+        showToast('Participant added');
+        openEventSheet(id);
+        renderCurrentTab();
+      };
+    }
+    document.querySelectorAll('.remove-btn').forEach(btn=>{
+      btn.onclick = async ()=>{
+        const idx = parseInt(btn.dataset.idx, 10);
+        ev.participants.splice(idx, 1);
+        await saveEvents();
+        showToast('Participant removed');
+        openEventSheet(id);
+        renderCurrentTab();
+      };
+    });
+  }
+}
+
+function closeSheet(){
+  document.getElementById('sheetOverlay').classList.remove('open');
+}
+document.getElementById('sheetOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'sheetOverlay') closeSheet();
+});
+
+// ---------- Admin: create new event ----------
+function openCreateEventSheet(){
+  const sheet = document.getElementById('sheet');
+  sheet.innerHTML = `
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h3>Add new event</h3>
+      <button class="sheet-close" id="sheetCloseBtn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="form-group"><label>Event name</label><input type="text" id="ceName" placeholder="e.g. Kabaddi — Final"></div>
+    <div class="form-group"><label>Category</label><input type="text" id="ceCategory" placeholder="e.g. Outdoor Games"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Date</label><input type="date" id="ceDate"></div>
+      <div class="form-group"><label>Time</label><input type="text" id="ceTime" placeholder="e.g. 10:00 AM"></div>
+    </div>
+    <div class="form-group"><label>Venue</label><input type="text" id="ceVenue" placeholder="e.g. BTPS Ground"></div>
+    <div class="form-group"><label>Note (optional)</label><input type="text" id="ceNote" placeholder="Registration deadline, etc."></div>
+    <button class="btn btn-primary" id="ceSaveBtn">Create event</button>
+  `;
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.getElementById('sheetCloseBtn').onclick = closeSheet;
+  document.getElementById('ceSaveBtn').onclick = async ()=>{
+    const name = document.getElementById('ceName').value.trim();
+    const category = document.getElementById('ceCategory').value.trim() || 'General';
+    const date = document.getElementById('ceDate').value || new Date().toISOString().slice(0,10);
+    const time = document.getElementById('ceTime').value.trim() || 'TBA';
+    const venue = document.getElementById('ceVenue').value.trim() || 'BTPS';
+    const note = document.getElementById('ceNote').value.trim();
+    if(!name){ showToast('Enter an event name'); return; }
+    state.events.push({id: uid('ev'), name, category, date, time, venue, status:'upcoming', note, participants:[], coordinators:[]});
+    await saveEvents();
+    state.notifications.push({id: uid('n'), title:'New event added', message:`${name} has been added to the schedule — ${fmtDate(date)} at ${time}, ${venue}.`, type:'info', time: Date.now()});
+    await saveNotifs();
+    showToast('Event created');
+    closeSheet();
+    renderCurrentTab();
+  };
+}
+
+// ---------- Tab navigation ----------
+function renderCurrentTab(){
+  renderTicker();
+  refreshBellDot();
+  if(currentTab === 'dashboard') renderDashboard();
+  else if(currentTab === 'events') renderEvents();
+  else if(currentTab === 'cricket') renderCricket();
+  else if(currentTab === 'alerts') renderAlerts();
+}
+
+function setTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===tab));
+  document.querySelectorAll('.nav-item').forEach(t=>t.classList.toggle('active', t.dataset.tab===tab));
+  document.getElementById('fabAdd').style.display = (isAdmin && tab==='events') ? 'flex' : 'none';
+  document.getElementById('content').scrollTop = 0;
+  window.scrollTo(0,0);
+  renderCurrentTab();
+}
+
+document.querySelectorAll('.tab, .nav-item').forEach(el=>{
+  el.addEventListener('click', ()=> setTab(el.dataset.tab));
+});
+
+document.getElementById('bellBtn').onclick = ()=> setTab('alerts');
+document.getElementById('fabAdd').onclick = openCreateEventSheet;
+
+// ---------- Admin login flow ----------
+document.getElementById('adminToggleBtn').onclick = ()=>{
+  if(isAdmin){
+    isAdmin = false;
+    showToast('Switched to employee view');
+    document.getElementById('fabAdd').style.display = 'none';
+    renderCurrentTab();
+  }else{
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('adminPw').value = '';
+    document.getElementById('loginErr').style.display = 'none';
+    setTimeout(()=>document.getElementById('adminPw').focus(), 100);
+  }
+};
+document.getElementById('loginCancel').onclick = ()=>{
+  document.getElementById('loginScreen').style.display = 'none';
+};
+document.getElementById('loginSubmit').onclick = attemptLogin;
+document.getElementById('adminPw').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') attemptLogin();
+});
+function attemptLogin(){
+  const pw = document.getElementById('adminPw').value;
+  if(pw === ADMIN_PASSWORD){
+    isAdmin = true;
+    document.getElementById('loginScreen').style.display = 'none';
+    showToast('Admin mode enabled');
+    document.getElementById('fabAdd').style.display = (currentTab==='events') ? 'flex' : 'none';
+    renderCurrentTab();
+  }else{
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+
+// ---------- Init ----------
+async function init(){
+  await loadState();
+  updateConnectionDot();
+  setTab('dashboard');
+  // Poll the backend so multiple employees viewing simultaneously see fresh data
+  setInterval(async ()=>{
+    if(Date.now() < suppressPollUntil) return; // just saved — don't re-fetch and risk a stale read overwriting it
+    const sheetOpen = document.getElementById('sheetOverlay').classList.contains('open');
+    const prevNotifLen = state.notifications.length;
+    await loadState();
+    updateConnectionDot();
+    if(state.notifications.length > prevNotifLen){
+      refreshBellDot();
+      if(currentTab === 'alerts' && !sheetOpen) renderCurrentTab();
+    }
+    if(!sheetOpen && currentTab !== 'alerts'){
+      renderCurrentTab();
+    }else{
+      renderTicker();
+    }
+  }, 15000);
+}
+init();
+
+})();
+</script>
+</body>
+</html>
