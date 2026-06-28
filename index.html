@@ -60,18 +60,21 @@
     position:sticky;top:0;z-index:30;
     box-shadow:var(--shadow-md);
   }
-  .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand-mark{
-    width:36px;height:36px;border-radius:9px;
-    background:conic-gradient(from 220deg, var(--amber-400), var(--amber-500) 40%, var(--navy-600) 70%, var(--amber-400));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:13px;letter-spacing:.5px;color:var(--navy-950);
-    flex-shrink:0;
+  .topbar-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .brand{display:flex;align-items:center;gap:11px;}
+  .brand-logo-chip{
+    width:42px;height:42px;border-radius:10px;background:#fff;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;padding:4px;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
   }
-  .brand-text h1{font-size:14.5px;font-weight:800;margin:0;letter-spacing:.2px;line-height:1.2;}
-  .brand-text p{font-size:10.5px;margin:1px 0 0;color:#aab4d6;letter-spacing:.4px;text-transform:uppercase;font-weight:600;}
-  .topbar-actions{display:flex;gap:8px;align-items:center;}
+  .brand-logo-chip img{width:100%;height:100%;object-fit:contain;}
+  .brand-text h1{
+    font-size:15.5px;font-weight:800;margin:0;letter-spacing:.1px;line-height:1.2;
+    color:var(--amber-400);
+  }
+  .brand-sub-org{font-size:10.5px;margin:3px 0 0;color:#fff;letter-spacing:.1px;text-transform:none;font-weight:700;}
+  .brand-sub-station{font-size:9.5px;margin:1px 0 0;color:#b6bedd;letter-spacing:.1px;text-transform:none;font-weight:600;}
+  .topbar-actions{display:flex;gap:7px;align-items:center;flex-shrink:0;}
   .icon-btn{
     width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.18);
     background:rgba(255,255,255,.06);color:#fff;display:flex;align-items:center;justify-content:center;
@@ -83,29 +86,45 @@
     position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;
     background:var(--red);border:2px solid var(--navy-950);
   }
-
-  .ticker-wrap{
-    margin-top:14px;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:12px;
-    padding:11px 14px;
-    display:flex;align-items:center;gap:10px;
-    backdrop-filter:blur(2px);
+  .admin-login-btn{
+    display:flex;align-items:center;gap:5px;border-radius:99px;border:1px solid rgba(245,166,35,.4);
+    background:rgba(245,166,35,.12);color:var(--amber-400);padding:8px 12px;cursor:pointer;
+    transition:background .15s;flex-shrink:0;
   }
-  .ticker-wrap.is-live{
-    background:linear-gradient(90deg, rgba(245,166,35,.18), rgba(255,255,255,.05));
-    border-color:rgba(245,166,35,.45);
+  .admin-login-btn:hover{background:rgba(245,166,35,.2);}
+  .admin-login-btn svg{width:14px;height:14px;flex-shrink:0;}
+  .admin-login-btn span{font-size:10.5px;font-weight:800;letter-spacing:.2px;white-space:nowrap;}
+
+  /* Single scrolling marquee bar for notifications (signature consolidation) */
+  .marquee-wrap{
+    margin-top:14px;display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+    border-radius:99px;padding:8px 8px 8px 8px;overflow:hidden;
+  }
+  .marquee-wrap.is-live{background:linear-gradient(90deg, rgba(245,166,35,.2), rgba(255,255,255,.05));border-color:rgba(245,166,35,.5);}
+  .marquee-icon{
+    width:26px;height:26px;border-radius:50%;background:var(--amber-500);color:var(--navy-950);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .marquee-icon svg{width:13px;height:13px;}
+  .marquee-track{flex:1;min-width:0;overflow:hidden;position:relative;}
+  .marquee-content{
+    display:inline-block;white-space:nowrap;font-size:12.5px;font-weight:700;color:#fff;
+    padding-left:100%;animation:marquee-scroll 16s linear infinite;
+  }
+  .marquee-content .sep{color:var(--amber-400);margin:0 14px;}
+  @keyframes marquee-scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-content{animation:none;padding-left:0;}
   }
   .live-pulse{
     width:8px;height:8px;border-radius:50%;background:var(--amber-400);flex-shrink:0;
     animation:pulse 1.6s infinite;
   }
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,166,35,.6);}70%{box-shadow:0 0 0 7px rgba(245,166,35,0);}100%{box-shadow:0 0 0 0 rgba(245,166,35,0);}}
-  .ticker-text{flex:1;min-width:0;}
-  .ticker-label{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--amber-400);font-weight:700;margin-bottom:2px;}
-  .ticker-main{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .ticker-sub{font-size:11px;color:#c3cae6;margin-top:1px;}
 
   .tabs{
     display:flex;gap:4px;padding:14px 20px 0;margin-top:2px;
@@ -525,10 +544,12 @@
   <div class="topbar">
     <div class="topbar-row">
       <div class="brand">
-        <div class="brand-mark">KP</div>
+        <div class="brand-logo-chip"><img src="data:image/jpeg;base64,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" alt="KPCL logo"></div>
         <div class="brand-text">
-          <h1>57th Foundation Day<br>Sports Events at BTPS</h1>
-          <p style="font-size:8.5px;color:#7c87ad;text-transform:none;letter-spacing:0;font-weight:600;margin-top:3px;">build 2026-06-28 · v4</p>
+          <h1>Happy Foundation Day!</h1>
+          <p class="brand-sub-org">Karnataka Power Corporation Limited</p>
+          <p class="brand-sub-station">Ballari Thermal Power Station</p>
+          <p style="font-size:8px;color:#6b76a0;text-transform:none;letter-spacing:0;font-weight:600;margin-top:4px;">build 2026-06-28 · v5</p>
         </div>
       </div>
       <div class="topbar-actions">
@@ -536,8 +557,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="connIcon"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
           <div class="badge-dot" id="connDot" style="display:none;background:var(--red);"></div>
         </div>
-        <div class="icon-btn" id="adminToggleBtn" title="Admin">
+        <div class="admin-login-btn" id="adminToggleBtn" title="Admin login">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
+          <span>Admin login</span>
         </div>
         <div class="icon-btn" id="bellBtn" title="Notifications">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
@@ -546,12 +568,12 @@
       </div>
     </div>
 
-    <div class="ticker-wrap" id="tickerWrap">
-      <div class="live-pulse" id="tickerPulse"></div>
-      <div class="ticker-text">
-        <div class="ticker-label" id="tickerLabel">LOADING</div>
-        <div class="ticker-main" id="tickerMain">Fetching schedule…</div>
-        <div class="ticker-sub" id="tickerSub"></div>
+    <div class="marquee-wrap" id="marqueeWrap">
+      <div class="marquee-icon" id="marqueeIcon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </div>
+      <div class="marquee-track">
+        <div class="marquee-content" id="marqueeContent">Loading updates…</div>
       </div>
     </div>
 
@@ -673,7 +695,7 @@ const SEED_EVENTS = [
   {id:"ev-5", name:"Shuttle Badminton (Men, Above/Below 45)", category:"Indoor Games", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
     {name:"Prakash M.",phone:"9448290770"},{name:"B.J. Raghavendra",phone:"9448290702"},{name:"B.L. Mahesh",phone:"9480830356"},{name:"Manuraj",phone:"9480830356"},{name:"Haresh T.",phone:"9480849625"}
   ]},
-  {id:"ev-6", name:"Tennis Ball Cricket", category:"Outdoor Games", venue:"BTPS Mumbhag Sports Ground", date:"2026-06-24", time:"TBA", status:"upcoming", note:"Matches begin from 24.06.2026", coordinators:[
+  {id:"ev-6", name:"Tennis Ball Cricket", category:"Outdoor Games", venue:"BTPS Opposite Sports Ground", date:"2026-06-24", time:"TBA", status:"upcoming", note:"Matches begin from 24.06.2026", coordinators:[
     {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Gopayya Kawali",phone:"9448290722"},{name:"Ajith Patil",phone:"9480489616"},{name:"Virupaksha K",phone:"9480830668"},{name:"Hulirajiv",phone:"9480830550"}
   ]},
   {id:"ev-7", name:"Kabaddi", category:"Outdoor Games", venue:"BTPS", date:"2026-07-10", time:"TBA", status:"upcoming", note:"Matches begin from 10.07.2026", coordinators:[
@@ -910,36 +932,34 @@ function getTickerEvent(){
 }
 function renderTicker(){
   const {ev, mode} = getTickerEvent();
-  const wrap = document.getElementById('tickerWrap');
-  const label = document.getElementById('tickerLabel');
-  const main = document.getElementById('tickerMain');
-  const sub = document.getElementById('tickerSub');
-  const pulse = document.getElementById('tickerPulse');
+  const wrap = document.getElementById('marqueeWrap');
+  const content = document.getElementById('marqueeContent');
+  if(!wrap || !content) return;
 
-  if(mode === 'none'){
-    wrap.classList.remove('is-live');
-    pulse.style.background = '#aab4d6';
-    label.textContent = 'ALL CLEAR';
-    main.textContent = 'No events scheduled right now';
-    sub.innerHTML = '';
-    return;
-  }
+  const parts = [];
+
   if(mode === 'live'){
     wrap.classList.add('is-live');
-    label.textContent = '● LIVE NOW';
-    main.textContent = ev.name;
+    let scoreTxt = '';
     if(ev.scoreA || ev.scoreB){
-      sub.innerHTML = `<span style="font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3px;">${escapeHtml(ev.scoreA||'—')}</span> vs <span style="font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3px;">${escapeHtml(ev.scoreB||'—')}</span>`;
-    }else{
-      sub.textContent = ev.venue;
+      scoreTxt = ` — ${ev.teamA||''} ${ev.scoreA||'—'} vs ${ev.teamB||''} ${ev.scoreB||'—'}`;
     }
+    parts.push(`🔴 LIVE NOW: ${ev.name}${scoreTxt}`);
+  }else if(mode === 'upcoming'){
+    wrap.classList.remove('is-live');
+    parts.push(`📅 UP NEXT: ${ev.name} — ${fmtDate(ev.date)} · ${ev.time} · ${ev.venue}`);
   }else{
     wrap.classList.remove('is-live');
-    pulse.style.background = 'var(--amber-400)';
-    label.textContent = 'UP NEXT';
-    main.textContent = ev.name;
-    sub.textContent = `${fmtDate(ev.date)} · ${ev.time} · ${ev.venue}`;
+    parts.push(`✅ No live or upcoming events right now`);
   }
+
+  const latestNotif = state.notifications.slice().sort((a,b)=>b.time-a.time)[0];
+  if(latestNotif){
+    parts.push(`📢 ${latestNotif.title}: ${latestNotif.message}`);
+  }
+
+  const joined = parts.map(p => escapeHtml(p)).join('<span class="sep">★</span>');
+  content.innerHTML = joined + '<span class="sep">★</span>' + joined; // duplicate for seamless loop
 }
 
 // ---------- Rendering: Dashboard ----------
@@ -961,7 +981,8 @@ function renderDashboard(){
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
       <span>Admin mode — you can edit events, scores, participants, and send broadcasts.</span>
     </div>
-    <button class="btn btn-ghost" id="forceResyncBtn" style="margin-bottom:16px;font-size:12px;padding:9px;">↻ Re-check sheet for missing data</button>`;
+    <button class="btn btn-ghost" id="forceResyncBtn" style="margin-bottom:10px;font-size:12px;padding:9px;">↻ Re-check sheet for missing data</button>
+    <button class="btn btn-ghost" id="applyCorrectionsBtn" style="margin-bottom:16px;font-size:12px;padding:9px;">✎ Apply latest venue/name corrections</button>`;
   }
 
   // ===== Hero control panel =====
@@ -1062,6 +1083,33 @@ function renderDashboard(){
       }else{
         showToast('Sheet data is already up to date');
       }
+      renderDashboard();
+    };
+  }
+  const correctionsBtn = document.getElementById('applyCorrectionsBtn');
+  if(correctionsBtn){
+    correctionsBtn.onclick = async ()=>{
+      correctionsBtn.textContent = 'Applying…';
+      correctionsBtn.disabled = true;
+      const seedById = {};
+      SEED_EVENTS.forEach(s => seedById[s.id] = s);
+      let changed = 0;
+      state.events = state.events.map(ev=>{
+        const seed = seedById[ev.id];
+        if(!seed) return ev;
+        const updated = {...ev};
+        if(seed.venue && seed.venue !== ev.venue){ updated.venue = seed.venue; changed++; }
+        if(seed.name && seed.name !== ev.name){ updated.name = seed.name; changed++; }
+        return updated;
+      });
+      if(changed > 0){
+        await saveEvents();
+        showToast(`Applied ${changed} correction(s) — synced to all employees`);
+      }else{
+        showToast('No corrections needed — already up to date');
+      }
+      correctionsBtn.textContent = '✎ Apply latest venue/name corrections';
+      correctionsBtn.disabled = false;
       renderDashboard();
     };
   }
