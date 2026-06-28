@@ -126,7 +126,86 @@
   .section-head .count{font-size:11.5px;color:var(--ink-soft);font-weight:600;}
   .eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--navy-600);font-weight:700;margin-bottom:4px;}
 
-  /* Stat strip */
+  /* ===== DASHBOARD — Control Panel module (signature element) ===== */
+  .panel-hero{
+    position:relative;border-radius:18px;overflow:hidden;margin-top:6px;margin-bottom:18px;
+    background:
+      linear-gradient(160deg,#0a1228 0%, var(--navy-800) 55%, #142555 100%);
+    padding:20px 18px 18px;color:#fff;
+    box-shadow:0 16px 32px rgba(11,21,48,.22);
+  }
+  .panel-hero::before{
+    content:'';position:absolute;inset:0;opacity:.5;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:18px 18px;
+  }
+  .panel-hero::after{
+    content:'';position:absolute;top:-40%;right:-20%;width:70%;height:140%;
+    background:radial-gradient(circle, rgba(245,166,35,.16), transparent 65%);
+    pointer-events:none;
+  }
+  .panel-hero-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;}
+  .panel-eyebrow{
+    font-size:9.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:800;color:var(--amber-400);
+    display:flex;align-items:center;gap:6px;
+  }
+  .panel-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--amber-400);animation:pulse 1.6s infinite;}
+  .panel-clock{font-family:'Oswald',sans-serif;font-size:11px;color:#9aa6cc;letter-spacing:.5px;}
+  .panel-event-name{position:relative;font-size:18px;font-weight:800;line-height:1.25;margin-bottom:4px;}
+  .panel-event-meta{position:relative;font-size:12px;color:#b6bedd;font-weight:500;}
+  .panel-score-row{
+    position:relative;display:flex;align-items:center;justify-content:center;gap:16px;
+    margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);
+  }
+  .panel-score-team{flex:1;text-align:center;}
+  .panel-score-team .nm{font-size:11.5px;font-weight:700;color:#c3cae6;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .panel-score-team .val{font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:var(--amber-400);letter-spacing:.5px;text-shadow:0 0 16px rgba(245,166,35,.4);}
+  .panel-score-vs{font-size:10px;color:#6b76a0;font-weight:800;letter-spacing:1px;}
+
+  /* Gauge ring row */
+  .gauge-row{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:18px;box-shadow:var(--shadow-sm);}
+  .gauge-ring{position:relative;width:84px;height:84px;flex-shrink:0;}
+  .gauge-ring svg{width:84px;height:84px;transform:rotate(-90deg);}
+  .gauge-ring .gauge-track{fill:none;stroke:#eef1fb;stroke-width:8;}
+  .gauge-ring .gauge-fill{fill:none;stroke:var(--amber-500);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1);}
+  .gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .gauge-center .num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy-900);line-height:1;}
+  .gauge-center .pct{font-size:8.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.3px;}
+  .gauge-stats{display:flex;flex-direction:column;gap:8px;}
+  .gauge-stat-item{display:flex;align-items:center;justify-content:space-between;}
+  .gauge-stat-item .lbl{font-size:11.5px;color:var(--ink-soft);font-weight:600;display:flex;align-items:center;gap:6px;}
+  .gauge-stat-item .lbl .swatch{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+  .gauge-stat-item .num{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--navy-900);}
+
+  /* Horizontal spotlight rail (replaces vertical list pattern on Dashboard) */
+  .rail-scroll{display:flex;gap:11px;overflow-x:auto;padding:2px 2px 10px;margin:0 -2px;-ms-overflow-style:none;scrollbar-width:none;scroll-snap-type:x proximity;}
+  .rail-scroll::-webkit-scrollbar{display:none;}
+  .rail-card{
+    flex-shrink:0;width:200px;scroll-snap-align:start;background:var(--white);border:1px solid var(--line);
+    border-radius:14px;padding:13px;box-shadow:var(--shadow-sm);cursor:pointer;transition:box-shadow .15s, transform .1s;
+  }
+  .rail-card:active{transform:scale(.98);}
+  .rail-card:hover{box-shadow:var(--shadow-md);}
+  .rail-card-cat{font-size:9.5px;font-weight:800;color:var(--navy-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+  .rail-card-name{font-size:13.5px;font-weight:800;color:var(--ink);line-height:1.3;margin-bottom:8px;min-height:35px;}
+  .rail-card-meta{display:flex;flex-direction:column;gap:4px;}
+  .rail-card-meta-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
+  .rail-card-meta-item svg{width:11px;height:11px;flex-shrink:0;opacity:.65;}
+  .rail-card-day{
+    font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy-900);line-height:1;
+  }
+  .rail-card-daywrap{display:flex;align-items:baseline;gap:5px;margin-bottom:7px;}
+  .rail-card-monthtime{font-size:10px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;}
+
+  /* Developer credit footer */
+  .dev-credit{
+    text-align:center;padding:18px 16px 6px;font-size:10.5px;color:#aab4d6;font-weight:600;letter-spacing:.2px;
+  }
+  .dev-credit b{color:var(--ink-soft);font-weight:700;}
+
+  /* Stat strip (legacy, kept for compatibility) */
   .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
   .stat-card{
     background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
@@ -174,7 +253,7 @@
 
   /* Scorecard — signature element: stadium LED scoreboard panel */
   .scorecard{
-    margin-top:12px;padding:14px 14px 12px;border-radius:10px;
+    margin-top:12px;padding:15px 15px 13px;border-radius:10px;
     background:
       repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0px, rgba(255,255,255,.025) 1px, transparent 1px, transparent 3px),
       linear-gradient(160deg,#0a1228,var(--navy-800));
@@ -190,26 +269,30 @@
     opacity:.6;
   }
   .sc-row{
-    display:flex;align-items:center;justify-content:space-between;padding:6px 2px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 2px;
     border-radius:6px;transition:background .15s;
   }
-  .sc-row.sc-winner{background:rgba(245,166,35,.13);padding:6px 9px;margin:0 -9px;}
-  .sc-team{font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px;letter-spacing:.2px;color:#dfe4f5;}
+  .sc-row.sc-winner{background:rgba(245,166,35,.14);padding:7px 10px;margin:0 -10px;}
+  .sc-team{
+    font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:6px;letter-spacing:.1px;
+    color:#eef1fb;min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
   .sc-row.sc-winner .sc-team{color:#fff;}
-  .sc-trophy{font-size:13px;line-height:1;}
+  .sc-trophy{font-size:14px;line-height:1;flex-shrink:0;}
   .sc-runs{
-    font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;
+    font-family:'Oswald',sans-serif;font-size:21px;font-weight:600;
     font-variant-numeric:tabular-nums;letter-spacing:.5px;color:var(--amber-400);
-    text-shadow:0 0 12px rgba(245,166,35,.35);
+    text-shadow:0 0 12px rgba(245,166,35,.35);flex-shrink:0;white-space:nowrap;
   }
   .sc-row.sc-winner .sc-runs{color:var(--amber-400);}
   .sc-divider{
-    text-align:center;font-size:8.5px;color:#6b76a0;font-weight:700;letter-spacing:1px;
-    text-transform:uppercase;padding:2px 0;
+    text-align:center;font-size:9px;color:#8390bb;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;padding:3px 0;
   }
   .sc-result-tag{
-    margin-top:8px;padding:6px 0 0;border-top:1px solid rgba(255,255,255,.1);
-    font-size:10.5px;font-weight:700;color:#9aa6cc;text-align:center;letter-spacing:.3px;text-transform:uppercase;
+    margin-top:9px;padding:7px 0 0;border-top:1px solid rgba(255,255,255,.12);
+    font-size:11.5px;font-weight:800;color:#b6bedd;text-align:center;letter-spacing:.4px;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:center;gap:6px;
   }
   .sc-result-tag.win{color:var(--amber-400);}
   .result-pending{
@@ -544,6 +627,7 @@
     <div class="login-err" id="loginErr" style="display:none;">Incorrect password. Try again.</div>
     <button class="btn btn-primary" id="loginSubmit" style="margin-top:14px;">Sign in</button>
     <button class="btn btn-ghost" id="loginCancel" style="margin-top:8px;">Cancel</button>
+    <div style="text-align:center;font-size:10px;color:#aab4d6;font-weight:600;margin-top:16px;">Developed by Vikas N · Viraj Software Solutions</div>
   </div>
 </div>
 
@@ -864,9 +948,12 @@ function renderDashboard(){
   const total = state.events.length;
   const live = state.events.filter(e=>e.status==='live').length;
   const done = state.events.filter(e=>e.status==='completed').length;
-  const upcoming = state.events.filter(e=>e.status==='upcoming')
-    .sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,4);
+  const upcomingAll = state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  const upcoming = upcomingAll.slice(0,8);
   const liveEvents = state.events.filter(e=>e.status==='live');
+  const pct = total ? Math.round((done/total)*100) : 0;
+  const circumference = 2 * Math.PI * 34;
+  const dashOffset = circumference * (1 - pct/100);
 
   let html = '';
   if(isAdmin){
@@ -877,10 +964,42 @@ function renderDashboard(){
     <button class="btn btn-ghost" id="forceResyncBtn" style="margin-bottom:16px;font-size:12px;padding:9px;">↻ Re-check sheet for missing data</button>`;
   }
 
-  html += `<div class="stat-strip">
-    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-lbl">Total events</div></div>
-    <div class="stat-card"><div class="stat-num amber">${live}</div><div class="stat-lbl">Live now</div></div>
-    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-lbl">Completed</div></div>
+  // ===== Hero control panel =====
+  const {ev: heroEv, mode: heroMode} = getTickerEvent();
+  html += `<div class="panel-hero">
+    <div class="panel-hero-top">
+      <div class="panel-eyebrow">${heroMode==='live' ? '<span class="dot"></span>LIVE NOW' : heroMode==='upcoming' ? 'UP NEXT' : 'STATUS'}</div>
+      <div class="panel-clock">57TH FOUNDATION DAY</div>
+    </div>`;
+  if(heroMode === 'none'){
+    html += `<div class="panel-event-name">All quiet on the scoreboard</div><div class="panel-event-meta">No live or upcoming events right now — check back soon.</div>`;
+  }else{
+    html += `<div class="panel-event-name">${escapeHtml(heroEv.name)}</div>
+    <div class="panel-event-meta">${heroMode==='live' ? escapeHtml(heroEv.venue) : `${fmtDate(heroEv.date)} · ${escapeHtml(heroEv.time)} · ${escapeHtml(heroEv.venue)}`}</div>`;
+    if(heroEv.teamA && heroEv.teamB && (heroEv.scoreA || heroEv.scoreB)){
+      html += `<div class="panel-score-row">
+        <div class="panel-score-team"><div class="nm">${escapeHtml(heroEv.teamA)}</div><div class="val">${escapeHtml(heroEv.scoreA||'—')}</div></div>
+        <div class="panel-score-vs">VS</div>
+        <div class="panel-score-team"><div class="nm">${escapeHtml(heroEv.teamB)}</div><div class="val">${escapeHtml(heroEv.scoreB||'—')}</div></div>
+      </div>`;
+    }
+  }
+  html += `</div>`;
+
+  // ===== Gauge ring: tournament completion =====
+  html += `<div class="gauge-row">
+    <div class="gauge-ring">
+      <svg viewBox="0 0 84 84">
+        <circle class="gauge-track" cx="42" cy="42" r="34"></circle>
+        <circle class="gauge-fill" cx="42" cy="42" r="34" stroke-dasharray="${circumference}" stroke-dashoffset="${dashOffset}"></circle>
+      </svg>
+      <div class="gauge-center"><div class="num">${pct}%</div><div class="pct">DONE</div></div>
+    </div>
+    <div class="gauge-stats">
+      <div class="gauge-stat-item"><span class="lbl"><span class="swatch" style="background:var(--navy-600);"></span>Total events</span><span class="num">${total}</span></div>
+      <div class="gauge-stat-item"><span class="lbl"><span class="swatch" style="background:var(--amber-500);"></span>Live now</span><span class="num">${live}</span></div>
+      <div class="gauge-stat-item"><span class="lbl"><span class="swatch" style="background:var(--green);"></span>Completed</span><span class="num">${done}</span></div>
+    </div>
   </div>`;
 
   if(liveEvents.length){
@@ -894,14 +1013,38 @@ function renderDashboard(){
     recentResults.forEach(e => html += eventCardHtml(e));
   }
 
-  html += `<div class="section-head"><h2>Coming up</h2><span class="count">${upcoming.length} of ${state.events.filter(e=>e.status==='upcoming').length}</span></div>`;
+  // ===== Horizontal spotlight rail for upcoming events =====
+  html += `<div class="section-head"><h2>Coming up</h2><span class="count">${upcomingAll.length} scheduled</span></div>`;
   if(upcoming.length === 0){
     html += emptyHtml('No upcoming events right now.');
   }else{
-    upcoming.forEach(e => html += eventCardHtml(e));
+    html += `<div class="rail-scroll" id="dashRail">`;
+    upcoming.forEach(e=>{
+      const d = new Date(e.date + 'T00:00:00');
+      const dayNum = isNaN(d.getTime()) ? '—' : d.getDate();
+      const monthShort = isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-IN',{month:'short'});
+      html += `<div class="rail-card" data-id="${e.id}">
+        <div class="rail-card-cat">${escapeHtml(e.category)}</div>
+        <div class="rail-card-name">${escapeHtml(e.name)}</div>
+        <div class="rail-card-daywrap">
+          <span class="rail-card-day">${dayNum}</span>
+          <span class="rail-card-monthtime">${monthShort}</span>
+        </div>
+        <div class="rail-card-meta">
+          <div class="rail-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${escapeHtml(e.time)}</div>
+          <div class="rail-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>${escapeHtml(e.venue)}</div>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
   }
 
+  html += `<div class="dev-credit">Developed by <b>Vikas N</b> · Viraj Software Solutions</div>`;
+
   c.innerHTML = html;
+  document.querySelectorAll('.rail-card').forEach(card=>{
+    card.onclick = ()=> openEventSheet(card.dataset.id);
+  });
   bindEventCards();
   const resyncBtn = document.getElementById('forceResyncBtn');
   if(resyncBtn){
@@ -947,7 +1090,7 @@ function eventCardHtml(e){
           <span class="sc-team">${bWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(e.teamB)}</span>
           <span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span>
         </div>
-        ${tie ? '<div class="sc-result-tag">Match Tied</div>' : (aWon||bWon) ? `<div class="sc-result-tag win">${escapeHtml(aWon?e.teamA:e.teamB)} won</div>` : ''}
+        ${tie ? '<div class="sc-result-tag">🤝 Match Tied</div>' : (aWon||bWon) ? `<div class="sc-result-tag win">🏆 ${escapeHtml(aWon?e.teamA:e.teamB)} won</div>` : ''}
       </div>`;
     }else if(e.status === 'completed'){
       scoreBlock = `<div class="result-pending"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Result not entered yet</div>`;
