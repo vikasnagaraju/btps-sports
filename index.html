@@ -110,7 +110,7 @@
   .marquee-track{flex:1;min-width:0;overflow:hidden;position:relative;}
   .marquee-content{
     display:inline-block;white-space:nowrap;font-size:12.5px;font-weight:700;color:#fff;
-    padding-left:100%;animation:marquee-scroll 16s linear infinite;
+    padding-left:100%;animation-name:marquee-scroll;animation-timing-function:linear;animation-iteration-count:infinite;
   }
   .marquee-content .sep{color:var(--amber-400);margin:0 14px;}
   @keyframes marquee-scroll{
@@ -128,9 +128,11 @@
 
   .tabs{
     display:flex;gap:4px;padding:14px 20px 0;margin-top:2px;
+    overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;
   }
+  .tabs::-webkit-scrollbar{display:none;}
   .tab{
-    flex:1;text-align:center;padding:9px 4px;font-size:12px;font-weight:600;color:#9aa6cc;
+    flex:0 0 auto;min-width:64px;text-align:center;padding:9px 8px;font-size:12px;font-weight:600;color:#9aa6cc;
     border-bottom:2.5px solid transparent;cursor:pointer;transition:color .15s;
     display:flex;align-items:center;justify-content:center;gap:5px;
   }
@@ -342,6 +344,40 @@
   }
   .chip-filter.active{background:var(--navy-900);color:#fff;border-color:var(--navy-900);}
 
+  /* Organisers tab */
+  .org-search-wrap{
+    display:flex;align-items:center;gap:9px;background:var(--white);border:1.5px solid var(--line);
+    border-radius:11px;padding:10px 13px;margin-bottom:16px;color:var(--ink-soft);
+  }
+  .org-search-wrap input{
+    flex:1;border:none;outline:none;font-size:13.5px;font-family:inherit;color:var(--ink);background:transparent;
+  }
+  .org-cat-head{
+    font-size:11px;font-weight:800;color:var(--navy-600);text-transform:uppercase;letter-spacing:.5px;
+    margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--navy-600);display:inline-block;
+  }
+  .org-event-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;margin-bottom:10px;box-shadow:var(--shadow-sm);
+  }
+  .org-event-name{font-size:14px;font-weight:800;color:var(--ink);line-height:1.3;}
+  .org-event-meta{font-size:11px;color:var(--ink-soft);font-weight:600;margin-top:3px;margin-bottom:11px;}
+  .org-contact-list{display:flex;flex-direction:column;gap:7px;}
+  .org-contact-row{
+    display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--paper);
+    border-radius:10px;padding:9px 11px;transition:background .15s;
+  }
+  .org-contact-row:hover{background:#eef1fb;}
+  .org-contact-avatar{
+    width:30px;height:30px;border-radius:50%;background:var(--navy-700);color:#fff;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
+  }
+  .org-contact-name{flex:1;font-size:12.5px;font-weight:700;color:var(--ink);min-width:0;}
+  .org-contact-phone{
+    display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--navy-600);
+    background:#eef1fb;padding:5px 10px;border-radius:99px;flex-shrink:0;white-space:nowrap;
+  }
+
   /* CricHeroes quick-link cards */
   .cricheroes-link-card{
     display:flex;align-items:center;gap:13px;background:var(--white);border:1px solid var(--line);
@@ -497,11 +533,11 @@
   .bottomnav-inner{max-width:520px;width:100%;display:flex;}
   @media (min-width:680px){.bottomnav-inner{max-width:900px;}}
   .nav-item{
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 4px 9px;
-    color:#aab4d6;cursor:pointer;position:relative;
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 2px 8px;
+    color:#aab4d6;cursor:pointer;position:relative;min-width:0;
   }
-  .nav-item svg{width:20px;height:20px;}
-  .nav-item span{font-size:10px;font-weight:700;}
+  .nav-item svg{width:18px;height:18px;flex-shrink:0;}
+  .nav-item span{font-size:9px;font-weight:700;white-space:nowrap;}
   .nav-item.active{color:var(--navy-700);}
   .nav-item .nav-badge{
     position:absolute;top:6px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:var(--red);
@@ -594,6 +630,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         Alerts
       </div>
+      <div class="tab" data-tab="organisers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Organisers
+      </div>
     </div>
   </div>
 
@@ -621,6 +661,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         <span>Alerts</span>
         <div class="nav-badge" id="navBellDot" style="display:none;"></div>
+      </div>
+      <div class="nav-item" data-tab="organisers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Organisers</span>
       </div>
     </div>
   </div>
@@ -716,11 +760,32 @@ const SEED_EVENTS = [
   {id:"ev-12", name:"Women's & Children's Track Events (100m, Shot Put etc.)", category:"Women's Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"TBA", status:"upcoming", note:"Sunday event — 05.07.2026", coordinators:[
     {name:"Nandini Hosur",phone:"9480830336"},{name:"Rajarajeshwari Vibhuti",phone:"9480830688"},{name:"Savitha M",phone:"9141615413"}
   ]},
+
+  // Cultural Committee events — 57th Foundation Day
+  {id:"cult-1", name:"Light Music (Karaoke) — Free Style", category:"Cultural Events", venue:"3rd Floor Conference Hall, BTPS", date:"2026-07-06", time:"10:30 AM", status:"upcoming", note:"For all BTPS employees · Kannada film/devotional/folk/patriotic/devotional songs", coordinators:[
+    {name:"Nileema J",phone:"9480830537"},{name:"Honnurswamy V",phone:"9448282640"},{name:"Sruthi S",phone:"9480830638"},{name:"Nithin Kumar",phone:"9448282663"},{name:"Veena Chawla",phone:"9886385478"},{name:"Chaitra P M",phone:"9480849642"},{name:"Tippeswamy J",phone:"9743718084"}
+  ]},
+  {id:"cult-2", name:"Quiz Competition (Rasaprashne) — Community Round", category:"Cultural Events", venue:"3rd Floor Conference Hall, BTPS", date:"2026-07-08", time:"10:30 AM", status:"upcoming", note:"Topic: KPCL's progress and achievements · For Nukkad/community members", coordinators:[
+    {name:"Nileema J",phone:"9480830537"},{name:"Shantamallappa",phone:"9480830529"},{name:"Ravikumar B M",phone:"9480830527"},{name:"Shivagonda Biradar",phone:"9480830690"},{name:"Honnurswamy V",phone:"9448282640"},{name:"Shivarudrappa",phone:"9480849628"}
+  ]},
+  {id:"cult-3", name:"Quiz Competition (Rasaprashne) — Employees Round", category:"Cultural Events", venue:"3rd Floor Conference Hall, BTPS", date:"2026-07-08", time:"2:30 PM", status:"upcoming", note:"Topic: KPCL's progress and achievements · For all BTPS employees", coordinators:[
+    {name:"Sruthi S",phone:"9480830638"},{name:"Pushpa",phone:"9741258163"},{name:"Yamuna",phone:"9742049153"},{name:"Purnima B K",phone:"9731209856"},{name:"Eshwari",phone:"9480849648"}
+  ]},
+  {id:"cult-4", name:"Light Music (Karaoke) — Family Members", category:"Cultural Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"3:00 PM", status:"upcoming", note:"For employee family members 12 years & above", coordinators:[
+    {name:"Nileema J",phone:"9480830537"},{name:"Smitha Karmakar",phone:"9480830577"},{name:"Ravikumar B M",phone:"9480830527"},{name:"Shivagonda Biradar",phone:"9480830690"},{name:"Honnurswamy V",phone:"9448282640"},{name:"Gangadhar J",phone:"9317382214"},{name:"Tippeswamy J",phone:"9731332847"}
+  ]},
+  {id:"cult-5", name:"Light Music (Karaoke) — Children", category:"Cultural Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"3:00 PM", status:"upcoming", note:"For employee children under 12 years", coordinators:[
+    {name:"Gosubalu Jambayya",phone:"9731332847"},{name:"Parameshwar K",phone:"9019625580"},{name:"Navya",phone:"8970986694"},{name:"Sneha",phone:"8431395966"},{name:"Kiran Kumar",phone:"8861342911"}
+  ]},
+  {id:"cult-6", name:"Rangoli Competition — \"My BTPS: Origin & Progress\"", category:"Cultural Events", venue:"BTPS Centre, Kudithini", date:"2026-07-10", time:"10:00 AM – 1:00 PM", status:"upcoming", note:"Team event (2 per group) · Free-hand rangoli only · Materials self-arranged · Group registration by 06.07.2026", coordinators:[
+    {name:"Nileema J",phone:"9480830537"},{name:"Chaitra P M",phone:"9480849642"},{name:"Nivin Kumar",phone:"9448282663"},{name:"Mabusab",phone:"9448282648"}
+  ]},
 ];
 
 const SEED_NOTIFS = [
   {id:"n1", title:"Foundation Day Sports — Schedule Released", message:"57th Foundation Day sports activities are confirmed. Registrations and matches begin from 24.06.2026. Check the Events tab for your event's registration deadline and coordinator.", type:"info", time:Date.now() - 1000*60*60*26},
   {id:"n2", title:"Cricket League Begins", message:"BTPS Cricket Tournament 2026 league matches start today at the BTPS Cricket Ground. First match: Electrical vs CHP (I&C), 10:00 AM.", type:"alert", time:Date.now() - 1000*60*60*20},
+  {id:"n3", title:"Cultural Events Added", message:"The Cultural Committee has announced Light Music, Quiz, and Rangoli competitions for the 57th Foundation Day. Check the Events tab for dates and the Organisers tab for contacts.", type:"info", time:Date.now() - 1000*60*60*4},
 ];
 
 // ---------- Backend: Google Apps Script Web App ----------
@@ -960,6 +1025,12 @@ function renderTicker(){
 
   const joined = parts.map(p => escapeHtml(p)).join('<span class="sep">★</span>');
   content.innerHTML = joined + '<span class="sep">★</span>' + joined; // duplicate for seamless loop
+
+  // Reading-speed-aware duration: roughly 14 characters/second is a comfortable scroll pace.
+  // Use the un-duplicated text length so the loop timing matches one full readable pass.
+  const plainTextLength = parts.join(' ★ ').length;
+  const durationSeconds = Math.max(18, Math.round(plainTextLength / 9));
+  content.style.animationDuration = durationSeconds + 's';
 }
 
 // ---------- Rendering: Dashboard ----------
@@ -1192,6 +1263,64 @@ function renderEvents(){
   document.querySelectorAll('.chip-filter').forEach(el=>{
     el.onclick = ()=>{ activeFilter = el.dataset.cat; renderEvents(); };
   });
+}
+
+// ---------- Organisers tab: contacts grouped by event/category ----------
+let organiserSearch = '';
+
+function renderOrganisers(){
+  const c = document.getElementById('content');
+  const withCoords = state.events.filter(e => e.coordinators && e.coordinators.length);
+
+  const q = organiserSearch.trim().toLowerCase();
+  const filtered = q ? withCoords.filter(e=>{
+    if(e.name.toLowerCase().includes(q) || e.category.toLowerCase().includes(q)) return true;
+    return (e.coordinators||[]).some(co => co.name.toLowerCase().includes(q) || (co.phone||'').includes(q));
+  }) : withCoords;
+
+  const grouped = {};
+  filtered.forEach(e=>{ (grouped[e.category] = grouped[e.category]||[]).push(e); });
+  const totalContacts = filtered.reduce((sum,e)=>sum + (e.coordinators||[]).length, 0);
+
+  let html = `<div class="section-head"><h2>Organisers & contacts</h2><span class="count">${totalContacts} contacts</span></div>
+  <div class="org-search-wrap">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" id="orgSearchInput" placeholder="Search by sport, event, or name…" value="${escapeHtml(organiserSearch)}">
+  </div>`;
+
+  if(Object.keys(grouped).length === 0){
+    html += emptyHtml('No organisers match your search.');
+  }else{
+    Object.keys(grouped).sort().forEach(cat=>{
+      html += `<div class="org-cat-head">${escapeHtml(cat)}</div>`;
+      grouped[cat].forEach(ev=>{
+        html += `<div class="org-event-card">
+          <div class="org-event-name">${escapeHtml(ev.name)}</div>
+          <div class="org-event-meta">${fmtDate(ev.date)} · ${escapeHtml(ev.time)} · ${escapeHtml(ev.venue)}</div>
+          <div class="org-contact-list">`;
+        ev.coordinators.forEach(co=>{
+          html += `<a class="org-contact-row" href="tel:${escapeHtml(co.phone)}">
+            <span class="org-contact-avatar">${initials(co.name)}</span>
+            <span class="org-contact-name">${escapeHtml(co.name)}</span>
+            <span class="org-contact-phone"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>${escapeHtml(co.phone)}</span>
+          </a>`;
+        });
+        html += `</div></div>`;
+      });
+    });
+  }
+
+  c.innerHTML = html;
+  const searchInput = document.getElementById('orgSearchInput');
+  if(searchInput){
+    searchInput.oninput = (e)=>{
+      organiserSearch = e.target.value;
+      const cursorPos = e.target.selectionStart;
+      renderOrganisers();
+      const newInput = document.getElementById('orgSearchInput');
+      if(newInput){ newInput.focus(); newInput.setSelectionRange(cursorPos, cursorPos); }
+    };
+  }
 }
 
 // ---------- Cricket tab: CricHeroes quick links ----------
@@ -1551,6 +1680,7 @@ function renderCurrentTab(){
   else if(currentTab === 'events') renderEvents();
   else if(currentTab === 'cricket') renderCricket();
   else if(currentTab === 'alerts') renderAlerts();
+  else if(currentTab === 'organisers') renderOrganisers();
 }
 
 function setTab(tab){
