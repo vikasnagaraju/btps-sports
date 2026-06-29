@@ -23,6 +23,9 @@
     .header-actions{display:flex;gap:6px;align-items:center}
     .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
     .badge-dot{width:8px;height:8px;background:#d6483d;border-radius:50%;position:absolute;top:-2px;right:-2px;border:2px solid #0b1530}
+    /* Blinking alert animation */
+    .badge-dot.blink{animation:blinkAlert 1s ease-in-out infinite}
+    @keyframes blinkAlert{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.7)}}
     .marquee{background:rgba(255,255,255,.06);border-radius:40px;padding:6px 10px;margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08)}
     .marquee .live{width:8px;height:8px;background:#f5a623;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
     @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
@@ -141,7 +144,7 @@
     <div class="top-row">
       <div class="brand">
         <div class="brand-icon">
-          <img src="data:image/png;base64,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" alt="KPCL Logo">
+          <img src="data:image/png;base64,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" alt="KPCL Logo">
         </div>
         <div class="brand-text">
           <div class="org">KARNATAKA POWER CORPORATION LTD</div>
@@ -154,7 +157,10 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
           <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
         </div>
-        <div class="icon-btn" id="bellBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="badge-dot" id="bellDot" style="display:none"></span></div>
+        <div class="icon-btn" id="bellBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="badge-dot" id="bellDot" style="display:none;"></span>
+        </div>
         <div class="sync-indicator" id="syncIndicator"><span class="spinner"></span>sync</div>
       </div>
     </div>
@@ -170,7 +176,6 @@
 
   <div class="content" id="content"></div>
 
-  <!-- Footer with developer info -->
   <div class="footer">
     Developed by <b>Vikas N</b> · <span class="dev">Viraj Software Solutions</span>
   </div>
@@ -203,6 +208,7 @@ let lastSeenNotif = 0;
 let backendOk = true;
 let categoryState = {};
 let isSaving = false;
+let hasUnreadNotif = false;
 
 const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwIZUqDnapaxZjFNKVfZ1GBE99a2YS-16Xjt1ychX3SC3lV8ryaeRlSM2zx0_OtagEt/exec";
 
@@ -310,31 +316,58 @@ async function backendSave(action, data){
   }
 }
 
+// SEED DATA - Updated with all cultural events and broken-down athletics
 const SEED_EVENTS = [
-  {id:'cr-1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'81/1', scoreB:'77/7', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-3', name:'SE (MM-1) vs ED (BTPS)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'', status:'completed', teamA:'SE (MM-1)', teamB:'ED (BTPS)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-4', name:'SE (MM-2) vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'', status:'completed', teamA:'SE (MM-2)', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-5', name:'Royal Civil vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-6', name:'CHP-1 vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'', status:'upcoming', teamA:'CHP-1', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-7', name:'ED (BTPS) vs SE (O)-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'', status:'upcoming', teamA:'ED (BTPS)', teamB:'SE (O)-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-8', name:'SE (O)-2 vs SE (E)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'', status:'upcoming', teamA:'SE (O)-2', teamB:'SE (E)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'', status:'upcoming', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'ev-1', name:'Carrom — Singles', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Naveed Asmal Hej Mulla',phone:'998635707'},{name:'Sagar D.M',phone:'9480830699'},{name:'Hanumanthappa',phone:'8867973677'}]},
-  {id:'ev-2', name:'Chess', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Nawaz M',phone:'8073029015'},{name:'Lokesh M',phone:'7353556048'},{name:'Rajashekar M',phone:'8884561762'},{name:'Honnurswamy',phone:'8722423745'}]},
-  {id:'ev-3', name:'Jackpot', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'},{name:'T.Eshwarswamy',phone:'8497813312'}]},
-  {id:'ev-4', name:'T.T. (Table Tennis)', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Sandeep Kumar',phone:'8660806196'},{name:'Tippeswamy Hej',phone:'9743718084'},{name:'Paramesh Char',phone:'9019625580'},{name:'Madhu J',phone:'7892917772'},{name:'Honnur J',phone:'9880516605'}]},
-  {id:'ev-5', name:'Shuttle Badminton (Men, Above/Below 45)', category:'Indoor Games', venue:'BTPS', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Prakash M.',phone:'9448290770'},{name:'B.J. Raghavendra',phone:'9448290702'},{name:'B.L. Mahesh',phone:'9480830356'},{name:'Manuraj',phone:'9480830356'},{name:'Haresh T.',phone:'9480849625'}]},
-  {id:'ev-6', name:'Tennis Ball Cricket', category:'Outdoor Games', venue:'BTPS Mumbhag Sports Ground', date:'2026-06-23', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Matches begin from 24.06.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Gopayya Kawali',phone:'9448290722'},{name:'Ajith Patil',phone:'9480489616'},{name:'Virupaksha K',phone:'9480830668'},{name:'Hulirajiv',phone:'9480830550'}]},
-  {id:'ev-7', name:'Kabaddi', category:'Outdoor Games', venue:'BTPS', date:'2026-07-09', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Matches begin from 10.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Dr. Ashok',phone:'9448290785'},{name:'Haresh V.',phone:'8792646436'},{name:'Hanumanthappa',phone:'8867973677'},{name:'J.S. Raghavendra',phone:'9480399046'}]},
-  {id:'ev-8', name:'Cross-Country Run/Walk (45+/45-, Men)', category:'Athletics', venue:'BTPS', date:'2026-07-13', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Event held from 14.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Arun',phone:'9743043316'},{name:'Nawaz M',phone:'8073029015'},{name:'Haresh V.',phone:'9480849625'}]},
-  {id:'ev-9', name:'Track & Field — 100m/200m, Shot Put, Discus, Javelin, Volleyball (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-04', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Shyamsundar S',phone:'9480830387'},{name:'Dr. Ashok',phone:'9448290785'},{name:'B.L. Mahesh',phone:'9480830356'}]},
-  {id:'ev-10', name:'Shuttle Badminton & Throwball (Women)', category:'Women\'s Events', venue:'BTPS', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Coordinator: Smt. Sharada K (9480830377) · Reg. close 25.06.2026', participants:[], coordinators:[{name:'Ashe',phone:'9480849610'},{name:'Chaitra',phone:'9480849642'},{name:'Basavarajeshwari',phone:'9448282644'},{name:'Madhuri K.R',phone:'8971589264'}]},
-  {id:'ev-11', name:'Carrom, Chess, 30 Yard Cricket, Tennis Court (Women)', category:'Women\'s Events', venue:'BTPS', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Reg. close 25.06.2026', participants:[], coordinators:[{name:'Arundhati',phone:'9480830554'},{name:'Vani D',phone:'9480830330'},{name:'Swetha K',phone:'8618727606'},{name:'Bhuvaneshwari Y',phone:'9972219905'}]},
-  {id:'ev-12', name:'Women\'s & Children\'s Track Events (100m, Shot Put etc.)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-04', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandini Hosur',phone:'9480830336'},{name:'Rajarajeshwari Vibhuti',phone:'9480830688'},{name:'Savitha M',phone:'9141615413'}]}
+  // Cricket
+  {id:'cr-1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'10:00 AM', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'81/1', scoreB:'77/7', winner:'A', note:'', participants:[], coordinators:[]},
+  {id:'cr-2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'2:00 PM', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-3', name:'SE (MM-1) vs ED (BTPS)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'10:00 AM', status:'completed', teamA:'SE (MM-1)', teamB:'ED (BTPS)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-4', name:'SE (MM-2) vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'2:00 PM', status:'completed', teamA:'SE (MM-2)', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-5', name:'Royal Civil vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-6', name:'CHP-1 vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'2:00 PM', status:'upcoming', teamA:'CHP-1', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-7', name:'ED (BTPS) vs SE (O)-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'10:00 AM', status:'upcoming', teamA:'ED (BTPS)', teamB:'SE (O)-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-8', name:'SE (O)-2 vs SE (E)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-2', teamB:'SE (E)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'10:00 AM', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'2:00 PM', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  // Indoor Games
+  {id:'ev-1', name:'Carrom — Singles', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Naveed Asmal Hej Mulla',phone:'998635707'},{name:'Sagar D.M',phone:'9480830699'},{name:'Hanumanthappa',phone:'8867973677'}]},
+  {id:'ev-2', name:'Chess', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Nawaz M',phone:'8073029015'},{name:'Lokesh M',phone:'7353556048'},{name:'Rajashekar M',phone:'8884561762'},{name:'Honnurswamy',phone:'8722423745'}]},
+  {id:'ev-3', name:'Jackpot', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'},{name:'T.Eshwarswamy',phone:'8497813312'}]},
+  {id:'ev-4', name:'T.T. (Table Tennis)', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Sandeep Kumar',phone:'8660806196'},{name:'Tippeswamy Hej',phone:'9743718084'},{name:'Paramesh Char',phone:'9019625580'},{name:'Madhu J',phone:'7892917772'},{name:'Honnur J',phone:'9880516605'}]},
+  {id:'ev-5', name:'Shuttle Badminton (Men, Above/Below 45)', category:'Indoor Games', venue:'BTPS', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Prakash M.',phone:'9448290770'},{name:'B.J. Raghavendra',phone:'9448290702'},{name:'B.L. Mahesh',phone:'9480830356'},{name:'Manuraj',phone:'9480830356'},{name:'Haresh T.',phone:'9480849625'}]},
+  // Outdoor Games
+  {id:'ev-6', name:'Tennis Ball Cricket', category:'Outdoor Games', venue:'BTPS Mumbhag Sports Ground', date:'2026-06-24', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Matches begin from 24.06.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Gopayya Kawali',phone:'9448290722'},{name:'Ajith Patil',phone:'9480489616'},{name:'Virupaksha K',phone:'9480830668'},{name:'Hulirajiv',phone:'9480830550'}]},
+  {id:'ev-7', name:'Kabaddi', category:'Outdoor Games', venue:'BTPS', date:'2026-07-10', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Matches begin from 10.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Dr. Ashok',phone:'9448290785'},{name:'Haresh V.',phone:'8792646436'},{name:'Hanumanthappa',phone:'8867973677'},{name:'J.S. Raghavendra',phone:'9480399046'}]},
+  // Athletics - Cross Country
+  {id:'ev-8', name:'Cross-Country Run/Walk (45+/45-, Men)', category:'Athletics', venue:'BTPS', date:'2026-07-14', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Event held from 14.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Arun',phone:'9743043316'},{name:'Nawaz M',phone:'8073029015'},{name:'Haresh V.',phone:'9480849625'}]},
+  // Athletics - Individual Events (Broken down from Track & Field)
+  {id:'ath-1', name:'100m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Shyamsundar S',phone:'9480830387'}]},
+  {id:'ath-2', name:'200m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Dr. Ashok',phone:'9448290785'},{name:'B.L. Mahesh',phone:'9480830356'}]},
+  {id:'ath-3', name:'100m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nujamuddin',phone:'9480830327'},{name:'Virupaksha K',phone:'9480830668'}]},
+  {id:'ath-4', name:'200m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Devaraj',phone:'7259282988'}]},
+  {id:'ath-5', name:'Shot Put (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Rajesh Patil',phone:'9480849639'},{name:'Prakash Kumar',phone:'9480830597'}]},
+  {id:'ath-6', name:'Discus Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'}]},
+  {id:'ath-7', name:'Javelin Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'1:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Manumantaraj',phone:'9731879777'}]},
+  {id:'ath-8', name:'Volleyball (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'2:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandish Kumar',phone:'8660806196'}]},
+  // Women's Events
+  {id:'w-1', name:'100m Women (Below 45)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandini Hosur',phone:'9480830336'},{name:'Rajarajeshwari Vibhuti',phone:'9480830688'}]},
+  {id:'w-2', name:'Shot Put (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Savitha M',phone:'9141615413'}]},
+  {id:'w-3', name:'Lemon & Spoon (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-4', name:'Javelin (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:30 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  // Children's Events
+  {id:'w-5', name:'100m Girls (Under 12)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Ashe',phone:'9480849610'}]},
+  {id:'w-6', name:'Frog Jump (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-7', name:'30m Run (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-8', name:'50m Run (Boys 6-10)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  // Cultural Events (from New Doc 06-27-2026)
+  {id:'cult-1', name:'Light Music Karaoke (Employees)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-06', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For all BTPS employees', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Honnurswamy V',phone:'9448282640'},{name:'Sruthi S',phone:'9480830638'},{name:'Nithin Kumar',phone:'9448282663'},{name:'Veena Chawla',phone:'9886385478'},{name:'Chaitra P M',phone:'9480849642'},{name:'Tippeswamy J',phone:'9743718084'}]},
+  {id:'cult-2', name:'Quiz Competition (Community Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Topic: KPCL\'s progress and achievements', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Shantamallappa',phone:'9480830529'},{name:'Ravikumar B M',phone:'9480830527'},{name:'Shivagonda Biradar',phone:'9480830690'},{name:'Honnurswamy V',phone:'9448282640'}]},
+  {id:'cult-3', name:'Quiz Competition (Employees Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'2:30 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For all BTPS employees', participants:[], coordinators:[{name:'Sruthi S',phone:'9480830638'},{name:'Pushpa',phone:'9741258163'},{name:'Yamuna',phone:'9742049153'},{name:'Purnima B K',phone:'9731209856'}]},
+  {id:'cult-4', name:'Light Music Karaoke (Family Members)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For employee family members 12 years & above', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Smitha Karmakar',phone:'9480830577'},{name:'Ravikumar B M',phone:'9480830527'}]},
+  {id:'cult-5', name:'Light Music Karaoke (Children)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For employee children under 12 years', participants:[], coordinators:[{name:'Gosubalu Jambayya',phone:'9731332847'},{name:'Parameshwar K',phone:'9019625580'}]},
+  {id:'cult-6', name:'Rangoli Competition "My BTPS"', category:'Cultural', venue:'BTPS Centre, Kudithini', date:'2026-07-10', time:'10:00 AM – 1:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Team event (2 per group) · Free-hand rangoli', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Chaitra P M',phone:'9480849642'},{name:'Nivin Kumar',phone:'9448282663'}]}
 ];
 
 const SEED_NOTIFS = [
@@ -352,7 +385,13 @@ async function loadState(){
     let notifs = (data.notifications && data.notifications.length) ? rowsToNotifs(data.notifications) : null;
     if(!notifs){ notifs = SEED_NOTIFS; }
     state.notifications = notifs;
+    // Check for unread notifications
+    const prevLen = lastSeenNotif;
     lastSeenNotif = state.notifications.length;
+    if(state.notifications.length > prevLen){
+      hasUnreadNotif = true;
+      updateBellDot();
+    }
     updateConnectionDot();
     return true;
   }catch(e){
@@ -413,6 +452,23 @@ function updateConnectionDot(){
   }
 }
 
+function updateBellDot(){
+  const dot = document.getElementById('bellDot');
+  if(hasUnreadNotif){
+    dot.style.display = 'block';
+    dot.classList.add('blink');
+  }else{
+    dot.style.display = 'none';
+    dot.classList.remove('blink');
+  }
+}
+
+function markNotifsRead(){
+  hasUnreadNotif = false;
+  lastSeenNotif = state.notifications.length;
+  updateBellDot();
+}
+
 function renderTicker(){
   const el=document.getElementById('marqueeText');
   const live = state.events.find(e=>e.status==='live');
@@ -449,7 +505,7 @@ function eventCardHtml(e, clickable=true){
   </div>`;
 }
 
-// ----- DASHBOARD with clickable cricket stats -----
+// ----- DASHBOARD -----
 function renderDashboard(){
   const c=document.getElementById('content');
   const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
@@ -616,9 +672,13 @@ function renderOrganisers(){
   renderTicker();
 }
 
-// ----- ALERTS -----
+// ----- ALERTS with blinking notification -----
 function renderAlerts(){
   const c=document.getElementById('content');
+  
+  // Mark notifications as read when viewing alerts
+  markNotifsRead();
+  
   let html=`<div class="section-title">🔔 Alerts <small>${state.notifications.length}</small></div>`;
   if(isAdmin){
     html+=`<div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px">
@@ -641,6 +701,9 @@ function renderAlerts(){
     if(!title||!msg) return toast('Fill title and message');
     state.notifications.push({id:uid('n'),title,message:msg,type:'info',time:Date.now()});
     await saveNotifs();
+    // Trigger unread notification for all users
+    hasUnreadNotif = true;
+    updateBellDot();
     toast('Broadcast sent ✓');
     renderAlerts();
   });
@@ -651,7 +714,7 @@ function bindCards(){
   document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>openSheet(el.dataset.id); });
 }
 
-// ----- OPEN SHEET WITH PARTICIPANT SAVE -----
+// ----- OPEN SHEET -----
 function openSheet(id){
   const ev = state.events.find(e=>e.id===id);
   if(!ev) return;
@@ -792,7 +855,10 @@ function setTab(tab){
   else if(tab==='alerts') renderAlerts();
 }
 document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
-document.getElementById('bellBtn').onclick=()=>setTab('alerts');
+document.getElementById('bellBtn').onclick=()=>{
+  setTab('alerts');
+  markNotifsRead();
+};
 
 // ADMIN
 document.getElementById('adminToggleBtn').onclick=()=>{
@@ -833,9 +899,15 @@ function renderCurrentTab(){ setTab(currentTab); }
 async function init(){
   await loadState();
   renderCurrentTab();
+  // Auto-sync every 30s
   setInterval(async ()=>{
     if(!isSaving){
+      const prevNotifLen = state.notifications.length;
       await loadState();
+      if(state.notifications.length > prevNotifLen){
+        hasUnreadNotif = true;
+        updateBellDot();
+      }
       if(!document.getElementById('sheetOverlay').classList.contains('open')){
         renderCurrentTab();
       }
