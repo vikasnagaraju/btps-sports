@@ -14,9 +14,8 @@
     .header{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:28px;padding:18px 16px 12px;color:#fff;box-shadow:0 8px 20px rgba(11,21,48,.25)}
     .top-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .brand{display:flex;align-items:center;gap:10px}
-    .brand-icon{width:44px;height:44px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:9px;color:#0b1530;box-shadow:0 2px 8px rgba(0,0,0,.2);padding:4px;flex-shrink:0;text-align:center;line-height:1.1;flex-direction:column}
-    .brand-icon .k{font-size:14px;font-weight:900;color:#c0392b}
-    .brand-icon .p{font-size:8px;font-weight:700;color:#0b1530;letter-spacing:.2px}
+    .brand-icon{width:44px;height:44px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);padding:4px;flex-shrink:0;overflow:hidden}
+    .brand-icon img{width:100%;height:100%;object-fit:contain;border-radius:6px}
     .brand-text{line-height:1.2}
     .brand-text .org{font-size:13px;font-weight:700;letter-spacing:.2px;color:#f5a623}
     .brand-text .sub{font-size:9px;font-weight:600;color:#b6bedd;margin-top:1px}
@@ -24,23 +23,22 @@
     .header-actions{display:flex;gap:6px;align-items:center}
     .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
     .badge-dot{width:8px;height:8px;background:#d6483d;border-radius:50%;position:absolute;top:-2px;right:-2px;border:2px solid #0b1530}
-    .conn-status{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:4px}
-    .conn-status.online{background:#1f9d6c;box-shadow:0 0 6px rgba(31,157,108,.4)}
-    .conn-status.offline{background:#d6483d;box-shadow:0 0 6px rgba(214,72,61,.4)}
     .marquee{background:rgba(255,255,255,.06);border-radius:40px;padding:6px 10px;margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08)}
     .marquee .live{width:8px;height:8px;background:#f5a623;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
     @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
     .marquee-text{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-    .tabs{display:flex;gap:4px;margin-top:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
-    .tabs::-webkit-scrollbar{display:none}
-    .tab{flex-shrink:0;padding:8px 12px;font-size:11px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px}
-    .tab.active{color:#fff;border-bottom-color:#f5a623}
-    .tab svg{width:14px;height:14px}
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:14px;padding:0 2px}
+    .tab{flex-shrink:0;padding:8px 4px;font-size:10px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;transition:color .15s;border-radius:8px 8px 0 0}
+    .tab.active{color:#fff;border-bottom-color:#f5a623;background:rgba(245,166,35,.08)}
+    .tab svg{width:16px;height:16px;flex-shrink:0}
+    .tab span{font-size:8px;letter-spacing:.2px}
     .content{margin-top:14px}
     .section-title{font-size:15px;font-weight:800;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
     .section-title small{font-size:11px;font-weight:600;color:#525d7a}
     .card{background:#fff;border-radius:18px;padding:14px 14px 12px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.04);border:1px solid #eef1fb;transition:.15s;cursor:pointer}
-    .card-cricket{border-left:5px solid #1f9d6c}
+    .card-cricket{border-left:5px solid #1f9d6c;cursor:pointer}
+    .card-cricket .card-title{color:#0b1530}
+    .card-cricket:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
     .card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
     .card-title{font-size:14px;font-weight:800;line-height:1.3}
     .card-cat{font-size:10px;font-weight:700;color:#27439a;margin-top:2px}
@@ -91,7 +89,8 @@
     .fab{position:fixed;bottom:80px;right:16px;width:50px;height:50px;border-radius:50%;background:#f5a623;color:#0b1530;border:none;box-shadow:0 6px 16px rgba(245,166,35,.3);font-size:24px;z-index:45;display:none;align-items:center;justify-content:center;cursor:pointer}
     .fab.show{display:flex}
     .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-    .hero-stat{background:#fff;border-radius:16px;padding:12px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #eef1fb}
+    .hero-stat{background:#fff;border-radius:16px;padding:12px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #eef1fb;cursor:pointer;transition:transform .1s}
+    .hero-stat:active{transform:scale(.96)}
     .hero-stat .num{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:#0b1530}
     .hero-stat .lbl{font-size:9px;font-weight:700;color:#525d7a;text-transform:uppercase;letter-spacing:.3px}
     .hero-stat .emoji{font-size:18px;display:block;margin-bottom:2px}
@@ -127,6 +126,11 @@
     .sync-indicator{display:flex;align-items:center;gap:4px;font-size:8px;color:#9aa6cc;font-weight:600}
     .sync-indicator .spinner{width:10px;height:10px;border:2px solid rgba(255,255,255,.1);border-top-color:#f5a623;border-radius:50%;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
+    .click-hint{font-size:8px;color:#9aa6cc;margin-top:4px;display:flex;align-items:center;gap:3px}
+    .click-hint svg{width:10px;height:10px}
+    .footer{text-align:center;padding:20px 0 6px;font-size:10px;color:#aab4d6;font-weight:600;border-top:1px solid #e2e6f0;margin-top:10px}
+    .footer b{color:#525d7a;font-weight:700}
+    .footer .dev{color:#27439a}
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
@@ -136,7 +140,9 @@
   <div class="header">
     <div class="top-row">
       <div class="brand">
-        <div class="brand-icon"><span class="k">KPCL</span><span class="p">⚡</span></div>
+        <div class="brand-icon">
+          <img src="data:image/png;base64,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" alt="KPCL Logo">
+        </div>
         <div class="brand-text">
           <div class="org">KARNATAKA POWER CORPORATION LTD</div>
           <div class="event">57th Foundation Day Sports 2026</div>
@@ -154,15 +160,20 @@
     </div>
     <div class="marquee"><span class="live"></span><span class="marquee-text" id="marqueeText">Loading updates…</span></div>
     <div class="tabs" id="tabs">
-      <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Home</div>
-      <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Events</div>
-      <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 19L19 5"/></svg>Cricket</div>
-      <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Organisers</div>
-      <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>Alerts</div>
+      <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span>Home</span></div>
+      <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>Events</span></div>
+      <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 19L19 5"/></svg><span>Cricket</span></div>
+      <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg><span>Org</span></div>
+      <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span>Alerts</span></div>
     </div>
   </div>
 
   <div class="content" id="content"></div>
+
+  <!-- Footer with developer info -->
+  <div class="footer">
+    Developed by <b>Vikas N</b> · <span class="dev">Viraj Software Solutions</span>
+  </div>
 
   <button class="admin-login" id="adminToggleBtn">🔐 Admin</button>
   <button class="fab" id="fabAdd">+</button>
@@ -192,12 +203,9 @@ let lastSeenNotif = 0;
 let backendOk = true;
 let categoryState = {};
 let isSaving = false;
-let pendingSync = false;
 
-// ----- BACKEND: Google Apps Script Web App -----
 const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwIZUqDnapaxZjFNKVfZ1GBE99a2YS-16Xjt1ychX3SC3lV8ryaeRlSM2zx0_OtagEt/exec";
 
-// ----- DATA FUNCTIONS -----
 function uid(p){ return p+'-'+Math.random().toString(36).slice(2,7); }
 function fmtDate(d){ if(!d)return ''; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}); }
 function initials(n){ return n.trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase(); }
@@ -302,87 +310,6 @@ async function backendSave(action, data){
   }
 }
 
-// ----- LOAD / SAVE STATE -----
-async function loadState(){
-  try{
-    const data = await backendGetAll();
-    backendOk = true;
-    let events = (data.events && data.events.length) ? rowsToEvents(data.events) : null;
-    if(!events){
-      events = SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []}));
-    }
-    state.events = events;
-    let notifs = (data.notifications && data.notifications.length) ? rowsToNotifs(data.notifications) : null;
-    if(!notifs){
-      notifs = SEED_NOTIFS;
-    }
-    state.notifications = notifs;
-    lastSeenNotif = state.notifications.length;
-    updateConnectionDot();
-    return true;
-  }catch(e){
-    console.error('Backend unreachable, using local data', e);
-    backendOk = false;
-    if(!state.events || !state.events.length){
-      state.events = SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []}));
-    }
-    if(!state.notifications || !state.notifications.length){
-      state.notifications = SEED_NOTIFS;
-    }
-    updateConnectionDot();
-    return false;
-  }
-}
-
-async function saveEvents(){
-  if(isSaving) return false;
-  isSaving = true;
-  document.getElementById('syncIndicator').style.display = 'flex';
-  try{
-    await backendSave('saveEvents', eventsToRows(state.events));
-    backendOk = true;
-    toast('Events synced ✓');
-    updateConnectionDot();
-    return true;
-  }catch(e){
-    backendOk = false;
-    toast('⚠️ Offline — changes saved locally');
-    updateConnectionDot();
-    return false;
-  }finally{
-    isSaving = false;
-    document.getElementById('syncIndicator').style.display = 'none';
-  }
-}
-
-async function saveNotifs(){
-  try{
-    await backendSave('saveNotifications', state.notifications);
-    backendOk = true;
-    updateConnectionDot();
-    return true;
-  }catch(e){
-    backendOk = false;
-    updateConnectionDot();
-    return false;
-  }
-}
-
-function updateConnectionDot(){
-  const dot = document.getElementById('connDot');
-  const indicator = document.getElementById('syncIndicator');
-  if(backendOk){
-    dot.style.display = 'none';
-    document.getElementById('connStatusBtn').title = 'Connected — synced with sheet';
-    indicator.innerHTML = '<span style="color:#1f9d6c">●</span> online';
-  }else{
-    dot.style.display = 'block';
-    document.getElementById('connStatusBtn').title = 'Offline — showing local data';
-    indicator.innerHTML = '<span style="color:#d6483d">●</span> offline';
-  }
-}
-
-// ----- SEED DATA (from spreadsheet) -----
 const SEED_EVENTS = [
   {id:'cr-1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'81/1', scoreB:'77/7', winner:'', note:'', participants:[], coordinators:[]},
   {id:'cr-2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
@@ -415,7 +342,77 @@ const SEED_NOTIFS = [
   {id:'n2', title:'Cricket League Begins', message:'BTPS Cricket Tournament 2026 league matches start today at the BTPS Cricket Ground. First match: Electrical vs CHP (I&C), 10:00 AM.', type:'alert', time:Date.now()-7200000}
 ];
 
-// ----- RENDER FUNCTIONS -----
+async function loadState(){
+  try{
+    const data = await backendGetAll();
+    backendOk = true;
+    let events = (data.events && data.events.length) ? rowsToEvents(data.events) : null;
+    if(!events){ events = SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []})); }
+    state.events = events;
+    let notifs = (data.notifications && data.notifications.length) ? rowsToNotifs(data.notifications) : null;
+    if(!notifs){ notifs = SEED_NOTIFS; }
+    state.notifications = notifs;
+    lastSeenNotif = state.notifications.length;
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    console.error('Backend unreachable, using local data', e);
+    backendOk = false;
+    if(!state.events || !state.events.length){ state.events = SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []})); }
+    if(!state.notifications || !state.notifications.length){ state.notifications = SEED_NOTIFS; }
+    updateConnectionDot();
+    return false;
+  }
+}
+
+async function saveEvents(){
+  if(isSaving) return false;
+  isSaving = true;
+  document.getElementById('syncIndicator').innerHTML = '<span class="spinner"></span> saving…';
+  try{
+    await backendSave('saveEvents', eventsToRows(state.events));
+    backendOk = true;
+    toast('Events synced ✓');
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    backendOk = false;
+    toast('⚠️ Offline — changes saved locally');
+    updateConnectionDot();
+    return false;
+  }finally{
+    isSaving = false;
+    document.getElementById('syncIndicator').innerHTML = '<span class="spinner"></span>sync';
+  }
+}
+
+async function saveNotifs(){
+  try{
+    await backendSave('saveNotifications', state.notifications);
+    backendOk = true;
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    backendOk = false;
+    updateConnectionDot();
+    return false;
+  }
+}
+
+function updateConnectionDot(){
+  const dot = document.getElementById('connDot');
+  const indicator = document.getElementById('syncIndicator');
+  if(backendOk){
+    dot.style.display = 'none';
+    document.getElementById('connStatusBtn').title = 'Connected — synced with sheet';
+    indicator.innerHTML = '<span style="color:#1f9d6c">●</span> online';
+  }else{
+    dot.style.display = 'block';
+    document.getElementById('connStatusBtn').title = 'Offline — showing local data';
+    indicator.innerHTML = '<span style="color:#d6483d">●</span> offline';
+  }
+}
+
 function renderTicker(){
   const el=document.getElementById('marqueeText');
   const live = state.events.find(e=>e.status==='live');
@@ -427,7 +424,7 @@ function renderTicker(){
   }
 }
 
-function eventCardHtml(e){
+function eventCardHtml(e, clickable=true){
   const pCount = (e.participants||[]).length;
   let scoreHtml = '';
   if(e.teamA && e.teamB && (e.scoreA || e.scoreB || e.winner)){
@@ -439,21 +436,26 @@ function eventCardHtml(e){
       ${e.winner?`<div class="sc-result">${tie?'🤝 Match Tied':`🏆 ${escapeHtml(aW?e.teamA:e.teamB)} won`}</div>`:''}
     </div>`;
   }
+  const clickHint = (e.category==='Cricket' && clickable) ? `<div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg> tap for details</div>` : '';
   return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
     <div class="card-header"><div><div class="card-title">${escapeHtml(e.name)}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
     <span class="status ${e.status}">${e.status==='live'?'🔴 LIVE':e.status}</span></div>
     <div class="meta"><span>📅 ${fmtDate(e.date)}</span><span>⏱ ${escapeHtml(e.time)||'TBA'}</span><span>📍 ${escapeHtml(e.venue)}</span></div>
     ${scoreHtml}
-    <div style="margin-top:8px"><span class="participant-pill">👤 ${pCount} registered</span></div>
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 ${pCount} registered</span>
+      ${clickHint}
+    </div>
   </div>`;
 }
 
-// ----- DASHBOARD -----
+// ----- DASHBOARD with clickable cricket stats -----
 function renderDashboard(){
   const c=document.getElementById('content');
   const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
   const liveCount=state.events.filter(e=>e.status==='live').length;
   const upcoming=state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,6);
+  const cricketCount = state.events.filter(e=>e.category==='Cricket').length;
   const pct=total?Math.round((done/total)*100):0;
   const circumference = 2 * Math.PI * 24;
   const offset = circumference * (1 - pct/100);
@@ -462,7 +464,7 @@ function renderDashboard(){
   if(isAdmin) html+=`<div class="admin-banner">🔑 Admin mode — edits sync to all employees</div>`;
   
   html+=`<div class="hero-stats">
-    <div class="hero-stat"><span class="emoji">🏏</span><div class="num">${state.events.filter(e=>e.category==='Cricket').length}</div><div class="lbl">Cricket</div></div>
+    <div class="hero-stat" id="cricketStat"><span class="emoji">🏏</span><div class="num">${cricketCount}</div><div class="lbl">Cricket</div></div>
     <div class="hero-stat"><span class="emoji">🏆</span><div class="num">${done}</div><div class="lbl">Completed</div></div>
     <div class="hero-stat"><span class="emoji">📅</span><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
   </div>`;
@@ -483,11 +485,15 @@ function renderDashboard(){
 
   const recentCricket = state.events.filter(e=>e.category==='Cricket' && e.status==='completed' && (e.scoreA || e.scoreB)).slice(-4).reverse();
   if(recentCricket.length){
-    html+=`<div class="section-title">🏏 Recent Cricket Results</div>`;
+    html+=`<div class="section-title">🏏 Recent Cricket Results <small style="cursor:pointer;color:#1f9d6c;" id="viewAllCricket">View all →</small></div>`;
     recentCricket.forEach(e=>html+=eventCardHtml(e));
   }
 
   c.innerHTML=html;
+  
+  document.getElementById('cricketStat')?.addEventListener('click', ()=>setTab('cricket'));
+  document.getElementById('viewAllCricket')?.addEventListener('click', ()=>setTab('cricket'));
+  
   bindCards();
   renderTicker();
 }
@@ -552,7 +558,7 @@ function renderCricket(){
     ${isAdmin?`<button class="btn" style="width:auto;padding:6px 16px;background:#f5a623;color:#0b1530;font-size:11px" id="addCricketBtn">+ Add Match</button>`:''}
     ${isAdmin?`<button class="btn" style="width:auto;padding:6px 16px;background:#1f9d6c;color:#fff;font-size:11px" id="syncNowBtn">🔄 Sync</button>`:''}
   </div>`;
-  matches.forEach(e=>html+=eventCardHtml(e));
+  matches.forEach(e=>html+=eventCardHtml(e, true));
   c.innerHTML=html; 
   bindCards(); 
   renderTicker();
@@ -666,7 +672,6 @@ function openSheet(id){
       <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)||'TBA'}</strong></div>
     </div>`;
   
-  // Participants
   html += `<div style="margin-top:12px;font-weight:700;font-size:12px">👥 Participants <small style="font-weight:400;color:#525d7a">${participants.length}</small></div>`;
   if(isAdmin){
     html += `<div style="display:flex;gap:6px;margin:6px 0">
@@ -686,7 +691,6 @@ function openSheet(id){
     html += `<div style="font-size:12px;color:#8a95bd;padding:4px 0">No participants registered yet</div>`;
   }
 
-  // Cricket score editor
   if(isAdmin && ev.teamA && ev.teamB){
     html += `<div style="margin-top:12px;font-weight:700;font-size:12px">✎ Update Score & Winner</div>
       <div style="display:flex;gap:8px;margin:6px 0">
@@ -717,7 +721,6 @@ function openSheet(id){
   document.getElementById('sheetClose').onclick = ()=>document.getElementById('sheetOverlay').classList.remove('open');
   document.getElementById('sheetOverlay').classList.add('open');
 
-  // ----- ADD PARTICIPANT (SAVES TO STATE & SYNC) -----
   if(isAdmin){
     const addBtn = document.getElementById('addPartBtn');
     if(addBtn){
@@ -744,7 +747,6 @@ function openSheet(id){
     });
   }
 
-  // Score update logic
   if(isAdmin && ev.teamA && ev.teamB){
     document.querySelectorAll('.winner-btn').forEach(b=>{
       b.onclick = ()=>{
@@ -782,7 +784,7 @@ function openSheet(id){
 function setTab(tab){
   currentTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
-  document.getElementById('fabAdd').classList.toggle('show', isAdmin && tab==='events');
+  document.getElementById('fabAdd').classList.toggle('show', isAdmin && (tab==='events'||tab==='cricket'));
   if(tab==='dashboard') renderDashboard();
   else if(tab==='events') renderEvents();
   else if(tab==='cricket') renderCricket();
@@ -828,11 +830,9 @@ document.getElementById('fabAdd').onclick=()=>{
 
 function renderCurrentTab(){ setTab(currentTab); }
 
-// ----- INIT -----
 async function init(){
   await loadState();
   renderCurrentTab();
-  // Auto-sync every 30s
   setInterval(async ()=>{
     if(!isSaving){
       await loadState();
