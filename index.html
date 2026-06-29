@@ -114,7 +114,6 @@
     .participant-row .pname{font-weight:600;font-size:13px}
     .participant-row .pphone{font-size:11px;color:#525d7a}
     .remove-btn{background:none;border:none;color:#d6483d;cursor:pointer;font-size:16px;padding:0 4px}
-    /* Category Group Cards - innovative design */
     .category-group{background:#fff;border-radius:20px;padding:0;margin-bottom:16px;border:1px solid #eef1fb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.03)}
     .category-header{background:linear-gradient(135deg,#f8f9fd,#eef1fb);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e6f0;cursor:pointer;transition:background .15s}
     .category-header:active{background:#e8ebf5}
@@ -125,6 +124,9 @@
     .category-body{padding:0 12px 12px}
     .category-body .card{margin-bottom:8px;border:1px solid #f0f3fa;box-shadow:none}
     .category-body .card:last-child{margin-bottom:0}
+    .sync-indicator{display:flex;align-items:center;gap:4px;font-size:8px;color:#9aa6cc;font-weight:600}
+    .sync-indicator .spinner{width:10px;height:10px;border:2px solid rgba(255,255,255,.1);border-top-color:#f5a623;border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
@@ -147,6 +149,7 @@
           <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
         </div>
         <div class="icon-btn" id="bellBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="badge-dot" id="bellDot" style="display:none"></span></div>
+        <div class="sync-indicator" id="syncIndicator"><span class="spinner"></span>sync</div>
       </div>
     </div>
     <div class="marquee"><span class="live"></span><span class="marquee-text" id="marqueeText">Loading updates…</span></div>
@@ -188,96 +191,264 @@ let state = { events: [], notifications: [] };
 let lastSeenNotif = 0;
 let backendOk = true;
 let categoryState = {};
+let isSaving = false;
+let pendingSync = false;
 
-// ----- SEED DATA -----
-const SEED_EVENTS = [
-  // Cricket league
-  {id:'cr1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'10:00 AM', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'142/5', scoreB:'138/8', winner:'A', coordinators:[], participants:[]},
-  {id:'cr2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'2:00 PM', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'110/9', scoreB:'112/4', winner:'B', coordinators:[], participants:[]},
-  {id:'cr3', name:'SE (MM-1) vs ED (BTPS)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-25', time:'10:00 AM', status:'completed', teamA:'SE (MM-1)', teamB:'ED (BTPS)', scoreA:'98/7', scoreB:'99/3', winner:'B', coordinators:[], participants:[]},
-  {id:'cr4', name:'SE (MM-2) vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-25', time:'2:00 PM', status:'completed', teamA:'SE (MM-2)', teamB:'SE (O)-1', scoreA:'124/6', scoreB:'125/5', winner:'B', coordinators:[], participants:[]},
-  {id:'cr5', name:'Royal Civil vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr6', name:'CHP-1 vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'2:00 PM', status:'upcoming', teamA:'CHP-1', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr7', name:'ED (BTPS) vs SE (O)-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'10:00 AM', status:'upcoming', teamA:'ED (BTPS)', teamB:'SE (O)-3', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr8', name:'SE (O)-2 vs SE (E)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-2', teamB:'SE (E)', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-02', time:'10:00 AM', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  {id:'cr12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-02', time:'2:00 PM', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
-  // Indoor games
-  {id:'ev1', name:'Carrom Singles', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Naveed Asmal Hej Mulla',phone:'998635707'},{name:'Sagar D.M',phone:'9480830699'},{name:'Hanumanthappa',phone:'8867973677'}], participants:[]},
-  {id:'ev2', name:'Chess', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Nawaz M',phone:'8073029015'},{name:'Lokesh M',phone:'7353556048'},{name:'Rajashekar M',phone:'8884561762'},{name:'Honnurswamy',phone:'8722423745'}], participants:[]},
-  {id:'ev3', name:'Jackpot', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'},{name:'T.Eshwarswamy',phone:'8497813312'}], participants:[]},
-  {id:'ev4', name:'Table Tennis', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Sandeep Kumar',phone:'8660806196'},{name:'Tippeswamy Hej',phone:'9743718084'},{name:'Paramesh Char',phone:'9019625580'},{name:'Madhu J',phone:'7892917772'},{name:'Honnur J',phone:'9880516605'}], participants:[]},
-  {id:'ev5', name:'Shuttle Badminton (Men, Above/Below 45)', category:'Indoor Games', venue:'BTPS', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Prakash M.',phone:'9448290770'},{name:'B.J. Raghavendra',phone:'9448290702'},{name:'B.L. Mahesh',phone:'9480830356'},{name:'Manuraj',phone:'9480830356'},{name:'Haresh T.',phone:'9480849625'}], participants:[]},
-  // Outdoor
-  {id:'ev6', name:'Tennis Ball Cricket', category:'Outdoor Games', venue:'BTPS Sports Ground', date:'2026-06-24', time:'TBA', status:'upcoming', note:'Matches from 24.06.2026', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Gopayya Kawali',phone:'9448290722'},{name:'Ajith Patil',phone:'9480489616'},{name:'Virupaksha K',phone:'9480830668'},{name:'Hulirajiv',phone:'9480830550'}], participants:[]},
-  {id:'ev7', name:'Kabaddi', category:'Outdoor Games', venue:'BTPS', date:'2026-07-10', time:'TBA', status:'upcoming', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Dr. Ashok',phone:'9448290785'},{name:'Haresh V.',phone:'8792646436'},{name:'Hanumanthappa',phone:'8867973677'},{name:'J.S. Raghavendra',phone:'9480399046'}], participants:[]},
-  // Athletics (5 July RYMEC)
-  {id:'ath1', name:'100m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva',phone:'9480830610'},{name:'Shyamsundar S',phone:'9480830387'}], participants:[]},
-  {id:'ath2', name:'200m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', coordinators:[{name:'Dr. Ashok',phone:'9448290785'},{name:'B.L. Mahesh',phone:'9480830356'}], participants:[]},
-  {id:'ath3', name:'100m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', coordinators:[{name:'Nujamuddin',phone:'9480830327'},{name:'Virupaksha K',phone:'9480830668'}], participants:[]},
-  {id:'ath4', name:'200m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Devaraj',phone:'7259282988'}], participants:[]},
-  {id:'ath5', name:'Shot Put (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', coordinators:[{name:'Rajesh Patil',phone:'9480849639'},{name:'Prakash Kumar',phone:'9480830597'}], participants:[]},
-  {id:'ath6', name:'Discus Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:00 PM', status:'upcoming', coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'}], participants:[]},
-  {id:'ath7', name:'Javelin Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'1:00 PM', status:'upcoming', coordinators:[{name:'Manumantaraj',phone:'9731879777'}], participants:[]},
-  {id:'ath8', name:'Volleyball (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'2:00 PM', status:'upcoming', coordinators:[{name:'Nandish Kumar',phone:'8660806196'}], participants:[]},
-  // Women & children (5 July)
-  {id:'w1', name:'100m Women (Below 45)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', coordinators:[{name:'Nandini Hosur',phone:'9480830336'},{name:'Rajarajeshwari Vibhuti',phone:'9480830688'}], participants:[]},
-  {id:'w2', name:'Shot Put (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Savitha M',phone:'9141615413'}], participants:[]},
-  {id:'w3', name:'Lemon & Spoon (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:30 AM', status:'upcoming', participants:[]},
-  {id:'w4', name:'Javelin (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:30 PM', status:'upcoming', participants:[]},
-  {id:'w5', name:'100m Girls (Under 12)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', coordinators:[{name:'Ashe',phone:'9480849610'}], participants:[]},
-  {id:'w6', name:'Frog Jump (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', participants:[]},
-  {id:'w7', name:'30m Run (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', participants:[]},
-  {id:'w8', name:'50m Run (Boys 6-10)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', participants:[]},
-  // Cross country
-  {id:'ev8', name:'Cross-Country Run (45+/45-)', category:'Athletics', venue:'BTPS', date:'2026-07-14', time:'TBA', status:'upcoming', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Arun',phone:'9743043316'},{name:'Nawaz M',phone:'8073029015'},{name:'Haresh V.',phone:'9480849625'}], participants:[]},
-  // Cultural
-  {id:'cult1', name:'Light Music Karaoke (Employees)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-06', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Honnurswamy V',phone:'9448282640'},{name:'Sruthi S',phone:'9480830638'},{name:'Nithin Kumar',phone:'9448282663'},{name:'Veena Chawla',phone:'9886385478'},{name:'Chaitra P M',phone:'9480849642'},{name:'Tippeswamy J',phone:'9743718084'}], participants:[]},
-  {id:'cult2', name:'Quiz Competition (Community Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Shantamallappa',phone:'9480830529'},{name:'Ravikumar B M',phone:'9480830527'},{name:'Shivagonda Biradar',phone:'9480830690'},{name:'Honnurswamy V',phone:'9448282640'}], participants:[]},
-  {id:'cult3', name:'Quiz Competition (Employees Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'2:30 PM', status:'upcoming', coordinators:[{name:'Sruthi S',phone:'9480830638'},{name:'Pushpa',phone:'9741258163'},{name:'Yamuna',phone:'9742049153'},{name:'Purnima B K',phone:'9731209856'}], participants:[]},
-  {id:'cult4', name:'Light Music Karaoke (Family Members)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Smitha Karmakar',phone:'9480830577'},{name:'Ravikumar B M',phone:'9480830527'}], participants:[]},
-  {id:'cult5', name:'Light Music Karaoke (Children)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', coordinators:[{name:'Gosubalu Jambayya',phone:'9731332847'},{name:'Parameshwar K',phone:'9019625580'}], participants:[]},
-  {id:'cult6', name:'Rangoli Competition "My BTPS"', category:'Cultural', venue:'BTPS Centre, Kudithini', date:'2026-07-10', time:'10:00 AM – 1:00 PM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Chaitra P M',phone:'9480849642'},{name:'Nivin Kumar',phone:'9448282663'}], participants:[]}
-];
+// ----- BACKEND: Google Apps Script Web App -----
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwIZUqDnapaxZjFNKVfZ1GBE99a2YS-16Xjt1ychX3SC3lV8ryaeRlSM2zx0_OtagEt/exec";
 
-const SEED_NOTIFS = [
-  {id:'n1', title:'Foundation Day Sports 2026', message:'All events scheduled. Register with coordinators.', type:'info', time:Date.now()-3600000},
-  {id:'n2', title:'Cricket League Started', message:'Matches underway at BTPS Cricket Ground.', type:'alert', time:Date.now()-7200000},
-];
-
+// ----- DATA FUNCTIONS -----
 function uid(p){ return p+'-'+Math.random().toString(36).slice(2,7); }
 function fmtDate(d){ if(!d)return ''; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}); }
 function initials(n){ return n.trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase(); }
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
-function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2500); }
 
-async function loadState(){
-  state.events = SEED_EVENTS.map(e=>({...e, participants: e.participants || []}));
-  state.notifications = SEED_NOTIFS;
-  lastSeenNotif = state.notifications.length;
+function normalizeDate(v){
+  if(!v) return '';
+  if(typeof v === 'string'){
+    const m = v.match(/^(\d{4}-\d{2}-\d{2})/);
+    if(m) return m[1];
+    return v;
+  }
+  if(v instanceof Date || Object.prototype.toString.call(v) === '[object Date]'){
+    const d = new Date(v);
+    if(isNaN(d.getTime())) return '';
+    return d.toISOString().slice(0,10);
+  }
+  return String(v);
 }
-loadState();
+
+function parseJsonSafe(val){
+  if(!val) return [];
+  if(typeof val === 'string'){
+    try{ return JSON.parse(val); }catch(e){ return []; }
+  }
+  return Array.isArray(val) ? val : [];
+}
+
+function rowsToEvents(rows){
+  return rows.map(r => ({
+    id: String(r.id || ''),
+    name: r.name || '',
+    category: r.category || '',
+    venue: r.venue || '',
+    date: normalizeDate(r.date),
+    time: r.time || '',
+    status: r.status || 'upcoming',
+    teamA: r.teamA || '',
+    teamB: r.teamB || '',
+    scoreA: r.scoreA || '',
+    scoreB: r.scoreB || '',
+    winner: r.winner || '',
+    note: r.note || '',
+    participants: parseJsonSafe(r.participants),
+    coordinators: parseJsonSafe(r.coordinators)
+  }));
+}
+
+function eventsToRows(events){
+  return events.map(e => ({
+    id: e.id,
+    name: e.name,
+    category: e.category,
+    venue: e.venue,
+    date: e.date,
+    time: e.time,
+    status: e.status,
+    teamA: e.teamA || '',
+    teamB: e.teamB || '',
+    scoreA: e.scoreA || '',
+    scoreB: e.scoreB || '',
+    winner: e.winner || '',
+    note: e.note || '',
+    participants: JSON.stringify(e.participants || []),
+    coordinators: JSON.stringify(e.coordinators || [])
+  }));
+}
+
+function rowsToNotifs(rows){
+  return rows.map(r => ({
+    id: String(r.id || ''),
+    title: r.title || '',
+    message: r.message || '',
+    type: r.type || 'info',
+    time: Number(r.time) || Date.now()
+  }));
+}
+
+async function backendGetAll(){
+  try{
+    const res = await fetch(BACKEND_URL + "?action=getAll", { method: "GET" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }catch(e){
+    throw new Error("Backend unreachable: " + e.message);
+  }
+}
+
+async function backendSave(action, data){
+  try{
+    const body = new URLSearchParams();
+    body.set("action", action);
+    body.set("data", JSON.stringify(data));
+    const res = await fetch(BACKEND_URL, { method: "POST", body });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const json = await res.json();
+    if(json.error) throw new Error(json.error);
+    return json;
+  }catch(e){
+    throw new Error("Save failed: " + e.message);
+  }
+}
+
+// ----- LOAD / SAVE STATE -----
+async function loadState(){
+  try{
+    const data = await backendGetAll();
+    backendOk = true;
+    let events = (data.events && data.events.length) ? rowsToEvents(data.events) : null;
+    if(!events){
+      events = SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []}));
+    }
+    state.events = events;
+    let notifs = (data.notifications && data.notifications.length) ? rowsToNotifs(data.notifications) : null;
+    if(!notifs){
+      notifs = SEED_NOTIFS;
+    }
+    state.notifications = notifs;
+    lastSeenNotif = state.notifications.length;
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    console.error('Backend unreachable, using local data', e);
+    backendOk = false;
+    if(!state.events || !state.events.length){
+      state.events = SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []}));
+    }
+    if(!state.notifications || !state.notifications.length){
+      state.notifications = SEED_NOTIFS;
+    }
+    updateConnectionDot();
+    return false;
+  }
+}
+
+async function saveEvents(){
+  if(isSaving) return false;
+  isSaving = true;
+  document.getElementById('syncIndicator').style.display = 'flex';
+  try{
+    await backendSave('saveEvents', eventsToRows(state.events));
+    backendOk = true;
+    toast('Events synced ✓');
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    backendOk = false;
+    toast('⚠️ Offline — changes saved locally');
+    updateConnectionDot();
+    return false;
+  }finally{
+    isSaving = false;
+    document.getElementById('syncIndicator').style.display = 'none';
+  }
+}
+
+async function saveNotifs(){
+  try{
+    await backendSave('saveNotifications', state.notifications);
+    backendOk = true;
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    backendOk = false;
+    updateConnectionDot();
+    return false;
+  }
+}
 
 function updateConnectionDot(){
   const dot = document.getElementById('connDot');
-  if(backendOk){ dot.style.display = 'none'; document.getElementById('connStatusBtn').title = 'Connected — synced with sheet'; }
-  else { dot.style.display = 'block'; document.getElementById('connStatusBtn').title = 'Offline — showing local data'; }
+  const indicator = document.getElementById('syncIndicator');
+  if(backendOk){
+    dot.style.display = 'none';
+    document.getElementById('connStatusBtn').title = 'Connected — synced with sheet';
+    indicator.innerHTML = '<span style="color:#1f9d6c">●</span> online';
+  }else{
+    dot.style.display = 'block';
+    document.getElementById('connStatusBtn').title = 'Offline — showing local data';
+    indicator.innerHTML = '<span style="color:#d6483d">●</span> offline';
+  }
 }
 
+// ----- SEED DATA (from spreadsheet) -----
+const SEED_EVENTS = [
+  {id:'cr-1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'81/1', scoreB:'77/7', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-3', name:'SE (MM-1) vs ED (BTPS)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'', status:'completed', teamA:'SE (MM-1)', teamB:'ED (BTPS)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-4', name:'SE (MM-2) vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'', status:'completed', teamA:'SE (MM-2)', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-5', name:'Royal Civil vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-6', name:'CHP-1 vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'', status:'upcoming', teamA:'CHP-1', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-7', name:'ED (BTPS) vs SE (O)-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'', status:'upcoming', teamA:'ED (BTPS)', teamB:'SE (O)-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-8', name:'SE (O)-2 vs SE (E)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'', status:'upcoming', teamA:'SE (O)-2', teamB:'SE (E)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'', status:'upcoming', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'ev-1', name:'Carrom — Singles', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Naveed Asmal Hej Mulla',phone:'998635707'},{name:'Sagar D.M',phone:'9480830699'},{name:'Hanumanthappa',phone:'8867973677'}]},
+  {id:'ev-2', name:'Chess', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Nawaz M',phone:'8073029015'},{name:'Lokesh M',phone:'7353556048'},{name:'Rajashekar M',phone:'8884561762'},{name:'Honnurswamy',phone:'8722423745'}]},
+  {id:'ev-3', name:'Jackpot', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'},{name:'T.Eshwarswamy',phone:'8497813312'}]},
+  {id:'ev-4', name:'T.T. (Table Tennis)', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Sandeep Kumar',phone:'8660806196'},{name:'Tippeswamy Hej',phone:'9743718084'},{name:'Paramesh Char',phone:'9019625580'},{name:'Madhu J',phone:'7892917772'},{name:'Honnur J',phone:'9880516605'}]},
+  {id:'ev-5', name:'Shuttle Badminton (Men, Above/Below 45)', category:'Indoor Games', venue:'BTPS', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Prakash M.',phone:'9448290770'},{name:'B.J. Raghavendra',phone:'9448290702'},{name:'B.L. Mahesh',phone:'9480830356'},{name:'Manuraj',phone:'9480830356'},{name:'Haresh T.',phone:'9480849625'}]},
+  {id:'ev-6', name:'Tennis Ball Cricket', category:'Outdoor Games', venue:'BTPS Mumbhag Sports Ground', date:'2026-06-23', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Matches begin from 24.06.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Gopayya Kawali',phone:'9448290722'},{name:'Ajith Patil',phone:'9480489616'},{name:'Virupaksha K',phone:'9480830668'},{name:'Hulirajiv',phone:'9480830550'}]},
+  {id:'ev-7', name:'Kabaddi', category:'Outdoor Games', venue:'BTPS', date:'2026-07-09', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Matches begin from 10.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Dr. Ashok',phone:'9448290785'},{name:'Haresh V.',phone:'8792646436'},{name:'Hanumanthappa',phone:'8867973677'},{name:'J.S. Raghavendra',phone:'9480399046'}]},
+  {id:'ev-8', name:'Cross-Country Run/Walk (45+/45-, Men)', category:'Athletics', venue:'BTPS', date:'2026-07-13', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Event held from 14.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Arun',phone:'9743043316'},{name:'Nawaz M',phone:'8073029015'},{name:'Haresh V.',phone:'9480849625'}]},
+  {id:'ev-9', name:'Track & Field — 100m/200m, Shot Put, Discus, Javelin, Volleyball (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-04', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Shyamsundar S',phone:'9480830387'},{name:'Dr. Ashok',phone:'9448290785'},{name:'B.L. Mahesh',phone:'9480830356'}]},
+  {id:'ev-10', name:'Shuttle Badminton & Throwball (Women)', category:'Women\'s Events', venue:'BTPS', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Coordinator: Smt. Sharada K (9480830377) · Reg. close 25.06.2026', participants:[], coordinators:[{name:'Ashe',phone:'9480849610'},{name:'Chaitra',phone:'9480849642'},{name:'Basavarajeshwari',phone:'9448282644'},{name:'Madhuri K.R',phone:'8971589264'}]},
+  {id:'ev-11', name:'Carrom, Chess, 30 Yard Cricket, Tennis Court (Women)', category:'Women\'s Events', venue:'BTPS', date:'2026-06-26', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Reg. close 25.06.2026', participants:[], coordinators:[{name:'Arundhati',phone:'9480830554'},{name:'Vani D',phone:'9480830330'},{name:'Swetha K',phone:'8618727606'},{name:'Bhuvaneshwari Y',phone:'9972219905'}]},
+  {id:'ev-12', name:'Women\'s & Children\'s Track Events (100m, Shot Put etc.)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-04', time:'', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandini Hosur',phone:'9480830336'},{name:'Rajarajeshwari Vibhuti',phone:'9480830688'},{name:'Savitha M',phone:'9141615413'}]}
+];
+
+const SEED_NOTIFS = [
+  {id:'n1', title:'Foundation Day Sports — Schedule Released', message:'57th Foundation Day sports activities are confirmed. Registrations and matches begin from 24.06.2026. Check the Events tab for your event\'s registration deadline and coordinator.', type:'info', time:Date.now()-3600000},
+  {id:'n2', title:'Cricket League Begins', message:'BTPS Cricket Tournament 2026 league matches start today at the BTPS Cricket Ground. First match: Electrical vs CHP (I&C), 10:00 AM.', type:'alert', time:Date.now()-7200000}
+];
+
+// ----- RENDER FUNCTIONS -----
 function renderTicker(){
   const el=document.getElementById('marqueeText');
   const live = state.events.find(e=>e.status==='live');
   if(live) el.textContent = `🔴 LIVE: ${live.name}`;
   else {
     const up = state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-    if(up.length) el.textContent = `📅 UP NEXT: ${up[0].name} · ${fmtDate(up[0].date)} ${up[0].time}`;
+    if(up.length) el.textContent = `📅 UP NEXT: ${up[0].name} · ${fmtDate(up[0].date)} ${up[0].time || 'TBA'}`;
     else el.textContent = '✅ All events completed · 57th Foundation Day';
   }
 }
 
-// ---------- RENDER DASHBOARD ----------
+function eventCardHtml(e){
+  const pCount = (e.participants||[]).length;
+  let scoreHtml = '';
+  if(e.teamA && e.teamB && (e.scoreA || e.scoreB || e.winner)){
+    const aW=e.winner==='A', bW=e.winner==='B', tie=e.winner==='tie';
+    scoreHtml = `<div class="scorecard">
+      <div class="sc-row"><span class="sc-team">${aW?'🏆 ':''}${escapeHtml(e.teamA)}</span><span class="sc-runs">${escapeHtml(e.scoreA||'—')}</span></div>
+      <div class="sc-vs">vs</div>
+      <div class="sc-row"><span class="sc-team">${bW?'🏆 ':''}${escapeHtml(e.teamB)}</span><span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span></div>
+      ${e.winner?`<div class="sc-result">${tie?'🤝 Match Tied':`🏆 ${escapeHtml(aW?e.teamA:e.teamB)} won`}</div>`:''}
+    </div>`;
+  }
+  return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
+    <div class="card-header"><div><div class="card-title">${escapeHtml(e.name)}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
+    <span class="status ${e.status}">${e.status==='live'?'🔴 LIVE':e.status}</span></div>
+    <div class="meta"><span>📅 ${fmtDate(e.date)}</span><span>⏱ ${escapeHtml(e.time)||'TBA'}</span><span>📍 ${escapeHtml(e.venue)}</span></div>
+    ${scoreHtml}
+    <div style="margin-top:8px"><span class="participant-pill">👤 ${pCount} registered</span></div>
+  </div>`;
+}
+
+// ----- DASHBOARD -----
 function renderDashboard(){
   const c=document.getElementById('content');
   const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
@@ -319,31 +490,9 @@ function renderDashboard(){
   c.innerHTML=html;
   bindCards();
   renderTicker();
-  updateConnectionDot();
 }
 
-function eventCardHtml(e){
-  const pCount=(e.participants||[]).length;
-  let scoreHtml='';
-  if(e.teamA && e.teamB && (e.scoreA || e.scoreB || e.winner)){
-    const aW=e.winner==='A', bW=e.winner==='B', tie=e.winner==='tie';
-    scoreHtml=`<div class="scorecard">
-      <div class="sc-row"><span class="sc-team">${aW?'🏆 ':''}${escapeHtml(e.teamA)}</span><span class="sc-runs">${escapeHtml(e.scoreA||'—')}</span></div>
-      <div class="sc-vs">vs</div>
-      <div class="sc-row"><span class="sc-team">${bW?'🏆 ':''}${escapeHtml(e.teamB)}</span><span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span></div>
-      ${e.winner?`<div class="sc-result">${tie?'🤝 Match Tied':`🏆 ${escapeHtml(aW?e.teamA:e.teamB)} won`}</div>`:''}
-    </div>`;
-  }
-  return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
-    <div class="card-header"><div><div class="card-title">${escapeHtml(e.name)}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
-    <span class="status ${e.status}">${e.status==='live'?'🔴 LIVE':e.status}</span></div>
-    <div class="meta"><span>📅 ${fmtDate(e.date)}</span><span>⏱ ${escapeHtml(e.time)}</span><span>📍 ${escapeHtml(e.venue)}</span></div>
-    ${scoreHtml}
-    <div style="margin-top:8px"><span class="participant-pill">👤 ${pCount} registered</span></div>
-  </div>`;
-}
-
-// ---------- INNOVATIVE GROUPED EVENTS ----------
+// ----- EVENTS (Grouped) -----
 function renderEvents(){
   const c=document.getElementById('content');
   const cats = ['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
@@ -356,14 +505,13 @@ function renderEvents(){
 
   if(!filtered.length){ html+=`<div class="empty">No events in this category</div>`; }
   else {
-    // Group by category
     const grouped = {};
     filtered.forEach(e=>{ 
       if(!grouped[e.category]) grouped[e.category] = [];
       grouped[e.category].push(e);
     });
     Object.keys(grouped).forEach(cat=>{
-      if(!categoryState[cat]) categoryState[cat] = true; // default open
+      if(categoryState[cat] === undefined) categoryState[cat] = true;
       const isOpen = categoryState[cat];
       html+=`<div class="category-group">
         <div class="category-header" data-cat="${cat}">
@@ -381,7 +529,6 @@ function renderEvents(){
   }
 
   c.innerHTML=html;
-  // Category toggle
   document.querySelectorAll('.category-header').forEach(el=>{
     el.onclick=()=>{
       const cat = el.dataset.cat;
@@ -392,41 +539,54 @@ function renderEvents(){
     };
   });
   document.querySelectorAll('.chip').forEach(el=>{ el.onclick=()=>{ activeFilter=el.dataset.cat; renderEvents(); }; });
-  bindCards(); renderTicker(); updateConnectionDot();
+  bindCards(); renderTicker();
 }
 
+// ----- CRICKET -----
 function renderCricket(){
   const c=document.getElementById('content');
   const matches=state.events.filter(e=>e.category==='Cricket').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
   let html=`<div class="section-title">🏏 BTPS Cricket Tournament 2026 <small>${matches.length} matches</small></div>
-  <div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap">
+  <div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
     <a href="https://cricheroes.com" target="_blank" style="background:#0b1530;color:#fff;padding:6px 16px;border-radius:40px;font-size:11px;font-weight:700;text-decoration:none">🔗 Live on CricHeroes</a>
     ${isAdmin?`<button class="btn" style="width:auto;padding:6px 16px;background:#f5a623;color:#0b1530;font-size:11px" id="addCricketBtn">+ Add Match</button>`:''}
+    ${isAdmin?`<button class="btn" style="width:auto;padding:6px 16px;background:#1f9d6c;color:#fff;font-size:11px" id="syncNowBtn">🔄 Sync</button>`:''}
   </div>`;
   matches.forEach(e=>html+=eventCardHtml(e));
   c.innerHTML=html; 
   bindCards(); 
-  renderTicker(); updateConnectionDot();
-  if(isAdmin) document.getElementById('addCricketBtn')?.addEventListener('click', ()=>{
-    const sheet=document.getElementById('sheet');
-    sheet.innerHTML=`<div class="sheet-handle"></div><h3>Add Cricket Match</h3>
-      <input id="neName" placeholder="Match name e.g. TeamA vs TeamB" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0">
-      <div style="display:flex;gap:6px"><input id="neTeamA" placeholder="Team A" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTeamB" placeholder="Team B" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
-      <div style="display:flex;gap:6px"><input id="neDate" type="date" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTime" placeholder="Time" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
-      <button class="btn" id="neSave">Create Match</button><button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px" id="neCancel">Cancel</button>`;
-    document.getElementById('sheetOverlay').classList.add('open');
-    document.getElementById('neCancel').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
-    document.getElementById('neSave').onclick=()=>{
-      const name=document.getElementById('neName').value.trim();
-      if(!name) return toast('Enter match name');
-      state.events.push({id:uid('cr'),name,category:'Cricket',venue:'BTPS Cricket Ground',date:document.getElementById('neDate').value||'2026-07-02',time:document.getElementById('neTime').value.trim()||'TBA',status:'upcoming',teamA:document.getElementById('neTeamA').value.trim()||'TBD',teamB:document.getElementById('neTeamB').value.trim()||'TBD',scoreA:'',scoreB:'',winner:'',participants:[],coordinators:[]});
-      toast('Match added');
-      document.getElementById('sheetOverlay').classList.remove('open');
+  renderTicker();
+  if(isAdmin){
+    document.getElementById('addCricketBtn')?.addEventListener('click', openAddCricket);
+    document.getElementById('syncNowBtn')?.addEventListener('click', async ()=>{
+      toast('Syncing...');
+      await saveEvents();
       renderCurrentTab();
-    };
-  });
+    });
+  }
 }
 
+function openAddCricket(){
+  const sheet=document.getElementById('sheet');
+  sheet.innerHTML=`<div class="sheet-handle"></div><h3>Add Cricket Match</h3>
+    <input id="neName" placeholder="Match name e.g. TeamA vs TeamB" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0">
+    <div style="display:flex;gap:6px"><input id="neTeamA" placeholder="Team A" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTeamB" placeholder="Team B" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
+    <div style="display:flex;gap:6px"><input id="neDate" type="date" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTime" placeholder="Time" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
+    <button class="btn" id="neSave">Create Match</button><button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px" id="neCancel">Cancel</button>`;
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.getElementById('neCancel').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('neSave').onclick=async ()=>{
+    const name=document.getElementById('neName').value.trim();
+    if(!name) return toast('Enter match name');
+    state.events.push({id:uid('cr'),name,category:'Cricket',venue:'BTPS Cricket Ground',date:document.getElementById('neDate').value||'2026-07-02',time:document.getElementById('neTime').value.trim()||'TBA',status:'upcoming',teamA:document.getElementById('neTeamA').value.trim()||'TBD',teamB:document.getElementById('neTeamB').value.trim()||'TBD',scoreA:'',scoreB:'',winner:'',participants:[],coordinators:[]});
+    await saveEvents();
+    toast('Match added ✓');
+    document.getElementById('sheetOverlay').classList.remove('open');
+    renderCurrentTab();
+  };
+}
+
+// ----- ORGANISERS -----
 function renderOrganisers(){
   const c=document.getElementById('content');
   const withCoords=state.events.filter(e=>e.coordinators&&e.coordinators.length);
@@ -447,9 +607,10 @@ function renderOrganisers(){
   });
   c.innerHTML=html;
   document.getElementById('orgSearch')?.addEventListener('input', renderOrganisers);
-  renderTicker(); updateConnectionDot();
+  renderTicker();
 }
 
+// ----- ALERTS -----
 function renderAlerts(){
   const c=document.getElementById('content');
   let html=`<div class="section-title">🔔 Alerts <small>${state.notifications.length}</small></div>`;
@@ -468,31 +629,30 @@ function renderAlerts(){
     </div>`;
   });
   c.innerHTML=html;
-  if(isAdmin) document.getElementById('sendNotifBtn')?.addEventListener('click', ()=>{
+  if(isAdmin) document.getElementById('sendNotifBtn')?.addEventListener('click', async ()=>{
     const title=document.getElementById('notifTitle').value.trim();
     const msg=document.getElementById('notifMsg').value.trim();
     if(!title||!msg) return toast('Fill title and message');
     state.notifications.push({id:uid('n'),title,message:msg,type:'info',time:Date.now()});
-    toast('Broadcast sent');
+    await saveNotifs();
+    toast('Broadcast sent ✓');
     renderAlerts();
   });
-  renderTicker(); updateConnectionDot();
+  renderTicker();
 }
 
 function bindCards(){
   document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>openSheet(el.dataset.id); });
 }
 
-// ----- OPEN SHEET WITH FULL PARTICIPANT SAVE -----
+// ----- OPEN SHEET WITH PARTICIPANT SAVE -----
 function openSheet(id){
   const ev = state.events.find(e=>e.id===id);
   if(!ev) return;
-  const sheet = document.getElementById('sheet');
-  
-  // Ensure participants is an array
   if(!ev.participants) ev.participants = [];
   const participants = ev.participants;
   
+  const sheet = document.getElementById('sheet');
   let html = `<div class="sheet-handle"></div>
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3 style="font-size:17px">${escapeHtml(ev.name)}</h3>
@@ -503,10 +663,10 @@ function openSheet(id){
       <div><span style="color:#525d7a">Category</span><br><strong>${escapeHtml(ev.category)}</strong></div>
       <div><span style="color:#525d7a">Venue</span><br><strong>${escapeHtml(ev.venue)}</strong></div>
       <div><span style="color:#525d7a">Date</span><br><strong>${fmtDate(ev.date)}</strong></div>
-      <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)}</strong></div>
+      <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)||'TBA'}</strong></div>
     </div>`;
   
-  // Participants section - with save
+  // Participants
   html += `<div style="margin-top:12px;font-weight:700;font-size:12px">👥 Participants <small style="font-weight:400;color:#525d7a">${participants.length}</small></div>`;
   if(isAdmin){
     html += `<div style="display:flex;gap:6px;margin:6px 0">
@@ -526,7 +686,7 @@ function openSheet(id){
     html += `<div style="font-size:12px;color:#8a95bd;padding:4px 0">No participants registered yet</div>`;
   }
 
-  // Cricket score editor for admin
+  // Cricket score editor
   if(isAdmin && ev.teamA && ev.teamB){
     html += `<div style="margin-top:12px;font-weight:700;font-size:12px">✎ Update Score & Winner</div>
       <div style="display:flex;gap:8px;margin:6px 0">
@@ -557,25 +717,26 @@ function openSheet(id){
   document.getElementById('sheetClose').onclick = ()=>document.getElementById('sheetOverlay').classList.remove('open');
   document.getElementById('sheetOverlay').classList.add('open');
 
-  // ----- ADD PARTICIPANT (SAVES TO STATE) -----
+  // ----- ADD PARTICIPANT (SAVES TO STATE & SYNC) -----
   if(isAdmin){
     const addBtn = document.getElementById('addPartBtn');
     if(addBtn){
-      addBtn.onclick = ()=>{
+      addBtn.onclick = async ()=>{
         const name = document.getElementById('partName').value.trim();
         const phone = document.getElementById('partPhone').value.trim();
         if(!name) return toast('Enter a name');
         ev.participants.push({name, phone});
+        await saveEvents();
         toast('Participant added ✓');
-        // Re-open sheet to reflect changes
         openSheet(id);
         renderCurrentTab();
       };
     }
     document.querySelectorAll('.remove-btn').forEach(btn=>{
-      btn.onclick = ()=>{
+      btn.onclick = async ()=>{
         const idx = parseInt(btn.dataset.idx, 10);
         ev.participants.splice(idx, 1);
+        await saveEvents();
         toast('Participant removed');
         openSheet(id);
         renderCurrentTab();
@@ -592,15 +753,28 @@ function openSheet(id){
         ev.winner = b.dataset.win;
       };
     });
-    document.getElementById('updateScoreBtn').onclick = ()=>{
+    document.getElementById('updateScoreBtn').onclick = async ()=>{
       ev.scoreA = document.getElementById('scA').value.trim();
       ev.scoreB = document.getElementById('scB').value.trim();
+      await saveEvents();
       toast('Score updated ✓');
       document.getElementById('sheetOverlay').classList.remove('open');
       renderCurrentTab();
     };
-    document.getElementById('markComplete').onclick = ()=>{ ev.status='completed'; toast('Marked completed'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
-    document.getElementById('markLive').onclick = ()=>{ ev.status='live'; toast('Marked live'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
+    document.getElementById('markComplete').onclick = async ()=>{
+      ev.status='completed';
+      await saveEvents();
+      toast('Marked completed');
+      document.getElementById('sheetOverlay').classList.remove('open');
+      renderCurrentTab();
+    };
+    document.getElementById('markLive').onclick = async ()=>{
+      ev.status='live';
+      await saveEvents();
+      toast('Marked live');
+      document.getElementById('sheetOverlay').classList.remove('open');
+      renderCurrentTab();
+    };
   }
 }
 
@@ -641,24 +815,35 @@ document.getElementById('fabAdd').onclick=()=>{
   <button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px" id="neCancel">Cancel</button>`;
   document.getElementById('sheetOverlay').classList.add('open');
   document.getElementById('neCancel').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
-  document.getElementById('neSave').onclick=()=>{
+  document.getElementById('neSave').onclick=async ()=>{
     const name=document.getElementById('neName').value.trim();
     if(!name) return toast('Enter name');
     state.events.push({id:uid('ev'),name,category:document.getElementById('neCat').value.trim()||'General',venue:document.getElementById('neVenue').value.trim()||'BTPS',date:document.getElementById('neDate').value||'2026-07-20',time:document.getElementById('neTime').value.trim()||'TBA',status:'upcoming',participants:[],coordinators:[]});
-    toast('Event added');
+    await saveEvents();
+    toast('Event added ✓');
     document.getElementById('sheetOverlay').classList.remove('open');
     renderCurrentTab();
   };
 };
 
 function renderCurrentTab(){ setTab(currentTab); }
-renderCurrentTab();
 
-// Simulate connection status toggle
-setInterval(()=>{
-  backendOk = !backendOk;
-  updateConnectionDot();
-}, 30000);
+// ----- INIT -----
+async function init(){
+  await loadState();
+  renderCurrentTab();
+  // Auto-sync every 30s
+  setInterval(async ()=>{
+    if(!isSaving){
+      await loadState();
+      if(!document.getElementById('sheetOverlay').classList.contains('open')){
+        renderCurrentTab();
+      }
+    }
+  }, 30000);
+}
+init();
+
 })();
 </script>
 </body>
