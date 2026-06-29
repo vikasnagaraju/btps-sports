@@ -11,7 +11,6 @@
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
     .app{max-width:500px;margin:0 auto;padding:12px 14px 20px}
-    /* header */
     .header{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:28px;padding:18px 16px 12px;color:#fff;box-shadow:0 8px 20px rgba(11,21,48,.25)}
     .top-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .brand{display:flex;align-items:center;gap:10px}
@@ -32,13 +31,11 @@
     .marquee .live{width:8px;height:8px;background:#f5a623;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
     @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
     .marquee-text{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-    /* tabs */
     .tabs{display:flex;gap:4px;margin-top:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
     .tabs::-webkit-scrollbar{display:none}
     .tab{flex-shrink:0;padding:8px 12px;font-size:11px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px}
     .tab.active{color:#fff;border-bottom-color:#f5a623}
     .tab svg{width:14px;height:14px}
-    /* content */
     .content{margin-top:14px}
     .section-title{font-size:15px;font-weight:800;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
     .section-title small{font-size:11px;font-weight:600;color:#525d7a}
@@ -63,7 +60,6 @@
     .sc-result{text-align:center;font-size:10px;font-weight:700;color:#f5a623;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);margin-top:6px}
     .participant-pill{font-size:10px;font-weight:700;color:#27439a;background:#eef1fb;padding:3px 10px;border-radius:40px;display:inline-flex;align-items:center;gap:4px}
     .empty{text-align:center;padding:30px 10px;color:#8a95bd;font-weight:500}
-    /* organisers */
     .org-search{background:#fff;border-radius:12px;padding:8px 14px;border:1.5px solid #e2e6f0;display:flex;align-items:center;gap:8px;margin-bottom:12px}
     .org-search input{flex:1;border:none;outline:none;font-size:13px;font-weight:500;background:transparent}
     .org-card{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;border:1px solid #eef1fb}
@@ -79,8 +75,6 @@
     .btn{width:100%;padding:12px;border-radius:14px;border:none;font-weight:700;font-size:13px;background:#0b1530;color:#fff;cursor:pointer}
     .btn-amber{background:#f5a623;color:#0b1530}
     .admin-banner{background:#fff3dc;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#8a5d04;margin-bottom:12px}
-    .footer{text-align:center;font-size:10px;color:#aab4d6;padding:20px 0 6px;font-weight:600}
-    /* sheet */
     .sheet-overlay{position:fixed;inset:0;background:rgba(11,21,48,.5);z-index:100;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
     .sheet-overlay.open{display:flex}
     .sheet{background:#fff;width:100%;max-width:500px;border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;padding:12px 18px 24px;animation:slideup .25s ease}
@@ -89,7 +83,6 @@
     .sheet-close{float:right;background:#f4f6fc;border:none;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer}
     .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#0b1530;color:#fff;padding:10px 24px;border-radius:60px;font-weight:700;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:200;opacity:0;pointer-events:none;transition:.2s}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
-    /* admin */
     .admin-login{position:fixed;bottom:16px;right:16px;background:#f5a623;color:#0b1530;border:none;border-radius:60px;padding:10px 18px;font-weight:800;font-size:12px;box-shadow:0 6px 16px rgba(245,166,35,.3);z-index:50;cursor:pointer;display:flex;align-items:center;gap:6px}
     .login-screen{position:fixed;inset:0;background:rgba(11,21,48,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
     .login-box{background:#fff;border-radius:24px;padding:28px 22px;max-width:320px;width:100%}
@@ -97,7 +90,6 @@
     .login-box .err{color:#d6483d;font-size:12px;font-weight:600}
     .fab{position:fixed;bottom:80px;right:16px;width:50px;height:50px;border-radius:50%;background:#f5a623;color:#0b1530;border:none;box-shadow:0 6px 16px rgba(245,166,35,.3);font-size:24px;z-index:45;display:none;align-items:center;justify-content:center;cursor:pointer}
     .fab.show{display:flex}
-    /* dashboard fun */
     .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
     .hero-stat{background:#fff;border-radius:16px;padding:12px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #eef1fb}
     .hero-stat .num{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:#0b1530}
@@ -116,27 +108,33 @@
     .ring-text{flex:1}
     .ring-text .pct{font-size:13px;font-weight:800}
     .ring-text .sub{font-size:10px;color:#525d7a;font-weight:600}
-    .live-badge{background:#d6483d;color:#fff;font-size:8px;padding:2px 8px;border-radius:40px;text-transform:uppercase;font-weight:800;animation:pulse 1.5s infinite}
     .winner-btn.active{background:#f5a623!important;color:#0b1530;border-color:#f5a623!important}
     .participant-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f3fa}
     .participant-row:last-child{border-bottom:none}
     .participant-row .pname{font-weight:600;font-size:13px}
     .participant-row .pphone{font-size:11px;color:#525d7a}
     .remove-btn{background:none;border:none;color:#d6483d;cursor:pointer;font-size:16px;padding:0 4px}
+    /* Category Group Cards - innovative design */
+    .category-group{background:#fff;border-radius:20px;padding:0;margin-bottom:16px;border:1px solid #eef1fb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+    .category-header{background:linear-gradient(135deg,#f8f9fd,#eef1fb);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e6f0;cursor:pointer;transition:background .15s}
+    .category-header:active{background:#e8ebf5}
+    .category-header .cat-name{font-weight:800;font-size:14px;color:#0b1530;display:flex;align-items:center;gap:8px}
+    .category-header .cat-count{font-size:11px;font-weight:600;color:#525d7a;background:#fff;padding:2px 12px;border-radius:40px}
+    .category-header .cat-arrow{transition:transform .25s;color:#525d7a;font-size:14px}
+    .category-header .cat-arrow.open{transform:rotate(180deg)}
+    .category-body{padding:0 12px 12px}
+    .category-body .card{margin-bottom:8px;border:1px solid #f0f3fa;box-shadow:none}
+    .category-body .card:last-child{margin-bottom:0}
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
 <body>
 <div class="app" id="app">
 
-  <!-- header -->
   <div class="header">
     <div class="top-row">
       <div class="brand">
-        <div class="brand-icon">
-          <span class="k">KPCL</span>
-          <span class="p">⚡</span>
-        </div>
+        <div class="brand-icon"><span class="k">KPCL</span><span class="p">⚡</span></div>
         <div class="brand-text">
           <div class="org">KARNATAKA POWER CORPORATION LTD</div>
           <div class="event">57th Foundation Day Sports 2026</div>
@@ -161,18 +159,14 @@
     </div>
   </div>
 
-  <!-- content -->
   <div class="content" id="content"></div>
 
-  <!-- admin login floating -->
   <button class="admin-login" id="adminToggleBtn">🔐 Admin</button>
   <button class="fab" id="fabAdd">+</button>
 
-  <!-- sheet -->
   <div class="sheet-overlay" id="sheetOverlay"><div class="sheet" id="sheet"></div></div>
   <div class="toast" id="toast"></div>
 
-  <!-- login screen -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
       <h3>Admin sign-in</h3>
@@ -193,8 +187,9 @@ let isAdmin = false, currentTab = 'dashboard', activeFilter='all';
 let state = { events: [], notifications: [] };
 let lastSeenNotif = 0;
 let backendOk = true;
+let categoryState = {};
 
-// ----- SEED DATA (integrated from PDFs) -----
+// ----- SEED DATA -----
 const SEED_EVENTS = [
   // Cricket league
   {id:'cr1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'10:00 AM', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'142/5', scoreB:'138/8', winner:'A', coordinators:[], participants:[]},
@@ -218,7 +213,7 @@ const SEED_EVENTS = [
   // Outdoor
   {id:'ev6', name:'Tennis Ball Cricket', category:'Outdoor Games', venue:'BTPS Sports Ground', date:'2026-06-24', time:'TBA', status:'upcoming', note:'Matches from 24.06.2026', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Gopayya Kawali',phone:'9448290722'},{name:'Ajith Patil',phone:'9480489616'},{name:'Virupaksha K',phone:'9480830668'},{name:'Hulirajiv',phone:'9480830550'}], participants:[]},
   {id:'ev7', name:'Kabaddi', category:'Outdoor Games', venue:'BTPS', date:'2026-07-10', time:'TBA', status:'upcoming', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Dr. Ashok',phone:'9448290785'},{name:'Haresh V.',phone:'8792646436'},{name:'Hanumanthappa',phone:'8867973677'},{name:'J.S. Raghavendra',phone:'9480399046'}], participants:[]},
-  // Athletics (5 July RYMEC) – broken down
+  // Athletics (5 July RYMEC)
   {id:'ath1', name:'100m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva',phone:'9480830610'},{name:'Shyamsundar S',phone:'9480830387'}], participants:[]},
   {id:'ath2', name:'200m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', coordinators:[{name:'Dr. Ashok',phone:'9448290785'},{name:'B.L. Mahesh',phone:'9480830356'}], participants:[]},
   {id:'ath3', name:'100m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', coordinators:[{name:'Nujamuddin',phone:'9480830327'},{name:'Virupaksha K',phone:'9480830668'}], participants:[]},
@@ -267,13 +262,8 @@ loadState();
 
 function updateConnectionDot(){
   const dot = document.getElementById('connDot');
-  if(backendOk){
-    dot.style.display = 'none';
-    document.getElementById('connStatusBtn').title = 'Connected — synced with sheet';
-  }else{
-    dot.style.display = 'block';
-    document.getElementById('connStatusBtn').title = 'Offline — showing local data';
-  }
+  if(backendOk){ dot.style.display = 'none'; document.getElementById('connStatusBtn').title = 'Connected — synced with sheet'; }
+  else { dot.style.display = 'block'; document.getElementById('connStatusBtn').title = 'Offline — showing local data'; }
 }
 
 function renderTicker(){
@@ -353,16 +343,54 @@ function eventCardHtml(e){
   </div>`;
 }
 
+// ---------- INNOVATIVE GROUPED EVENTS ----------
 function renderEvents(){
   const c=document.getElementById('content');
-  const cats=['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
-  let filtered=activeFilter==='all'?state.events.filter(e=>e.category!=='Cricket'):state.events.filter(e=>e.category===activeFilter);
-  filtered=filtered.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-  let html=`<div class="chip-group">`;
+  const cats = ['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
+  let filtered = activeFilter==='all' ? state.events.filter(e=>e.category!=='Cricket') : state.events.filter(e=>e.category===activeFilter);
+  filtered = filtered.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+
+  let html = `<div class="chip-group">`;
   cats.forEach(cat=>{ html+=`<span class="chip ${activeFilter===cat?'active':''}" data-cat="${cat}">${cat}</span>`; });
-  html+=`</div><div class="section-title">All Events <small>${filtered.length}</small></div>`;
-  filtered.length?filtered.forEach(e=>html+=eventCardHtml(e)):html+=`<div class="empty">No events in this category</div>`;
+  html+=`</div>`;
+
+  if(!filtered.length){ html+=`<div class="empty">No events in this category</div>`; }
+  else {
+    // Group by category
+    const grouped = {};
+    filtered.forEach(e=>{ 
+      if(!grouped[e.category]) grouped[e.category] = [];
+      grouped[e.category].push(e);
+    });
+    Object.keys(grouped).forEach(cat=>{
+      if(!categoryState[cat]) categoryState[cat] = true; // default open
+      const isOpen = categoryState[cat];
+      html+=`<div class="category-group">
+        <div class="category-header" data-cat="${cat}">
+          <span class="cat-name">📂 ${cat}</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="cat-count">${grouped[cat].length} events</span>
+            <span class="cat-arrow ${isOpen?'open':''}">▼</span>
+          </div>
+        </div>
+        <div class="category-body" style="display:${isOpen?'block':'none'}">
+          ${grouped[cat].map(e=>eventCardHtml(e)).join('')}
+        </div>
+      </div>`;
+    });
+  }
+
   c.innerHTML=html;
+  // Category toggle
+  document.querySelectorAll('.category-header').forEach(el=>{
+    el.onclick=()=>{
+      const cat = el.dataset.cat;
+      categoryState[cat] = !categoryState[cat];
+      const body = el.nextElementSibling;
+      body.style.display = categoryState[cat] ? 'block' : 'none';
+      el.querySelector('.cat-arrow').classList.toggle('open');
+    };
+  });
   document.querySelectorAll('.chip').forEach(el=>{ el.onclick=()=>{ activeFilter=el.dataset.cat; renderEvents(); }; });
   bindCards(); renderTicker(); updateConnectionDot();
 }
@@ -455,24 +483,33 @@ function bindCards(){
   document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>openSheet(el.dataset.id); });
 }
 
+// ----- OPEN SHEET WITH FULL PARTICIPANT SAVE -----
 function openSheet(id){
-  const ev=state.events.find(e=>e.id===id);
+  const ev = state.events.find(e=>e.id===id);
   if(!ev) return;
-  const sheet=document.getElementById('sheet');
-  let html=`<div class="sheet-handle"></div><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:17px">${escapeHtml(ev.name)}</h3><button class="sheet-close" id="sheetClose">✕</button></div>
-  <div style="margin:6px 0 8px"><span class="status ${ev.status}">${ev.status}</span></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;background:#f4f6fc;border-radius:12px;padding:10px">
-    <div><span style="color:#525d7a">Category</span><br><strong>${escapeHtml(ev.category)}</strong></div>
-    <div><span style="color:#525d7a">Venue</span><br><strong>${escapeHtml(ev.venue)}</strong></div>
-    <div><span style="color:#525d7a">Date</span><br><strong>${fmtDate(ev.date)}</strong></div>
-    <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)}</strong></div>
-  </div>`;
+  const sheet = document.getElementById('sheet');
   
-  // Participants section - visible to admin
-  const participants = ev.participants || [];
-  html+=`<div style="margin-top:12px;font-weight:700;font-size:12px">👥 Participants <small style="font-weight:400;color:#525d7a">${participants.length}</small></div>`;
+  // Ensure participants is an array
+  if(!ev.participants) ev.participants = [];
+  const participants = ev.participants;
+  
+  let html = `<div class="sheet-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-size:17px">${escapeHtml(ev.name)}</h3>
+      <button class="sheet-close" id="sheetClose">✕</button>
+    </div>
+    <div style="margin:6px 0 8px"><span class="status ${ev.status}">${ev.status}</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;background:#f4f6fc;border-radius:12px;padding:10px">
+      <div><span style="color:#525d7a">Category</span><br><strong>${escapeHtml(ev.category)}</strong></div>
+      <div><span style="color:#525d7a">Venue</span><br><strong>${escapeHtml(ev.venue)}</strong></div>
+      <div><span style="color:#525d7a">Date</span><br><strong>${fmtDate(ev.date)}</strong></div>
+      <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)}</strong></div>
+    </div>`;
+  
+  // Participants section - with save
+  html += `<div style="margin-top:12px;font-weight:700;font-size:12px">👥 Participants <small style="font-weight:400;color:#525d7a">${participants.length}</small></div>`;
   if(isAdmin){
-    html+=`<div style="display:flex;gap:6px;margin:6px 0">
+    html += `<div style="display:flex;gap:6px;margin:6px 0">
       <input id="partName" placeholder="Name" style="flex:2;padding:6px 10px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px">
       <input id="partPhone" placeholder="Phone" style="flex:1;padding:6px 10px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px">
       <button class="btn" style="width:auto;padding:6px 14px;font-size:12px;background:#f5a623;color:#0b1530" id="addPartBtn">Add</button>
@@ -480,60 +517,63 @@ function openSheet(id){
   }
   if(participants.length){
     participants.forEach((p, idx)=>{
-      html+=`<div class="participant-row">
+      html += `<div class="participant-row">
         <div><div class="pname">${escapeHtml(p.name)}</div>${p.phone ? `<div class="pphone">${escapeHtml(p.phone)}</div>` : ''}</div>
         ${isAdmin ? `<button class="remove-btn" data-idx="${idx}" title="Remove">✕</button>` : ''}
       </div>`;
     });
   } else {
-    html+=`<div style="font-size:12px;color:#8a95bd;padding:4px 0">No participants registered yet</div>`;
+    html += `<div style="font-size:12px;color:#8a95bd;padding:4px 0">No participants registered yet</div>`;
   }
 
   // Cricket score editor for admin
   if(isAdmin && ev.teamA && ev.teamB){
-    html+=`<div style="margin-top:12px;font-weight:700;font-size:12px">✎ Update Score & Winner</div>
-    <div style="display:flex;gap:8px;margin:6px 0"><input id="scA" placeholder="${escapeHtml(ev.teamA)} score" value="${escapeHtml(ev.scoreA||'')}" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="scB" placeholder="${escapeHtml(ev.teamB)} score" value="${escapeHtml(ev.scoreB||'')}" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-      <button class="winner-btn ${ev.winner==='A'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='A'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="A">🏆 ${escapeHtml(ev.teamA)}</button>
-      <button class="winner-btn ${ev.winner==='B'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='B'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="B">🏆 ${escapeHtml(ev.teamB)}</button>
-      <button class="winner-btn ${ev.winner==='tie'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='tie'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="tie">🤝 Tie</button>
-      <button class="winner-btn ${!ev.winner?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${!ev.winner?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="">—</button>
-    </div>
-    <button class="btn" id="updateScoreBtn">Update Score</button>
-    <div style="margin-top:6px;display:flex;gap:6px">
-      <button class="btn" style="background:#e8f6ee;color:#1f9d6c;padding:8px" id="markComplete">✅ Mark Completed</button>
-      <button class="btn" style="background:#fff0db;color:#b06a06;padding:8px" id="markLive">🔴 Mark Live</button>
-    </div>`;
+    html += `<div style="margin-top:12px;font-weight:700;font-size:12px">✎ Update Score & Winner</div>
+      <div style="display:flex;gap:8px;margin:6px 0">
+        <input id="scA" placeholder="${escapeHtml(ev.teamA)} score" value="${escapeHtml(ev.scoreA||'')}" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0">
+        <input id="scB" placeholder="${escapeHtml(ev.teamB)} score" value="${escapeHtml(ev.scoreB||'')}" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0">
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        <button class="winner-btn ${ev.winner==='A'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='A'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="A">🏆 ${escapeHtml(ev.teamA)}</button>
+        <button class="winner-btn ${ev.winner==='B'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='B'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="B">🏆 ${escapeHtml(ev.teamB)}</button>
+        <button class="winner-btn ${ev.winner==='tie'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='tie'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="tie">🤝 Tie</button>
+        <button class="winner-btn ${!ev.winner?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${!ev.winner?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="">—</button>
+      </div>
+      <button class="btn" id="updateScoreBtn">Update Score</button>
+      <div style="margin-top:6px;display:flex;gap:6px">
+        <button class="btn" style="background:#e8f6ee;color:#1f9d6c;padding:8px" id="markComplete">✅ Mark Completed</button>
+        <button class="btn" style="background:#fff0db;color:#b06a06;padding:8px" id="markLive">🔴 Mark Live</button>
+      </div>`;
   }
   if(ev.coordinators && ev.coordinators.length){
-    html+=`<div style="margin-top:12px;font-weight:700;font-size:12px">📞 Coordinators</div>`;
+    html += `<div style="margin-top:12px;font-weight:700;font-size:12px">📞 Coordinators</div>`;
     ev.coordinators.forEach(c=>{
-      html+=`<a href="tel:${escapeHtml(c.phone)}" style="display:flex;justify-content:space-between;background:#f4f6fc;padding:6px 10px;border-radius:8px;margin-top:4px;text-decoration:none;color:inherit">
+      html += `<a href="tel:${escapeHtml(c.phone)}" style="display:flex;justify-content:space-between;background:#f4f6fc;padding:6px 10px;border-radius:8px;margin-top:4px;text-decoration:none;color:inherit">
         <span>${escapeHtml(c.name)}</span><span style="color:#1f9d6c">${escapeHtml(c.phone)}</span>
       </a>`;
     });
   }
-  sheet.innerHTML=html;
-  document.getElementById('sheetClose').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
+  sheet.innerHTML = html;
+  document.getElementById('sheetClose').onclick = ()=>document.getElementById('sheetOverlay').classList.remove('open');
   document.getElementById('sheetOverlay').classList.add('open');
 
-  // Add participant
+  // ----- ADD PARTICIPANT (SAVES TO STATE) -----
   if(isAdmin){
     const addBtn = document.getElementById('addPartBtn');
     if(addBtn){
-      addBtn.onclick=()=>{
+      addBtn.onclick = ()=>{
         const name = document.getElementById('partName').value.trim();
         const phone = document.getElementById('partPhone').value.trim();
         if(!name) return toast('Enter a name');
-        ev.participants = ev.participants || [];
         ev.participants.push({name, phone});
-        toast('Participant added');
+        toast('Participant added ✓');
+        // Re-open sheet to reflect changes
         openSheet(id);
         renderCurrentTab();
       };
     }
     document.querySelectorAll('.remove-btn').forEach(btn=>{
-      btn.onclick=()=>{
+      btn.onclick = ()=>{
         const idx = parseInt(btn.dataset.idx, 10);
         ev.participants.splice(idx, 1);
         toast('Participant removed');
@@ -546,25 +586,25 @@ function openSheet(id){
   // Score update logic
   if(isAdmin && ev.teamA && ev.teamB){
     document.querySelectorAll('.winner-btn').forEach(b=>{
-      b.onclick=()=>{
+      b.onclick = ()=>{
         document.querySelectorAll('.winner-btn').forEach(x=>x.classList.remove('active'));
         b.classList.add('active');
         ev.winner = b.dataset.win;
       };
     });
-    document.getElementById('updateScoreBtn').onclick=()=>{
+    document.getElementById('updateScoreBtn').onclick = ()=>{
       ev.scoreA = document.getElementById('scA').value.trim();
       ev.scoreB = document.getElementById('scB').value.trim();
-      toast('Score updated');
+      toast('Score updated ✓');
       document.getElementById('sheetOverlay').classList.remove('open');
       renderCurrentTab();
     };
-    document.getElementById('markComplete').onclick=()=>{ ev.status='completed'; toast('Marked completed'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
-    document.getElementById('markLive').onclick=()=>{ ev.status='live'; toast('Marked live'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
+    document.getElementById('markComplete').onclick = ()=>{ ev.status='completed'; toast('Marked completed'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
+    document.getElementById('markLive').onclick = ()=>{ ev.status='live'; toast('Marked live'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
   }
 }
 
-// ----- tab switching -----
+// ----- TAB SWITCHING -----
 function setTab(tab){
   currentTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
@@ -578,7 +618,7 @@ function setTab(tab){
 document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
 document.getElementById('bellBtn').onclick=()=>setTab('alerts');
 
-// admin
+// ADMIN
 document.getElementById('adminToggleBtn').onclick=()=>{
   if(isAdmin){ isAdmin=false; toast('Switched to employee view'); renderCurrentTab(); return; }
   document.getElementById('loginScreen').style.display='flex';
@@ -614,7 +654,7 @@ document.getElementById('fabAdd').onclick=()=>{
 function renderCurrentTab(){ setTab(currentTab); }
 renderCurrentTab();
 
-// Simulate connection status toggle (for demo)
+// Simulate connection status toggle
 setInterval(()=>{
   backendOk = !backendOk;
   updateConnectionDot();
