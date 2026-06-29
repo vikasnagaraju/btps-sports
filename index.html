@@ -1,1764 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>57th Foundation Day Sports Events at BTPS</title>
-<script>
-  window.addEventListener('error', function(e){
-    var box = document.createElement('div');
-    box.style.cssText = 'position:fixed;inset:0;background:#fff;z-index:99999;padding:20px;font-family:monospace;font-size:13px;color:#b00020;overflow:auto;white-space:pre-wrap;';
-    box.textContent = 'A loading error occurred — please screenshot this and send it back:\n\n' + e.message + '\n\nFile: ' + e.filename + '\nLine: ' + e.lineno + ', Col: ' + e.colno + (e.error && e.error.stack ? '\n\nStack:\n' + e.error.stack : '');
-    document.body.appendChild(box);
-  });
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy-950:#0b1530;
-    --navy-900:#0f1d3f;
-    --navy-800:#152854;
-    --navy-700:#1c3470;
-    --navy-600:#27439a;
-    --amber-500:#f5a623;
-    --amber-400:#ffc24d;
-    --amber-100:#fff3dc;
-    --paper:#f6f7fb;
-    --white:#ffffff;
-    --ink:#10172b;
-    --ink-soft:#525d7a;
-    --line:#e2e6f0;
-    --green:#1f9d6c;
-    --red:#d6483d;
-    --radius:14px;
-    --shadow-sm:0 1px 2px rgba(15,23,55,.06), 0 1px 1px rgba(15,23,55,.04);
-    --shadow-md:0 8px 24px rgba(15,23,55,.10);
-    --shadow-lg:0 20px 48px rgba(15,23,55,.18);
-  }
-
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-  }
-  .app{max-width:520px;margin:0 auto;min-height:100vh;background:var(--paper);position:relative;display:flex;flex-direction:column;}
-  @media (min-width:680px){
-    .app{max-width:900px;}
-  }
-
-  /* ---------- Header / live ticker (signature element) ---------- */
-  .topbar{
-    background:linear-gradient(135deg,var(--navy-950) 0%, var(--navy-800) 100%);
-    color:#fff;
-    padding:18px 20px 0;
-    position:sticky;top:0;z-index:30;
-    box-shadow:var(--shadow-md);
-  }
-  .topbar-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-  .brand{display:flex;align-items:center;gap:11px;}
-  .brand-logo-chip{
-    width:42px;height:42px;border-radius:10px;background:#fff;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;padding:4px;
-    box-shadow:0 2px 8px rgba(0,0,0,.25);
-  }
-  .brand-logo-chip img{width:100%;height:100%;object-fit:contain;}
-  .brand-text h1{
-    font-size:15.5px;font-weight:800;margin:0;letter-spacing:.1px;line-height:1.2;
-    color:var(--amber-400);
-  }
-  .brand-sub-org{font-size:10.5px;margin:3px 0 0;color:#fff;letter-spacing:.1px;text-transform:none;font-weight:700;}
-  .brand-sub-station{font-size:9.5px;margin:1px 0 0;color:#b6bedd;letter-spacing:.1px;text-transform:none;font-weight:600;}
-  .topbar-actions{display:flex;gap:7px;align-items:center;flex-shrink:0;}
-  .icon-btn{
-    width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.06);color:#fff;display:flex;align-items:center;justify-content:center;
-    cursor:pointer;position:relative;transition:background .15s;
-  }
-  .icon-btn:hover{background:rgba(255,255,255,.14);}
-  .icon-btn svg{width:16px;height:16px;}
-  .badge-dot{
-    position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;
-    background:var(--red);border:2px solid var(--navy-950);
-  }
-  .admin-login-btn{
-    display:flex;align-items:center;gap:5px;border-radius:99px;border:1px solid rgba(245,166,35,.4);
-    background:rgba(245,166,35,.12);color:var(--amber-400);padding:8px 12px;cursor:pointer;
-    transition:background .15s;flex-shrink:0;
-  }
-  .admin-login-btn:hover{background:rgba(245,166,35,.2);}
-  .admin-login-btn svg{width:14px;height:14px;flex-shrink:0;}
-  .admin-login-btn span{font-size:10.5px;font-weight:800;letter-spacing:.2px;white-space:nowrap;}
-
-  /* Single scrolling marquee bar for notifications (signature consolidation) */
-  .marquee-wrap{
-    margin-top:14px;display:flex;align-items:center;gap:10px;
-    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-    border-radius:99px;padding:8px 8px 8px 8px;overflow:hidden;
-  }
-  .marquee-wrap.is-live{background:linear-gradient(90deg, rgba(245,166,35,.2), rgba(255,255,255,.05));border-color:rgba(245,166,35,.5);}
-  .marquee-icon{
-    width:26px;height:26px;border-radius:50%;background:var(--amber-500);color:var(--navy-950);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  .marquee-icon svg{width:13px;height:13px;}
-  .marquee-track{flex:1;min-width:0;overflow:hidden;position:relative;}
-  .marquee-content{
-    display:inline-block;white-space:nowrap;font-size:12.5px;font-weight:700;color:#fff;
-    padding-left:100%;animation-name:marquee-scroll;animation-timing-function:linear;animation-iteration-count:infinite;
-  }
-  .marquee-content .sep{color:var(--amber-400);margin:0 14px;}
-  @keyframes marquee-scroll{
-    0%{transform:translateX(0);}
-    100%{transform:translateX(-100%);}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .marquee-content{animation:none;padding-left:0;}
-  }
-  .live-pulse{
-    width:8px;height:8px;border-radius:50%;background:var(--amber-400);flex-shrink:0;
-    animation:pulse 1.6s infinite;
-  }
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,166,35,.6);}70%{box-shadow:0 0 0 7px rgba(245,166,35,0);}100%{box-shadow:0 0 0 0 rgba(245,166,35,0);}}
-
-  .tabs{
-    display:flex;gap:4px;padding:14px 20px 0;margin-top:2px;
-    overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;
-  }
-  .tabs::-webkit-scrollbar{display:none;}
-  .tab{
-    flex:0 0 auto;min-width:64px;text-align:center;padding:9px 8px;font-size:12px;font-weight:600;color:#9aa6cc;
-    border-bottom:2.5px solid transparent;cursor:pointer;transition:color .15s;
-    display:flex;align-items:center;justify-content:center;gap:5px;
-  }
-  .tab svg{width:14px;height:14px;}
-  .tab.active{color:#fff;border-bottom-color:var(--amber-400);}
-
-  /* ---------- Content ---------- */
-  .content{flex:1;padding:18px 20px 100px;}
-  .section-head{display:flex;align-items:baseline;justify-content:space-between;margin:22px 0 12px;}
-  .section-head:first-child{margin-top:4px;}
-  .section-head h2{font-size:15px;font-weight:800;margin:0;letter-spacing:.1px;}
-  .section-head .count{font-size:11.5px;color:var(--ink-soft);font-weight:600;}
-  .eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--navy-600);font-weight:700;margin-bottom:4px;}
-
-  /* ===== DASHBOARD — Control Panel module (signature element) ===== */
-  .panel-hero{
-    position:relative;border-radius:18px;overflow:hidden;margin-top:6px;margin-bottom:18px;
-    background:
-      linear-gradient(160deg,#0a1228 0%, var(--navy-800) 55%, #142555 100%);
-    padding:20px 18px 18px;color:#fff;
-    box-shadow:0 16px 32px rgba(11,21,48,.22);
-  }
-  .panel-hero::before{
-    content:'';position:absolute;inset:0;opacity:.5;pointer-events:none;
-    background-image:
-      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size:18px 18px;
-  }
-  .panel-hero::after{
-    content:'';position:absolute;top:-40%;right:-20%;width:70%;height:140%;
-    background:radial-gradient(circle, rgba(245,166,35,.16), transparent 65%);
-    pointer-events:none;
-  }
-  .panel-hero-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;}
-  .panel-eyebrow{
-    font-size:9.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:800;color:var(--amber-400);
-    display:flex;align-items:center;gap:6px;
-  }
-  .panel-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--amber-400);animation:pulse 1.6s infinite;}
-  .panel-clock{font-family:'Oswald',sans-serif;font-size:11px;color:#9aa6cc;letter-spacing:.5px;}
-  .panel-event-name{position:relative;font-size:18px;font-weight:800;line-height:1.25;margin-bottom:4px;}
-  .panel-event-meta{position:relative;font-size:12px;color:#b6bedd;font-weight:500;}
-  .panel-score-row{
-    position:relative;display:flex;align-items:center;justify-content:center;gap:16px;
-    margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);
-  }
-  .panel-score-team{flex:1;text-align:center;}
-  .panel-score-team .nm{font-size:11.5px;font-weight:700;color:#c3cae6;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .panel-score-team .val{font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:var(--amber-400);letter-spacing:.5px;text-shadow:0 0 16px rgba(245,166,35,.4);}
-  .panel-score-vs{font-size:10px;color:#6b76a0;font-weight:800;letter-spacing:1px;}
-
-  /* Gauge ring row */
-  .gauge-row{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:18px;box-shadow:var(--shadow-sm);}
-  .gauge-ring{position:relative;width:84px;height:84px;flex-shrink:0;}
-  .gauge-ring svg{width:84px;height:84px;transform:rotate(-90deg);}
-  .gauge-ring .gauge-track{fill:none;stroke:#eef1fb;stroke-width:8;}
-  .gauge-ring .gauge-fill{fill:none;stroke:var(--amber-500);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1);}
-  .gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .gauge-center .num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy-900);line-height:1;}
-  .gauge-center .pct{font-size:8.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.3px;}
-  .gauge-stats{display:flex;flex-direction:column;gap:8px;}
-  .gauge-stat-item{display:flex;align-items:center;justify-content:space-between;}
-  .gauge-stat-item .lbl{font-size:11.5px;color:var(--ink-soft);font-weight:600;display:flex;align-items:center;gap:6px;}
-  .gauge-stat-item .lbl .swatch{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-  .gauge-stat-item .num{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--navy-900);}
-
-  /* Horizontal spotlight rail (replaces vertical list pattern on Dashboard) */
-  .rail-scroll{display:flex;gap:11px;overflow-x:auto;padding:2px 2px 10px;margin:0 -2px;-ms-overflow-style:none;scrollbar-width:none;scroll-snap-type:x proximity;}
-  .rail-scroll::-webkit-scrollbar{display:none;}
-  .rail-card{
-    flex-shrink:0;width:200px;scroll-snap-align:start;background:var(--white);border:1px solid var(--line);
-    border-radius:14px;padding:13px;box-shadow:var(--shadow-sm);cursor:pointer;transition:box-shadow .15s, transform .1s;
-  }
-  .rail-card:active{transform:scale(.98);}
-  .rail-card:hover{box-shadow:var(--shadow-md);}
-  .rail-card-cat{font-size:9.5px;font-weight:800;color:var(--navy-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
-  .rail-card-name{font-size:13.5px;font-weight:800;color:var(--ink);line-height:1.3;margin-bottom:8px;min-height:35px;}
-  .rail-card-meta{display:flex;flex-direction:column;gap:4px;}
-  .rail-card-meta-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--ink-soft);font-weight:600;}
-  .rail-card-meta-item svg{width:11px;height:11px;flex-shrink:0;opacity:.65;}
-  .rail-card-day{
-    font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy-900);line-height:1;
-  }
-  .rail-card-daywrap{display:flex;align-items:baseline;gap:5px;margin-bottom:7px;}
-  .rail-card-monthtime{font-size:10px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;}
-
-  /* Developer credit footer */
-  .dev-credit{
-    text-align:center;padding:18px 16px 6px;font-size:10.5px;color:#aab4d6;font-weight:600;letter-spacing:.2px;
-  }
-  .dev-credit b{color:var(--ink-soft);font-weight:700;}
-
-  /* Stat strip (legacy, kept for compatibility) */
-  .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
-  .stat-card{
-    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px 10px;text-align:center;box-shadow:var(--shadow-sm);
-  }
-  .stat-num{font-family:'Oswald',sans-serif;font-size:26px;font-weight:600;color:var(--navy-900);line-height:1;letter-spacing:.3px;}
-  .stat-num.amber{color:var(--amber-500);}
-  .stat-lbl{font-size:10px;color:var(--ink-soft);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
-
-  /* Event cards */
-  .event-card{
-    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px 14px 13px;margin-bottom:12px;box-shadow:var(--shadow-sm);cursor:pointer;
-    transition:box-shadow .18s, transform .12s;position:relative;overflow:hidden;
-  }
-  .event-card::before{
-    content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
-    background:var(--line);transition:background .15s;
-  }
-  .event-card:active{transform:scale(.985);}
-  .event-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
-  .event-card-cricket{
-    background:linear-gradient(160deg,#fff 0%, #fbfdf9 100%);
-    border-color:#dceadd;
-  }
-  .event-card-cricket::before{background:linear-gradient(180deg,var(--green),#0d7a4f);}
-  .ec-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding-left:4px;}
-  .ec-name{font-size:14.5px;font-weight:800;color:var(--ink);line-height:1.3;}
-  .ec-cat{font-size:10.5px;color:var(--navy-600);font-weight:700;margin-top:2px;letter-spacing:.2px;}
-  .status-chip{
-    font-size:9.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
-    padding:4px 9px;border-radius:99px;white-space:nowrap;flex-shrink:0;
-    display:inline-flex;align-items:center;gap:4px;
-  }
-  .status-chip.upcoming{background:#eef1fb;color:var(--navy-600);}
-  .status-chip.live{background:#fff0db;color:#b06a06;}
-  .status-chip.completed{background:#e8f6ee;color:var(--green);}
-  .live-dot-inline{
-    width:6px;height:6px;border-radius:50%;background:#b06a06;display:inline-block;
-    animation:pulse 1.4s infinite;
-  }
-  .ec-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-left:4px;}
-  .ec-meta-item{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-soft);font-weight:500;}
-  .ec-meta-item svg{width:12.5px;height:12.5px;flex-shrink:0;opacity:.7;}
-
-  /* Scorecard — signature element: stadium LED scoreboard panel */
-  .scorecard{
-    margin-top:12px;padding:15px 15px 13px;border-radius:10px;
-    background:
-      repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0px, rgba(255,255,255,.025) 1px, transparent 1px, transparent 3px),
-      linear-gradient(160deg,#0a1228,var(--navy-800));
-    color:#fff;
-    border:1px solid rgba(245,166,35,.18);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
-    position:relative;
-    overflow:hidden;
-  }
-  .scorecard::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:2px;
-    background:linear-gradient(90deg,transparent,var(--amber-400),transparent);
-    opacity:.6;
-  }
-  .sc-row{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 2px;
-    border-radius:6px;transition:background .15s;
-  }
-  .sc-row.sc-winner{background:rgba(245,166,35,.14);padding:7px 10px;margin:0 -10px;}
-  .sc-team{
-    font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:6px;letter-spacing:.1px;
-    color:#eef1fb;min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  }
-  .sc-row.sc-winner .sc-team{color:#fff;}
-  .sc-trophy{font-size:14px;line-height:1;flex-shrink:0;}
-  .sc-runs{
-    font-family:'Oswald',sans-serif;font-size:21px;font-weight:600;
-    font-variant-numeric:tabular-nums;letter-spacing:.5px;color:var(--amber-400);
-    text-shadow:0 0 12px rgba(245,166,35,.35);flex-shrink:0;white-space:nowrap;
-  }
-  .sc-row.sc-winner .sc-runs{color:var(--amber-400);}
-  .sc-divider{
-    text-align:center;font-size:9px;color:#8390bb;font-weight:700;letter-spacing:1.5px;
-    text-transform:uppercase;padding:3px 0;
-  }
-  .sc-result-tag{
-    margin-top:9px;padding:7px 0 0;border-top:1px solid rgba(255,255,255,.12);
-    font-size:11.5px;font-weight:800;color:#b6bedd;text-align:center;letter-spacing:.4px;text-transform:uppercase;
-    display:flex;align-items:center;justify-content:center;gap:6px;
-  }
-  .sc-result-tag.win{color:var(--amber-400);}
-  .result-pending{
-    margin-top:10px;padding:9px 11px;border-radius:9px;background:#fdf6ec;color:#9a6b1f;
-    font-size:11.5px;font-weight:700;display:flex;align-items:center;gap:6px;
-  }
-
-  .ec-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-left:4px;}
-  .participant-pill{
-    font-size:11px;color:var(--navy-700);font-weight:700;background:#eef1fb;
-    padding:4px 10px;border-radius:99px;display:inline-flex;align-items:center;gap:5px;
-  }
-
-  /* empty state */
-  .empty{
-    text-align:center;padding:36px 20px;color:var(--ink-soft);
-  }
-  .empty svg{width:38px;height:38px;opacity:.35;margin-bottom:10px;}
-  .empty p{font-size:13px;margin:0;font-weight:500;}
-
-  /* Search/filter row */
-  .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:4px;-ms-overflow-style:none;scrollbar-width:none;}
-  .filter-row::-webkit-scrollbar{display:none;}
-  .chip-filter{
-    flex-shrink:0;font-size:12px;font-weight:700;padding:7px 13px;border-radius:99px;
-    border:1px solid var(--line);background:var(--white);color:var(--ink-soft);cursor:pointer;
-    transition:all .12s; white-space:nowrap;
-  }
-  .chip-filter.active{background:var(--navy-900);color:#fff;border-color:var(--navy-900);}
-
-  /* Organisers tab */
-  .org-search-wrap{
-    display:flex;align-items:center;gap:9px;background:var(--white);border:1.5px solid var(--line);
-    border-radius:11px;padding:10px 13px;margin-bottom:16px;color:var(--ink-soft);
-  }
-  .org-search-wrap input{
-    flex:1;border:none;outline:none;font-size:13.5px;font-family:inherit;color:var(--ink);background:transparent;
-  }
-  .org-cat-head{
-    font-size:11px;font-weight:800;color:var(--navy-600);text-transform:uppercase;letter-spacing:.5px;
-    margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--navy-600);display:inline-block;
-  }
-  .org-event-card{
-    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px;margin-bottom:10px;box-shadow:var(--shadow-sm);
-  }
-  .org-event-name{font-size:14px;font-weight:800;color:var(--ink);line-height:1.3;}
-  .org-event-meta{font-size:11px;color:var(--ink-soft);font-weight:600;margin-top:3px;margin-bottom:11px;}
-  .org-contact-list{display:flex;flex-direction:column;gap:7px;}
-  .org-contact-row{
-    display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--paper);
-    border-radius:10px;padding:9px 11px;transition:background .15s;
-  }
-  .org-contact-row:hover{background:#eef1fb;}
-  .org-contact-avatar{
-    width:30px;height:30px;border-radius:50%;background:var(--navy-700);color:#fff;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
-  }
-  .org-contact-name{flex:1;font-size:12.5px;font-weight:700;color:var(--ink);min-width:0;}
-  .org-contact-phone{
-    display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--navy-600);
-    background:#eef1fb;padding:5px 10px;border-radius:99px;flex-shrink:0;white-space:nowrap;
-  }
-
-  /* CricHeroes quick-link cards */
-  .cricheroes-link-card{
-    display:flex;align-items:center;gap:13px;background:var(--white);border:1px solid var(--line);
-    border-radius:var(--radius);padding:14px;margin-bottom:10px;text-decoration:none;color:var(--ink);
-    box-shadow:var(--shadow-sm);transition:box-shadow .15s, transform .1s;
-  }
-  .cricheroes-link-card:hover{box-shadow:var(--shadow-md);}
-  .cricheroes-link-card:active{transform:scale(.99);}
-  .clc-icon{
-    width:42px;height:42px;border-radius:11px;background:#eef1fb;color:var(--navy-600);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  .clc-icon svg{width:19px;height:19px;}
-  .clc-text{flex:1;min-width:0;}
-  .clc-label{font-size:14px;font-weight:800;color:var(--ink);}
-  .clc-sub{font-size:11.5px;color:var(--ink-soft);margin-top:1px;}
-  .clc-arrow{color:var(--ink-soft);flex-shrink:0;}
-  .embed-note{font-size:11px;color:var(--ink-soft);text-align:center;margin:4px 0 2px;display:flex;align-items:center;justify-content:center;gap:5px;}
-  .embed-note svg{width:11px;height:11px;flex-shrink:0;}
-
-  /* Detail sheet (modal) */
-  .sheet-overlay{
-    position:fixed;inset:0;background:rgba(11,21,48,.55);z-index:100;
-    display:none;align-items:flex-end;justify-content:center;
-    backdrop-filter:blur(2px);
-  }
-  .sheet-overlay.open{display:flex;animation:fadeIn .15s ease;}
-  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-  .sheet{
-    background:var(--white);width:100%;max-width:520px;border-radius:20px 20px 0 0;
-    max-height:88vh;overflow-y:auto;padding:0 20px 28px;
-    animation:slideUp .22s cubic-bezier(.2,.9,.3,1);
-  }
-  @media (min-width:680px){.sheet{max-width:560px;}}
-  @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
-  .sheet-handle{width:36px;height:4px;background:var(--line);border-radius:99px;margin:12px auto 6px;}
-  .sheet-head{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 0 4px;gap:10px;}
-  .sheet-head h3{font-size:18px;font-weight:800;margin:0;line-height:1.3;}
-  .sheet-close{
-    width:30px;height:30px;border-radius:50%;background:var(--paper);border:none;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink-soft);
-  }
-  .sheet-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
-  .meta-box{background:var(--paper);border-radius:10px;padding:10px 12px;}
-  .meta-box .lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-soft);font-weight:700;margin-bottom:3px;}
-  .meta-box .val{font-size:13px;font-weight:700;color:var(--ink);}
-  .score-edit-row{display:flex;align-items:center;gap:10px;background:var(--navy-950);border-radius:12px;padding:16px;margin:14px 0;color:#fff;}
-  .winner-row{margin:0 0 14px;}
-  .winner-label{font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
-  .winner-btns{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-  .winner-btn{
-    padding:9px 8px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
-    font-size:12px;font-weight:700;color:var(--ink-soft);cursor:pointer;text-align:center;
-  }
-  .winner-btn.selected{background:var(--amber-100);border-color:var(--amber-500);color:#8a5d04;}
-  .winner-btn.tie.selected{background:#eef1fb;border-color:var(--navy-600);color:var(--navy-600);}
-  .winner-btn.none{grid-column:1 / -1;}
-  .winner-btn.none.selected{background:var(--paper);border-color:var(--ink-soft);color:var(--ink-soft);}
-  .score-input{
-    flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;
-    border-radius:8px;padding:9px 10px;font-size:13px;font-weight:600;font-family:inherit;
-  }
-  .score-input::placeholder{color:#8a95bd;}
-  .vs-divider{font-size:11px;color:#8a95bd;font-weight:700;}
-  .status-row{display:flex;gap:8px;margin:14px 0;}
-  .status-btn{
-    flex:1;padding:9px 6px;border-radius:9px;border:1.5px solid var(--line);background:#fff;
-    font-size:11.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;text-transform:uppercase;letter-spacing:.3px;
-  }
-  .status-btn.sel-upcoming.selected{background:#eef1fb;border-color:var(--navy-600);color:var(--navy-600);}
-  .status-btn.sel-live.selected{background:#fff0db;border-color:var(--amber-500);color:#b06a06;}
-  .status-btn.sel-completed.selected{background:#e8f6ee;border-color:var(--green);color:var(--green);}
-
-  .divider-label{font-size:11.5px;font-weight:800;color:var(--ink);margin:18px 0 10px;display:flex;align-items:center;justify-content:space-between;}
-  .coord-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);gap:10px;}
-  .coord-row:last-child{border-bottom:none;}
-  .coord-name{font-size:13px;font-weight:700;color:var(--ink);}
-  .coord-call{
-    font-size:12.5px;color:var(--green);font-weight:800;text-decoration:none;
-    display:flex;align-items:center;gap:6px;background:#e8f6ee;padding:8px 13px;border-radius:99px;
-    flex-shrink:0;white-space:nowrap;transition:transform .1s;
-  }
-  .coord-call:active{transform:scale(.95);}
-  .coord-call svg{width:13px;height:13px;}
-
-  .participant-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);}
-  .participant-row:last-child{border-bottom:none;}
-  .p-info{display:flex;align-items:center;gap:10px;}
-  .p-avatar{
-    width:32px;height:32px;border-radius:50%;background:var(--navy-700);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;
-  }
-  .p-name{font-size:13px;font-weight:700;color:var(--ink);}
-  .p-phone{font-size:10.5px;color:var(--ink-soft);margin-top:1px;}
-  .remove-btn{
-    width:26px;height:26px;border-radius:50%;border:none;background:#fdeceb;color:var(--red);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
-  }
-  .add-participant-form{display:flex;gap:8px;margin-top:12px;}
-  .add-participant-form input{
-    flex:1;border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;font-size:13px;font-family:inherit;
-  }
-  .add-participant-form input:focus{outline:none;border-color:var(--navy-600);}
-
-  .btn{
-    width:100%;padding:13px;border-radius:11px;border:none;font-size:13.5px;font-weight:700;
-    cursor:pointer;text-align:center;font-family:inherit;
-  }
-  .btn-primary{background:var(--navy-900);color:#fff;margin-top:6px;}
-  .btn-primary:active{background:var(--navy-950);}
-  .btn-amber{background:var(--amber-500);color:var(--navy-950);}
-  .btn-ghost{background:var(--paper);color:var(--ink);}
-  .btn-danger-outline{background:#fff;color:var(--red);border:1.5px solid #f6cbc7;}
-  .btn:disabled{opacity:.5;cursor:not-allowed;}
-
-  /* Notifications view */
-  .notif-item{
-    display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--line);
-  }
-  .notif-icon{
-    width:34px;height:34px;border-radius:9px;background:#eef1fb;color:var(--navy-600);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  .notif-icon svg{width:16px;height:16px;}
-  .notif-icon.alert{background:#fff0db;color:#b06a06;}
-  .notif-body .ttl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
-  .notif-body .msg{font-size:12.5px;color:var(--ink-soft);line-height:1.45;}
-  .notif-body .time{font-size:10.5px;color:#9aa6cc;margin-top:4px;font-weight:600;}
-
-  /* Admin toggle / login */
-  .admin-banner{
-    background:linear-gradient(135deg,var(--amber-100),#fff8eb);border:1px solid #f4dba7;
-    border-radius:12px;padding:11px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;
-  }
-  .admin-banner svg{width:18px;height:18px;color:var(--amber-500);flex-shrink:0;}
-  .admin-banner span{font-size:12px;font-weight:700;color:#8a5d04;}
-
-  .form-group{margin-bottom:12px;}
-  .form-group label{font-size:11.5px;font-weight:700;color:var(--ink-soft);display:block;margin-bottom:5px;}
-  .form-group input, .form-group select, .form-group textarea{
-    width:100%;border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;font-size:13.5px;
-    font-family:inherit;background:#fff;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{outline:none;border-color:var(--navy-600);}
-  .form-row{display:flex;gap:10px;}
-  .form-row .form-group{flex:1;}
-
-  /* Bottom nav */
-  .bottomnav{
-    position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);
-    display:flex;justify-content:center;z-index:40;box-shadow:0 -4px 16px rgba(15,23,55,.06);
-  }
-  .bottomnav-inner{max-width:520px;width:100%;display:flex;}
-  @media (min-width:680px){.bottomnav-inner{max-width:900px;}}
-  .nav-item{
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 2px 8px;
-    color:#aab4d6;cursor:pointer;position:relative;min-width:0;
-  }
-  .nav-item svg{width:18px;height:18px;flex-shrink:0;}
-  .nav-item span{font-size:9px;font-weight:700;white-space:nowrap;}
-  .nav-item.active{color:var(--navy-700);}
-  .nav-item .nav-badge{
-    position:absolute;top:6px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:var(--red);
-  }
-
-  .toast{
-    position:fixed;bottom:84px;left:50%;transform:translateX(-50%);
-    background:var(--navy-950);color:#fff;padding:11px 20px;border-radius:99px;font-size:12.5px;font-weight:700;
-    box-shadow:var(--shadow-lg);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;
-    white-space:nowrap;
-  }
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
-
-  .login-screen{
-    position:fixed;inset:0;background:linear-gradient(160deg,var(--navy-950),var(--navy-800));
-    z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;
-  }
-  .login-box{background:#fff;border-radius:18px;padding:28px 24px;width:100%;max-width:340px;box-shadow:var(--shadow-lg);}
-  .login-box h3{font-size:17px;font-weight:800;margin:0 0 4px;}
-  .login-box p{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;}
-  .login-err{color:var(--red);font-size:12px;font-weight:600;margin-top:8px;}
-
-  .fab{
-    position:fixed;bottom:90px;right:calc(50% - 260px + 18px);width:52px;height:52px;border-radius:50%;
-    background:var(--amber-500);color:var(--navy-950);border:none;box-shadow:var(--shadow-lg);
-    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;
-  }
-  @media (max-width:520px){.fab{right:18px;}}
-  .fab svg{width:22px;height:22px;}
-
-  .skeleton{background:linear-gradient(90deg,#eceef5 25%,#f5f6fa 37%,#eceef5 63%);background-size:400% 100%;animation:shimmer 1.4s infinite;border-radius:var(--radius);height:84px;margin-bottom:10px;}
-  @keyframes shimmer{0%{background-position:100% 50%;}100%{background-position:0 50%;}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>57th Foundation Day · KPCL BTPS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
+    .app{max-width:500px;margin:0 auto;padding:12px 14px 20px}
+    /* header */
+    .header{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:28px;padding:18px 16px 12px;color:#fff;box-shadow:0 8px 20px rgba(11,21,48,.25)}
+    .top-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-icon{width:44px;height:44px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:9px;color:#0b1530;box-shadow:0 2px 8px rgba(0,0,0,.2);padding:4px;flex-shrink:0;text-align:center;line-height:1.1;flex-direction:column}
+    .brand-icon .k{font-size:14px;font-weight:900;color:#c0392b}
+    .brand-icon .p{font-size:8px;font-weight:700;color:#0b1530;letter-spacing:.2px}
+    .brand-text{line-height:1.2}
+    .brand-text .org{font-size:13px;font-weight:700;letter-spacing:.2px;color:#f5a623}
+    .brand-text .sub{font-size:9px;font-weight:600;color:#b6bedd;margin-top:1px}
+    .brand-text .event{font-size:11px;font-weight:800;color:#fff;letter-spacing:.3px;margin-top:2px}
+    .header-actions{display:flex;gap:6px;align-items:center}
+    .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+    .badge-dot{width:8px;height:8px;background:#d6483d;border-radius:50%;position:absolute;top:-2px;right:-2px;border:2px solid #0b1530}
+    .conn-status{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:4px}
+    .conn-status.online{background:#1f9d6c;box-shadow:0 0 6px rgba(31,157,108,.4)}
+    .conn-status.offline{background:#d6483d;box-shadow:0 0 6px rgba(214,72,61,.4)}
+    .marquee{background:rgba(255,255,255,.06);border-radius:40px;padding:6px 10px;margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08)}
+    .marquee .live{width:8px;height:8px;background:#f5a623;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
+    @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
+    .marquee-text{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+    /* tabs */
+    .tabs{display:flex;gap:4px;margin-top:14px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{flex-shrink:0;padding:8px 12px;font-size:11px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px}
+    .tab.active{color:#fff;border-bottom-color:#f5a623}
+    .tab svg{width:14px;height:14px}
+    /* content */
+    .content{margin-top:14px}
+    .section-title{font-size:15px;font-weight:800;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
+    .section-title small{font-size:11px;font-weight:600;color:#525d7a}
+    .card{background:#fff;border-radius:18px;padding:14px 14px 12px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.04);border:1px solid #eef1fb;transition:.15s;cursor:pointer}
+    .card-cricket{border-left:5px solid #1f9d6c}
+    .card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+    .card-title{font-size:14px;font-weight:800;line-height:1.3}
+    .card-cat{font-size:10px;font-weight:700;color:#27439a;margin-top:2px}
+    .status{font-size:9px;font-weight:700;text-transform:uppercase;padding:3px 9px;border-radius:40px;white-space:nowrap}
+    .status.upcoming{background:#eef1fb;color:#152854}
+    .status.live{background:#fff0db;color:#b06a06}
+    .status.completed{background:#e8f6ee;color:#1f9d6c}
+    .meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px;font-size:11px;color:#525d7a;font-weight:600}
+    .meta span{display:flex;align-items:center;gap:4px}
+    .meta svg{width:13px;height:13px;opacity:.6}
+    .scorecard{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:14px;padding:12px 14px;margin-top:10px;color:#fff;border:1px solid rgba(245,166,35,.15)}
+    .sc-row{display:flex;justify-content:space-between;padding:4px 0;align-items:center}
+    .sc-team{font-weight:700;font-size:13px;display:flex;align-items:center;gap:5px}
+    .sc-team .trophy{color:#f5a623}
+    .sc-runs{font-family:'Oswald',sans-serif;font-size:20px;color:#f5a623}
+    .sc-vs{text-align:center;font-size:8px;color:#8390bb;letter-spacing:1px;padding:2px 0}
+    .sc-result{text-align:center;font-size:10px;font-weight:700;color:#f5a623;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);margin-top:6px}
+    .participant-pill{font-size:10px;font-weight:700;color:#27439a;background:#eef1fb;padding:3px 10px;border-radius:40px;display:inline-flex;align-items:center;gap:4px}
+    .empty{text-align:center;padding:30px 10px;color:#8a95bd;font-weight:500}
+    /* organisers */
+    .org-search{background:#fff;border-radius:12px;padding:8px 14px;border:1.5px solid #e2e6f0;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .org-search input{flex:1;border:none;outline:none;font-size:13px;font-weight:500;background:transparent}
+    .org-card{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;border:1px solid #eef1fb}
+    .org-card .name{font-weight:800;font-size:13px}
+    .org-card .sub{font-size:11px;color:#525d7a;margin:2px 0 8px}
+    .org-contact{display:flex;align-items:center;gap:10px;padding:6px 8px;background:#f4f6fc;border-radius:10px;margin-bottom:5px;text-decoration:none;color:inherit}
+    .org-contact .avatar{width:28px;height:28px;border-radius:50%;background:#162a5e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0}
+    .org-contact .cname{flex:1;font-weight:600;font-size:12px}
+    .org-contact .phone{font-size:11px;font-weight:700;color:#1f9d6c;background:#e8f6ee;padding:3px 10px;border-radius:40px}
+    .chip-group{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px}
+    .chip{font-size:10px;font-weight:700;padding:4px 12px;border-radius:40px;background:#eef1fb;color:#152854;cursor:pointer;border:1px solid transparent}
+    .chip.active{background:#0b1530;color:#fff;border-color:#0b1530}
+    .btn{width:100%;padding:12px;border-radius:14px;border:none;font-weight:700;font-size:13px;background:#0b1530;color:#fff;cursor:pointer}
+    .btn-amber{background:#f5a623;color:#0b1530}
+    .admin-banner{background:#fff3dc;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#8a5d04;margin-bottom:12px}
+    .footer{text-align:center;font-size:10px;color:#aab4d6;padding:20px 0 6px;font-weight:600}
+    /* sheet */
+    .sheet-overlay{position:fixed;inset:0;background:rgba(11,21,48,.5);z-index:100;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+    .sheet-overlay.open{display:flex}
+    .sheet{background:#fff;width:100%;max-width:500px;border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;padding:12px 18px 24px;animation:slideup .25s ease}
+    @keyframes slideup{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .sheet-handle{width:36px;height:4px;background:#d0d6e8;border-radius:40px;margin:4px auto 10px}
+    .sheet-close{float:right;background:#f4f6fc;border:none;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer}
+    .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#0b1530;color:#fff;padding:10px 24px;border-radius:60px;font-weight:700;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:200;opacity:0;pointer-events:none;transition:.2s}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+    /* admin */
+    .admin-login{position:fixed;bottom:16px;right:16px;background:#f5a623;color:#0b1530;border:none;border-radius:60px;padding:10px 18px;font-weight:800;font-size:12px;box-shadow:0 6px 16px rgba(245,166,35,.3);z-index:50;cursor:pointer;display:flex;align-items:center;gap:6px}
+    .login-screen{position:fixed;inset:0;background:rgba(11,21,48,.8);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+    .login-box{background:#fff;border-radius:24px;padding:28px 22px;max-width:320px;width:100%}
+    .login-box input{width:100%;padding:12px;border:1.5px solid #e2e6f0;border-radius:12px;font-size:14px;margin:12px 0}
+    .login-box .err{color:#d6483d;font-size:12px;font-weight:600}
+    .fab{position:fixed;bottom:80px;right:16px;width:50px;height:50px;border-radius:50%;background:#f5a623;color:#0b1530;border:none;box-shadow:0 6px 16px rgba(245,166,35,.3);font-size:24px;z-index:45;display:none;align-items:center;justify-content:center;cursor:pointer}
+    .fab.show{display:flex}
+    /* dashboard fun */
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+    .hero-stat{background:#fff;border-radius:16px;padding:12px 6px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #eef1fb}
+    .hero-stat .num{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:#0b1530}
+    .hero-stat .lbl{font-size:9px;font-weight:700;color:#525d7a;text-transform:uppercase;letter-spacing:.3px}
+    .hero-stat .emoji{font-size:18px;display:block;margin-bottom:2px}
+    .fun-fact{background:linear-gradient(135deg,#fef9e7,#fff3dc);border-radius:16px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid #f5dba7}
+    .fun-fact .icon{font-size:22px}
+    .fun-fact .text{font-size:12px;font-weight:600;color:#7a5d0a}
+    .progress-ring{display:flex;align-items:center;gap:16px;background:#fff;border-radius:20px;padding:14px 16px;border:1px solid #eef1fb;margin-bottom:16px}
+    .ring{position:relative;width:60px;height:60px;flex-shrink:0}
+    .ring svg{transform:rotate(-90deg);width:60px;height:60px}
+    .ring .bg{fill:none;stroke:#eef1fb;stroke-width:6}
+    .ring .fg{fill:none;stroke:#f5a623;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s}
+    .ring .center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:#0b1530}
+    .ring .center small{font-size:9px;font-weight:600;color:#525d7a;margin-left:1px}
+    .ring-text{flex:1}
+    .ring-text .pct{font-size:13px;font-weight:800}
+    .ring-text .sub{font-size:10px;color:#525d7a;font-weight:600}
+    .live-badge{background:#d6483d;color:#fff;font-size:8px;padding:2px 8px;border-radius:40px;text-transform:uppercase;font-weight:800;animation:pulse 1.5s infinite}
+    .winner-btn.active{background:#f5a623!important;color:#0b1530;border-color:#f5a623!important}
+    .participant-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f3fa}
+    .participant-row:last-child{border-bottom:none}
+    .participant-row .pname{font-weight:600;font-size:13px}
+    .participant-row .pphone{font-size:11px;color:#525d7a}
+    .remove-btn{background:none;border:none;color:#d6483d;cursor:pointer;font-size:16px;padding:0 4px}
+    @media (min-width:600px){.app{max-width:600px}}
+  </style>
 </head>
 <body>
-
 <div class="app" id="app">
 
-  <!-- ===== TOP BAR ===== -->
-  <div class="topbar">
-    <div class="topbar-row">
+  <!-- header -->
+  <div class="header">
+    <div class="top-row">
       <div class="brand">
-        <div class="brand-logo-chip"><img src="data:image/jpeg;base64,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" alt="KPCL logo"></div>
+        <div class="brand-icon">
+          <span class="k">KPCL</span>
+          <span class="p">⚡</span>
+        </div>
         <div class="brand-text">
-          <h1>Happy Foundation Day!</h1>
-          <p class="brand-sub-org">Karnataka Power Corporation Limited</p>
-          <p class="brand-sub-station">Ballari Thermal Power Station</p>
-          <p style="font-size:8px;color:#6b76a0;text-transform:none;letter-spacing:0;font-weight:600;margin-top:4px;">build 2026-06-28 · v5</p>
+          <div class="org">KARNATAKA POWER CORPORATION LTD</div>
+          <div class="event">57th Foundation Day Sports 2026</div>
+          <div class="sub">Ballari Thermal Power Station</div>
         </div>
       </div>
-      <div class="topbar-actions">
-        <div class="icon-btn" id="connStatusBtn" title="Connection status" style="cursor:default;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="connIcon"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
-          <div class="badge-dot" id="connDot" style="display:none;background:var(--red);"></div>
+      <div class="header-actions">
+        <div class="icon-btn" id="connStatusBtn" title="Connection status">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+          <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
         </div>
-        <div class="admin-login-btn" id="adminToggleBtn" title="Admin login">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
-          <span>Admin login</span>
-        </div>
-        <div class="icon-btn" id="bellBtn" title="Notifications">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-          <div class="badge-dot" id="bellDot" style="display:none;"></div>
-        </div>
+        <div class="icon-btn" id="bellBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="badge-dot" id="bellDot" style="display:none"></span></div>
       </div>
     </div>
-
-    <div class="marquee-wrap" id="marqueeWrap">
-      <div class="marquee-icon" id="marqueeIcon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-      </div>
-      <div class="marquee-track">
-        <div class="marquee-content" id="marqueeContent">Loading updates…</div>
-      </div>
-    </div>
-
+    <div class="marquee"><span class="live"></span><span class="marquee-text" id="marqueeText">Loading updates…</span></div>
     <div class="tabs" id="tabs">
-      <div class="tab active" data-tab="dashboard">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
-        Dashboard
-      </div>
-      <div class="tab" data-tab="events">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        Events
-      </div>
-      <div class="tab" data-tab="cricket">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 19L19 5"/></svg>
-        Cricket
-      </div>
-      <div class="tab" data-tab="alerts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-        Alerts
-      </div>
-      <div class="tab" data-tab="organisers">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        Organisers
-      </div>
+      <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Home</div>
+      <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Events</div>
+      <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 19L19 5"/></svg>Cricket</div>
+      <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Organisers</div>
+      <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>Alerts</div>
     </div>
   </div>
 
-  <!-- ===== CONTENT ===== -->
-  <div class="content" id="content">
-    <div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><p>Loading sports hub…</p></div>
-  </div>
+  <!-- content -->
+  <div class="content" id="content"></div>
 
-  <!-- ===== BOTTOM NAV ===== -->
-  <div class="bottomnav">
-    <div class="bottomnav-inner">
-      <div class="nav-item active" data-tab="dashboard">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-        <span>Home</span>
-      </div>
-      <div class="nav-item" data-tab="events">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span>Events</span>
-      </div>
-      <div class="nav-item" data-tab="cricket">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
-        <span>Cricket</span>
-      </div>
-      <div class="nav-item" data-tab="alerts">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-        <span>Alerts</span>
-        <div class="nav-badge" id="navBellDot" style="display:none;"></div>
-      </div>
-      <div class="nav-item" data-tab="organisers">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        <span>Organisers</span>
-      </div>
-    </div>
-  </div>
+  <!-- admin login floating -->
+  <button class="admin-login" id="adminToggleBtn">🔐 Admin</button>
+  <button class="fab" id="fabAdd">+</button>
 
-  <button class="fab" id="fabAdd" style="display:none;" title="Add event">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-  </button>
-
+  <!-- sheet -->
+  <div class="sheet-overlay" id="sheetOverlay"><div class="sheet" id="sheet"></div></div>
   <div class="toast" id="toast"></div>
-</div>
 
-<!-- ===== EVENT DETAIL SHEET ===== -->
-<div class="sheet-overlay" id="sheetOverlay">
-  <div class="sheet" id="sheet"></div>
-</div>
-
-<!-- ===== ADMIN LOGIN ===== -->
-<div class="login-screen" id="loginScreen" style="display:none;">
-  <div class="login-box">
-    <h3>Admin sign-in</h3>
-    <p>Enter the sports committee password to manage events, participants, and broadcasts.</p>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="adminPw" placeholder="Enter password" autocomplete="off">
+  <!-- login screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h3>Admin sign-in</h3>
+      <p style="font-size:12px;color:#525d7a">Enter committee password</p>
+      <input type="password" id="adminPw" placeholder="Password">
+      <div class="err" id="loginErr" style="display:none">Incorrect password</div>
+      <button class="btn" id="loginSubmit">Sign in</button>
+      <button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px" id="loginCancel">Cancel</button>
+      <div style="text-align:center;font-size:9px;color:#aab4d6;margin-top:16px">Developed by Vikas N · Viraj Software</div>
     </div>
-    <div class="login-err" id="loginErr" style="display:none;">Incorrect password. Try again.</div>
-    <button class="btn btn-primary" id="loginSubmit" style="margin-top:14px;">Sign in</button>
-    <button class="btn btn-ghost" id="loginCancel" style="margin-top:8px;">Cancel</button>
-    <div style="text-align:center;font-size:10px;color:#aab4d6;font-weight:600;margin-top:16px;">Developed by Vikas N · Viraj Software Solutions</div>
   </div>
 </div>
 
 <script>
 (function(){
-
-const ADMIN_PASSWORD = "KPCL57th";
-let isAdmin = false;
-let currentTab = "dashboard";
-let activeFilter = "all";
+const ADMIN_PW = "KPCL57th";
+let isAdmin = false, currentTab = 'dashboard', activeFilter='all';
 let state = { events: [], notifications: [] };
-let lastSeenNotifCount = 0;
+let lastSeenNotif = 0;
+let backendOk = true;
 
-// ---------- Seed data (from uploaded PDF + cricket fixture image) ----------
+// ----- SEED DATA (integrated from PDFs) -----
 const SEED_EVENTS = [
-  // Cricket league fixtures (from BTPS Cricket Tournament 2026 image)
-  {id:"cr-1", name:"Electrical vs CHP (I&C)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-24", time:"10:00 AM", status:"completed", scoreA:"", scoreB:"", teamA:"Electrical", teamB:"CHP (I&C)", coordinators:[]},
-  {id:"cr-2", name:"CHP-2 vs CHP-3", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-24", time:"2:00 PM", status:"completed", scoreA:"", scoreB:"", teamA:"CHP-2", teamB:"CHP-3", coordinators:[]},
-  {id:"cr-3", name:"SE (MM-1) vs ED (BTPS)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-25", time:"10:00 AM", status:"completed", scoreA:"", scoreB:"", teamA:"SE (MM-1)", teamB:"ED (BTPS)", coordinators:[]},
-  {id:"cr-4", name:"SE (MM-2) vs SE (O)-1", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-25", time:"2:00 PM", status:"completed", scoreA:"", scoreB:"", teamA:"SE (MM-2)", teamB:"SE (O)-1", coordinators:[]},
-  {id:"cr-5", name:"Royal Civil vs CHP-3", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-29", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"Royal Civil", teamB:"CHP-3", coordinators:[]},
-  {id:"cr-6", name:"CHP-1 vs SE (O)-1", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-29", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"CHP-1", teamB:"SE (O)-1", coordinators:[]},
-  {id:"cr-7", name:"ED (BTPS) vs SE (O)-3", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-30", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"ED (BTPS)", teamB:"SE (O)-3", coordinators:[]},
-  {id:"cr-8", name:"SE (O)-2 vs SE (E)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-06-30", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"SE (O)-2", teamB:"SE (E)", coordinators:[]},
-  {id:"cr-9", name:"Royal Civil vs CHP-2", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-01", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"Royal Civil", teamB:"CHP-2", coordinators:[]},
-  {id:"cr-10", name:"SE (O)-3 vs SE (MM-1)", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-01", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"SE (O)-3", teamB:"SE (MM-1)", coordinators:[]},
-  {id:"cr-11", name:"SE (MM-2) vs CHP-1", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-02", time:"10:00 AM", status:"upcoming", scoreA:"", scoreB:"", teamA:"SE (MM-2)", teamB:"CHP-1", coordinators:[]},
-  {id:"cr-12", name:"CHP (I&C) vs SE (O)-2", category:"Cricket", venue:"BTPS Cricket Ground", date:"2026-07-02", time:"2:00 PM", status:"upcoming", scoreA:"", scoreB:"", teamA:"CHP (I&C)", teamB:"SE (O)-2", coordinators:[]},
-
-  // Indoor games at BTPS Canteen
-  {id:"ev-1", name:"Carrom — Singles", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
-    {name:"G.J. Raghavendra",phone:"9448290702"},{name:"Prabhudeva J",phone:"9480830610"},{name:"Naveed Asmal Hej Mulla",phone:"998635707"},{name:"Sagar D.M",phone:"9480830699"},{name:"Hanumanthappa",phone:"8867973677"}
-  ]},
-  {id:"ev-2", name:"Chess", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
-    {name:"Nawaz M",phone:"8073029015"},{name:"Lokesh M",phone:"7353556048"},{name:"Rajashekar M",phone:"8884561762"},{name:"Honnurswamy",phone:"8722423745"}
-  ]},
-  {id:"ev-3", name:"Jackpot", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
-    {name:"Rajashekar Choudri",phone:"9481044510"},{name:"T.Eshwarswamy",phone:"8497813312"}
-  ]},
-  {id:"ev-4", name:"T.T. (Table Tennis)", category:"Indoor Games", venue:"BTPS Canteen", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
-    {name:"Sandeep Kumar",phone:"8660806196"},{name:"Tippeswamy Hej",phone:"9743718084"},{name:"Paramesh Char",phone:"9019625580"},{name:"Madhu J",phone:"7892917772"},{name:"Honnur J",phone:"9880516605"}
-  ]},
-  {id:"ev-5", name:"Shuttle Badminton (Men, Above/Below 45)", category:"Indoor Games", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Registrations close 25.06.2026", coordinators:[
-    {name:"Prakash M.",phone:"9448290770"},{name:"B.J. Raghavendra",phone:"9448290702"},{name:"B.L. Mahesh",phone:"9480830356"},{name:"Manuraj",phone:"9480830356"},{name:"Haresh T.",phone:"9480849625"}
-  ]},
-  {id:"ev-6", name:"Tennis Ball Cricket", category:"Outdoor Games", venue:"BTPS Opposite Sports Ground", date:"2026-06-24", time:"TBA", status:"upcoming", note:"Matches begin from 24.06.2026", coordinators:[
-    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Gopayya Kawali",phone:"9448290722"},{name:"Ajith Patil",phone:"9480489616"},{name:"Virupaksha K",phone:"9480830668"},{name:"Hulirajiv",phone:"9480830550"}
-  ]},
-  {id:"ev-7", name:"Kabaddi", category:"Outdoor Games", venue:"BTPS", date:"2026-07-10", time:"TBA", status:"upcoming", note:"Matches begin from 10.07.2026", coordinators:[
-    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Dr. Ashok",phone:"9448290785"},{name:"Haresh V.",phone:"8792646436"},{name:"Hanumanthappa",phone:"8867973677"},{name:"J.S. Raghavendra",phone:"9480399046"}
-  ]},
-  {id:"ev-8", name:"Cross-Country Run/Walk (45+/45-, Men)", category:"Athletics", venue:"BTPS", date:"2026-07-14", time:"TBA", status:"upcoming", note:"Event held from 14.07.2026", coordinators:[
-    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Arun",phone:"9743043316"},{name:"Nawaz M",phone:"8073029015"},{name:"Haresh V.",phone:"9480849625"}
-  ]},
-  {id:"ev-9", name:"Track & Field — 100m/200m, Shot Put, Discus, Javelin, Volleyball (Men)", category:"Athletics", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"TBA", status:"upcoming", note:"Sunday event — 05.07.2026", coordinators:[
-    {name:"B.J. Raghavendra",phone:"9448290702"},{name:"Prabhudeva J",phone:"9480830610"},{name:"Shyamsundar S",phone:"9480830387"},{name:"Dr. Ashok",phone:"9448290785"},{name:"B.L. Mahesh",phone:"9480830356"}
-  ]},
-  {id:"ev-10", name:"Shuttle Badminton & Throwball (Women)", category:"Women's Events", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Coordinator: Smt. Sharada K (9480830377) · Reg. close 25.06.2026", coordinators:[
-    {name:"Ashe",phone:"9480849610"},{name:"Chaitra",phone:"9480849642"},{name:"Basavarajeshwari",phone:"9448282644"},{name:"Madhuri K.R",phone:"8971589264"}
-  ]},
-  {id:"ev-11", name:"Carrom, Chess, 30 Yard Cricket, Tennis Court (Women)", category:"Women's Events", venue:"BTPS", date:"2026-06-27", time:"TBA", status:"upcoming", note:"Reg. close 25.06.2026", coordinators:[
-    {name:"Arundhati",phone:"9480830554"},{name:"Vani D",phone:"9480830330"},{name:"Swetha K",phone:"8618727606"},{name:"Bhuvaneshwari Y",phone:"9972219905"}
-  ]},
-  {id:"ev-12", name:"Women's & Children's Track Events (100m, Shot Put etc.)", category:"Women's Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"TBA", status:"upcoming", note:"Sunday event — 05.07.2026", coordinators:[
-    {name:"Nandini Hosur",phone:"9480830336"},{name:"Rajarajeshwari Vibhuti",phone:"9480830688"},{name:"Savitha M",phone:"9141615413"}
-  ]},
-
-  // Cultural Committee events — 57th Foundation Day
-  {id:"cult-1", name:"Light Music (Karaoke) — Free Style", category:"Cultural Events", venue:"3rd Floor Conference Hall, BTPS", date:"2026-07-06", time:"10:30 AM", status:"upcoming", note:"For all BTPS employees · Kannada film/devotional/folk/patriotic/devotional songs", coordinators:[
-    {name:"Nileema J",phone:"9480830537"},{name:"Honnurswamy V",phone:"9448282640"},{name:"Sruthi S",phone:"9480830638"},{name:"Nithin Kumar",phone:"9448282663"},{name:"Veena Chawla",phone:"9886385478"},{name:"Chaitra P M",phone:"9480849642"},{name:"Tippeswamy J",phone:"9743718084"}
-  ]},
-  {id:"cult-2", name:"Quiz Competition (Rasaprashne) — Community Round", category:"Cultural Events", venue:"3rd Floor Conference Hall, BTPS", date:"2026-07-08", time:"10:30 AM", status:"upcoming", note:"Topic: KPCL's progress and achievements · For Nukkad/community members", coordinators:[
-    {name:"Nileema J",phone:"9480830537"},{name:"Shantamallappa",phone:"9480830529"},{name:"Ravikumar B M",phone:"9480830527"},{name:"Shivagonda Biradar",phone:"9480830690"},{name:"Honnurswamy V",phone:"9448282640"},{name:"Shivarudrappa",phone:"9480849628"}
-  ]},
-  {id:"cult-3", name:"Quiz Competition (Rasaprashne) — Employees Round", category:"Cultural Events", venue:"3rd Floor Conference Hall, BTPS", date:"2026-07-08", time:"2:30 PM", status:"upcoming", note:"Topic: KPCL's progress and achievements · For all BTPS employees", coordinators:[
-    {name:"Sruthi S",phone:"9480830638"},{name:"Pushpa",phone:"9741258163"},{name:"Yamuna",phone:"9742049153"},{name:"Purnima B K",phone:"9731209856"},{name:"Eshwari",phone:"9480849648"}
-  ]},
-  {id:"cult-4", name:"Light Music (Karaoke) — Family Members", category:"Cultural Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"3:00 PM", status:"upcoming", note:"For employee family members 12 years & above", coordinators:[
-    {name:"Nileema J",phone:"9480830537"},{name:"Smitha Karmakar",phone:"9480830577"},{name:"Ravikumar B M",phone:"9480830527"},{name:"Shivagonda Biradar",phone:"9480830690"},{name:"Honnurswamy V",phone:"9448282640"},{name:"Gangadhar J",phone:"9317382214"},{name:"Tippeswamy J",phone:"9731332847"}
-  ]},
-  {id:"cult-5", name:"Light Music (Karaoke) — Children", category:"Cultural Events", venue:"RYMEC Ground, Ballari", date:"2026-07-05", time:"3:00 PM", status:"upcoming", note:"For employee children under 12 years", coordinators:[
-    {name:"Gosubalu Jambayya",phone:"9731332847"},{name:"Parameshwar K",phone:"9019625580"},{name:"Navya",phone:"8970986694"},{name:"Sneha",phone:"8431395966"},{name:"Kiran Kumar",phone:"8861342911"}
-  ]},
-  {id:"cult-6", name:"Rangoli Competition — \"My BTPS: Origin & Progress\"", category:"Cultural Events", venue:"BTPS Centre, Kudithini", date:"2026-07-10", time:"10:00 AM – 1:00 PM", status:"upcoming", note:"Team event (2 per group) · Free-hand rangoli only · Materials self-arranged · Group registration by 06.07.2026", coordinators:[
-    {name:"Nileema J",phone:"9480830537"},{name:"Chaitra P M",phone:"9480849642"},{name:"Nivin Kumar",phone:"9448282663"},{name:"Mabusab",phone:"9448282648"}
-  ]},
+  // Cricket league
+  {id:'cr1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'10:00 AM', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'142/5', scoreB:'138/8', winner:'A', coordinators:[], participants:[]},
+  {id:'cr2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-24', time:'2:00 PM', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'110/9', scoreB:'112/4', winner:'B', coordinators:[], participants:[]},
+  {id:'cr3', name:'SE (MM-1) vs ED (BTPS)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-25', time:'10:00 AM', status:'completed', teamA:'SE (MM-1)', teamB:'ED (BTPS)', scoreA:'98/7', scoreB:'99/3', winner:'B', coordinators:[], participants:[]},
+  {id:'cr4', name:'SE (MM-2) vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-25', time:'2:00 PM', status:'completed', teamA:'SE (MM-2)', teamB:'SE (O)-1', scoreA:'124/6', scoreB:'125/5', winner:'B', coordinators:[], participants:[]},
+  {id:'cr5', name:'Royal Civil vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr6', name:'CHP-1 vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'2:00 PM', status:'upcoming', teamA:'CHP-1', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr7', name:'ED (BTPS) vs SE (O)-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'10:00 AM', status:'upcoming', teamA:'ED (BTPS)', teamB:'SE (O)-3', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr8', name:'SE (O)-2 vs SE (E)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-2', teamB:'SE (E)', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-02', time:'10:00 AM', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  {id:'cr12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-02', time:'2:00 PM', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', coordinators:[], participants:[]},
+  // Indoor games
+  {id:'ev1', name:'Carrom Singles', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Naveed Asmal Hej Mulla',phone:'998635707'},{name:'Sagar D.M',phone:'9480830699'},{name:'Hanumanthappa',phone:'8867973677'}], participants:[]},
+  {id:'ev2', name:'Chess', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Nawaz M',phone:'8073029015'},{name:'Lokesh M',phone:'7353556048'},{name:'Rajashekar M',phone:'8884561762'},{name:'Honnurswamy',phone:'8722423745'}], participants:[]},
+  {id:'ev3', name:'Jackpot', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'},{name:'T.Eshwarswamy',phone:'8497813312'}], participants:[]},
+  {id:'ev4', name:'Table Tennis', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Sandeep Kumar',phone:'8660806196'},{name:'Tippeswamy Hej',phone:'9743718084'},{name:'Paramesh Char',phone:'9019625580'},{name:'Madhu J',phone:'7892917772'},{name:'Honnur J',phone:'9880516605'}], participants:[]},
+  {id:'ev5', name:'Shuttle Badminton (Men, Above/Below 45)', category:'Indoor Games', venue:'BTPS', date:'2026-06-27', time:'TBA', status:'upcoming', note:'Registrations close 25.06.2026', coordinators:[{name:'Prakash M.',phone:'9448290770'},{name:'B.J. Raghavendra',phone:'9448290702'},{name:'B.L. Mahesh',phone:'9480830356'},{name:'Manuraj',phone:'9480830356'},{name:'Haresh T.',phone:'9480849625'}], participants:[]},
+  // Outdoor
+  {id:'ev6', name:'Tennis Ball Cricket', category:'Outdoor Games', venue:'BTPS Sports Ground', date:'2026-06-24', time:'TBA', status:'upcoming', note:'Matches from 24.06.2026', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Gopayya Kawali',phone:'9448290722'},{name:'Ajith Patil',phone:'9480489616'},{name:'Virupaksha K',phone:'9480830668'},{name:'Hulirajiv',phone:'9480830550'}], participants:[]},
+  {id:'ev7', name:'Kabaddi', category:'Outdoor Games', venue:'BTPS', date:'2026-07-10', time:'TBA', status:'upcoming', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Dr. Ashok',phone:'9448290785'},{name:'Haresh V.',phone:'8792646436'},{name:'Hanumanthappa',phone:'8867973677'},{name:'J.S. Raghavendra',phone:'9480399046'}], participants:[]},
+  // Athletics (5 July RYMEC) – broken down
+  {id:'ath1', name:'100m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva',phone:'9480830610'},{name:'Shyamsundar S',phone:'9480830387'}], participants:[]},
+  {id:'ath2', name:'200m Men (Below 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', coordinators:[{name:'Dr. Ashok',phone:'9448290785'},{name:'B.L. Mahesh',phone:'9480830356'}], participants:[]},
+  {id:'ath3', name:'100m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', coordinators:[{name:'Nujamuddin',phone:'9480830327'},{name:'Virupaksha K',phone:'9480830668'}], participants:[]},
+  {id:'ath4', name:'200m Men (Above 45)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Devaraj',phone:'7259282988'}], participants:[]},
+  {id:'ath5', name:'Shot Put (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', coordinators:[{name:'Rajesh Patil',phone:'9480849639'},{name:'Prakash Kumar',phone:'9480830597'}], participants:[]},
+  {id:'ath6', name:'Discus Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:00 PM', status:'upcoming', coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'}], participants:[]},
+  {id:'ath7', name:'Javelin Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'1:00 PM', status:'upcoming', coordinators:[{name:'Manumantaraj',phone:'9731879777'}], participants:[]},
+  {id:'ath8', name:'Volleyball (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'2:00 PM', status:'upcoming', coordinators:[{name:'Nandish Kumar',phone:'8660806196'}], participants:[]},
+  // Women & children (5 July)
+  {id:'w1', name:'100m Women (Below 45)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', coordinators:[{name:'Nandini Hosur',phone:'9480830336'},{name:'Rajarajeshwari Vibhuti',phone:'9480830688'}], participants:[]},
+  {id:'w2', name:'Shot Put (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Savitha M',phone:'9141615413'}], participants:[]},
+  {id:'w3', name:'Lemon & Spoon (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:30 AM', status:'upcoming', participants:[]},
+  {id:'w4', name:'Javelin (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:30 PM', status:'upcoming', participants:[]},
+  {id:'w5', name:'100m Girls (Under 12)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', coordinators:[{name:'Ashe',phone:'9480849610'}], participants:[]},
+  {id:'w6', name:'Frog Jump (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', participants:[]},
+  {id:'w7', name:'30m Run (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', participants:[]},
+  {id:'w8', name:'50m Run (Boys 6-10)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', participants:[]},
+  // Cross country
+  {id:'ev8', name:'Cross-Country Run (45+/45-)', category:'Athletics', venue:'BTPS', date:'2026-07-14', time:'TBA', status:'upcoming', coordinators:[{name:'B.J. Raghavendra',phone:'9448290702'},{name:'Arun',phone:'9743043316'},{name:'Nawaz M',phone:'8073029015'},{name:'Haresh V.',phone:'9480849625'}], participants:[]},
+  // Cultural
+  {id:'cult1', name:'Light Music Karaoke (Employees)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-06', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Honnurswamy V',phone:'9448282640'},{name:'Sruthi S',phone:'9480830638'},{name:'Nithin Kumar',phone:'9448282663'},{name:'Veena Chawla',phone:'9886385478'},{name:'Chaitra P M',phone:'9480849642'},{name:'Tippeswamy J',phone:'9743718084'}], participants:[]},
+  {id:'cult2', name:'Quiz Competition (Community Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'10:30 AM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Shantamallappa',phone:'9480830529'},{name:'Ravikumar B M',phone:'9480830527'},{name:'Shivagonda Biradar',phone:'9480830690'},{name:'Honnurswamy V',phone:'9448282640'}], participants:[]},
+  {id:'cult3', name:'Quiz Competition (Employees Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'2:30 PM', status:'upcoming', coordinators:[{name:'Sruthi S',phone:'9480830638'},{name:'Pushpa',phone:'9741258163'},{name:'Yamuna',phone:'9742049153'},{name:'Purnima B K',phone:'9731209856'}], participants:[]},
+  {id:'cult4', name:'Light Music Karaoke (Family Members)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Smitha Karmakar',phone:'9480830577'},{name:'Ravikumar B M',phone:'9480830527'}], participants:[]},
+  {id:'cult5', name:'Light Music Karaoke (Children)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', coordinators:[{name:'Gosubalu Jambayya',phone:'9731332847'},{name:'Parameshwar K',phone:'9019625580'}], participants:[]},
+  {id:'cult6', name:'Rangoli Competition "My BTPS"', category:'Cultural', venue:'BTPS Centre, Kudithini', date:'2026-07-10', time:'10:00 AM – 1:00 PM', status:'upcoming', coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Chaitra P M',phone:'9480849642'},{name:'Nivin Kumar',phone:'9448282663'}], participants:[]}
 ];
 
 const SEED_NOTIFS = [
-  {id:"n1", title:"Foundation Day Sports — Schedule Released", message:"57th Foundation Day sports activities are confirmed. Registrations and matches begin from 24.06.2026. Check the Events tab for your event's registration deadline and coordinator.", type:"info", time:Date.now() - 1000*60*60*26},
-  {id:"n2", title:"Cricket League Begins", message:"BTPS Cricket Tournament 2026 league matches start today at the BTPS Cricket Ground. First match: Electrical vs CHP (I&C), 10:00 AM.", type:"alert", time:Date.now() - 1000*60*60*20},
-  {id:"n3", title:"Cultural Events Added", message:"The Cultural Committee has announced Light Music, Quiz, and Rangoli competitions for the 57th Foundation Day. Check the Events tab for dates and the Organisers tab for contacts.", type:"info", time:Date.now() - 1000*60*60*4},
+  {id:'n1', title:'Foundation Day Sports 2026', message:'All events scheduled. Register with coordinators.', type:'info', time:Date.now()-3600000},
+  {id:'n2', title:'Cricket League Started', message:'Matches underway at BTPS Cricket Ground.', type:'alert', time:Date.now()-7200000},
 ];
 
-// ---------- Backend: Google Apps Script Web App ----------
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwIZUqDnapaxZjFNKVfZ1GBE99a2YS-16Xjt1ychX3SC3lV8ryaeRlSM2zx0_OtagEt/exec";
-let backendOk = true;
-
-function normalizeDateValue(v){
-  if(!v) return '';
-  if(typeof v === 'string'){
-    // Apps Script sometimes serializes Date objects to ISO strings like "2026-06-24T00:00:00.000Z"
-    const isoMatch = v.match(/^(\d{4}-\d{2}-\d{2})/);
-    if(isoMatch) return isoMatch[1];
-    return v;
-  }
-  // Google Sheets returns native Date objects for date-looking cells, which JSON.stringify
-  // turns into ISO strings before they even reach the client, but guard for the raw case too.
-  if(v instanceof Date || Object.prototype.toString.call(v) === '[object Date]'){
-    const d = new Date(v);
-    if(isNaN(d.getTime())) return '';
-    const y = d.getFullYear();
-    const m = String(d.getMonth()+1).padStart(2,'0');
-    const day = String(d.getDate()).padStart(2,'0');
-    return `${y}-${m}-${day}`;
-  }
-  return String(v);
-}
-
-function rowsToEvents(rows){
-  return rows.map(r => {
-    let participants = [];
-    let coordinators = [];
-    try{ participants = r.participants ? (typeof r.participants==='string' ? JSON.parse(r.participants) : r.participants) : []; }catch(e){ participants = []; }
-    try{ coordinators = r.coordinators ? (typeof r.coordinators==='string' ? JSON.parse(r.coordinators) : r.coordinators) : []; }catch(e){ coordinators = []; }
-    return {
-      id: String(r.id), name: r.name||'', category: r.category||'', venue: r.venue||'',
-      date: normalizeDateValue(r.date), time: r.time||'', status: r.status||'upcoming',
-      teamA: r.teamA||'', teamB: r.teamB||'', scoreA: r.scoreA||'', scoreB: r.scoreB||'',
-      winner: r.winner||'', note: r.note||'', participants, coordinators
-    };
-  });
-}
-
-function eventsToRows(events){
-  return events.map(e => ({
-    id: e.id, name: e.name, category: e.category, venue: e.venue, date: e.date, time: e.time,
-    status: e.status, teamA: e.teamA||'', teamB: e.teamB||'', scoreA: e.scoreA||'', scoreB: e.scoreB||'',
-    winner: e.winner||'',
-    note: e.note||'',
-    participants: JSON.stringify(e.participants||[]),
-    coordinators: JSON.stringify(e.coordinators||[])
-  }));
-}
-
-function rowsToNotifs(rows){
-  return rows.map(r => ({
-    id: String(r.id), title: r.title||'', message: r.message||'', type: r.type||'info',
-    time: Number(r.time) || Date.now()
-  }));
-}
-
-async function backendGetAll(){
-  const res = await fetch(BACKEND_URL + "?action=getAll", { method: "GET" });
-  if(!res.ok) throw new Error("Backend GET failed: " + res.status);
-  return res.json();
-}
-
-async function backendSave(action, data){
-  const body = new URLSearchParams();
-  body.set("action", action);
-  body.set("data", JSON.stringify(data));
-  const res = await fetch(BACKEND_URL, { method: "POST", body });
-  if(!res.ok) throw new Error("Backend POST failed: " + res.status);
-  const json = await res.json();
-  if(json.error) throw new Error(json.error);
-  return json;
-}
-
-// ---------- Storage helpers (now backed by Google Sheets via Apps Script) ----------
-// Recovers fields the sheet may be missing (e.g. coordinators wiped before the column existed)
-// by pulling them back from the known seed data, matched by event id. Never overwrites real
-// admin-entered data (scores, status, participants) — only fills genuinely empty fields.
-function mergeMissingSeedFields(events){
-  const seedById = {};
-  SEED_EVENTS.forEach(s => seedById[s.id] = s);
-  return events.map(ev => {
-    const seed = seedById[ev.id];
-    if(!seed) return ev;
-    const merged = {...ev};
-    if((!merged.coordinators || merged.coordinators.length === 0) && seed.coordinators && seed.coordinators.length){
-      merged.coordinators = seed.coordinators;
-    }
-    if(!merged.teamA && seed.teamA) merged.teamA = seed.teamA;
-    if(!merged.teamB && seed.teamB) merged.teamB = seed.teamB;
-    return merged;
-  });
-}
+function uid(p){ return p+'-'+Math.random().toString(36).slice(2,7); }
+function fmtDate(d){ if(!d)return ''; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}); }
+function initials(n){ return n.trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase(); }
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
 
 async function loadState(){
-  try{
-    const data = await backendGetAll();
-    backendOk = true;
-
-    let events = (data.events && data.events.length) ? rowsToEvents(data.events) : null;
-    if(!events){
-      events = SEED_EVENTS.map(e => ({...e, participants: []}));
-      state.events = events;
-      await saveEvents(); // seed the sheet on first run
-    }else{
-      const merged = mergeMissingSeedFields(events);
-      const healedSomething = JSON.stringify(merged) !== JSON.stringify(events);
-      state.events = merged;
-      if(healedSomething){
-        await saveEvents(); // write the recovered coordinator/team data back to the sheet permanently
-      }
-    }
-
-    let notifs = (data.notifications && data.notifications.length) ? rowsToNotifs(data.notifications) : null;
-    if(!notifs){
-      notifs = SEED_NOTIFS;
-      state.notifications = notifs;
-      await saveNotifs(); // seed the sheet on first run
-    }else{
-      state.notifications = notifs;
-    }
-  }catch(e){
-    console.error('Backend unreachable, using local seed data', e);
-    backendOk = false;
-    if(!state.events || !state.events.length){
-      state.events = SEED_EVENTS.map(ev => ({...ev, participants: []}));
-    }
-    if(!state.notifications || !state.notifications.length){
-      state.notifications = SEED_NOTIFS;
-    }
-  }
+  state.events = SEED_EVENTS.map(e=>({...e, participants: e.participants || []}));
+  state.notifications = SEED_NOTIFS;
+  lastSeenNotif = state.notifications.length;
 }
-
-let suppressPollUntil = 0;
-
-async function saveEvents(){
-  try{
-    await backendSave('saveEvents', eventsToRows(state.events));
-    backendOk = true;
-    suppressPollUntil = Date.now() + 12000; // give Sheets a moment to settle before our own poll re-reads it
-    return true;
-  }catch(e){
-    console.error('save events failed', e);
-    backendOk = false;
-    showToast('Could not reach the server — change saved locally only');
-    return false;
-  }
-}
-async function saveNotifs(){
-  try{
-    await backendSave('saveNotifications', state.notifications);
-    backendOk = true;
-    suppressPollUntil = Date.now() + 12000;
-    return true;
-  }catch(e){
-    console.error('save notifs failed', e);
-    backendOk = false;
-    showToast('Could not reach the server — broadcast not sent to others');
-    return false;
-  }
-}
-async function saveSeenCount(){
-  lastSeenNotifCount = state.notifications.length;
-}
-
-
-// ---------- Utilities ----------
-function uid(prefix){ return prefix + '-' + Math.random().toString(36).slice(2,9); }
-function initials(name){
-  return name.trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase();
-}
-function fmtDate(d){
-  if(!d) return 'Date TBA';
-  const dt = new Date(d + 'T00:00:00');
-  if(isNaN(dt.getTime())) return d; // show raw value rather than "Invalid Date"
-  return dt.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short'});
-}
-function timeAgo(ts){
-  const diff = Date.now() - ts;
-  const mins = Math.floor(diff/60000);
-  if(mins < 1) return 'just now';
-  if(mins < 60) return mins + 'm ago';
-  const hrs = Math.floor(mins/60);
-  if(hrs < 24) return hrs + 'h ago';
-  return Math.floor(hrs/24) + 'd ago';
-}
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
-}
-function escapeHtml(s){
-  return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-// ---------- Ticker (signature element) ----------
-function getTickerEvent(){
-  const all = state.events;
-  const live = all.find(e => e.status === 'live');
-  if(live) return {ev: live, mode:'live'};
-  const upcoming = all.filter(e => e.status === 'upcoming')
-    .sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
-  if(upcoming.length) return {ev: upcoming[0], mode:'upcoming'};
-  return {ev: null, mode:'none'};
-}
-function renderTicker(){
-  const {ev, mode} = getTickerEvent();
-  const wrap = document.getElementById('marqueeWrap');
-  const content = document.getElementById('marqueeContent');
-  if(!wrap || !content) return;
-
-  const parts = [];
-
-  if(mode === 'live'){
-    wrap.classList.add('is-live');
-    let scoreTxt = '';
-    if(ev.scoreA || ev.scoreB){
-      scoreTxt = ` — ${ev.teamA||''} ${ev.scoreA||'—'} vs ${ev.teamB||''} ${ev.scoreB||'—'}`;
-    }
-    parts.push(`🔴 LIVE NOW: ${ev.name}${scoreTxt}`);
-  }else if(mode === 'upcoming'){
-    wrap.classList.remove('is-live');
-    parts.push(`📅 UP NEXT: ${ev.name} — ${fmtDate(ev.date)} · ${ev.time} · ${ev.venue}`);
-  }else{
-    wrap.classList.remove('is-live');
-    parts.push(`✅ No live or upcoming events right now`);
-  }
-
-  const latestNotif = state.notifications.slice().sort((a,b)=>b.time-a.time)[0];
-  if(latestNotif){
-    parts.push(`📢 ${latestNotif.title}: ${latestNotif.message}`);
-  }
-
-  const joined = parts.map(p => escapeHtml(p)).join('<span class="sep">★</span>');
-  content.innerHTML = joined + '<span class="sep">★</span>' + joined; // duplicate for seamless loop
-
-  // Reading-speed-aware duration: roughly 14 characters/second is a comfortable scroll pace.
-  // Use the un-duplicated text length so the loop timing matches one full readable pass.
-  const plainTextLength = parts.join(' ★ ').length;
-  const durationSeconds = Math.max(18, Math.round(plainTextLength / 9));
-  content.style.animationDuration = durationSeconds + 's';
-}
-
-// ---------- Rendering: Dashboard ----------
-function renderDashboard(){
-  const c = document.getElementById('content');
-  const total = state.events.length;
-  const live = state.events.filter(e=>e.status==='live').length;
-  const done = state.events.filter(e=>e.status==='completed').length;
-  const upcomingAll = state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-  const upcoming = upcomingAll.slice(0,8);
-  const liveEvents = state.events.filter(e=>e.status==='live');
-  const pct = total ? Math.round((done/total)*100) : 0;
-  const circumference = 2 * Math.PI * 34;
-  const dashOffset = circumference * (1 - pct/100);
-
-  let html = '';
-  if(isAdmin){
-    html += `<div class="admin-banner">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
-      <span>Admin mode — you can edit events, scores, participants, and send broadcasts.</span>
-    </div>
-    <button class="btn btn-ghost" id="forceResyncBtn" style="margin-bottom:10px;font-size:12px;padding:9px;">↻ Re-check sheet for missing data</button>
-    <button class="btn btn-ghost" id="applyCorrectionsBtn" style="margin-bottom:16px;font-size:12px;padding:9px;">✎ Apply latest venue/name corrections</button>`;
-  }
-
-  // ===== Hero control panel =====
-  const {ev: heroEv, mode: heroMode} = getTickerEvent();
-  html += `<div class="panel-hero">
-    <div class="panel-hero-top">
-      <div class="panel-eyebrow">${heroMode==='live' ? '<span class="dot"></span>LIVE NOW' : heroMode==='upcoming' ? 'UP NEXT' : 'STATUS'}</div>
-      <div class="panel-clock">57TH FOUNDATION DAY</div>
-    </div>`;
-  if(heroMode === 'none'){
-    html += `<div class="panel-event-name">All quiet on the scoreboard</div><div class="panel-event-meta">No live or upcoming events right now — check back soon.</div>`;
-  }else{
-    html += `<div class="panel-event-name">${escapeHtml(heroEv.name)}</div>
-    <div class="panel-event-meta">${heroMode==='live' ? escapeHtml(heroEv.venue) : `${fmtDate(heroEv.date)} · ${escapeHtml(heroEv.time)} · ${escapeHtml(heroEv.venue)}`}</div>`;
-    if(heroEv.teamA && heroEv.teamB && (heroEv.scoreA || heroEv.scoreB)){
-      html += `<div class="panel-score-row">
-        <div class="panel-score-team"><div class="nm">${escapeHtml(heroEv.teamA)}</div><div class="val">${escapeHtml(heroEv.scoreA||'—')}</div></div>
-        <div class="panel-score-vs">VS</div>
-        <div class="panel-score-team"><div class="nm">${escapeHtml(heroEv.teamB)}</div><div class="val">${escapeHtml(heroEv.scoreB||'—')}</div></div>
-      </div>`;
-    }
-  }
-  html += `</div>`;
-
-  // ===== Gauge ring: tournament completion =====
-  html += `<div class="gauge-row">
-    <div class="gauge-ring">
-      <svg viewBox="0 0 84 84">
-        <circle class="gauge-track" cx="42" cy="42" r="34"></circle>
-        <circle class="gauge-fill" cx="42" cy="42" r="34" stroke-dasharray="${circumference}" stroke-dashoffset="${dashOffset}"></circle>
-      </svg>
-      <div class="gauge-center"><div class="num">${pct}%</div><div class="pct">DONE</div></div>
-    </div>
-    <div class="gauge-stats">
-      <div class="gauge-stat-item"><span class="lbl"><span class="swatch" style="background:var(--navy-600);"></span>Total events</span><span class="num">${total}</span></div>
-      <div class="gauge-stat-item"><span class="lbl"><span class="swatch" style="background:var(--amber-500);"></span>Live now</span><span class="num">${live}</span></div>
-      <div class="gauge-stat-item"><span class="lbl"><span class="swatch" style="background:var(--green);"></span>Completed</span><span class="num">${done}</span></div>
-    </div>
-  </div>`;
-
-  if(liveEvents.length){
-    html += `<div class="section-head"><h2>Live right now</h2></div>`;
-    liveEvents.forEach(e => html += eventCardHtml(e));
-  }
-
-  const recentResults = state.events.filter(e=>e.status==='completed' && e.winner && e.category==='Cricket').slice(-3).reverse();
-  if(recentResults.length){
-    html += `<div class="section-head"><h2>Latest results</h2></div>`;
-    recentResults.forEach(e => html += eventCardHtml(e));
-  }
-
-  // ===== Horizontal spotlight rail for upcoming events =====
-  html += `<div class="section-head"><h2>Coming up</h2><span class="count">${upcomingAll.length} scheduled</span></div>`;
-  if(upcoming.length === 0){
-    html += emptyHtml('No upcoming events right now.');
-  }else{
-    html += `<div class="rail-scroll" id="dashRail">`;
-    upcoming.forEach(e=>{
-      const d = new Date(e.date + 'T00:00:00');
-      const dayNum = isNaN(d.getTime()) ? '—' : d.getDate();
-      const monthShort = isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-IN',{month:'short'});
-      html += `<div class="rail-card" data-id="${e.id}">
-        <div class="rail-card-cat">${escapeHtml(e.category)}</div>
-        <div class="rail-card-name">${escapeHtml(e.name)}</div>
-        <div class="rail-card-daywrap">
-          <span class="rail-card-day">${dayNum}</span>
-          <span class="rail-card-monthtime">${monthShort}</span>
-        </div>
-        <div class="rail-card-meta">
-          <div class="rail-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${escapeHtml(e.time)}</div>
-          <div class="rail-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>${escapeHtml(e.venue)}</div>
-        </div>
-      </div>`;
-    });
-    html += `</div>`;
-  }
-
-  html += `<div class="dev-credit">Developed by <b>Vikas N</b> · Viraj Software Solutions</div>`;
-
-  c.innerHTML = html;
-  document.querySelectorAll('.rail-card').forEach(card=>{
-    card.onclick = ()=> openEventSheet(card.dataset.id);
-  });
-  bindEventCards();
-  const resyncBtn = document.getElementById('forceResyncBtn');
-  if(resyncBtn){
-    resyncBtn.onclick = async ()=>{
-      resyncBtn.textContent = 'Checking…';
-      resyncBtn.disabled = true;
-      const beforeCount = state.events.filter(e=>e.coordinators&&e.coordinators.length).length;
-      await loadState();
-      const afterCount = state.events.filter(e=>e.coordinators&&e.coordinators.length).length;
-      updateConnectionDot();
-      if(afterCount > beforeCount){
-        showToast(`Recovered contacts for ${afterCount - beforeCount} event(s)`);
-      }else if(!backendOk){
-        showToast('Could not reach the sheet — check your connection');
-      }else{
-        showToast('Sheet data is already up to date');
-      }
-      renderDashboard();
-    };
-  }
-  const correctionsBtn = document.getElementById('applyCorrectionsBtn');
-  if(correctionsBtn){
-    correctionsBtn.onclick = async ()=>{
-      correctionsBtn.textContent = 'Applying…';
-      correctionsBtn.disabled = true;
-      const seedById = {};
-      SEED_EVENTS.forEach(s => seedById[s.id] = s);
-      let changed = 0;
-      state.events = state.events.map(ev=>{
-        const seed = seedById[ev.id];
-        if(!seed) return ev;
-        const updated = {...ev};
-        if(seed.venue && seed.venue !== ev.venue){ updated.venue = seed.venue; changed++; }
-        if(seed.name && seed.name !== ev.name){ updated.name = seed.name; changed++; }
-        return updated;
-      });
-      if(changed > 0){
-        await saveEvents();
-        showToast(`Applied ${changed} correction(s) — synced to all employees`);
-      }else{
-        showToast('No corrections needed — already up to date');
-      }
-      correctionsBtn.textContent = '✎ Apply latest venue/name corrections';
-      correctionsBtn.disabled = false;
-      renderDashboard();
-    };
-  }
-}
-
-function emptyHtml(msg){
-  return `<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><p>${escapeHtml(msg)}</p></div>`;
-}
-
-function eventCardHtml(e){
-  const pCount = (e.participants||[]).length;
-  const isCricket = e.category === 'Cricket';
-  let scoreBlock = '';
-  if(e.status !== 'upcoming' && e.teamA && e.teamB){
-    if(e.scoreA || e.scoreB || e.winner){
-      const aWon = e.winner === 'A';
-      const bWon = e.winner === 'B';
-      const tie = e.winner === 'tie';
-      scoreBlock = `<div class="scorecard">
-        <div class="sc-row ${aWon?'sc-winner':''}">
-          <span class="sc-team">${aWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(e.teamA)}</span>
-          <span class="sc-runs">${escapeHtml(e.scoreA||'—')}</span>
-        </div>
-        <div class="sc-divider">vs</div>
-        <div class="sc-row ${bWon?'sc-winner':''}">
-          <span class="sc-team">${bWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(e.teamB)}</span>
-          <span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span>
-        </div>
-        ${tie ? '<div class="sc-result-tag">🤝 Match Tied</div>' : (aWon||bWon) ? `<div class="sc-result-tag win">🏆 ${escapeHtml(aWon?e.teamA:e.teamB)} won</div>` : ''}
-      </div>`;
-    }else if(e.status === 'completed'){
-      scoreBlock = `<div class="result-pending"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Result not entered yet</div>`;
-    }
-  }
-  return `<div class="event-card ${isCricket?'event-card-cricket':''}" data-id="${e.id}">
-    <div class="ec-top">
-      <div>
-        <div class="ec-name">${escapeHtml(e.name)}</div>
-        <div class="ec-cat">${escapeHtml(e.category)}</div>
-      </div>
-      <span class="status-chip ${e.status}">${e.status==='live' ? '<span class=\"live-dot-inline\"></span>LIVE' : e.status}</span>
-    </div>
-    <div class="ec-meta">
-      <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${fmtDate(e.date)}</div>
-      <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${escapeHtml(e.time)}</div>
-      <div class="ec-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>${escapeHtml(e.venue)}</div>
-    </div>
-    ${scoreBlock}
-    <div class="ec-foot">
-      <span class="participant-pill"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>${pCount} registered</span>
-    </div>
-  </div>`;
-}
-
-// ---------- Rendering: Events list ----------
-function renderEvents(){
-  const c = document.getElementById('content');
-  const cats = ['all', ...new Set(state.events.map(e=>e.category))];
-  let filtered = activeFilter === 'all' ? state.events : state.events.filter(e=>e.category===activeFilter);
-  filtered = filtered.filter(e => e.category !== 'Cricket'); // cricket has its own tab
-  if(activeFilter === 'all'){
-    // still exclude cricket from "all" in this tab since it has a dedicated view
-  }
-  filtered = filtered.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-
-  let html = `<div class="filter-row" id="filterRow">`;
-  cats.filter(c=>c!=='Cricket').forEach(cat=>{
-    html += `<div class="chip-filter ${activeFilter===cat?'active':''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</div>`;
-  });
-  html += `</div>`;
-
-  html += `<div class="section-head"><h2>All sports events</h2><span class="count">${filtered.length} events</span></div>`;
-  if(filtered.length === 0){
-    html += emptyHtml('No events in this category.');
-  }else{
-    filtered.forEach(e => html += eventCardHtml(e));
-  }
-  c.innerHTML = html;
-  bindEventCards();
-  document.querySelectorAll('.chip-filter').forEach(el=>{
-    el.onclick = ()=>{ activeFilter = el.dataset.cat; renderEvents(); };
-  });
-}
-
-// ---------- Organisers tab: contacts grouped by event/category ----------
-let organiserSearch = '';
-
-function renderOrganisers(){
-  const c = document.getElementById('content');
-  const withCoords = state.events.filter(e => e.coordinators && e.coordinators.length);
-
-  const q = organiserSearch.trim().toLowerCase();
-  const filtered = q ? withCoords.filter(e=>{
-    if(e.name.toLowerCase().includes(q) || e.category.toLowerCase().includes(q)) return true;
-    return (e.coordinators||[]).some(co => co.name.toLowerCase().includes(q) || (co.phone||'').includes(q));
-  }) : withCoords;
-
-  const grouped = {};
-  filtered.forEach(e=>{ (grouped[e.category] = grouped[e.category]||[]).push(e); });
-  const totalContacts = filtered.reduce((sum,e)=>sum + (e.coordinators||[]).length, 0);
-
-  let html = `<div class="section-head"><h2>Organisers & contacts</h2><span class="count">${totalContacts} contacts</span></div>
-  <div class="org-search-wrap">
-    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    <input type="text" id="orgSearchInput" placeholder="Search by sport, event, or name…" value="${escapeHtml(organiserSearch)}">
-  </div>`;
-
-  if(Object.keys(grouped).length === 0){
-    html += emptyHtml('No organisers match your search.');
-  }else{
-    Object.keys(grouped).sort().forEach(cat=>{
-      html += `<div class="org-cat-head">${escapeHtml(cat)}</div>`;
-      grouped[cat].forEach(ev=>{
-        html += `<div class="org-event-card">
-          <div class="org-event-name">${escapeHtml(ev.name)}</div>
-          <div class="org-event-meta">${fmtDate(ev.date)} · ${escapeHtml(ev.time)} · ${escapeHtml(ev.venue)}</div>
-          <div class="org-contact-list">`;
-        ev.coordinators.forEach(co=>{
-          html += `<a class="org-contact-row" href="tel:${escapeHtml(co.phone)}">
-            <span class="org-contact-avatar">${initials(co.name)}</span>
-            <span class="org-contact-name">${escapeHtml(co.name)}</span>
-            <span class="org-contact-phone"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>${escapeHtml(co.phone)}</span>
-          </a>`;
-        });
-        html += `</div></div>`;
-      });
-    });
-  }
-
-  c.innerHTML = html;
-  const searchInput = document.getElementById('orgSearchInput');
-  if(searchInput){
-    searchInput.oninput = (e)=>{
-      organiserSearch = e.target.value;
-      const cursorPos = e.target.selectionStart;
-      renderOrganisers();
-      const newInput = document.getElementById('orgSearchInput');
-      if(newInput){ newInput.focus(); newInput.setSelectionRange(cursorPos, cursorPos); }
-    };
-  }
-}
-
-// ---------- Cricket tab: CricHeroes quick links ----------
-const CRICHEROES_HOME = "https://cricheroes.com/";
-const CRICHEROES_LINKS = [
-  {key:"live",     label:"Live scores",      sub:"See matches happening right now",  icon:'<circle cx="12" cy="12" r="9"/><path d="M12 12l3 3"/>'},
-  {key:"upcoming", label:"Upcoming matches",  sub:"Check who's playing next",         icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'},
-  {key:"past",     label:"Completed matches", sub:"View results and scorecards",      icon:'<path d="M20 6L9 17l-5-5"/>'}
-];
-
-function renderCricket(){
-  const c = document.getElementById('content');
-  const matches = state.events.filter(e=>e.category==='Cricket').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-
-  let html = `<div class="section-head"><h2>BTPS Cricket Tournament 2026</h2></div>`;
-
-  CRICHEROES_LINKS.forEach(l=>{
-    html += `<a href="${CRICHEROES_HOME}" target="_blank" rel="noopener" class="cricheroes-link-card">
-      <div class="clc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">${l.icon}</svg></div>
-      <div class="clc-text">
-        <div class="clc-label">${l.label}</div>
-        <div class="clc-sub">${l.sub} on CricHeroes</div>
-      </div>
-      <svg class="clc-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-    </a>`;
-  });
-  html += `<div class="embed-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>Opens CricHeroes in a new tab — sign in there to see live tournament scores</div>`;
-
-  html += `<div class="section-head" style="margin-top:24px;"><h2>League fixture list</h2><span class="count">${matches.length} matches</span></div>`;
-  const grouped = {};
-  matches.forEach(m=>{ (grouped[m.date] = grouped[m.date]||[]).push(m); });
-  Object.keys(grouped).sort().forEach(date=>{
-    html += `<div class="eyebrow" style="margin-top:18px;">${fmtDate(date)}</div>`;
-    grouped[date].forEach(m => html += eventCardHtml(m));
-  });
-
-  c.innerHTML = html;
-  bindEventCards();
-}
-
-// ---------- Rendering: Alerts / notifications ----------
-async function renderAlerts(){
-  const c = document.getElementById('content');
-  lastSeenNotifCount = state.notifications.length;
-  await saveSeenCount();
-  document.getElementById('bellDot').style.display = 'none';
-  document.getElementById('navBellDot').style.display = 'none';
-
-  let html = '';
-  if(isAdmin){
-    html += `<div class="section-head"><h2>Send a broadcast</h2></div>
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" id="broadcastTitle" placeholder="e.g. Match rescheduled">
-    </div>
-    <div class="form-group">
-      <label>Message</label>
-      <textarea id="broadcastMsg" rows="3" placeholder="Details employees should know..."></textarea>
-    </div>
-    <div class="form-group">
-      <label>Type</label>
-      <select id="broadcastType">
-        <option value="info">Info</option>
-        <option value="alert">Alert / Urgent</option>
-      </select>
-    </div>
-    <button class="btn btn-amber" id="sendBroadcastBtn">Push notification to all employees</button>`;
-  }
-
-  html += `<div class="section-head"><h2>Notification feed</h2><span class="count">${state.notifications.length}</span></div>`;
-  const sorted = state.notifications.slice().sort((a,b)=>b.time-a.time);
-  if(sorted.length === 0){
-    html += emptyHtml('No notifications yet.');
-  }else{
-    sorted.forEach(n => {
-      html += `<div class="notif-item">
-        <div class="notif-icon ${n.type==='alert'?'alert':''}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${n.type==='alert' ? '<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>' : '<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>'}</svg>
-        </div>
-        <div class="notif-body">
-          <div class="ttl">${escapeHtml(n.title)}</div>
-          <div class="msg">${escapeHtml(n.message)}</div>
-          <div class="time">${timeAgo(n.time)}</div>
-        </div>
-      </div>`;
-    });
-  }
-  c.innerHTML = html;
-
-  if(isAdmin){
-    document.getElementById('sendBroadcastBtn').onclick = async ()=>{
-      const title = document.getElementById('broadcastTitle').value.trim();
-      const msg = document.getElementById('broadcastMsg').value.trim();
-      const type = document.getElementById('broadcastType').value;
-      if(!title || !msg){ showToast('Add a title and message first'); return; }
-      state.notifications.push({id: uid('n'), title, message: msg, type, time: Date.now()});
-      await saveNotifs();
-      showToast('Broadcast sent to all employees');
-      renderAlerts();
-    };
-  }
-}
-
-function refreshBellDot(){
-  const unseen = state.notifications.length > lastSeenNotifCount;
-  document.getElementById('bellDot').style.display = unseen ? 'block' : 'none';
-  document.getElementById('navBellDot').style.display = unseen ? 'block' : 'none';
-}
+loadState();
 
 function updateConnectionDot(){
   const dot = document.getElementById('connDot');
-  const btn = document.getElementById('connStatusBtn');
   if(backendOk){
     dot.style.display = 'none';
-    btn.title = 'Connected — synced with all employees';
+    document.getElementById('connStatusBtn').title = 'Connected — synced with sheet';
   }else{
     dot.style.display = 'block';
-    btn.title = 'Offline — showing local data, not synced';
+    document.getElementById('connStatusBtn').title = 'Offline — showing local data';
   }
 }
 
-// ---------- Event detail sheet ----------
-function bindEventCards(){
-  document.querySelectorAll('.event-card').forEach(card=>{
-    card.onclick = ()=> openEventSheet(card.dataset.id);
+function renderTicker(){
+  const el=document.getElementById('marqueeText');
+  const live = state.events.find(e=>e.status==='live');
+  if(live) el.textContent = `🔴 LIVE: ${live.name}`;
+  else {
+    const up = state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+    if(up.length) el.textContent = `📅 UP NEXT: ${up[0].name} · ${fmtDate(up[0].date)} ${up[0].time}`;
+    else el.textContent = '✅ All events completed · 57th Foundation Day';
+  }
+}
+
+// ---------- RENDER DASHBOARD ----------
+function renderDashboard(){
+  const c=document.getElementById('content');
+  const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
+  const liveCount=state.events.filter(e=>e.status==='live').length;
+  const upcoming=state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,6);
+  const pct=total?Math.round((done/total)*100):0;
+  const circumference = 2 * Math.PI * 24;
+  const offset = circumference * (1 - pct/100);
+  
+  let html='';
+  if(isAdmin) html+=`<div class="admin-banner">🔑 Admin mode — edits sync to all employees</div>`;
+  
+  html+=`<div class="hero-stats">
+    <div class="hero-stat"><span class="emoji">🏏</span><div class="num">${state.events.filter(e=>e.category==='Cricket').length}</div><div class="lbl">Cricket</div></div>
+    <div class="hero-stat"><span class="emoji">🏆</span><div class="num">${done}</div><div class="lbl">Completed</div></div>
+    <div class="hero-stat"><span class="emoji">📅</span><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+  </div>`;
+
+  const facts = ['🔥 "Champions are made when no one is watching"','💪 "Play with heart, win with pride"','🏅 "Every game is a new opportunity"','🌟 "KPCL family — united in sport"','🎯 "Focus. Execute. Celebrate."'];
+  const fact = facts[Math.floor(Math.random() * facts.length)];
+  html+=`<div class="fun-fact"><span class="icon">💡</span><span class="text">${fact}</span></div>`;
+
+  html+=`<div class="progress-ring">
+    <div class="ring"><svg><circle class="bg" cx="30" cy="30" r="24"/><circle class="fg" cx="30" cy="30" r="24" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/></svg><div class="center">${pct}<small>%</small></div></div>
+    <div class="ring-text"><div class="pct">${done} of ${total} events done</div><div class="sub">${liveCount > 0 ? `🔴 ${liveCount} live now` : '🏁 Keep going!'}</div></div>
+  </div>`;
+
+  if(upcoming.length){
+    html+=`<div class="section-title">📅 Coming up <small>${upcoming.length}</small></div>`;
+    upcoming.forEach(e=>html+=eventCardHtml(e));
+  }
+
+  const recentCricket = state.events.filter(e=>e.category==='Cricket' && e.status==='completed' && (e.scoreA || e.scoreB)).slice(-4).reverse();
+  if(recentCricket.length){
+    html+=`<div class="section-title">🏏 Recent Cricket Results</div>`;
+    recentCricket.forEach(e=>html+=eventCardHtml(e));
+  }
+
+  c.innerHTML=html;
+  bindCards();
+  renderTicker();
+  updateConnectionDot();
+}
+
+function eventCardHtml(e){
+  const pCount=(e.participants||[]).length;
+  let scoreHtml='';
+  if(e.teamA && e.teamB && (e.scoreA || e.scoreB || e.winner)){
+    const aW=e.winner==='A', bW=e.winner==='B', tie=e.winner==='tie';
+    scoreHtml=`<div class="scorecard">
+      <div class="sc-row"><span class="sc-team">${aW?'🏆 ':''}${escapeHtml(e.teamA)}</span><span class="sc-runs">${escapeHtml(e.scoreA||'—')}</span></div>
+      <div class="sc-vs">vs</div>
+      <div class="sc-row"><span class="sc-team">${bW?'🏆 ':''}${escapeHtml(e.teamB)}</span><span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span></div>
+      ${e.winner?`<div class="sc-result">${tie?'🤝 Match Tied':`🏆 ${escapeHtml(aW?e.teamA:e.teamB)} won`}</div>`:''}
+    </div>`;
+  }
+  return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
+    <div class="card-header"><div><div class="card-title">${escapeHtml(e.name)}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
+    <span class="status ${e.status}">${e.status==='live'?'🔴 LIVE':e.status}</span></div>
+    <div class="meta"><span>📅 ${fmtDate(e.date)}</span><span>⏱ ${escapeHtml(e.time)}</span><span>📍 ${escapeHtml(e.venue)}</span></div>
+    ${scoreHtml}
+    <div style="margin-top:8px"><span class="participant-pill">👤 ${pCount} registered</span></div>
+  </div>`;
+}
+
+function renderEvents(){
+  const c=document.getElementById('content');
+  const cats=['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
+  let filtered=activeFilter==='all'?state.events.filter(e=>e.category!=='Cricket'):state.events.filter(e=>e.category===activeFilter);
+  filtered=filtered.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  let html=`<div class="chip-group">`;
+  cats.forEach(cat=>{ html+=`<span class="chip ${activeFilter===cat?'active':''}" data-cat="${cat}">${cat}</span>`; });
+  html+=`</div><div class="section-title">All Events <small>${filtered.length}</small></div>`;
+  filtered.length?filtered.forEach(e=>html+=eventCardHtml(e)):html+=`<div class="empty">No events in this category</div>`;
+  c.innerHTML=html;
+  document.querySelectorAll('.chip').forEach(el=>{ el.onclick=()=>{ activeFilter=el.dataset.cat; renderEvents(); }; });
+  bindCards(); renderTicker(); updateConnectionDot();
+}
+
+function renderCricket(){
+  const c=document.getElementById('content');
+  const matches=state.events.filter(e=>e.category==='Cricket').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  let html=`<div class="section-title">🏏 BTPS Cricket Tournament 2026 <small>${matches.length} matches</small></div>
+  <div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap">
+    <a href="https://cricheroes.com" target="_blank" style="background:#0b1530;color:#fff;padding:6px 16px;border-radius:40px;font-size:11px;font-weight:700;text-decoration:none">🔗 Live on CricHeroes</a>
+    ${isAdmin?`<button class="btn" style="width:auto;padding:6px 16px;background:#f5a623;color:#0b1530;font-size:11px" id="addCricketBtn">+ Add Match</button>`:''}
+  </div>`;
+  matches.forEach(e=>html+=eventCardHtml(e));
+  c.innerHTML=html; 
+  bindCards(); 
+  renderTicker(); updateConnectionDot();
+  if(isAdmin) document.getElementById('addCricketBtn')?.addEventListener('click', ()=>{
+    const sheet=document.getElementById('sheet');
+    sheet.innerHTML=`<div class="sheet-handle"></div><h3>Add Cricket Match</h3>
+      <input id="neName" placeholder="Match name e.g. TeamA vs TeamB" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0">
+      <div style="display:flex;gap:6px"><input id="neTeamA" placeholder="Team A" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTeamB" placeholder="Team B" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
+      <div style="display:flex;gap:6px"><input id="neDate" type="date" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTime" placeholder="Time" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
+      <button class="btn" id="neSave">Create Match</button><button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px" id="neCancel">Cancel</button>`;
+    document.getElementById('sheetOverlay').classList.add('open');
+    document.getElementById('neCancel').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
+    document.getElementById('neSave').onclick=()=>{
+      const name=document.getElementById('neName').value.trim();
+      if(!name) return toast('Enter match name');
+      state.events.push({id:uid('cr'),name,category:'Cricket',venue:'BTPS Cricket Ground',date:document.getElementById('neDate').value||'2026-07-02',time:document.getElementById('neTime').value.trim()||'TBA',status:'upcoming',teamA:document.getElementById('neTeamA').value.trim()||'TBD',teamB:document.getElementById('neTeamB').value.trim()||'TBD',scoreA:'',scoreB:'',winner:'',participants:[],coordinators:[]});
+      toast('Match added');
+      document.getElementById('sheetOverlay').classList.remove('open');
+      renderCurrentTab();
+    };
   });
 }
 
-function openEventSheet(id){
-  const ev = state.events.find(e=>e.id===id);
+function renderOrganisers(){
+  const c=document.getElementById('content');
+  const withCoords=state.events.filter(e=>e.coordinators&&e.coordinators.length);
+  let html=`<div class="section-title">📞 Organisers & Contacts <small>${withCoords.reduce((s,e)=>s+(e.coordinators||[]).length,0)} contacts</small></div>
+  <div class="org-search"><input type="text" id="orgSearch" placeholder="Search by sport, event, name..."></div>`;
+  const q=(document.getElementById('orgSearch')||{value:''}).value.trim().toLowerCase();
+  const filtered=withCoords.filter(e=>{
+    if(e.name.toLowerCase().includes(q)||e.category.toLowerCase().includes(q)) return true;
+    return (e.coordinators||[]).some(c=>c.name.toLowerCase().includes(q)||(c.phone||'').includes(q));
+  });
+  if(!filtered.length) html+=`<div class="empty">No matches</div>`;
+  else filtered.forEach(e=>{
+    html+=`<div class="org-card"><div class="name">${escapeHtml(e.name)}</div><div class="sub">${escapeHtml(e.category)} · ${fmtDate(e.date)}</div>`;
+    e.coordinators.forEach(c=>{
+      html+=`<a class="org-contact" href="tel:${escapeHtml(c.phone)}"><span class="avatar">${initials(c.name)}</span><span class="cname">${escapeHtml(c.name)}</span><span class="phone">${escapeHtml(c.phone)}</span></a>`;
+    });
+    html+=`</div>`;
+  });
+  c.innerHTML=html;
+  document.getElementById('orgSearch')?.addEventListener('input', renderOrganisers);
+  renderTicker(); updateConnectionDot();
+}
+
+function renderAlerts(){
+  const c=document.getElementById('content');
+  let html=`<div class="section-title">🔔 Alerts <small>${state.notifications.length}</small></div>`;
+  if(isAdmin){
+    html+=`<div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px">
+      <input id="notifTitle" placeholder="Title" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin-bottom:6px">
+      <textarea id="notifMsg" rows="2" placeholder="Message" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin-bottom:6px"></textarea>
+      <button class="btn btn-amber" id="sendNotifBtn">📢 Send broadcast</button>
+    </div>`;
+  }
+  state.notifications.slice().sort((a,b)=>b.time-a.time).forEach(n=>{
+    html+=`<div style="background:#fff;border-radius:12px;padding:10px 14px;margin-bottom:8px;border-left:4px solid ${n.type==='alert'?'#f5a623':'#27439a'}">
+      <div style="font-weight:800;font-size:13px">${escapeHtml(n.title)}</div>
+      <div style="font-size:12px;color:#525d7a;margin:2px 0">${escapeHtml(n.message)}</div>
+      <div style="font-size:10px;color:#9aa6cc">${new Date(n.time).toLocaleString()}</div>
+    </div>`;
+  });
+  c.innerHTML=html;
+  if(isAdmin) document.getElementById('sendNotifBtn')?.addEventListener('click', ()=>{
+    const title=document.getElementById('notifTitle').value.trim();
+    const msg=document.getElementById('notifMsg').value.trim();
+    if(!title||!msg) return toast('Fill title and message');
+    state.notifications.push({id:uid('n'),title,message:msg,type:'info',time:Date.now()});
+    toast('Broadcast sent');
+    renderAlerts();
+  });
+  renderTicker(); updateConnectionDot();
+}
+
+function bindCards(){
+  document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>openSheet(el.dataset.id); });
+}
+
+function openSheet(id){
+  const ev=state.events.find(e=>e.id===id);
   if(!ev) return;
-  const sheet = document.getElementById('sheet');
-  const pCount = (ev.participants||[]).length;
-
-  let body = `<div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <h3>${escapeHtml(ev.name)}</h3>
-      <button class="sheet-close" id="sheetCloseBtn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    </div>
-    <span class="status-chip ${ev.status}">${ev.status}</span>
-
-    <div class="sheet-meta-grid">
-      <div class="meta-box"><div class="lbl">Category</div><div class="val">${escapeHtml(ev.category)}</div></div>
-      <div class="meta-box"><div class="lbl">Venue</div><div class="val">${escapeHtml(ev.venue)}</div></div>
-      <div class="meta-box"><div class="lbl">Date</div><div class="val">${fmtDate(ev.date)}</div></div>
-      <div class="meta-box"><div class="lbl">Time</div><div class="val">${escapeHtml(ev.time)}</div></div>
-    </div>`;
-
-  if(ev.note){
-    body += `<div class="meta-box" style="margin-bottom:14px;"><div class="lbl">Note</div><div class="val" style="font-weight:600;">${escapeHtml(ev.note)}</div></div>`;
-  }
-
-  // Score section
+  const sheet=document.getElementById('sheet');
+  let html=`<div class="sheet-handle"></div><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:17px">${escapeHtml(ev.name)}</h3><button class="sheet-close" id="sheetClose">✕</button></div>
+  <div style="margin:6px 0 8px"><span class="status ${ev.status}">${ev.status}</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;background:#f4f6fc;border-radius:12px;padding:10px">
+    <div><span style="color:#525d7a">Category</span><br><strong>${escapeHtml(ev.category)}</strong></div>
+    <div><span style="color:#525d7a">Venue</span><br><strong>${escapeHtml(ev.venue)}</strong></div>
+    <div><span style="color:#525d7a">Date</span><br><strong>${fmtDate(ev.date)}</strong></div>
+    <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)}</strong></div>
+  </div>`;
+  
+  // Participants section - visible to admin
+  const participants = ev.participants || [];
+  html+=`<div style="margin-top:12px;font-weight:700;font-size:12px">👥 Participants <small style="font-weight:400;color:#525d7a">${participants.length}</small></div>`;
   if(isAdmin){
-    body += `<div class="divider-label">Live score / result</div>`;
-    if(ev.teamA && ev.teamB){
-      body += `<div class="score-edit-row">
-        <input class="score-input" id="scoreAInput" placeholder="${escapeHtml(ev.teamA)} score" value="${escapeHtml(ev.scoreA||'')}">
-        <span class="vs-divider">VS</span>
-        <input class="score-input" id="scoreBInput" placeholder="${escapeHtml(ev.teamB)} score" value="${escapeHtml(ev.scoreB||'')}">
-      </div>
-      <div class="winner-row">
-        <div class="winner-label">Winner</div>
-        <div class="winner-btns">
-          <button class="winner-btn ${ev.winner==='A'?'selected':''}" data-winner="A">🏆 ${escapeHtml(ev.teamA)}</button>
-          <button class="winner-btn ${ev.winner==='B'?'selected':''}" data-winner="B">🏆 ${escapeHtml(ev.teamB)}</button>
-          <button class="winner-btn tie ${ev.winner==='tie'?'selected':''}" data-winner="tie">Tie</button>
-          <button class="winner-btn none ${(!ev.winner)?'selected':''}" data-winner="">Not decided</button>
-        </div>
-      </div>`;
-    }
-    body += `<div class="status-row">
-      <button class="status-btn sel-upcoming ${ev.status==='upcoming'?'selected':''}" data-status="upcoming">Upcoming</button>
-      <button class="status-btn sel-live ${ev.status==='live'?'selected':''}" data-status="live">Live</button>
-      <button class="status-btn sel-completed ${ev.status==='completed'?'selected':''}" data-status="completed">Completed</button>
-    </div>
-    <button class="btn btn-primary" id="saveEventBtn">Save changes</button>`;
-  }else if(ev.teamA && ev.teamB && (ev.scoreA || ev.scoreB || ev.winner)){
-    const aWon = ev.winner === 'A', bWon = ev.winner === 'B', tie = ev.winner === 'tie';
-    body += `<div class="divider-label">Result</div>
-    <div class="scorecard" style="margin-top:0;">
-      <div class="sc-row ${aWon?'sc-winner':''}">
-        <span class="sc-team">${aWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(ev.teamA)}</span>
-        <span class="sc-runs">${escapeHtml(ev.scoreA||'—')}</span>
-      </div>
-      <div class="sc-divider">vs</div>
-      <div class="sc-row ${bWon?'sc-winner':''}">
-        <span class="sc-team">${bWon?'<span class=\"sc-trophy\">🏆</span>':''}${escapeHtml(ev.teamB)}</span>
-        <span class="sc-runs">${escapeHtml(ev.scoreB||'—')}</span>
-      </div>
-      ${tie ? '<div class="sc-result-tag">Match Tied</div>' : (aWon||bWon) ? `<div class="sc-result-tag win">${escapeHtml(aWon?ev.teamA:ev.teamB)} won the match</div>` : ''}
+    html+=`<div style="display:flex;gap:6px;margin:6px 0">
+      <input id="partName" placeholder="Name" style="flex:2;padding:6px 10px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px">
+      <input id="partPhone" placeholder="Phone" style="flex:1;padding:6px 10px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px">
+      <button class="btn" style="width:auto;padding:6px 14px;font-size:12px;background:#f5a623;color:#0b1530" id="addPartBtn">Add</button>
     </div>`;
   }
+  if(participants.length){
+    participants.forEach((p, idx)=>{
+      html+=`<div class="participant-row">
+        <div><div class="pname">${escapeHtml(p.name)}</div>${p.phone ? `<div class="pphone">${escapeHtml(p.phone)}</div>` : ''}</div>
+        ${isAdmin ? `<button class="remove-btn" data-idx="${idx}" title="Remove">✕</button>` : ''}
+      </div>`;
+    });
+  } else {
+    html+=`<div style="font-size:12px;color:#8a95bd;padding:4px 0">No participants registered yet</div>`;
+  }
 
-
-  // Coordinators
+  // Cricket score editor for admin
+  if(isAdmin && ev.teamA && ev.teamB){
+    html+=`<div style="margin-top:12px;font-weight:700;font-size:12px">✎ Update Score & Winner</div>
+    <div style="display:flex;gap:8px;margin:6px 0"><input id="scA" placeholder="${escapeHtml(ev.teamA)} score" value="${escapeHtml(ev.scoreA||'')}" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="scB" placeholder="${escapeHtml(ev.teamB)} score" value="${escapeHtml(ev.scoreB||'')}" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+      <button class="winner-btn ${ev.winner==='A'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='A'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="A">🏆 ${escapeHtml(ev.teamA)}</button>
+      <button class="winner-btn ${ev.winner==='B'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='B'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="B">🏆 ${escapeHtml(ev.teamB)}</button>
+      <button class="winner-btn ${ev.winner==='tie'?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${ev.winner==='tie'?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="tie">🤝 Tie</button>
+      <button class="winner-btn ${!ev.winner?'active':''}" style="padding:4px 12px;border-radius:40px;border:1px solid #e2e6f0;background:${!ev.winner?'#f5a623':'#fff'};font-weight:700;cursor:pointer" data-win="">—</button>
+    </div>
+    <button class="btn" id="updateScoreBtn">Update Score</button>
+    <div style="margin-top:6px;display:flex;gap:6px">
+      <button class="btn" style="background:#e8f6ee;color:#1f9d6c;padding:8px" id="markComplete">✅ Mark Completed</button>
+      <button class="btn" style="background:#fff0db;color:#b06a06;padding:8px" id="markLive">🔴 Mark Live</button>
+    </div>`;
+  }
   if(ev.coordinators && ev.coordinators.length){
-    body += `<div class="divider-label">Registration contacts <span style="color:var(--ink-soft);font-weight:600;font-size:11px;text-transform:none;">tap to call</span></div>`;
-    ev.coordinators.slice(0,10).forEach(co=>{
-      body += `<div class="coord-row">
-        <span class="coord-name">${escapeHtml(co.name)}</span>
-        <a class="coord-call" href="tel:${escapeHtml(co.phone)}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          ${escapeHtml(co.phone)}
-        </a>
-      </div>`;
+    html+=`<div style="margin-top:12px;font-weight:700;font-size:12px">📞 Coordinators</div>`;
+    ev.coordinators.forEach(c=>{
+      html+=`<a href="tel:${escapeHtml(c.phone)}" style="display:flex;justify-content:space-between;background:#f4f6fc;padding:6px 10px;border-radius:8px;margin-top:4px;text-decoration:none;color:inherit">
+        <span>${escapeHtml(c.name)}</span><span style="color:#1f9d6c">${escapeHtml(c.phone)}</span>
+      </a>`;
     });
   }
-
-  // Participants
-  body += `<div class="divider-label">Participants <span style="color:var(--ink-soft);font-weight:700;">${pCount}</span></div>`;
-  const parts = ev.participants || [];
-  if(parts.length === 0){
-    body += `<div class="empty" style="padding:20px 0;"><p>No participants added yet.</p></div>`;
-  }else{
-    parts.forEach((p, idx)=>{
-      body += `<div class="participant-row">
-        <div class="p-info">
-          <div class="p-avatar">${initials(p.name)}</div>
-          <div><div class="p-name">${escapeHtml(p.name)}</div>${p.phone ? `<div class="p-phone">${escapeHtml(p.phone)}</div>`:''}</div>
-        </div>
-        ${isAdmin ? `<button class="remove-btn" data-idx="${idx}" title="Remove"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>` : ''}
-      </div>`;
-    });
-  }
-
-  if(isAdmin){
-    body += `<div class="add-participant-form">
-      <input type="text" id="newPartName" placeholder="Employee name">
-      <input type="text" id="newPartPhone" placeholder="Phone (optional)" style="max-width:120px;">
-    </div>
-    <button class="btn btn-ghost" id="addPartBtn" style="margin-top:8px;">+ Add participant</button>`;
-  }
-
-  sheet.innerHTML = body;
+  sheet.innerHTML=html;
+  document.getElementById('sheetClose').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
   document.getElementById('sheetOverlay').classList.add('open');
-  document.getElementById('sheetCloseBtn').onclick = closeSheet;
 
+  // Add participant
   if(isAdmin){
-    document.querySelectorAll('.status-btn').forEach(btn=>{
-      btn.onclick = ()=>{
-        document.querySelectorAll('.status-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        btn.dataset.picked = '1';
-      };
-    });
-    document.querySelectorAll('.winner-btn').forEach(btn=>{
-      btn.onclick = ()=>{
-        document.querySelectorAll('.winner-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-      };
-    });
-    const saveBtn = document.getElementById('saveEventBtn');
-    if(saveBtn){
-      saveBtn.onclick = async ()=>{
-        const picked = document.querySelector('.status-btn.selected');
-        if(picked) ev.status = picked.dataset.status;
-        const sa = document.getElementById('scoreAInput');
-        const sb = document.getElementById('scoreBInput');
-        if(sa) ev.scoreA = sa.value.trim();
-        if(sb) ev.scoreB = sb.value.trim();
-        const pickedWinner = document.querySelector('.winner-btn.selected');
-        if(pickedWinner) ev.winner = pickedWinner.dataset.winner;
-        saveBtn.textContent = 'Saving…';
-        saveBtn.disabled = true;
-        const ok = await saveEvents();
-        if(ok){
-          showToast('Event updated — synced to all employees');
-          closeSheet();
-        }else{
-          saveBtn.textContent = 'Save changes';
-          saveBtn.disabled = false;
-        }
-        renderCurrentTab();
-      };
-    }
     const addBtn = document.getElementById('addPartBtn');
     if(addBtn){
-      addBtn.onclick = async ()=>{
-        const nameInput = document.getElementById('newPartName');
-        const phoneInput = document.getElementById('newPartPhone');
-        const name = nameInput.value.trim();
-        const phone = phoneInput.value.trim();
-        if(!name){ showToast('Enter a name first'); return; }
+      addBtn.onclick=()=>{
+        const name = document.getElementById('partName').value.trim();
+        const phone = document.getElementById('partPhone').value.trim();
+        if(!name) return toast('Enter a name');
         ev.participants = ev.participants || [];
         ev.participants.push({name, phone});
-        await saveEvents();
-        showToast('Participant added');
-        openEventSheet(id);
+        toast('Participant added');
+        openSheet(id);
         renderCurrentTab();
       };
     }
     document.querySelectorAll('.remove-btn').forEach(btn=>{
-      btn.onclick = async ()=>{
+      btn.onclick=()=>{
         const idx = parseInt(btn.dataset.idx, 10);
         ev.participants.splice(idx, 1);
-        await saveEvents();
-        showToast('Participant removed');
-        openEventSheet(id);
+        toast('Participant removed');
+        openSheet(id);
         renderCurrentTab();
       };
     });
   }
+
+  // Score update logic
+  if(isAdmin && ev.teamA && ev.teamB){
+    document.querySelectorAll('.winner-btn').forEach(b=>{
+      b.onclick=()=>{
+        document.querySelectorAll('.winner-btn').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        ev.winner = b.dataset.win;
+      };
+    });
+    document.getElementById('updateScoreBtn').onclick=()=>{
+      ev.scoreA = document.getElementById('scA').value.trim();
+      ev.scoreB = document.getElementById('scB').value.trim();
+      toast('Score updated');
+      document.getElementById('sheetOverlay').classList.remove('open');
+      renderCurrentTab();
+    };
+    document.getElementById('markComplete').onclick=()=>{ ev.status='completed'; toast('Marked completed'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
+    document.getElementById('markLive').onclick=()=>{ ev.status='live'; toast('Marked live'); document.getElementById('sheetOverlay').classList.remove('open'); renderCurrentTab(); };
+  }
 }
 
-function closeSheet(){
-  document.getElementById('sheetOverlay').classList.remove('open');
+// ----- tab switching -----
+function setTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  document.getElementById('fabAdd').classList.toggle('show', isAdmin && tab==='events');
+  if(tab==='dashboard') renderDashboard();
+  else if(tab==='events') renderEvents();
+  else if(tab==='cricket') renderCricket();
+  else if(tab==='organisers') renderOrganisers();
+  else if(tab==='alerts') renderAlerts();
 }
-document.getElementById('sheetOverlay').addEventListener('click', (e)=>{
-  if(e.target.id === 'sheetOverlay') closeSheet();
-});
+document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
+document.getElementById('bellBtn').onclick=()=>setTab('alerts');
 
-// ---------- Admin: create new event ----------
-function openCreateEventSheet(){
-  const sheet = document.getElementById('sheet');
-  sheet.innerHTML = `
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <h3>Add new event</h3>
-      <button class="sheet-close" id="sheetCloseBtn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    </div>
-    <div class="form-group"><label>Event name</label><input type="text" id="ceName" placeholder="e.g. Kabaddi — Final"></div>
-    <div class="form-group"><label>Category</label><input type="text" id="ceCategory" placeholder="e.g. Outdoor Games"></div>
-    <div class="form-row">
-      <div class="form-group"><label>Date</label><input type="date" id="ceDate"></div>
-      <div class="form-group"><label>Time</label><input type="text" id="ceTime" placeholder="e.g. 10:00 AM"></div>
-    </div>
-    <div class="form-group"><label>Venue</label><input type="text" id="ceVenue" placeholder="e.g. BTPS Ground"></div>
-    <div class="form-group"><label>Note (optional)</label><input type="text" id="ceNote" placeholder="Registration deadline, etc."></div>
-    <button class="btn btn-primary" id="ceSaveBtn">Create event</button>
-  `;
+// admin
+document.getElementById('adminToggleBtn').onclick=()=>{
+  if(isAdmin){ isAdmin=false; toast('Switched to employee view'); renderCurrentTab(); return; }
+  document.getElementById('loginScreen').style.display='flex';
+};
+document.getElementById('loginCancel').onclick=()=>document.getElementById('loginScreen').style.display='none';
+document.getElementById('loginSubmit').onclick=()=>{
+  if(document.getElementById('adminPw').value===ADMIN_PW){ isAdmin=true; document.getElementById('loginScreen').style.display='none'; toast('Admin mode'); renderCurrentTab(); }
+  else document.getElementById('loginErr').style.display='block';
+};
+document.getElementById('adminPw').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginSubmit').click(); });
+
+document.getElementById('fabAdd').onclick=()=>{
+  const sheet=document.getElementById('sheet');
+  sheet.innerHTML=`<div class="sheet-handle"></div><h3 style="font-size:17px">Add Event</h3>
+  <input id="neName" placeholder="Event name" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0">
+  <input id="neCat" placeholder="Category" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0">
+  <div style="display:flex;gap:6px"><input id="neDate" type="date" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"><input id="neTime" placeholder="Time" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e2e6f0"></div>
+  <input id="neVenue" placeholder="Venue" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0">
+  <button class="btn" id="neSave">Create</button>
+  <button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px" id="neCancel">Cancel</button>`;
   document.getElementById('sheetOverlay').classList.add('open');
-  document.getElementById('sheetCloseBtn').onclick = closeSheet;
-  document.getElementById('ceSaveBtn').onclick = async ()=>{
-    const name = document.getElementById('ceName').value.trim();
-    const category = document.getElementById('ceCategory').value.trim() || 'General';
-    const date = document.getElementById('ceDate').value || new Date().toISOString().slice(0,10);
-    const time = document.getElementById('ceTime').value.trim() || 'TBA';
-    const venue = document.getElementById('ceVenue').value.trim() || 'BTPS';
-    const note = document.getElementById('ceNote').value.trim();
-    if(!name){ showToast('Enter an event name'); return; }
-    state.events.push({id: uid('ev'), name, category, date, time, venue, status:'upcoming', note, participants:[], coordinators:[]});
-    await saveEvents();
-    state.notifications.push({id: uid('n'), title:'New event added', message:`${name} has been added to the schedule — ${fmtDate(date)} at ${time}, ${venue}.`, type:'info', time: Date.now()});
-    await saveNotifs();
-    showToast('Event created');
-    closeSheet();
+  document.getElementById('neCancel').onclick=()=>document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('neSave').onclick=()=>{
+    const name=document.getElementById('neName').value.trim();
+    if(!name) return toast('Enter name');
+    state.events.push({id:uid('ev'),name,category:document.getElementById('neCat').value.trim()||'General',venue:document.getElementById('neVenue').value.trim()||'BTPS',date:document.getElementById('neDate').value||'2026-07-20',time:document.getElementById('neTime').value.trim()||'TBA',status:'upcoming',participants:[],coordinators:[]});
+    toast('Event added');
+    document.getElementById('sheetOverlay').classList.remove('open');
     renderCurrentTab();
   };
-}
-
-// ---------- Tab navigation ----------
-function renderCurrentTab(){
-  renderTicker();
-  refreshBellDot();
-  if(currentTab === 'dashboard') renderDashboard();
-  else if(currentTab === 'events') renderEvents();
-  else if(currentTab === 'cricket') renderCricket();
-  else if(currentTab === 'alerts') renderAlerts();
-  else if(currentTab === 'organisers') renderOrganisers();
-}
-
-function setTab(tab){
-  currentTab = tab;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===tab));
-  document.querySelectorAll('.nav-item').forEach(t=>t.classList.toggle('active', t.dataset.tab===tab));
-  document.getElementById('fabAdd').style.display = (isAdmin && tab==='events') ? 'flex' : 'none';
-  document.getElementById('content').scrollTop = 0;
-  window.scrollTo(0,0);
-  renderCurrentTab();
-}
-
-document.querySelectorAll('.tab, .nav-item').forEach(el=>{
-  el.addEventListener('click', ()=> setTab(el.dataset.tab));
-});
-
-document.getElementById('bellBtn').onclick = ()=> setTab('alerts');
-document.getElementById('fabAdd').onclick = openCreateEventSheet;
-
-// ---------- Admin login flow ----------
-document.getElementById('adminToggleBtn').onclick = ()=>{
-  if(isAdmin){
-    isAdmin = false;
-    showToast('Switched to employee view');
-    document.getElementById('fabAdd').style.display = 'none';
-    renderCurrentTab();
-  }else{
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('adminPw').value = '';
-    document.getElementById('loginErr').style.display = 'none';
-    setTimeout(()=>document.getElementById('adminPw').focus(), 100);
-  }
 };
-document.getElementById('loginCancel').onclick = ()=>{
-  document.getElementById('loginScreen').style.display = 'none';
-};
-document.getElementById('loginSubmit').onclick = attemptLogin;
-document.getElementById('adminPw').addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter') attemptLogin();
-});
-function attemptLogin(){
-  const pw = document.getElementById('adminPw').value;
-  if(pw === ADMIN_PASSWORD){
-    isAdmin = true;
-    document.getElementById('loginScreen').style.display = 'none';
-    showToast('Admin mode enabled');
-    document.getElementById('fabAdd').style.display = (currentTab==='events') ? 'flex' : 'none';
-    renderCurrentTab();
-  }else{
-    document.getElementById('loginErr').style.display = 'block';
-  }
-}
 
-// ---------- Init ----------
-async function init(){
-  await loadState();
+function renderCurrentTab(){ setTab(currentTab); }
+renderCurrentTab();
+
+// Simulate connection status toggle (for demo)
+setInterval(()=>{
+  backendOk = !backendOk;
   updateConnectionDot();
-  setTab('dashboard');
-  // Poll the backend so multiple employees viewing simultaneously see fresh data
-  setInterval(async ()=>{
-    if(Date.now() < suppressPollUntil) return; // just saved — don't re-fetch and risk a stale read overwriting it
-    const sheetOpen = document.getElementById('sheetOverlay').classList.contains('open');
-    const prevNotifLen = state.notifications.length;
-    await loadState();
-    updateConnectionDot();
-    if(state.notifications.length > prevNotifLen){
-      refreshBellDot();
-      if(currentTab === 'alerts' && !sheetOpen) renderCurrentTab();
-    }
-    if(!sheetOpen && currentTab !== 'alerts'){
-      renderCurrentTab();
-    }else{
-      renderTicker();
-    }
-  }, 15000);
-}
-init();
-
+}, 30000);
 })();
 </script>
 </body>
