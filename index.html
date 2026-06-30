@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Vikas%20Nagaraj/Downloads/index.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>57th Foundation Day · KPCL BTPS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="./index_files/css2" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
@@ -24,10 +24,14 @@
     .badge-dot{width:8px;height:8px;background:#d6483d;border-radius:50%;position:absolute;top:-2px;right:-2px;border:2px solid #0b1530}
     .badge-dot.blink{animation:blinkAlert 1s ease-in-out infinite}
     @keyframes blinkAlert{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.7)}}
-    .marquee{background:rgba(255,255,255,.06);border-radius:40px;padding:6px 10px;margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08)}
+    .marquee{background:rgba(255,255,255,.06);border-radius:40px;padding:6px 0 6px 10px;margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08);overflow:hidden}
     .marquee .live{width:8px;height:8px;background:#f5a623;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
     @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
-    .marquee-text{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+    .marquee-track{flex:1;min-width:0;overflow:hidden;position:relative}
+    .marquee-text{display:inline-block;font-size:11px;font-weight:600;color:#fff;white-space:nowrap;padding-left:100%;animation-name:marqueeScroll;animation-timing-function:linear;animation-iteration-count:infinite}
+    .marquee-text .sep{color:#f5a623;margin:0 16px;font-weight:800}
+    @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+    @media (prefers-reduced-motion: reduce){.marquee-text{animation:none;padding-left:0}}
     .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:14px;padding:0 2px}
     .tab{flex-shrink:0;padding:8px 4px;font-size:10px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;transition:color .15s;border-radius:8px 8px 0 0}
     .tab.active{color:#fff;border-bottom-color:#f5a623;background:rgba(245,166,35,.08)}
@@ -47,6 +51,11 @@
     .status.upcoming{background:#eef1fb;color:#152854}
     .status.live{background:#fff0db;color:#b06a06}
     .status.completed{background:#e8f6ee;color:#1f9d6c}
+    .status.postponed{background:#fdf0e8;color:#9a5a1f}
+    .status-set-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+    .status-set-btn{padding:9px 6px;border-radius:9px;border:1.5px solid #e2e6f0;background:#fff;font-size:11px;font-weight:700;color:#525d7a;cursor:pointer;text-align:center}
+    .status-set-btn.active{background:#eef1fb;border-color:#152854;color:#152854}
+    .status-set-btn.postponed.active{background:#fdf0e8;border-color:#9a5a1f;color:#9a5a1f}
     .meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px;font-size:11px;color:#525d7a;font-weight:600}
     .meta span{display:flex;align-items:center;gap:4px}
     .meta svg{width:13px;height:13px;opacity:.6}
@@ -60,6 +69,16 @@
     .participant-pill{font-size:10px;font-weight:700;color:#27439a;background:#eef1fb;padding:3px 10px;border-radius:40px;display:inline-flex;align-items:center;gap:4px}
     .empty{text-align:center;padding:30px 10px;color:#8a95bd;font-weight:500}
     .org-search{background:#fff;border-radius:12px;padding:8px 14px;border:1.5px solid #e2e6f0;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .cal-date-head{font-size:11px;font-weight:800;color:#152854;text-transform:uppercase;letter-spacing:.4px;margin:18px 0 8px;padding-bottom:6px;border-bottom:2px solid #152854;display:flex;justify-content:space-between;align-items:center}
+    .cal-date-head:first-child{margin-top:0}
+    .cal-date-head.is-today{color:#b06a06;border-bottom-color:#f5a623}
+    .cal-date-count{font-size:9.5px;font-weight:700;color:#8a95bd;text-transform:none;letter-spacing:0}
+    .cal-event-row{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #eef1fb;border-radius:11px;padding:10px 12px;margin-bottom:7px;cursor:pointer}
+    .cal-event-row:active{background:#f4f6fc}
+    .cal-event-time{font-size:11px;font-weight:800;color:#1a306a;background:#eef1fb;padding:5px 8px;border-radius:7px;flex-shrink:0;min-width:58px;text-align:center}
+    .cal-event-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+    .cal-event-name{font-size:12.5px;font-weight:700;color:#0b1530;line-height:1.3}
+    .cal-event-venue{font-size:10.5px;color:#8a95bd;font-weight:600}
     .org-search input{flex:1;border:none;outline:none;font-size:13px;font-weight:500;background:transparent}
     .org-card{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;border:1px solid #eef1fb}
     .org-card .name{font-weight:800;font-size:13px}
@@ -159,368 +178,35 @@
         <div class="brand-icon"><img src="data:image/png;base64,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" alt="KPCL logo"></div>
         <div class="brand-text">
           <div class="event">57th Foundation Day Sports 2026</div>
-          <div class="sub">Karnataka Power Corporation Ltd, BTPS</div>
+          <div class="sub">KPCL · BTPS</div>
         </div>
       </div>
       <div class="header-actions">
+        <div class="icon-btn" id="calendarBtn" title="Calendar view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
         <div class="icon-btn" id="connStatusBtn" title="Connection status">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"></path><path d="M1.42 9a16 16 0 0121.16 0"></path><path d="M8.53 16.11a6 6 0 016.95 0"></path><circle cx="12" cy="20" r="1" fill="currentColor"></circle></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
           <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
         </div>
         <div class="icon-btn" id="bellBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
-          <span class="badge-dot blink" id="bellDot" style="display: block;"></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="badge-dot" id="bellDot" style="display:none;"></span>
         </div>
-        <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span> online</div>
+        <div class="sync-indicator" id="syncIndicator"><span class="spinner"></span>sync</div>
       </div>
     </div>
-    <div class="marquee"><span class="live"></span><span class="marquee-text" id="marqueeText">🔴 LIVE NOW: Royal Civil vs CHP-2 · Tue, 30 Jun</span></div>
+    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText">Loading updates…</span></div></div>
     <div class="tabs" id="tabs">
-      <div class="tab" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg><span>Home</span></div>
-      <div class="tab active" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg><span>Events</span></div>
-      <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M5 19L19 5"></path></svg><span>Cricket</span></div>
-      <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg><span>Org</span></div>
-      <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg><span>Alerts</span></div>
+      <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span>Home</span></div>
+      <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>Events</span></div>
+      <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 19L19 5"/></svg><span>Cricket</span></div>
+      <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg><span>Org</span></div>
+      <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span>Alerts</span></div>
     </div>
   </div>
 
-  <div class="content" id="content"><div class="chip-group"><span class="chip active" data-cat="all">all</span><span class="chip " data-cat="Indoor Games">Indoor Games</span><span class="chip " data-cat="Outdoor Games">Outdoor Games</span><span class="chip " data-cat="Athletics">Athletics</span><span class="chip " data-cat="Women&#39;s Events">Women's Events</span><span class="chip " data-cat="Children&#39;s Events">Children's Events</span><span class="chip " data-cat="Cultural">Cultural</span></div><div class="category-group">
-        <div class="category-header" data-cat="Outdoor Games">
-          <span class="cat-name">📂 Outdoor Games</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">2 events</span>
-            <span class="cat-arrow open">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:block">
-          <div class="card " data-id="ev-6">
-    <div class="card-header"><div><div class="card-title">Tennis Ball Cricket </div><div class="card-cat">Outdoor Games</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Wed, 24 Jun</span><span>⏱ TBA</span><span>📍 BTPS Mumbhag Sports Ground</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ev-7">
-    <div class="card-header"><div><div class="card-title">Kabaddi </div><div class="card-cat">Outdoor Games</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Fri, 10 Jul</span><span>⏱ TBA</span><span>📍 BTPS</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div>
-        </div>
-      </div><div class="category-group">
-        <div class="category-header" data-cat="Indoor Games">
-          <span class="cat-name">📂 Indoor Games</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">5 events</span>
-            <span class="cat-arrow open">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:block">
-          <div class="card " data-id="ev-1">
-    <div class="card-header"><div><div class="card-title">Carrom — Singles </div><div class="card-cat">Indoor Games</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sat, 27 Jun</span><span>⏱ TBA</span><span>📍 BTPS Canteen</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ev-2">
-    <div class="card-header"><div><div class="card-title">Chess </div><div class="card-cat">Indoor Games</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sat, 27 Jun</span><span>⏱ TBA</span><span>📍 BTPS Canteen</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ev-3">
-    <div class="card-header"><div><div class="card-title">Jackpot </div><div class="card-cat">Indoor Games</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sat, 27 Jun</span><span>⏱ TBA</span><span>📍 BTPS Canteen</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ev-4">
-    <div class="card-header"><div><div class="card-title">T.T. (Table Tennis) </div><div class="card-cat">Indoor Games</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sat, 27 Jun</span><span>⏱ TBA</span><span>📍 BTPS Canteen</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ev-5">
-    <div class="card-header"><div><div class="card-title">Shuttle Badminton (Men, Above/Below 45) </div><div class="card-cat">Indoor Games</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sat, 27 Jun</span><span>⏱ TBA</span><span>📍 BTPS</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div>
-        </div>
-      </div><div class="category-group">
-        <div class="category-header" data-cat="Athletics">
-          <span class="cat-name">📂 Athletics</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">9 events</span>
-            <span class="cat-arrow open">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:block">
-          <div class="card " data-id="ath-7">
-    <div class="card-header"><div><div class="card-title">Javelin Throw (Men) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 1:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-2">
-    <div class="card-header"><div><div class="card-title">200m Men (Below 45) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-4">
-    <div class="card-header"><div><div class="card-title">200m Men (Above 45) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-5">
-    <div class="card-header"><div><div class="card-title">Shot Put (Men) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 11:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-6">
-    <div class="card-header"><div><div class="card-title">Discus Throw (Men) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 12:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-8">
-    <div class="card-header"><div><div class="card-title">Volleyball (Men) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 2:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-1">
-    <div class="card-header"><div><div class="card-title">100m Men (Below 45) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 9:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-3">
-    <div class="card-header"><div><div class="card-title">100m Men (Above 45) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 9:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ev-8">
-    <div class="card-header"><div><div class="card-title">Cross-Country Run/Walk (45+/45-, Men) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Tue, 14 Jul</span><span>⏱ TBA</span><span>📍 BTPS</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div>
-        </div>
-      </div><div class="category-group">
-        <div class="category-header" data-cat="Children&#39;s Events">
-          <span class="cat-name">📂 Children's Events</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">4 events</span>
-            <span class="cat-arrow open">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:block">
-          <div class="card " data-id="w-6">
-    <div class="card-header"><div><div class="card-title">Frog Jump (Boys U6) </div><div class="card-cat">Children's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-7">
-    <div class="card-header"><div><div class="card-title">30m Run (Boys U6) </div><div class="card-cat">Children's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-8">
-    <div class="card-header"><div><div class="card-title">50m Run (Boys 6-10) </div><div class="card-cat">Children's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 11:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-5">
-    <div class="card-header"><div><div class="card-title">100m Girls (Under 12) </div><div class="card-cat">Children's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 9:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div>
-        </div>
-      </div><div class="category-group">
-        <div class="category-header" data-cat="Women&#39;s Events">
-          <span class="cat-name">📂 Women's Events</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">4 events</span>
-            <span class="cat-arrow open">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:block">
-          <div class="card " data-id="w-2">
-    <div class="card-header"><div><div class="card-title">Shot Put (Women) </div><div class="card-cat">Women's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-3">
-    <div class="card-header"><div><div class="card-title">Lemon &amp; Spoon (Women) </div><div class="card-cat">Women's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 11:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-4">
-    <div class="card-header"><div><div class="card-title">Javelin (Women) </div><div class="card-cat">Women's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 12:30 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-1">
-    <div class="card-header"><div><div class="card-title">100m Women (Below 45) </div><div class="card-cat">Women's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 9:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div>
-        </div>
-      </div><div class="category-group">
-        <div class="category-header" data-cat="Cultural">
-          <span class="cat-name">📂 Cultural</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">6 events</span>
-            <span class="cat-arrow open">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:block">
-          <div class="card " data-id="cult-4">
-    <div class="card-header"><div><div class="card-title">Light Music Karaoke (Family Members) </div><div class="card-cat">Cultural</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 3:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="cult-5">
-    <div class="card-header"><div><div class="card-title">Light Music Karaoke (Children) </div><div class="card-cat">Cultural</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 3:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="cult-1">
-    <div class="card-header"><div><div class="card-title">Light Music Karaoke (Employees) </div><div class="card-cat">Cultural</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Mon, 6 Jul</span><span>⏱ 10:30 AM</span><span>📍 3rd Floor Conference Hall, BTPS</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="cult-2">
-    <div class="card-header"><div><div class="card-title">Quiz Competition (Community Round) </div><div class="card-cat">Cultural</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Wed, 8 Jul</span><span>⏱ 10:30 AM</span><span>📍 3rd Floor Conference Hall, BTPS</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="cult-3">
-    <div class="card-header"><div><div class="card-title">Quiz Competition (Employees Round) </div><div class="card-cat">Cultural</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Wed, 8 Jul</span><span>⏱ 2:30 PM</span><span>📍 3rd Floor Conference Hall, BTPS</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="cult-6">
-    <div class="card-header"><div><div class="card-title">Rangoli Competition "My BTPS" </div><div class="card-cat">Cultural</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Fri, 10 Jul</span><span>⏱ 10:00 AM – 1:00 PM</span><span>📍 BTPS Centre, Kudithini</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div>
-        </div>
-      </div></div>
+  <div class="content" id="content"></div>
 
   <div class="footer">
     Developed by <b>Vikas N</b> · <span class="dev">Viraj Software Solutions</span>
@@ -585,7 +271,7 @@ function normalizeDate(v){
 
 function updateEventStatuses(events){
   return events.map(e => {
-    if(e.status === 'completed') return e;
+    if(e.status === 'completed' || e.status === 'postponed') return e;
     const eventDate = e.date;
     if(!eventDate) return e;
     if(eventDate < TODAY_STR){
@@ -620,6 +306,7 @@ function rowsToEvents(rows){
     scoreB: r.scoreB || '',
     winner: r.winner || '',
     note: r.note || '',
+    postponedNote: r.postponedNote || '',
     participants: parseJsonSafe(r.participants),
     coordinators: parseJsonSafe(r.coordinators)
   }));
@@ -640,6 +327,7 @@ function eventsToRows(events){
     scoreB: e.scoreB || '',
     winner: e.winner || '',
     note: e.note || '',
+    postponedNote: e.postponedNote || '',
     participants: JSON.stringify(e.participants || []),
     coordinators: JSON.stringify(e.coordinators || [])
   }));
@@ -833,13 +521,36 @@ function markNotifsRead(){ hasUnreadNotif = false; lastSeenNotif = state.notific
 
 function renderTicker(){
   const el=document.getElementById('marqueeText');
+  if(!el) return;
+  const parts = [];
+
   const live = state.events.find(e=>e.status==='live');
-  if(live) el.textContent = `🔴 LIVE NOW: ${live.name} · ${fmtDate(live.date)}`;
-  else {
+  if(live){
+    parts.push(`🔴 LIVE NOW: ${live.name} · ${fmtDate(live.date)}`);
+  }else{
     const up = state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
-    if(up.length) el.textContent = `📅 UP NEXT: ${up[0].name} · ${fmtDate(up[0].date)} ${up[0].time || 'TBA'}`;
-    else el.textContent = '✅ All events completed · 57th Foundation Day';
+    if(up.length) parts.push(`📅 UP NEXT: ${up[0].name} · ${fmtDate(up[0].date)} ${up[0].time || 'TBA'}`);
+    else parts.push('✅ All events completed · 57th Foundation Day');
   }
+
+  const todaysEvents = state.events.filter(e=>isToday(e.date) && e.status !== 'postponed');
+  if(todaysEvents.length){
+    const names = todaysEvents.slice(0,4).map(e=>e.name).join(', ');
+    parts.push(`🔥 TODAY'S EVENTS: ${names}${todaysEvents.length>4 ? ` +${todaysEvents.length-4} more` : ''}`);
+  }
+
+  const postponedToday = state.events.filter(e=>e.status==='postponed');
+  if(postponedToday.length){
+    const names = postponedToday.slice(0,3).map(e=>e.name).join(', ');
+    parts.push(`⏸ POSTPONED: ${names}`);
+  }
+
+  const joined = parts.map(p=>escapeHtml(p)).join('<span class="sep">★</span>');
+  el.innerHTML = joined + '<span class="sep">★</span>' + joined;
+
+  const plainLength = parts.join(' ★ ').length;
+  const durationSeconds = Math.max(16, Math.round(plainLength / 9));
+  el.style.animationDuration = durationSeconds + 's';
 }
 
 function isToday(dateStr){ return dateStr === TODAY_STR; }
@@ -859,7 +570,7 @@ function eventCardHtml(e, clickable=true){
   }
   const clickHint = (e.category==='Cricket' && clickable) ? `<div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg> tap for details</div>` : '';
   const todayBadge = isTodayEvent ? `<span class="today-badge">🔥 TODAY</span>` : '';
-  const statusLabel = e.status==='live' ? '🔴 LIVE' : e.status==='completed' ? '✅ DONE' : '📅 UPCOMING';
+  const statusLabel = e.status==='live' ? '🔴 LIVE' : e.status==='completed' ? '✅ DONE' : e.status==='postponed' ? '⏸ POSTPONED' : '📅 UPCOMING';
   return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
     <div class="card-header"><div><div class="card-title">${escapeHtml(e.name)} ${todayBadge}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
     <span class="status ${e.status}">${statusLabel}</span></div>
@@ -1040,6 +751,54 @@ function openAddCricket(){
 }
 
 // Organisers
+function openCalendarSheet(){
+  const sheet = document.getElementById('sheet');
+  const withDates = state.events.filter(e=>e.date).slice().sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
+  const grouped = {};
+  withDates.forEach(e=>{ (grouped[e.date] = grouped[e.date]||[]).push(e); });
+  const dates = Object.keys(grouped).sort();
+
+  let html = `<div class="sheet-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-size:17px">📅 Event Calendar</h3>
+      <button class="sheet-close" id="sheetClose">✕</button>
+    </div>
+    <div style="font-size:11.5px;color:#525d7a;margin:4px 0 14px;">${dates.length} day(s) scheduled · sorted by date</div>`;
+
+  if(dates.length === 0){
+    html += `<div style="text-align:center;padding:30px 10px;color:#8a95bd;font-size:13px;">No scheduled events yet.</div>`;
+  }else{
+    dates.forEach(d=>{
+      const dayEvents = grouped[d];
+      const todayFlag = d === TODAY_STR;
+      html += `<div class="cal-date-head ${todayFlag?'is-today':''}">
+        ${todayFlag ? '🔥 TODAY · ' : ''}${fmtDate(d)}
+        <span class="cal-date-count">${dayEvents.length} event${dayEvents.length>1?'s':''}</span>
+      </div>`;
+      dayEvents.forEach(e=>{
+        const statusEmoji = e.status==='live'?'🔴':e.status==='completed'?'✅':e.status==='postponed'?'⏸':'📅';
+        html += `<div class="cal-event-row" data-id="${e.id}">
+          <span class="cal-event-time">${escapeHtml(e.time)||'TBA'}</span>
+          <span class="cal-event-info">
+            <span class="cal-event-name">${statusEmoji} ${escapeHtml(e.name)}</span>
+            <span class="cal-event-venue">${escapeHtml(e.venue)}</span>
+          </span>
+        </div>`;
+      });
+    });
+  }
+
+  sheet.innerHTML = html;
+  document.getElementById('sheetClose').onclick = ()=>document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.querySelectorAll('.cal-event-row').forEach(row=>{
+    row.onclick = ()=>{
+      document.getElementById('sheetOverlay').classList.remove('open');
+      setTimeout(()=>openSheet(row.dataset.id), 200);
+    };
+  });
+}
+
 function renderOrganisers(){
   const c=document.getElementById('content');
   const withCoords=state.events.filter(e=>e.coordinators&&e.coordinators.length);
@@ -1131,6 +890,24 @@ function openSheet(id){
       <div><span style="color:#525d7a">Date</span><br><strong>${fmtDate(ev.date)}</strong></div>
       <div><span style="color:#525d7a">Time</span><br><strong>${escapeHtml(ev.time)||'TBA'}</strong></div>
     </div>`;
+
+  if(ev.status === 'postponed' && ev.postponedNote){
+    html += `<div style="margin-top:10px;background:#fdf0e8;border:1px solid #f0c9a8;border-radius:10px;padding:9px 12px;font-size:11.5px;color:#9a5a1f;font-weight:600;">⏸ ${escapeHtml(ev.postponedNote)}</div>`;
+  }
+
+  if(isAdmin){
+    html += `<div style="margin-top:14px;font-weight:700;font-size:12px">📌 Event Status</div>
+      <div class="status-set-row">
+        <button class="status-set-btn ${ev.status==='upcoming'?'active':''}" data-set-status="upcoming">📅 Upcoming</button>
+        <button class="status-set-btn ${ev.status==='live'?'active':''}" data-set-status="live">🔴 Live</button>
+        <button class="status-set-btn ${ev.status==='completed'?'active':''}" data-set-status="completed">✅ Completed</button>
+        <button class="status-set-btn postponed ${ev.status==='postponed'?'active':''}" data-set-status="postponed">⏸ Postponed</button>
+      </div>
+      <div id="postponeNoteWrap" style="display:${ev.status==='postponed'?'block':'none'};margin-top:8px;">
+        <input id="postponeNoteInput" placeholder="Reason / new date (optional)" value="${escapeHtml(ev.postponedNote||'')}" style="width:100%;border:1.5px solid #e2e6f0;border-radius:9px;padding:9px 11px;font-size:12.5px;font-family:inherit;box-sizing:border-box;">
+      </div>
+      <button class="btn" id="saveStatusBtn" style="background:#0b1530;color:#fff;margin-top:8px;">Save status</button>`;
+  }
   
   // PARTICIPANTS SECTION - Fixed layout
   html += `<div style="margin-top:12px;font-weight:700;font-size:12px">👥 Participants <small style="font-weight:400;color:#525d7a">${participants.length}</small></div>`;
@@ -1170,11 +947,7 @@ function openSheet(id){
         <button class="winner-btn ${ev.winner==='tie'?'active':''}" data-win="tie">🤝 Tie</button>
         <button class="winner-btn ${!ev.winner?'active':''}" data-win="">—</button>
       </div>
-      <button class="btn" id="updateScoreBtn" style="background:#f5a623;color:#0b1530;">Update Score</button>
-      <div class="status-action-row">
-        <button class="btn" style="background:#e8f6ee;color:#1f9d6c;padding:8px;font-size:11px" id="markComplete">✅ Completed</button>
-        <button class="btn" style="background:#fff0db;color:#b06a06;padding:8px;font-size:11px" id="markLive">🔴 Live</button>
-      </div>`;
+      <button class="btn" id="updateScoreBtn" style="background:#f5a623;color:#0b1530;">Update Score</button>`;
   }
   
   // Coordinators
@@ -1241,21 +1014,35 @@ function openSheet(id){
         renderCurrentTab();
       };
     }
-    
-    document.getElementById('markComplete').onclick = async ()=>{
-      ev.status='completed';
-      await saveEvents();
-      toast('✅ Marked completed');
-      document.getElementById('sheetOverlay').classList.remove('open');
-      renderCurrentTab();
-    };
-    document.getElementById('markLive').onclick = async ()=>{
-      ev.status='live';
-      await saveEvents();
-      toast('🔴 Marked live');
-      document.getElementById('sheetOverlay').classList.remove('open');
-      renderCurrentTab();
-    };
+  }
+
+  if(isAdmin){
+    let pendingStatus = ev.status;
+    document.querySelectorAll('.status-set-btn').forEach(b=>{
+      b.onclick = ()=>{
+        document.querySelectorAll('.status-set-btn').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        pendingStatus = b.dataset.setStatus;
+        const noteWrap = document.getElementById('postponeNoteWrap');
+        if(noteWrap) noteWrap.style.display = pendingStatus === 'postponed' ? 'block' : 'none';
+      };
+    });
+    const saveStatusBtn = document.getElementById('saveStatusBtn');
+    if(saveStatusBtn){
+      saveStatusBtn.onclick = async ()=>{
+        ev.status = pendingStatus;
+        if(pendingStatus === 'postponed'){
+          const noteInput = document.getElementById('postponeNoteInput');
+          ev.postponedNote = noteInput ? noteInput.value.trim() : '';
+        }else{
+          ev.postponedNote = '';
+        }
+        await saveEvents();
+        toast(pendingStatus === 'postponed' ? '⏸ Marked as postponed' : '✅ Status updated');
+        document.getElementById('sheetOverlay').classList.remove('open');
+        renderCurrentTab();
+      };
+    }
   }
 }
 
@@ -1271,6 +1058,7 @@ function setTab(tab){
 }
 
 document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
+document.getElementById('calendarBtn').onclick=()=>openCalendarSheet();
 document.getElementById('bellBtn').onclick=()=>{ setTab('alerts'); markNotifsRead(); };
 
 document.getElementById('adminToggleBtn').onclick=()=>{
@@ -1324,5 +1112,5 @@ init();
 
 })();
 </script>
-
-</body></html>
+</body>
+</html>
