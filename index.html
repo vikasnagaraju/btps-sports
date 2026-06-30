@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>57th Foundation Day · Karnataka Power Corporation Ltd, BTPS</title>
+  <title>57th Foundation Day · KPCL BTPS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -166,6 +166,18 @@
     .category-body{padding:0 12px 12px}
     .category-body .card{margin-bottom:8px;border:1px solid #f0f3fa;box-shadow:none}
     .category-body .card:last-child{margin-bottom:0}
+    .event-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .event-sq{background:#fff;border:1px solid #f0f3fa;border-radius:14px;padding:10px 10px 9px;cursor:pointer;display:flex;flex-direction:column;gap:5px;min-height:108px;transition:.15s}
+    .event-sq:active{transform:scale(.97);background:#f8f9fd}
+    .event-sq .sq-icon{font-size:20px;line-height:1}
+    .event-sq .sq-name{font-size:11.5px;font-weight:800;color:#0b1530;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .event-sq .sq-meta{font-size:9.5px;color:#8a95bd;font-weight:600;display:flex;align-items:center;gap:3px;margin-top:auto}
+    .event-sq .sq-status{font-size:8px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:40px;align-self:flex-start}
+    .event-sq .sq-status.upcoming{background:#eef1fb;color:#152854}
+    .event-sq .sq-status.live{background:#fff0db;color:#b06a06}
+    .event-sq .sq-status.completed{background:#e8f6ee;color:#1f9d6c}
+    .event-sq .sq-status.postponed{background:#fdf0e8;color:#9a5a1f}
+    .event-sq.today{border-color:#f5a623;box-shadow:0 0 0 1px #f5a623 inset}
     .sync-indicator{display:flex;align-items:center;gap:4px;font-size:8px;color:#9aa6cc;font-weight:600}
     .sync-indicator .spinner{width:10px;height:10px;border:2px solid rgba(255,255,255,.1);border-top-color:#f5a623;border-radius:50%;animation:spin .8s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
@@ -577,12 +589,57 @@ function renderTicker(){
 
 function isToday(dateStr){ return dateStr === TODAY_STR; }
 
+// Icon mapping for categories and individual games
+const CATEGORY_ICONS = {
+  'Indoor Games': '🎲',
+  'Outdoor Games': '🏃',
+  'Athletics': '🏃‍♂️',
+  "Women's Events": '👩',
+  "Children's Events": '🧒',
+  'Cultural': '🎭',
+  'Cricket': '🏏'
+};
+function getCategoryIcon(cat){ return CATEGORY_ICONS[cat] || '📂'; }
+
+function getEventIcon(name){
+  const n = (name||'').toLowerCase();
+  if(/carrom/.test(n)) return '🎯';
+  if(/chess/.test(n)) return '♟️';
+  if(/jackpot|cards/.test(n)) return '🃏';
+  if(/table tennis|t\.t\./.test(n)) return '🏓';
+  if(/badminton/.test(n)) return '🏸';
+  if(/tennis ball cricket|cricket/.test(n)) return '🏏';
+  if(/kabaddi/.test(n)) return '🤼';
+  if(/cross-country|run|walk|100m|200m|30m|50m|marathon/.test(n)) return '🏃';
+  if(/shot put/.test(n)) return '⚪';
+  if(/discus/.test(n)) return '🥏';
+  if(/javelin/.test(n)) return '🔱';
+  if(/volleyball/.test(n)) return '🏐';
+  if(/lemon\s*&?\s*spoon/.test(n)) return '🥄';
+  if(/frog jump/.test(n)) return '🐸';
+  if(/karaoke|light music/.test(n)) return '🎤';
+  if(/quiz/.test(n)) return '🧠';
+  if(/rangoli/.test(n)) return '🎨';
+  return '🏅';
+}
+
 function genderGroup(e){
   if(e.category === "Children's Events") return 'children';
   if(e.category === "Women's Events") return 'women';
   if(/\bWomen\b|\bGirls\b/i.test(e.name)) return 'women';
   if(/\bMen\b/i.test(e.name) && !/\bWomen\b/i.test(e.name)) return 'men';
   return 'open';
+}
+
+function eventSquareHtml(e){
+  const isTodayEvent = isToday(e.date);
+  const statusLabel = e.status==='live' ? 'LIVE' : e.status==='completed' ? 'DONE' : e.status==='postponed' ? 'POSTPONED' : 'UPCOMING';
+  return `<div class="card event-sq ${isTodayEvent?'today':''}" data-id="${e.id}">
+    <div class="sq-icon">${getEventIcon(e.name)}</div>
+    <div class="sq-name">${escapeHtml(e.name)}</div>
+    <span class="sq-status ${e.status}">${statusLabel}</span>
+    <div class="sq-meta">📅 ${fmtDate(e.date)}</div>
+  </div>`;
 }
 
 function eventCardHtml(e, clickable=true){
@@ -602,7 +659,7 @@ function eventCardHtml(e, clickable=true){
   const todayBadge = isTodayEvent ? `<span class="today-badge">🔥 TODAY</span>` : '';
   const statusLabel = e.status==='live' ? '🔴 LIVE' : e.status==='completed' ? '✅ DONE' : e.status==='postponed' ? '⏸ POSTPONED' : '📅 UPCOMING';
   return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
-    <div class="card-header"><div><div class="card-title">${escapeHtml(e.name)} ${todayBadge}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
+    <div class="card-header"><div><div class="card-title">${getEventIcon(e.name)} ${escapeHtml(e.name)} ${todayBadge}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
     <span class="status ${e.status}">${statusLabel}</span></div>
     <div class="meta"><span>📅 ${fmtDate(e.date)}</span><span>⏱ ${escapeHtml(e.time)||'TBA'}</span><span>📍 ${escapeHtml(e.venue)}</span></div>
     ${scoreHtml}
@@ -735,7 +792,7 @@ function renderEvents(){
   filtered = filtered.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
 
   let html = `<div class="chip-group">`;
-  cats.forEach(cat=>{ html+=`<span class="chip ${activeFilter===cat?'active':''}" data-cat="${cat}">${cat}</span>`; });
+  cats.forEach(cat=>{ html+=`<span class="chip ${activeFilter===cat?'active':''}" data-cat="${cat}">${cat==='all'?'🏆 All':getCategoryIcon(cat)+' '+cat}</span>`; });
   html+=`</div>`;
 
   if(!filtered.length){ html+=`<div class="empty">No events in this category</div>`; }
@@ -747,14 +804,14 @@ function renderEvents(){
       const isOpen = categoryState[cat];
       html+=`<div class="category-group">
         <div class="category-header" data-cat="${cat}">
-          <span class="cat-name">📂 ${cat}</span>
+          <span class="cat-name">${getCategoryIcon(cat)} ${cat}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span class="cat-count">${grouped[cat].length} events</span>
             <span class="cat-arrow ${isOpen?'open':''}">▼</span>
           </div>
         </div>
         <div class="category-body" style="display:${isOpen?'block':'none'}">
-          ${grouped[cat].map(e=>eventCardHtml(e)).join('')}
+          <div class="event-grid">${grouped[cat].map(e=>eventSquareHtml(e)).join('')}</div>
         </div>
       </div>`;
     });
