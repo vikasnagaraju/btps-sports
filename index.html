@@ -119,6 +119,28 @@
     .fun-fact .icon{font-size:22px}
     .fun-fact .text{font-size:12px;font-weight:600;color:#7a5d0a}
     .progress-ring{display:flex;align-items:center;gap:16px;background:#fff;border-radius:20px;padding:14px 16px;border:1px solid #eef1fb;margin-bottom:16px}
+    .breakdown-card{background:#fff;border-radius:20px;padding:14px 14px 16px;border:1px solid #eef1fb;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+    .breakdown-title{font-size:11.5px;font-weight:800;color:#0b1530;text-transform:uppercase;letter-spacing:.4px;margin-bottom:11px;display:flex;align-items:center;gap:6px}
+    .breakdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+    .breakdown-tile{border-radius:14px;padding:11px 6px;text-align:center;cursor:pointer;transition:transform .1s;border:1px solid transparent}
+    .breakdown-tile:active{transform:scale(.95)}
+    .breakdown-tile .icon{font-size:20px;display:block;margin-bottom:3px}
+    .breakdown-tile .num{font-family:'Oswald',sans-serif;font-size:19px;font-weight:700;line-height:1}
+    .breakdown-tile .lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+    .breakdown-tile.men{background:linear-gradient(155deg,#eaf1ff,#dce8ff);border-color:#c7d9ff}
+    .breakdown-tile.men .num,.breakdown-tile.men .lbl{color:#1a4fc4}
+    .breakdown-tile.women{background:linear-gradient(155deg,#ffeef5,#ffe0ed);border-color:#ffc9de}
+    .breakdown-tile.women .num,.breakdown-tile.women .lbl{color:#c4257a}
+    .breakdown-tile.children{background:linear-gradient(155deg,#fff8e0,#fff0c2);border-color:#ffe89e}
+    .breakdown-tile.children .num,.breakdown-tile.children .lbl{color:#9a7000}
+    .breakdown-tile.open{background:linear-gradient(155deg,#eafaf0,#dcf5e6);border-color:#bdeccf}
+    .breakdown-tile.open .num,.breakdown-tile.open .lbl{color:#1f9d6c}
+    .breakdown-bar{height:9px;border-radius:6px;overflow:hidden;display:flex;background:#f0f3fa}
+    .breakdown-bar span{height:100%;transition:width .6s ease}
+    .breakdown-bar .seg-men{background:#4c7cf0}
+    .breakdown-bar .seg-women{background:#ec5a96}
+    .breakdown-bar .seg-children{background:#f5c518}
+    .breakdown-bar .seg-open{background:#2bbd7e}
     .ring{position:relative;width:60px;height:60px;flex-shrink:0}
     .ring svg{transform:rotate(-90deg);width:60px;height:60px}
     .ring .bg{fill:none;stroke:#eef1fb;stroke-width:6}
@@ -555,6 +577,14 @@ function renderTicker(){
 
 function isToday(dateStr){ return dateStr === TODAY_STR; }
 
+function genderGroup(e){
+  if(e.category === "Children's Events") return 'children';
+  if(e.category === "Women's Events") return 'women';
+  if(/\bWomen\b|\bGirls\b/i.test(e.name)) return 'women';
+  if(/\bMen\b/i.test(e.name) && !/\bWomen\b/i.test(e.name)) return 'men';
+  return 'open';
+}
+
 function eventCardHtml(e, clickable=true){
   const pCount = (e.participants||[]).length;
   const isTodayEvent = isToday(e.date);
@@ -619,6 +649,35 @@ function renderDashboard(){
     <div class="ring-text"><div class="pct">${done} of ${total} events done</div><div class="sub">${liveCount > 0 ? `🔴 ${liveCount} live now` : '🏁 Keep going!'}</div></div>
   </div>`;
 
+  const genderCounts = { men:0, women:0, children:0, open:0 };
+  state.events.forEach(e=>{ genderCounts[genderGroup(e)]++; });
+  const gTotal = total || 1;
+  html+=`<div class="breakdown-card">
+    <div class="breakdown-title">🎽 Participation Breakdown</div>
+    <div class="breakdown-grid">
+      <div class="breakdown-tile men" data-grp="men"><span class="icon">🙋‍♂️</span><div class="num">${genderCounts.men}</div><div class="lbl">Men's</div></div>
+      <div class="breakdown-tile women" data-grp="women"><span class="icon">🙋‍♀️</span><div class="num">${genderCounts.women}</div><div class="lbl">Women's</div></div>
+      <div class="breakdown-tile children" data-grp="children"><span class="icon">🧒</span><div class="num">${genderCounts.children}</div><div class="lbl">Kids</div></div>
+      <div class="breakdown-tile open" data-grp="open"><span class="icon">🤝</span><div class="num">${genderCounts.open}</div><div class="lbl">Open</div></div>
+    </div>
+    <div class="breakdown-bar">
+      <span class="seg-men" style="width:${(genderCounts.men/gTotal*100).toFixed(1)}%"></span>
+      <span class="seg-women" style="width:${(genderCounts.women/gTotal*100).toFixed(1)}%"></span>
+      <span class="seg-children" style="width:${(genderCounts.children/gTotal*100).toFixed(1)}%"></span>
+      <span class="seg-open" style="width:${(genderCounts.open/gTotal*100).toFixed(1)}%"></span>
+    </div>
+  </div>`;
+
+  const todaysEvents = state.events.filter(e=>isToday(e.date) && e.status !== 'postponed').sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+
+  if(todaysEvents.length){
+    html+=`<div class="section-title">🔥 Today's Events <small id="todayCount" style="cursor:pointer;color:#b06a06;">${todaysEvents.length} · view all →</small></div>`;
+    todaysEvents.slice(0,4).forEach(e=>html+=eventCardHtml(e));
+    if(todaysEvents.length > 4){
+      html += `<button id="seeMoreToday" style="width:100%;background:#fff;border:1.5px solid #f5a623;color:#b06a06;padding:9px;border-radius:11px;font-size:12px;font-weight:700;margin-bottom:14px;cursor:pointer;">View all ${todaysEvents.length} today's events →</button>`;
+    }
+  }
+
   if(upcoming.length){
     html+=`<div class="section-title">📅 Coming up <small>${upcoming.length}</small></div>`;
     upcoming.forEach(e=>html+=eventCardHtml(e));
@@ -632,6 +691,11 @@ function renderDashboard(){
 
   c.innerHTML=html;
   document.getElementById('cricketStat')?.addEventListener('click', ()=>setTab('cricket'));
+  document.getElementById('todayCount')?.addEventListener('click', ()=>openTodaySheet());
+  document.getElementById('seeMoreToday')?.addEventListener('click', ()=>openTodaySheet());
+  document.querySelectorAll('.breakdown-tile').forEach(t=>{
+    t.addEventListener('click', ()=>openGroupSheet(t.dataset.grp));
+  });
   document.getElementById('viewAllCricket')?.addEventListener('click', ()=>setTab('cricket'));
   document.getElementById('retrySyncBtn')?.addEventListener('click', async ()=>{ toast('🔄 Attempting to reconnect...'); await loadState(); renderCurrentTab(); });
   document.getElementById('applyCorrectionsBtn')?.addEventListener('click', async (e)=>{
@@ -751,6 +815,70 @@ function openAddCricket(){
 }
 
 // Organisers
+const GROUP_META = {
+  men: {emoji:'🙋‍♂️', label:"Men's Events"},
+  women: {emoji:'🙋‍♀️', label:"Women's Events"},
+  children: {emoji:'🧒', label:"Kids' Events"},
+  open: {emoji:'🤝', label:'Open / Mixed Events'}
+};
+
+function openGroupSheet(grp){
+  const sheet = document.getElementById('sheet');
+  const meta = GROUP_META[grp];
+  const events = state.events.filter(e=>genderGroup(e)===grp).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
+
+  let html = `<div class="sheet-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-size:17px">${meta.emoji} ${meta.label}</h3>
+      <button class="sheet-close" id="sheetClose">✕</button>
+    </div>
+    <div style="font-size:11.5px;color:#525d7a;margin:4px 0 14px;">${events.length} event${events.length!==1?'s':''}</div>`;
+
+  if(events.length === 0){
+    html += `<div style="text-align:center;padding:30px 10px;color:#8a95bd;font-size:13px;">No events in this group.</div>`;
+  }else{
+    events.forEach(e=>html += eventCardHtml(e, true));
+  }
+
+  sheet.innerHTML = html;
+  document.getElementById('sheetClose').onclick = ()=>document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.querySelectorAll('.card[data-id]').forEach(el=>{
+    el.onclick = ()=>{
+      document.getElementById('sheetOverlay').classList.remove('open');
+      setTimeout(()=>openSheet(el.dataset.id), 200);
+    };
+  });
+}
+
+function openTodaySheet(){
+  const sheet = document.getElementById('sheet');
+  const todaysEvents = state.events.filter(e=>isToday(e.date) && e.status !== 'postponed').sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+
+  let html = `<div class="sheet-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-size:17px">🔥 Today's Events</h3>
+      <button class="sheet-close" id="sheetClose">✕</button>
+    </div>
+    <div style="font-size:11.5px;color:#525d7a;margin:4px 0 14px;">${fmtDate(TODAY_STR)} · ${todaysEvents.length} event${todaysEvents.length!==1?'s':''} scheduled</div>`;
+
+  if(todaysEvents.length === 0){
+    html += `<div style="text-align:center;padding:30px 10px;color:#8a95bd;font-size:13px;">No events scheduled for today.</div>`;
+  }else{
+    todaysEvents.forEach(e=>html += eventCardHtml(e, true));
+  }
+
+  sheet.innerHTML = html;
+  document.getElementById('sheetClose').onclick = ()=>document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.querySelectorAll('.card[data-id]').forEach(el=>{
+    el.onclick = ()=>{
+      document.getElementById('sheetOverlay').classList.remove('open');
+      setTimeout(()=>openSheet(el.dataset.id), 200);
+    };
+  });
+}
+
 function openCalendarSheet(){
   const sheet = document.getElementById('sheet');
   const withDates = state.events.filter(e=>e.date).slice().sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
