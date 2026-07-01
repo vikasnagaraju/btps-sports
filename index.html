@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Vikas%20Nagaraj/Downloads/index%20(5).html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>57th Foundation Day · KPCL BTPS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="file:///C:/Users/Vikas%20Nagaraj/Downloads/index_files/css2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
@@ -32,7 +32,7 @@
     .marquee-text .sep{color:#f5a623;margin:0 16px;font-weight:800}
     @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
     @media (prefers-reduced-motion: reduce){.marquee-text{animation:none;padding-left:0}}
-    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:14px;padding:0 2px}
+    .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-top:14px;padding:0 2px}
     .tab{flex-shrink:0;padding:8px 4px;font-size:10px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;transition:color .15s;border-radius:8px 8px 0 0}
     .tab.active{color:#fff;border-bottom-color:#f5a623;background:rgba(245,166,35,.08)}
     .tab svg{width:16px;height:16px;flex-shrink:0}
@@ -187,7 +187,6 @@
     .footer b{color:#525d7a;font-weight:700}
     .footer .dev{color:#27439a}
     .today-badge{background:#f5a623;color:#0b1530;font-size:8px;padding:2px 8px;border-radius:40px;font-weight:800;margin-left:4px}
-    /* Fix for participant add button */
     .participant-add-row{display:flex;gap:6px;margin:6px 0;flex-wrap:nowrap}
     .participant-add-row input{flex:1;padding:8px 10px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;min-width:0}
     .participant-add-row input:first-child{flex:2}
@@ -200,6 +199,23 @@
     .winner-btns .winner-btn.active{background:#f5a623!important;color:#0b1530;border-color:#f5a623!important}
     .status-action-row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
     .status-action-row .btn{flex:1;min-width:80px;padding:8px;font-size:11px}
+    /* Fixture styles */
+    .fixture-bracket{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;border:1px solid #eef1fb;overflow:hidden}
+    .fixture-bracket .stage-title{font-weight:800;font-size:14px;color:#0b1530;padding:8px 12px;background:linear-gradient(135deg,#f8f9fd,#eef1fb);border-radius:8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .fixture-bracket .stage-title .badge{font-size:9px;font-weight:700;color:#525d7a;background:#fff;padding:2px 10px;border-radius:40px}
+    .fixture-match{display:flex;align-items:center;justify-content:space-between;background:#f8f9fd;border-radius:10px;padding:8px 12px;margin-bottom:6px;border-left:4px solid #d0d6e8;transition:.15s}
+    .fixture-match:hover{background:#f0f3fa}
+    .fixture-match .players{display:flex;flex-direction:column;gap:2px;flex:1}
+    .fixture-match .player{font-size:12px;font-weight:600;color:#0b1530;display:flex;align-items:center;gap:6px}
+    .fixture-match .player .vs{font-size:9px;color:#8a95bd;font-weight:400}
+    .fixture-match .player .winner-tag{font-size:8px;font-weight:700;color:#1f9d6c;background:#e8f6ee;padding:1px 8px;border-radius:40px}
+    .fixture-match .player .loser-tag{font-size:8px;font-weight:700;color:#9a5a1f;background:#fdf0e8;padding:1px 8px;border-radius:40px}
+    .fixture-match .match-status{font-size:9px;font-weight:700;padding:2px 10px;border-radius:40px;white-space:nowrap}
+    .fixture-match .match-status.pending{background:#eef1fb;color:#152854}
+    .fixture-match .match-status.completed{background:#e8f6ee;color:#1f9d6c}
+    .fixture-match .match-status.live{background:#fff0db;color:#b06a06}
+    .fixture-match .match-id{font-size:8px;color:#9aa6cc;font-weight:600}
+    .fixture-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
@@ -230,166 +246,18 @@
         <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span> online</div>
       </div>
     </div>
-    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🔴 LIVE NOW: Royal Civil vs CHP-2 · Wed, 1 Jul<span class="sep">★</span>🔥 TODAY'S EVENTS: Royal Civil vs CHP-2, SE (O)-3 vs SE (MM-1)<span class="sep">★</span>⏸ POSTPONED: SE (MM-2) vs SE (O)-1<span class="sep">★</span>🔴 LIVE NOW: Royal Civil vs CHP-2 · Wed, 1 Jul<span class="sep">★</span>🔥 TODAY'S EVENTS: Royal Civil vs CHP-2, SE (O)-3 vs SE (MM-1)<span class="sep">★</span>⏸ POSTPONED: SE (MM-2) vs SE (O)-1</span></div></div>
+    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏏 Carrom Tournament underway! Groups A-H<span class="sep">★</span>🎯 78 players competing<span class="sep">★</span>🏆 Winners advance to Quarterfinals</span></div></div>
     <div class="tabs" id="tabs">
       <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg><span>Home</span></div>
       <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg><span>Events</span></div>
       <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M5 19L19 5"></path></svg><span>Cricket</span></div>
+      <div class="tab" data-tab="fixtures"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18M15 3v18"></path></svg><span>Fixtures</span></div>
       <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg><span>Org</span></div>
       <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg><span>Alerts</span></div>
     </div>
   </div>
 
-  <div class="content" id="content"><div class="hero-stats">
-    <div class="hero-stat" id="cricketStat"><span class="emoji">🏏</span><div class="num">12</div><div class="lbl">Cricket</div></div>
-    <div class="hero-stat"><span class="emoji">🏆</span><div class="num">13</div><div class="lbl">Completed</div></div>
-    <div class="hero-stat"><span class="emoji">📅</span><div class="num">6</div><div class="lbl">Upcoming</div></div>
-  </div><div class="fun-fact"><span class="icon">💡</span><span class="text">🏅 "Every game is a new opportunity"</span></div><div class="progress-ring">
-    <div class="ring"><svg><circle class="bg" cx="30" cy="30" r="24"></circle><circle class="fg" cx="30" cy="30" r="24" stroke-dasharray="150.79644737231007" stroke-dashoffset="104.04954868689394"></circle></svg><div class="center">31<small>%</small></div></div>
-    <div class="ring-text"><div class="pct">13 of 42 events done</div><div class="sub">🔴 2 live now</div></div>
-  </div><div class="breakdown-card">
-    <div class="breakdown-title">🎽 Participation Breakdown</div>
-    <div class="breakdown-grid">
-      <div class="breakdown-tile men" data-grp="men"><span class="icon">🙋‍♂️</span><div class="num">10</div><div class="lbl">Men's</div></div>
-      <div class="breakdown-tile women" data-grp="women"><span class="icon">🙋‍♀️</span><div class="num">4</div><div class="lbl">Women's</div></div>
-      <div class="breakdown-tile children" data-grp="children"><span class="icon">🧒</span><div class="num">4</div><div class="lbl">Kids</div></div>
-      <div class="breakdown-tile open" data-grp="open"><span class="icon">🤝</span><div class="num">24</div><div class="lbl">Open</div></div>
-    </div>
-    <div class="breakdown-bar">
-      <span class="seg-men" style="width:23.8%"></span>
-      <span class="seg-women" style="width:9.5%"></span>
-      <span class="seg-children" style="width:9.5%"></span>
-      <span class="seg-open" style="width:57.1%"></span>
-    </div>
-  </div><div class="section-title">🔥 Today's Events <small id="todayCount" style="cursor:pointer;color:#b06a06;">2 · view all →</small></div><div class="card card-cricket" data-id="cr-9">
-    <div class="card-header"><div><div class="card-title">🏅 Royal Civil vs CHP-2 <span class="today-badge">🔥 TODAY</span></div><div class="card-cat">Cricket</div></div>
-    <span class="status live">🔴 LIVE</span></div>
-    <div class="meta"><span>📅 Wed, 1 Jul</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="card card-cricket" data-id="cr-10">
-    <div class="card-header"><div><div class="card-title">🏅 SE (O)-3 vs SE (MM-1) <span class="today-badge">🔥 TODAY</span></div><div class="card-cat">Cricket</div></div>
-    <span class="status live">🔴 LIVE</span></div>
-    <div class="meta"><span>📅 Wed, 1 Jul</span><span>⏱ 2:00 PM</span><span>📍 BTPS Cricket Ground</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="section-title">📅 Coming up <small>6</small></div><div class="card card-cricket" data-id="cr-11">
-    <div class="card-header"><div><div class="card-title">🏅 SE (MM-2) vs CHP-1 </div><div class="card-cat">Cricket</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Thu, 2 Jul</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="card card-cricket" data-id="cr-12">
-    <div class="card-header"><div><div class="card-title">🏅 CHP (I&amp;C) vs SE (O)-2 </div><div class="card-cat">Cricket</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Thu, 2 Jul</span><span>⏱ 2:00 PM</span><span>📍 BTPS Cricket Ground</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="card " data-id="ath-7">
-    <div class="card-header"><div><div class="card-title">🔱 Javelin Throw (Men) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 1:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-2">
-    <div class="card-header"><div><div class="card-title">🏃 200m Men (Below 45) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="w-6">
-    <div class="card-header"><div><div class="card-title">🐸 Frog Jump (Boys U6) </div><div class="card-cat">Children's Events</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="card " data-id="ath-4">
-    <div class="card-header"><div><div class="card-title">🏃 200m Men (Above 45) </div><div class="card-cat">Athletics</div></div>
-    <span class="status upcoming">📅 UPCOMING</span></div>
-    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
-    
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      
-    </div>
-  </div><div class="section-title">🏏 Recent Cricket Results <small style="cursor:pointer;color:#1f9d6c;" id="viewAllCricket">View all →</small></div><div class="card card-cricket" data-id="cr-8">
-    <div class="card-header"><div><div class="card-title">🏅 SE (O)-2 vs SE (E) </div><div class="card-cat">Cricket</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Mon, 29 Jun</span><span>⏱ 2:00 PM</span><span>📍 BTPS Cricket Ground</span></div>
-    <div class="scorecard">
-      <div class="sc-row"><span class="sc-team">🏆 SE (O)-2</span><span class="sc-runs">84/7</span></div>
-      <div class="sc-vs">vs</div>
-      <div class="sc-row"><span class="sc-team">SE (E)</span><span class="sc-runs">83/6</span></div>
-      <div class="sc-result">🏆 SE (O)-2 won</div>
-    </div>
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="card card-cricket" data-id="cr-7">
-    <div class="card-header"><div><div class="card-title">🏅 ED (BTPS) vs SE (O)-3 </div><div class="card-cat">Cricket</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Mon, 29 Jun</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
-    <div class="scorecard">
-      <div class="sc-row"><span class="sc-team">🏆 ED (BTPS)</span><span class="sc-runs">53/3</span></div>
-      <div class="sc-vs">vs</div>
-      <div class="sc-row"><span class="sc-team">SE (O)-3</span><span class="sc-runs">52/7</span></div>
-      <div class="sc-result">🏆 ED (BTPS) won</div>
-    </div>
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="card card-cricket" data-id="cr-6">
-    <div class="card-header"><div><div class="card-title">🏅 CHP-1 vs SE (O)-1 </div><div class="card-cat">Cricket</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sun, 28 Jun</span><span>⏱ 2:00 PM</span><span>📍 BTPS Cricket Ground</span></div>
-    <div class="scorecard">
-      <div class="sc-row"><span class="sc-team">🏆 CHP-1</span><span class="sc-runs">145/1</span></div>
-      <div class="sc-vs">vs</div>
-      <div class="sc-row"><span class="sc-team">SE (O)-1</span><span class="sc-runs">73/9</span></div>
-      <div class="sc-result">🏆 CHP-1 won</div>
-    </div>
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div><div class="card card-cricket" data-id="cr-5">
-    <div class="card-header"><div><div class="card-title">🏅 Royal Civil vs CHP-3 </div><div class="card-cat">Cricket</div></div>
-    <span class="status completed">✅ DONE</span></div>
-    <div class="meta"><span>📅 Sun, 28 Jun</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
-    <div class="scorecard">
-      <div class="sc-row"><span class="sc-team">🏆 Royal Civil</span><span class="sc-runs">169/3</span></div>
-      <div class="sc-vs">vs</div>
-      <div class="sc-row"><span class="sc-team">CHP-3</span><span class="sc-runs">58/8</span></div>
-      <div class="sc-result">🏆 Royal Civil won</div>
-    </div>
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-      <span class="participant-pill">👤 0 registered</span>
-      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
-    </div>
-  </div></div>
+  <div class="content" id="content"><!-- Content rendered by JavaScript --></div>
 
   <div class="footer">
     Developed by <b>Vikas N</b> · <span class="dev">Viraj Software Solutions</span>
@@ -414,7 +282,8 @@
   </div>
 </div>
 
-<script>(function(){
+<script>
+(function(){
 const ADMIN_PW = "KPCL57th";
 let isAdmin = false, currentTab = 'dashboard', activeFilter='all';
 let state = { events: [], notifications: [], fixtures: [], stageResults: [] };
@@ -427,8 +296,9 @@ let hasUnreadNotif = false;
 const TODAY = new Date();
 const TODAY_STR = TODAY.toISOString().slice(0,10);
 
+// IMPORTANT: Replace YOUR_DEPLOYMENT_ID with your actual AppScript deployment ID
 const BACKEND_URL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
-const USE_LOCAL_FALLBACK = false;
+const USE_LOCAL_FALLBACK = true; // Set to false when using real backend
 
 function uid(p){ return p+'-'+Math.random().toString(36).slice(2,7); }
 function fmtDate(d){ if(!d)return ''; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}); }
@@ -495,6 +365,7 @@ function rowsToEvents(rows){
 }
 
 function rowsToFixtures(rows){
+  if(!rows || !rows.length) return [];
   return rows.map(r => ({
     eventId: String(r.eventId || ''),
     stage: r.stage || '',
@@ -541,7 +412,68 @@ function rowsToNotifs(rows){
   }));
 }
 
-// SEED DATA
+// SEED DATA - Carrom Fixtures (All Groups)
+const SEED_FIXTURES = [
+  // Group A
+  {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a1', player1Id:'7', player1Name:'Shrikanth', player2Id:'42', player2Name:'Lokesh M PCM', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a2', player1Id:'25', player1Name:'Satish', player2Id:'41', player2Name:'Maruthi G.H.', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a3', player1Id:'74', player1Name:'GOPALKRISHNA. V', player2Id:'5', player2Name:'Nandeesh Kumar', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a4', player1Id:'11', player1Name:'Nawaz', player2Id:'20', player2Name:'Parashuram', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a5', player1Id:'3', player1Name:'Deepak shastri', player2Id:'13', player2Name:'Khaleel Ahmed', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
+  // Group B
+  {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b1', player1Id:'28', player1Name:'T. Yariswamy', player2Id:'1', player2Name:'Raghavendra B.G.', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b2', player1Id:'47', player1Name:'Maqbool', player2Id:'30', player2Name:'Sadiq Ali', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b3', player1Id:'16', player1Name:'Devendra B', player2Id:'24', player2Name:'Mallikarjun', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b4', player1Id:'6', player1Name:'Mallaiha', player2Id:'71', player2Name:'Shashikant', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b5', player1Id:'32', player1Name:'Vinuth.', player2Id:'10', player2Name:'Rajashekhar M', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
+  // Group C
+  {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c1', player1Id:'72', player1Name:'Ashok Kumar', player2Id:'55', player2Name:'Chandrashekhar B.', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c2', player1Id:'61', player1Name:'Shivan Gouda Patil', player2Id:'52', player2Name:'Meghanath', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c3', player1Id:'12', player1Name:'Lokesh P.S.', player2Id:'43', player2Name:'Omprakash EE', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c4', player1Id:'62', player1Name:'Vinod Achari', player2Id:'29', player2Name:'Virupaxappa', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c5', player1Id:'57', player1Name:'Anil Kumar V.K.', player2Id:'68', player2Name:'Gopayya', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
+  // Group D
+  {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d1', player1Id:'50', player1Name:'Mariswamy', player2Id:'21', player2Name:'Samarth', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d2', player1Id:'18', player1Name:'Hanumappa', player2Id:'9', player2Name:'Lokesha M.', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d3', player1Id:'27', player1Name:'Basavalingappa', player2Id:'45', player2Name:'Sudhakar G', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d4', player1Id:'60', player1Name:'Deepak S. Shastri', player2Id:'22', player2Name:'Ajith Patil', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d5', player1Id:'37', player1Name:'Pradeep Shastri', player2Id:'63', player2Name:'Pandurang', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
+  // Group E
+  {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e1', player1Id:'69', player1Name:'Manjunath', player2Id:'49', player2Name:'Mohan', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e2', player1Id:'70', player1Name:'Bharat GD', player2Id:'54', player2Name:'Praveen Kumar KV', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e3', player1Id:'39', player1Name:'Honnur Swamy', player2Id:'76', player2Name:'Pramod', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e4', player1Id:'26', player1Name:'Suresh E.E', player2Id:'8', player2Name:'K Lingamurthy', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e5', player1Id:'33', player1Name:'Raghavendra G.S', player2Id:'77', player2Name:'Shivana Gouda', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
+  // Group F
+  {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f1', player1Id:'59', player1Name:'Sandeep K', player2Id:'46', player2Name:'Naveed Mulla', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f2', player1Id:'19', player1Name:'Rajashekhar Chaudri', player2Id:'48', player2Name:'Deepak', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f3', player1Id:'14', player1Name:'Shrinivas', player2Id:'23', player2Name:'K. G. Manjunath', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f4', player1Id:'4', player1Name:'Shivamusthy', player2Id:'40', player2Name:'Chennabasava', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f5', player1Id:'53', player1Name:'Ikram', player2Id:'78', player2Name:'Lokesh', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
+  // Group G
+  {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g1', player1Id:'64', player1Name:'Ameeth', player2Id:'66', player2Name:'Rajesh JE Safty', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g2', player1Id:'2', player1Name:'Shrinivas Babu', player2Id:'17', player2Name:'Hanumanth Raj', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g3', player1Id:'67', player1Name:'Prashant Kumar', player2Id:'65', player2Name:'Nitin Kumar', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g4', player1Id:'73', player1Name:'Vinod Kumar', player2Id:'58', player2Name:'Basavaraj Lamani', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g5', player1Id:'31', player1Name:'Harish', player2Id:'', player2Name:'BYE', winnerId:'31', winnerName:'Harish', nextMatchId:'ev-1-g-winner', status:'completed'},
+  // Group H
+  {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h1', player1Id:'51', player1Name:'Jagadish', player2Id:'15', player2Name:'Manjunath', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h2', player1Id:'44', player1Name:'Abhishek', player2Id:'34', player2Name:'Mallikarjun H.M.', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h3', player1Id:'56', player1Name:'Ashok Kumar P.M', player2Id:'38', player2Name:'Vinayak Desai', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h4', player1Id:'75', player1Name:'Sundeep', player2Id:'36', player2Name:'Rajesh Patil', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
+  {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h5', player1Id:'35', player1Name:'Lankesh', player2Id:'', player2Name:'BYE', winnerId:'35', winnerName:'Lankesh', nextMatchId:'ev-1-h-winner', status:'completed'},
+  // Quarterfinals
+  {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf1', player1Id:'', player1Name:'Group A Winner', player2Id:'', player2Name:'Group H Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf1', status:'pending'},
+  {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf2', player1Id:'', player1Name:'Group B Winner', player2Id:'', player2Name:'Group G Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf1', status:'pending'},
+  {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf3', player1Id:'', player1Name:'Group C Winner', player2Id:'', player2Name:'Group F Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf2', status:'pending'},
+  {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf4', player1Id:'', player1Name:'Group D Winner', player2Id:'', player2Name:'Group E Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf2', status:'pending'},
+  // Semifinals
+  {eventId:'ev-1', stage:'Semifinal', matchId:'ev-1-sf1', player1Id:'', player1Name:'QF1 Winner', player2Id:'', player2Name:'QF2 Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-final', status:'pending'},
+  {eventId:'ev-1', stage:'Semifinal', matchId:'ev-1-sf2', player1Id:'', player1Name:'QF3 Winner', player2Id:'', player2Name:'QF4 Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-final', status:'pending'},
+  // Final
+  {eventId:'ev-1', stage:'Final', matchId:'ev-1-final', player1Id:'', player1Name:'SF1 Winner', player2Id:'', player2Name:'SF2 Winner', winnerId:'', winnerName:'', nextMatchId:'', status:'pending'}
+];
+
 const SEED_EVENTS = [
   {id:'cr-1', name:'Electrical vs CHP (I&C)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'10:00 AM', status:'completed', teamA:'Electrical', teamB:'CHP (I&C)', scoreA:'81/1', scoreB:'77/7', winner:'A', note:'', participants:[], coordinators:[]},
   {id:'cr-2', name:'CHP-2 vs CHP-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-23', time:'2:00 PM', status:'completed', teamA:'CHP-2', teamB:'CHP-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
@@ -551,10 +483,10 @@ const SEED_EVENTS = [
   {id:'cr-6', name:'CHP-1 vs SE (O)-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-28', time:'2:00 PM', status:'upcoming', teamA:'CHP-1', teamB:'SE (O)-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
   {id:'cr-7', name:'ED (BTPS) vs SE (O)-3', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'10:00 AM', status:'upcoming', teamA:'ED (BTPS)', teamB:'SE (O)-3', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
   {id:'cr-8', name:'SE (O)-2 vs SE (E)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-29', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-2', teamB:'SE (E)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'10:00 AM', status:'upcoming', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-06-30', time:'2:00 PM', status:'upcoming', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'10:00 AM', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
-  {id:'cr-12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'2:00 PM', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-9', name:'Royal Civil vs CHP-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'10:00 AM', status:'live', teamA:'Royal Civil', teamB:'CHP-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-10', name:'SE (O)-3 vs SE (MM-1)', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-01', time:'2:00 PM', status:'live', teamA:'SE (O)-3', teamB:'SE (MM-1)', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-11', name:'SE (MM-2) vs CHP-1', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-02', time:'10:00 AM', status:'upcoming', teamA:'SE (MM-2)', teamB:'CHP-1', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
+  {id:'cr-12', name:'CHP (I&C) vs SE (O)-2', category:'Cricket', venue:'BTPS Cricket Ground', date:'2026-07-02', time:'2:00 PM', status:'upcoming', teamA:'CHP (I&C)', teamB:'SE (O)-2', scoreA:'', scoreB:'', winner:'', note:'', participants:[], coordinators:[]},
   {id:'ev-1', name:'Carrom — Singles', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'G.J. Raghavendra',phone:'9448290702'},{name:'Prabhudeva J',phone:'9480830610'},{name:'Naveed Asmal Hej Mulla',phone:'998635707'},{name:'Sagar D.M',phone:'9480830699'},{name:'Hanumanthappa',phone:'8867973677'}]},
   {id:'ev-2', name:'Chess', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Nawaz M',phone:'8073029015'},{name:'Lokesh M',phone:'7353556048'},{name:'Rajashekar M',phone:'8884561762'},{name:'Honnurswamy',phone:'8722423745'}]},
   {id:'ev-3', name:'Jackpot', category:'Indoor Games', venue:'BTPS Canteen', date:'2026-06-27', time:'TBA', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Registrations close 25.06.2026', participants:[], coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'},{name:'T.Eshwarswamy',phone:'8497813312'}]},
@@ -571,6 +503,870 @@ const SEED_EVENTS = [
   {id:'ath-6', name:'Discus Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Rajashekar Choudri',phone:'9481044510'}]},
   {id:'ath-7', name:'Javelin Throw (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'1:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Manumantaraj',phone:'9731879777'}]},
   {id:'ath-8', name:'Volleyball (Men)', category:'Athletics', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'2:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandish Kumar',phone:'8660806196'}]},
-  {id:'w-1', name:'100m Women (Below 45)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandini Hosur</script>
+  {id:'w-1', name:'100m Women (Below 45)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Nandini Hosur',phone:'9480830336'},{name:'Rajarajeshwari Vibhuti',phone:'9480830688'}]},
+  {id:'w-2', name:'Shot Put (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Savitha M',phone:'9141615413'}]},
+  {id:'w-3', name:'Lemon & Spoon (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-4', name:'Javelin (Women)', category:'Women\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'12:30 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-5', name:'100m Girls (Under 12)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'9:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[{name:'Ashe',phone:'9480849610'}]},
+  {id:'w-6', name:'Frog Jump (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-7', name:'30m Run (Boys U6)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'w-8', name:'50m Run (Boys 6-10)', category:'Children\'s Events', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'11:00 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Sunday event — 05.07.2026', participants:[], coordinators:[]},
+  {id:'cult-1', name:'Light Music Karaoke (Employees)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-06', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For all BTPS employees', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Honnurswamy V',phone:'9448282640'},{name:'Sruthi S',phone:'9480830638'},{name:'Nithin Kumar',phone:'9448282663'},{name:'Veena Chawla',phone:'9886385478'},{name:'Chaitra P M',phone:'9480849642'},{name:'Tippeswamy J',phone:'9743718084'}]},
+  {id:'cult-2', name:'Quiz Competition (Community Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'10:30 AM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Topic: KPCL\'s progress and achievements', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Shantamallappa',phone:'9480830529'},{name:'Ravikumar B M',phone:'9480830527'},{name:'Shivagonda Biradar',phone:'9480830690'},{name:'Honnurswamy V',phone:'9448282640'}]},
+  {id:'cult-3', name:'Quiz Competition (Employees Round)', category:'Cultural', venue:'3rd Floor Conference Hall, BTPS', date:'2026-07-08', time:'2:30 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For all BTPS employees', participants:[], coordinators:[{name:'Sruthi S',phone:'9480830638'},{name:'Pushpa',phone:'9741258163'},{name:'Yamuna',phone:'9742049153'},{name:'Purnima B K',phone:'9731209856'}]},
+  {id:'cult-4', name:'Light Music Karaoke (Family Members)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For employee family members 12 years & above', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Smitha Karmakar',phone:'9480830577'},{name:'Ravikumar B M',phone:'9480830527'}]},
+  {id:'cult-5', name:'Light Music Karaoke (Children)', category:'Cultural', venue:'RYMEC Ground, Ballari', date:'2026-07-05', time:'3:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'For employee children under 12 years', participants:[], coordinators:[{name:'Gosubalu Jambayya',phone:'9731332847'},{name:'Parameshwar K',phone:'9019625580'}]},
+  {id:'cult-6', name:'Rangoli Competition "My BTPS"', category:'Cultural', venue:'BTPS Centre, Kudithini', date:'2026-07-10', time:'10:00 AM – 1:00 PM', status:'upcoming', teamA:'', teamB:'', scoreA:'', scoreB:'', winner:'', note:'Team event (2 per group) · Free-hand rangoli', participants:[], coordinators:[{name:'Nileema J',phone:'9480830537'},{name:'Chaitra P M',phone:'9480849642'},{name:'Nivin Kumar',phone:'9448282663'}]}
+];
 
-</body></html>
+const SEED_NOTIFS = [
+  {id:'n1', title:'Carrom Tournament Started', message:'Carrom tournament with 78 players across 8 groups has begun!', type:'info', time:Date.now()-3600000},
+  {id:'n2', title:'Chess Registration Open', message:'Chess tournament registrations close 25.06.2026. Sign up now!', type:'alert', time:Date.now()-7200000}
+];
+
+function getSeedEvents(){
+  return updateEventStatuses(SEED_EVENTS.map(e => ({...e, participants: e.participants || [], coordinators: e.coordinators || []})));
+}
+
+async function backendGetAll(){
+  if(USE_LOCAL_FALLBACK) throw new Error("Local fallback mode");
+  try{
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch(BACKEND_URL + "?action=getAll", { method: "GET", signal: controller.signal, headers: { 'Accept': 'application/json' } });
+    clearTimeout(timeoutId);
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }catch(e){
+    if(e.name === 'AbortError') throw new Error("Connection timeout");
+    throw new Error("Backend unreachable: " + e.message);
+  }
+}
+
+async function backendSave(action, data){
+  if(USE_LOCAL_FALLBACK) throw new Error("Local fallback mode");
+  try{
+    const body = new URLSearchParams();
+    body.set("action", action);
+    body.set("data", JSON.stringify(data));
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    const res = await fetch(BACKEND_URL, { method: "POST", body: body, signal: controller.signal, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    clearTimeout(timeoutId);
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }catch(e){
+    if(e.name === 'AbortError') throw new Error("Connection timeout");
+    throw new Error("Save failed: " + e.message);
+  }
+}
+
+async function loadState(){
+  try{
+    if(!USE_LOCAL_FALLBACK){
+      const data = await backendGetAll();
+      backendOk = true;
+      state.events = data.events && data.events.length ? rowsToEvents(data.events) : getSeedEvents();
+      state.events = updateEventStatuses(state.events);
+      state.fixtures = data.fixtures && data.fixtures.length ? rowsToFixtures(data.fixtures) : SEED_FIXTURES;
+      state.notifications = data.notifications && data.notifications.length ? rowsToNotifs(data.notifications) : SEED_NOTIFS;
+    } else {
+      state.events = getSeedEvents();
+      state.fixtures = SEED_FIXTURES;
+      state.notifications = SEED_NOTIFS;
+      backendOk = false;
+    }
+    if(state.notifications.length > lastSeenNotif){ hasUnreadNotif = true; updateBellDot(); }
+    updateConnectionDot();
+    return true;
+  }catch(e){
+    console.warn('Using local data -', e.message);
+    backendOk = false;
+    if(!state.events || !state.events.length){ state.events = getSeedEvents(); }
+    if(!state.fixtures || !state.fixtures.length){ state.fixtures = SEED_FIXTURES; }
+    if(!state.notifications || !state.notifications.length){ state.notifications = SEED_NOTIFS; }
+    updateConnectionDot();
+    return false;
+  }
+}
+
+function updateConnectionDot(){
+  const dot = document.getElementById('connDot');
+  const indicator = document.getElementById('syncIndicator');
+  if(backendOk && !USE_LOCAL_FALLBACK){
+    dot.style.display = 'none';
+    indicator.innerHTML = '<span style="color:#1f9d6c">●</span> online';
+  }else{
+    dot.style.display = 'block';
+    indicator.innerHTML = '<span style="color:#d6483d">●</span> offline';
+  }
+}
+
+function updateBellDot(){
+  const dot = document.getElementById('bellDot');
+  if(hasUnreadNotif){ dot.style.display = 'block'; dot.classList.add('blink'); }
+  else { dot.style.display = 'none'; dot.classList.remove('blink'); }
+}
+
+function markNotifsRead(){ hasUnreadNotif = false; lastSeenNotif = state.notifications.length; updateBellDot(); }
+
+function renderTicker(){
+  const el=document.getElementById('marqueeText');
+  if(!el) return;
+  const parts = [];
+  const totalPlayers = 78;
+  const completedMatches = state.fixtures.filter(f => f.status === 'completed' && f.winnerId).length;
+  const totalMatches = state.fixtures.length;
+  parts.push(`🏏 Carrom Tournament · ${totalPlayers} players · ${completedMatches}/${totalMatches} matches done`);
+  const liveMatches = state.fixtures.filter(f => f.status === 'live');
+  if(liveMatches.length){
+    parts.push(`🔴 LIVE: ${liveMatches.map(m => m.player1Name + ' vs ' + m.player2Name).join(', ')}`);
+  }
+  const pending = state.fixtures.filter(f => f.status === 'pending' && f.player1Id && f.player2Id);
+  if(pending.length){
+    parts.push(`📅 ${pending.length} matches pending`);
+  }
+  const joined = parts.map(p=>escapeHtml(p)).join('<span class="sep">★</span>');
+  el.innerHTML = joined + '<span class="sep">★</span>' + joined;
+  const plainLength = parts.join(' ★ ').length;
+  const durationSeconds = Math.max(16, Math.round(plainLength / 9));
+  el.style.animationDuration = durationSeconds + 's';
+}
+
+function isToday(dateStr){ return dateStr === TODAY_STR; }
+
+const CATEGORY_ICONS = {
+  'Indoor Games': '🎲',
+  'Outdoor Games': '🏃',
+  'Athletics': '🏃‍♂️',
+  "Women's Events": '👩',
+  "Children's Events": '🧒',
+  'Cultural': '🎭',
+  'Cricket': '🏏'
+};
+function getCategoryIcon(cat){ return CATEGORY_ICONS[cat] || '📂'; }
+
+function getEventIcon(name){
+  const n = (name||'').toLowerCase();
+  if(/carrom/.test(n)) return '🎯';
+  if(/chess/.test(n)) return '♟️';
+  if(/jackpot|cards/.test(n)) return '🃏';
+  if(/table tennis|t\.t\./.test(n)) return '🏓';
+  if(/badminton/.test(n)) return '🏸';
+  if(/tennis ball cricket|cricket/.test(n)) return '🏏';
+  if(/kabaddi/.test(n)) return '🤼';
+  if(/cross-country|run|walk|100m|200m|30m|50m|marathon/.test(n)) return '🏃';
+  if(/shot put/.test(n)) return '⚪';
+  if(/discus/.test(n)) return '🥏';
+  if(/javelin/.test(n)) return '🔱';
+  if(/volleyball/.test(n)) return '🏐';
+  if(/lemon\s*&?\s*spoon/.test(n)) return '🥄';
+  if(/frog jump/.test(n)) return '🐸';
+  if(/karaoke|light music/.test(n)) return '🎤';
+  if(/quiz/.test(n)) return '🧠';
+  if(/rangoli/.test(n)) return '🎨';
+  return '🏅';
+}
+
+function genderGroup(e){
+  if(e.category === "Children's Events") return 'children';
+  if(e.category === "Women's Events") return 'women';
+  if(/\bWomen\b|\bGirls\b/i.test(e.name)) return 'women';
+  if(/\bMen\b/i.test(e.name) && !/\bWomen\b/i.test(e.name)) return 'men';
+  return 'open';
+}
+
+function eventCardHtml(e, clickable=true){
+  const pCount = (e.participants||[]).length;
+  const isTodayEvent = isToday(e.date);
+  let scoreHtml = '';
+  if(e.teamA && e.teamB && (e.scoreA || e.scoreB || e.winner)){
+    const aW=e.winner==='A', bW=e.winner==='B', tie=e.winner==='tie';
+    scoreHtml = `<div class="scorecard">
+      <div class="sc-row"><span class="sc-team">${aW?'🏆 ':''}${escapeHtml(e.teamA)}</span><span class="sc-runs">${escapeHtml(e.scoreA||'—')}</span></div>
+      <div class="sc-vs">vs</div>
+      <div class="sc-row"><span class="sc-team">${bW?'🏆 ':''}${escapeHtml(e.teamB)}</span><span class="sc-runs">${escapeHtml(e.scoreB||'—')}</span></div>
+      ${e.winner?`<div class="sc-result">${tie?'🤝 Match Tied':`🏆 ${escapeHtml(aW?e.teamA:e.teamB)} won`}</div>`:''}
+    </div>`;
+  }
+  const clickHint = (e.category==='Cricket' && clickable) ? `<div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg> tap for details</div>` : '';
+  const todayBadge = isTodayEvent ? `<span class="today-badge">🔥 TODAY</span>` : '';
+  const statusLabel = e.status==='live' ? '🔴 LIVE' : e.status==='completed' ? '✅ DONE' : e.status==='postponed' ? '⏸ POSTPONED' : '📅 UPCOMING';
+  return `<div class="card ${e.category==='Cricket'?'card-cricket':''}" data-id="${e.id}">
+    <div class="card-header"><div><div class="card-title">${getEventIcon(e.name)} ${escapeHtml(e.name)} ${todayBadge}</div><div class="card-cat">${escapeHtml(e.category)}</div></div>
+    <span class="status ${e.status}">${statusLabel}</span></div>
+    <div class="meta"><span>📅 ${fmtDate(e.date)}</span><span>⏱ ${escapeHtml(e.time)||'TBA'}</span><span>📍 ${escapeHtml(e.venue)}</span></div>
+    ${scoreHtml}
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 ${pCount} registered</span>
+      ${clickHint}
+    </div>
+  </div>`;
+}
+
+// ============ RENDER FIXTURES ============
+function renderFixtures() {
+  const c = document.getElementById('content');
+  if (!state.fixtures || !state.fixtures.length) {
+    c.innerHTML = `<div class="empty">🏏 No fixtures available yet. Check back soon!</div>`;
+    renderTicker();
+    return;
+  }
+
+  // Group fixtures by eventId and stage
+  const grouped = {};
+  state.fixtures.forEach(f => {
+    const key = f.eventId || 'unknown';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(f);
+  });
+
+  let html = `<div class="section-title">🏆 Tournament Fixtures <small>${state.fixtures.length} matches</small></div>`;
+
+  // Get event names for reference
+  const eventMap = {};
+  state.events.forEach(e => eventMap[e.id] = e.name);
+
+  // Show filter for events
+  const eventIds = Object.keys(grouped);
+  html += `<div class="chip-group">`;
+  eventIds.forEach(id => {
+    const label = eventMap[id] || id;
+    html += `<span class="chip ${activeFilter === id ? 'active' : ''}" data-filter="${id}">${getEventIcon(label)} ${label.substring(0,20)}</span>`;
+  });
+  html += `</div>`;
+
+  // Filter
+  let filteredFixtures = state.fixtures;
+  if (activeFilter !== 'all' && activeFilter !== '') {
+    filteredFixtures = filteredFixtures.filter(f => f.eventId === activeFilter);
+  }
+
+  // Group by stage
+  const stages = {};
+  filteredFixtures.forEach(f => {
+    if (!stages[f.stage]) stages[f.stage] = [];
+    stages[f.stage].push(f);
+  });
+
+  // Order: Groups A-H, Quarterfinals, Semifinals, Final
+  const stageOrder = ['Group A', 'Group B', 'Group C', 'Group D', 'Group E', 'Group F', 'Group G', 'Group H', 'Quarterfinal', 'Semifinal', 'Final'];
+  const sortedStages = Object.keys(stages).sort((a, b) => {
+    const idxA = stageOrder.indexOf(a);
+    const idxB = stageOrder.indexOf(b);
+    if (idxA === -1 && idxB === -1) return a.localeCompare(b);
+    if (idxA === -1) return 1;
+    if (idxB === -1) return -1;
+    return idxA - idxB;
+  });
+
+  if (sortedStages.length === 0) {
+    html += `<div class="empty">No matches found for this filter.</div>`;
+  }
+
+  sortedStages.forEach(stage => {
+    const matches = stages[stage];
+    // Sort matches by matchId
+    matches.sort((a, b) => a.matchId.localeCompare(b.matchId));
+
+    const completed = matches.filter(m => m.status === 'completed' || m.winnerId).length;
+    const total = matches.length;
+
+    html += `<div class="fixture-bracket">
+      <div class="stage-title">
+        ${getStageIcon(stage)} ${stage}
+        <span class="badge">${completed}/${total} done</span>
+      </div>`;
+
+    matches.forEach(m => {
+      const statusClass = m.status === 'completed' || m.winnerId ? 'completed' : m.status === 'live' ? 'live' : 'pending';
+      const statusLabel = m.status === 'completed' || m.winnerId ? '✅ Done' : m.status === 'live' ? '🔴 Live' : '⏳ Pending';
+      
+      const p1Name = m.player1Name || 'TBD';
+      const p2Name = m.player2Name || 'TBD';
+      const isBye = p2Name === 'BYE' || p1Name === 'BYE';
+      
+      let p1Display = p1Name;
+      let p2Display = p2Name;
+      
+      // Highlight winners
+      if (m.winnerName && m.winnerName !== '') {
+        if (m.player1Name === m.winnerName || m.player1Id === m.winnerId) {
+          p1Display = `🏆 ${p1Name}`;
+        } else if (m.player2Name === m.winnerName || m.player2Id === m.winnerId) {
+          p2Display = `🏆 ${p2Name}`;
+        }
+      }
+
+      html += `<div class="fixture-match" data-matchid="${m.matchId}" onclick="openFixtureSheet('${m.matchId}')">
+        <div class="players">
+          <div class="player">
+            <span>${escapeHtml(p1Display)}</span>
+            ${m.winnerName && m.winnerName === m.player1Name ? '<span class="winner-tag">Winner</span>' : ''}
+            ${m.winnerId && m.winnerId !== '' && m.winnerId !== m.player1Id && m.winnerId !== m.player2Id && m.winnerId !== '31' && m.winnerId !== '35' ? '<span class="loser-tag">Lost</span>' : ''}
+          </div>
+          <div class="player" style="color:#8a95bd;">
+            <span class="vs">vs</span>
+            <span>${escapeHtml(p2Display)}</span>
+            ${m.winnerName && m.winnerName === m.player2Name ? '<span class="winner-tag">Winner</span>' : ''}
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="match-status ${statusClass}">${statusLabel}</span>
+          <span class="match-id">${escapeHtml(m.matchId)}</span>
+        </div>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  if (isAdmin) {
+    html += `<button class="btn" style="background:#f5a623;color:#0b1530;margin-top:12px;" onclick="addFixture()">➕ Add Fixture</button>`;
+  }
+
+  c.innerHTML = html;
+  renderTicker();
+}
+
+function getStageIcon(stage) {
+  if (stage.includes('Group')) return '📋';
+  if (stage.includes('Quarter')) return '🏅';
+  if (stage.includes('Semi')) return '🥈';
+  if (stage.includes('Final')) return '🏆';
+  return '🎯';
+}
+
+// ============ OPEN FIXTURE SHEET ============
+function openFixtureSheet(matchId) {
+  const match = state.fixtures.find(f => f.matchId === matchId);
+  if (!match) { toast('Match not found'); return; }
+
+  const sheet = document.getElementById('sheet');
+  const isCompleted = match.status === 'completed' || match.winnerId;
+
+  let html = `<div class="sheet-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-size:17px">${escapeHtml(match.stage)} - ${escapeHtml(match.matchId)}</h3>
+      <button class="sheet-close" id="sheetClose">✕</button>
+    </div>
+    <div style="margin:10px 0;background:#f8f9fd;border-radius:12px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;">
+        <span>${escapeHtml(match.player1Name || 'TBD')}</span>
+        <span style="color:#8a95bd;font-weight:400;font-size:12px;">vs</span>
+        <span>${escapeHtml(match.player2Name || 'TBD')}</span>
+      </div>
+      ${match.winnerName ? `<div style="text-align:center;margin-top:8px;color:#1f9d6c;font-weight:700;">🏆 Winner: ${escapeHtml(match.winnerName)}</div>` : ''}
+      <div style="text-align:center;margin-top:4px;font-size:11px;color:#8a95bd;">Status: ${match.status || 'pending'}</div>
+    </div>`;
+
+  // Show next match info
+  if (match.nextMatchId) {
+    const nextMatch = state.fixtures.find(f => f.matchId === match.nextMatchId);
+    if (nextMatch) {
+      html += `<div style="background:#eef1fb;border-radius:10px;padding:10px;margin-bottom:10px;font-size:12px;">
+        <span style="font-weight:600;">➡️ Next: </span>
+        ${escapeHtml(nextMatch.stage)} - ${escapeHtml(nextMatch.matchId)}
+        ${nextMatch.winnerName ? ` (${escapeHtml(nextMatch.winnerName)} already advanced)` : ''}
+      </div>`;
+    }
+  }
+
+  // Admin controls
+  if (isAdmin) {
+    html += `<div style="margin-top:12px;font-weight:700;font-size:12px;">✎ Update Match</div>`;
+
+    // Player selection for winner
+    if (!isCompleted) {
+      html += `<div style="display:flex;gap:6px;margin-top:6px;">`;
+      if (match.player1Name && match.player1Name !== '' && match.player1Name !== 'BYE') {
+        html += `<button class="btn" style="background:#1f9d6c;color:#fff;padding:8px;font-size:11px;" onclick="setWinner('${match.matchId}','${match.player1Id}','${match.player1Name}')">🏆 ${escapeHtml(match.player1Name)} wins</button>`;
+      }
+      if (match.player2Name && match.player2Name !== '' && match.player2Name !== 'BYE') {
+        html += `<button class="btn" style="background:#1f9d6c;color:#fff;padding:8px;font-size:11px;" onclick="setWinner('${match.matchId}','${match.player2Id}','${match.player2Name}')">🏆 ${escapeHtml(match.player2Name)} wins</button>`;
+      }
+      html += `</div>`;
+    }
+
+    // Edit players
+    html += `<div style="margin-top:8px;display:flex;gap:6px;">
+      <input id="editP1" placeholder="Player 1" value="${escapeHtml(match.player1Name)}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;">
+      <input id="editP2" placeholder="Player 2" value="${escapeHtml(match.player2Name)}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;">
+    </div>
+    <div style="display:flex;gap:6px;margin-top:6px;">
+      <input id="editWinner" placeholder="Winner (optional)" value="${escapeHtml(match.winnerName)}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;">
+      <input id="editStatus" placeholder="Status" value="${escapeHtml(match.status)}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;">
+    </div>
+    <button class="btn" style="background:#0b1530;color:#fff;margin-top:6px;" onclick="updateFixture('${match.matchId}')">💾 Save Changes</button>
+    <button class="btn" style="background:#d6483d;color:#fff;margin-top:4px;" onclick="deleteFixture('${match.matchId}')">🗑️ Delete Match</button>`;
+  }
+
+  sheet.innerHTML = html;
+  document.getElementById('sheetClose').onclick = () => document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('sheetOverlay').classList.add('open');
+}
+
+// ============ FIXTURE ACTIONS ============
+async function setWinner(matchId, playerId, playerName) {
+  const match = state.fixtures.find(f => f.matchId === matchId);
+  if (!match) return;
+
+  // Check if player is BYE
+  if (playerName === 'BYE' || playerName === '') {
+    toast('Cannot set BYE as winner');
+    return;
+  }
+
+  match.winnerId = playerId;
+  match.winnerName = playerName;
+  match.status = 'completed';
+
+  // Check if there's a next match - update it with this winner
+  if (match.nextMatchId && match.nextMatchId !== '') {
+    const nextMatch = state.fixtures.find(f => f.matchId === match.nextMatchId);
+    if (nextMatch) {
+      if (!nextMatch.player1Id || nextMatch.player1Id === '' || nextMatch.player1Name === 'TBD' || nextMatch.player1Name === '') {
+        nextMatch.player1Id = playerId;
+        nextMatch.player1Name = playerName;
+        toast(`✅ ${playerName} advanced to ${nextMatch.stage}!`);
+      } else if (!nextMatch.player2Id || nextMatch.player2Id === '' || nextMatch.player2Name === 'TBD' || nextMatch.player2Name === '') {
+        nextMatch.player2Id = playerId;
+        nextMatch.player2Name = playerName;
+        toast(`✅ ${playerName} advanced to ${nextMatch.stage}!`);
+      } else {
+        toast(`⚠️ Next match ${nextMatch.matchId} already has both players. Winner not auto-assigned.`);
+      }
+    }
+  }
+
+  await saveFixtures();
+  toast(`🏆 ${playerName} wins!`);
+  document.getElementById('sheetOverlay').classList.remove('open');
+  renderFixtures();
+}
+
+async function updateFixture(matchId) {
+  const match = state.fixtures.find(f => f.matchId === matchId);
+  if (!match) return;
+
+  const p1 = document.getElementById('editP1');
+  const p2 = document.getElementById('editP2');
+  const winner = document.getElementById('editWinner');
+  const status = document.getElementById('editStatus');
+
+  if (p1) match.player1Name = p1.value.trim();
+  if (p2) match.player2Name = p2.value.trim();
+  if (winner) match.winnerName = winner.value.trim();
+  if (status) match.status = status.value.trim();
+
+  // If winner name is set, auto-set winnerId
+  if (match.winnerName && match.winnerName !== '') {
+    if (match.player1Name === match.winnerName) {
+      match.winnerId = match.player1Id;
+    } else if (match.player2Name === match.winnerName) {
+      match.winnerId = match.player2Id;
+    }
+    match.status = 'completed';
+  }
+
+  await saveFixtures();
+  toast('✅ Match updated');
+  document.getElementById('sheetOverlay').classList.remove('open');
+  renderFixtures();
+}
+
+async function deleteFixture(matchId) {
+  if (!confirm('Delete this match?')) return;
+  state.fixtures = state.fixtures.filter(f => f.matchId !== matchId);
+  await saveFixtures();
+  toast('🗑️ Match deleted');
+  document.getElementById('sheetOverlay').classList.remove('open');
+  renderFixtures();
+}
+
+function addFixture() {
+  const sheet = document.getElementById('sheet');
+  sheet.innerHTML = `<div class="sheet-handle"></div>
+    <h3 style="font-size:17px">➕ Add Fixture</h3>
+    <select id="newEventId" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
+      ${state.events.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
+    </select>
+    <input id="newStage" placeholder="Stage (e.g. Group A, Quarterfinal)" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
+    <input id="newP1" placeholder="Player 1 Name" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
+    <input id="newP2" placeholder="Player 2 Name" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
+    <input id="newNext" placeholder="Next Match ID (optional)" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
+    <button class="btn" style="background:#f5a623;color:#0b1530;" onclick="saveNewFixture()">Create Fixture</button>
+    <button class="btn" style="background:#f4f6fc;color:#0b1530;margin-top:6px;" onclick="document.getElementById('sheetOverlay').classList.remove('open')">Cancel</button>`;
+  document.getElementById('sheetOverlay').classList.add('open');
+}
+
+async function saveNewFixture() {
+  const eventId = document.getElementById('newEventId').value;
+  const stage = document.getElementById('newStage').value.trim();
+  const p1 = document.getElementById('newP1').value.trim();
+  const p2 = document.getElementById('newP2').value.trim();
+  const next = document.getElementById('newNext').value.trim();
+
+  if (!stage || !p1 || !p2) {
+    toast('Please fill all required fields');
+    return;
+  }
+
+  const matchId = uid('match');
+  state.fixtures.push({
+    eventId: eventId,
+    stage: stage,
+    matchId: matchId,
+    player1Id: '',
+    player1Name: p1,
+    player2Id: '',
+    player2Name: p2,
+    winnerId: '',
+    winnerName: '',
+    nextMatchId: next || '',
+    status: 'pending'
+  });
+
+  await saveFixtures();
+  toast('✅ Fixture added');
+  document.getElementById('sheetOverlay').classList.remove('open');
+  renderFixtures();
+}
+
+async function saveFixtures() {
+  if (USE_LOCAL_FALLBACK || !backendOk) {
+    toast('💾 Saved locally');
+    return true;
+  }
+  try {
+    await backendSave('saveFixtures', state.fixtures);
+    toast('✅ Synced to sheet');
+    return true;
+  } catch(e) {
+    toast('⚠️ Offline — saved locally');
+    return false;
+  }
+}
+
+// ============ RENDER DASHBOARD ============
+function renderDashboard() {
+  const c = document.getElementById('content');
+  const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
+  const liveCount=state.events.filter(e=>e.status==='live').length;
+  const upcoming=state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,6);
+  const cricketCount = state.events.filter(e=>e.category==='Cricket').length;
+  const pct=total?Math.round((done/total)*100):0;
+  const circumference = 2 * Math.PI * 24;
+  const offset = circumference * (1 - pct/100);
+  
+  // Fixture stats
+  const totalMatches = state.fixtures.length;
+  const completedMatches = state.fixtures.filter(f => f.status === 'completed' || f.winnerId).length;
+  const fixturePct = totalMatches ? Math.round((completedMatches/totalMatches)*100) : 0;
+
+  let html='';
+  if(!backendOk && !USE_LOCAL_FALLBACK){
+    html+=`<div style="background:#fff3cd;border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:11px;color:#856404;border:1px solid #ffc107;display:flex;align-items:center;gap:8px">
+      <span>⚠️</span> Offline mode — changes saved locally only
+      <button id="retrySyncBtn" style="margin-left:auto;background:#0b1530;color:#fff;border:none;padding:4px 12px;border-radius:40px;font-size:10px;font-weight:700;cursor:pointer">Retry</button>
+    </div>`;
+  }
+  if(isAdmin) html+=`<div class="admin-banner">🔑 Admin mode — edits sync to all employees</div>`;
+  
+  html+=`<div class="hero-stats">
+    <div class="hero-stat" id="cricketStat"><span class="emoji">🏏</span><div class="num">${cricketCount}</div><div class="lbl">Cricket</div></div>
+    <div class="hero-stat"><span class="emoji">🏆</span><div class="num">${done}</div><div class="lbl">Completed</div></div>
+    <div class="hero-stat"><span class="emoji">📅</span><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+  </div>`;
+
+  // Fixture progress
+  html+=`<div style="background:#fff;border-radius:16px;padding:12px 14px;border:1px solid #eef1fb;margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;">
+      <span>🎯 Carrom Tournament</span>
+      <span>${completedMatches}/${totalMatches} matches</span>
+    </div>
+    <div style="height:6px;background:#f0f3fa;border-radius:6px;margin-top:6px;overflow:hidden;">
+      <div style="height:100%;width:${fixturePct}%;background:linear-gradient(90deg,#f5a623,#f5c518);border-radius:6px;transition:width .5s;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:9px;color:#8a95bd;margin-top:4px;">
+      <span>${fixturePct}% complete</span>
+      <span>${totalMatches - completedMatches} remaining</span>
+    </div>
+  </div>`;
+
+  const facts = ['🔥 "Champions are made when no one is watching"','💪 "Play with heart, win with pride"','🏅 "Every game is a new opportunity"','🌟 "KPCL family — united in sport"','🎯 "Focus. Execute. Celebrate."'];
+  const fact = facts[Math.floor(Math.random() * facts.length)];
+  html+=`<div class="fun-fact"><span class="icon">💡</span><span class="text">${fact}</span></div>`;
+
+  html+=`<div class="progress-ring">
+    <div class="ring"><svg><circle class="bg" cx="30" cy="30" r="24"/><circle class="fg" cx="30" cy="30" r="24" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/></svg><div class="center">${pct}<small>%</small></div></div>
+    <div class="ring-text"><div class="pct">${done} of ${total} events done</div><div class="sub">${liveCount > 0 ? `🔴 ${liveCount} live now` : '🏁 Keep going!'}</div></div>
+  </div>`;
+
+  const genderCounts = { men:0, women:0, children:0, open:0 };
+  state.events.forEach(e=>{ genderCounts[genderGroup(e)]++; });
+  const gTotal = total || 1;
+  html+=`<div class="breakdown-card">
+    <div class="breakdown-title">🎽 Participation Breakdown</div>
+    <div class="breakdown-grid">
+      <div class="breakdown-tile men" data-grp="men"><span class="icon">🙋‍♂️</span><div class="num">${genderCounts.men}</div><div class="lbl">Men's</div></div>
+      <div class="breakdown-tile women" data-grp="women"><span class="icon">🙋‍♀️</span><div class="num">${genderCounts.women}</div><div class="lbl">Women's</div></div>
+      <div class="breakdown-tile children" data-grp="children"><span class="icon">🧒</span><div class="num">${genderCounts.children}</div><div class="lbl">Kids</div></div>
+      <div class="breakdown-tile open" data-grp="open"><span class="icon">🤝</span><div class="num">${genderCounts.open}</div><div class="lbl">Open</div></div>
+    </div>
+    <div class="breakdown-bar">
+      <span class="seg-men" style="width:${(genderCounts.men/gTotal*100).toFixed(1)}%"></span>
+      <span class="seg-women" style="width:${(genderCounts.women/gTotal*100).toFixed(1)}%"></span>
+      <span class="seg-children" style="width:${(genderCounts.children/gTotal*100).toFixed(1)}%"></span>
+      <span class="seg-open" style="width:${(genderCounts.open/gTotal*100).toFixed(1)}%"></span>
+    </div>
+  </div>`;
+
+  const todaysEvents = state.events.filter(e=>isToday(e.date) && e.status !== 'postponed').sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+
+  if(todaysEvents.length){
+    html+=`<div class="section-title">🔥 Today's Events <small id="todayCount" style="cursor:pointer;color:#b06a06;">${todaysEvents.length} · view all →</small></div>`;
+    todaysEvents.slice(0,4).forEach(e=>html+=eventCardHtml(e));
+    if(todaysEvents.length > 4){
+      html += `<button id="seeMoreToday" style="width:100%;background:#fff;border:1.5px solid #f5a623;color:#b06a06;padding:9px;border-radius:11px;font-size:12px;font-weight:700;margin-bottom:14px;cursor:pointer;">View all ${todaysEvents.length} today's events →</button>`;
+    }
+  }
+
+  if(upcoming.length){
+    html+=`<div class="section-title">📅 Coming up <small>${upcoming.length}</small></div>`;
+    upcoming.forEach(e=>html+=eventCardHtml(e));
+  }
+
+  // Quick link to fixtures
+  if(state.fixtures.length){
+    html+=`<div style="background:linear-gradient(135deg,#0b1530,#1a306a);border-radius:16px;padding:14px;text-align:center;margin-top:10px;cursor:pointer;" onclick="setTab('fixtures')">
+      <div style="color:#f5a623;font-size:20px;">🏆</div>
+      <div style="color:#fff;font-weight:700;font-size:13px;">View Tournament Fixtures</div>
+      <div style="color:#9aa6cc;font-size:10px;">${completedMatches}/${totalMatches} matches completed</div>
+    </div>`;
+  }
+
+  const recentCricket = state.events.filter(e=>e.category==='Cricket' && e.status==='completed' && (e.scoreA || e.scoreB)).slice(-4).reverse();
+  if(recentCricket.length){
+    html+=`<div class="section-title">🏏 Recent Cricket Results <small style="cursor:pointer;color:#1f9d6c;" id="viewAllCricket">View all →</small></div>`;
+    recentCricket.forEach(e=>html+=eventCardHtml(e));
+  }
+
+  c.innerHTML=html;
+  document.getElementById('cricketStat')?.addEventListener('click', ()=>setTab('cricket'));
+  document.getElementById('todayCount')?.addEventListener('click', ()=>openTodaySheet());
+  document.getElementById('seeMoreToday')?.addEventListener('click', ()=>openTodaySheet());
+  document.querySelectorAll('.breakdown-tile').forEach(t=>{
+    t.addEventListener('click', ()=>openGroupSheet(t.dataset.grp));
+  });
+  document.getElementById('viewAllCricket')?.addEventListener('click', ()=>setTab('cricket'));
+  document.getElementById('retrySyncBtn')?.addEventListener('click', async ()=>{ toast('🔄 Attempting to reconnect...'); await loadState(); renderCurrentTab(); });
+  bindCards();
+  renderTicker();
+}
+
+function bindCards(){
+  document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>openSheet(el.dataset.id); });
+}
+
+function openSheet(id){ toast('Opening ' + id); }
+
+function openTodaySheet(){ toast('Today\'s events'); }
+function openGroupSheet(grp){ toast('Group: ' + grp); }
+
+// ============ RENDER EVENTS ============
+function renderEvents(){
+  const c=document.getElementById('content');
+  const cats = ['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
+  let filtered = activeFilter==='all' ? state.events.filter(e=>e.category!=='Cricket') : state.events.filter(e=>e.category===activeFilter);
+  filtered = filtered.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+
+  let html = `<div class="chip-group">`;
+  cats.forEach(cat=>{ html+=`<span class="chip ${activeFilter===cat?'active':''}" data-cat="${cat}">${cat==='all'?'🏆 All':getCategoryIcon(cat)+' '+cat}</span>`; });
+  html+=`</div>`;
+
+  if(!filtered.length){ html+=`<div class="empty">No events in this category</div>`; }
+  else {
+    const grouped = {};
+    filtered.forEach(e=>{ if(!grouped[e.category]) grouped[e.category] = []; grouped[e.category].push(e); });
+    Object.keys(grouped).forEach(cat=>{
+      if(categoryState[cat] === undefined) categoryState[cat] = true;
+      const isOpen = categoryState[cat];
+      html+=`<div class="category-group">
+        <div class="category-header" data-cat="${cat}">
+          <span class="cat-name">${getCategoryIcon(cat)} ${cat}</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="cat-count">${grouped[cat].length} events</span>
+            <span class="cat-arrow ${isOpen?'open':''}">▼</span>
+          </div>
+        </div>
+        <div class="category-body" style="display:${isOpen?'block':'none'}">
+          ${grouped[cat].map(e=>eventCardHtml(e)).join('')}
+        </div>
+      </div>`;
+    });
+  }
+
+  c.innerHTML=html;
+  document.querySelectorAll('.category-header').forEach(el=>{
+    el.onclick=()=>{
+      const cat = el.dataset.cat;
+      categoryState[cat] = !categoryState[cat];
+      const body = el.nextElementSibling;
+      body.style.display = categoryState[cat] ? 'block' : 'none';
+      el.querySelector('.cat-arrow').classList.toggle('open');
+    };
+  });
+  document.querySelectorAll('.chip').forEach(el=>{ el.onclick=()=>{ activeFilter=el.dataset.cat; renderEvents(); }; });
+  bindCards(); renderTicker();
+}
+
+// ============ RENDER CRICKET ============
+function renderCricket(){
+  const c=document.getElementById('content');
+  const matches=state.events.filter(e=>e.category==='Cricket').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  let html=`<div class="section-title">🏏 BTPS Cricket Tournament 2026 <small>${matches.length} matches</small></div>
+  <div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <a href="https://cricheroes.com" target="_blank" style="background:#0b1530;color:#fff;padding:6px 16px;border-radius:40px;font-size:11px;font-weight:700;text-decoration:none">🔗 Live on CricHeroes</a>
+    ${isAdmin?`<button class="btn" style="width:auto;padding:6px 16px;background:#f5a623;color:#0b1530;font-size:11px" id="addCricketBtn">+ Add Match</button>`:''}
+  </div>`;
+  matches.forEach(e=>html+=eventCardHtml(e, true));
+  c.innerHTML=html; 
+  bindCards(); 
+  renderTicker();
+}
+
+// ============ RENDER ORGANISERS ============
+function renderOrganisers(){
+  const c=document.getElementById('content');
+  const withCoords=state.events.filter(e=>e.coordinators&&e.coordinators.length);
+  let html=`<div class="section-title">📞 Organisers & Contacts <small>${withCoords.reduce((s,e)=>s+(e.coordinators||[]).length,0)} contacts</small></div>
+  <div class="org-search"><input type="text" id="orgSearch" placeholder="Search by sport, event, name..."></div>`;
+  const q=(document.getElementById('orgSearch')||{value:''}).value.trim().toLowerCase();
+  const filtered=withCoords.filter(e=>{
+    if(e.name.toLowerCase().includes(q)||e.category.toLowerCase().includes(q)) return true;
+    return (e.coordinators||[]).some(c=>c.name.toLowerCase().includes(q)||(c.phone||'').includes(q));
+  });
+  if(!filtered.length) html+=`<div class="empty">No matches</div>`;
+  else filtered.forEach(e=>{
+    html+=`<div class="org-card"><div class="name">${escapeHtml(e.name)}</div><div class="sub">${escapeHtml(e.category)} · ${fmtDate(e.date)}</div>`;
+    e.coordinators.forEach(c=>{
+      html+=`<a class="org-contact" href="tel:${escapeHtml(c.phone)}"><span class="avatar">${initials(c.name)}</span><span class="cname">${escapeHtml(c.name)}</span><span class="phone">${escapeHtml(c.phone)}</span></a>`;
+    });
+    html+=`</div>`;
+  });
+  c.innerHTML=html;
+  const searchInput = document.getElementById('orgSearch');
+  if(searchInput){
+    searchInput.value = q;
+    searchInput.oninput = (e)=>{
+      const cursorPos = e.target.selectionStart;
+      renderOrganisers();
+      const newInput = document.getElementById('orgSearch');
+      if(newInput){ newInput.focus(); newInput.setSelectionRange(cursorPos, cursorPos); }
+    };
+  }
+  renderTicker();
+}
+
+// ============ RENDER ALERTS ============
+function renderAlerts(){
+  const c=document.getElementById('content');
+  markNotifsRead();
+  
+  let html=`<div class="section-title">🔔 Alerts <small>${state.notifications.length}</small></div>`;
+  if(isAdmin){
+    html+=`<div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px">
+      <input id="notifTitle" placeholder="Title" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin-bottom:6px">
+      <textarea id="notifMsg" rows="2" placeholder="Message" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin-bottom:6px"></textarea>
+      <button class="btn btn-amber" id="sendNotifBtn">📢 Send broadcast</button>
+    </div>`;
+  }
+  state.notifications.slice().sort((a,b)=>b.time-a.time).forEach(n=>{
+    html+=`<div style="background:#fff;border-radius:12px;padding:10px 14px;margin-bottom:8px;border-left:4px solid ${n.type==='alert'?'#f5a623':'#27439a'}">
+      <div style="font-weight:800;font-size:13px">${escapeHtml(n.title)}</div>
+      <div style="font-size:12px;color:#525d7a;margin:2px 0">${escapeHtml(n.message)}</div>
+      <div style="font-size:10px;color:#9aa6cc">${new Date(n.time).toLocaleString()}</div>
+    </div>`;
+  });
+  c.innerHTML=html;
+  if(isAdmin) document.getElementById('sendNotifBtn')?.addEventListener('click', async ()=>{
+    const title=document.getElementById('notifTitle').value.trim();
+    const msg=document.getElementById('notifMsg').value.trim();
+    if(!title||!msg) return toast('Fill title and message');
+    state.notifications.push({id:uid('n'),title,message:msg,type:'info',time:Date.now()});
+    hasUnreadNotif = true;
+    updateBellDot();
+    toast('Broadcast sent ✓');
+    renderAlerts();
+  });
+  renderTicker();
+}
+
+// ============ TAB MANAGEMENT ============
+function setTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  document.getElementById('fabAdd').classList.toggle('show', isAdmin && (tab==='events'||tab==='cricket'||tab==='fixtures'));
+  if(tab==='dashboard') renderDashboard();
+  else if(tab==='events') renderEvents();
+  else if(tab==='cricket') renderCricket();
+  else if(tab==='fixtures') renderFixtures();
+  else if(tab==='organisers') renderOrganisers();
+  else if(tab==='alerts') renderAlerts();
+}
+
+function renderCurrentTab(){ setTab(currentTab); }
+
+// ============ INIT ============
+document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
+document.getElementById('calendarBtn').onclick=()=>toast('📅 Calendar view');
+document.getElementById('bellBtn').onclick=()=>{ setTab('alerts'); markNotifsRead(); };
+
+document.getElementById('adminToggleBtn').onclick=()=>{
+  if(isAdmin){ isAdmin=false; toast('Switched to employee view'); renderCurrentTab(); return; }
+  document.getElementById('loginScreen').style.display='flex';
+};
+document.getElementById('loginCancel').onclick=()=>document.getElementById('loginScreen').style.display='none';
+document.getElementById('loginSubmit').onclick=()=>{
+  if(document.getElementById('adminPw').value===ADMIN_PW){ isAdmin=true; document.getElementById('loginScreen').style.display='none'; toast('Admin mode'); renderCurrentTab(); }
+  else document.getElementById('loginErr').style.display='block';
+};
+document.getElementById('adminPw').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginSubmit').click(); });
+
+document.getElementById('fabAdd').onclick=()=>{
+  if(currentTab === 'fixtures') {
+    addFixture();
+  } else {
+    toast('Switch to Fixtures tab to add matches');
+  }
+};
+
+async function init(){
+  await loadState();
+  renderCurrentTab();
+  // Make functions globally accessible for onclick handlers
+  window.setWinner = setWinner;
+  window.updateFixture = updateFixture;
+  window.deleteFixture = deleteFixture;
+  window.addFixture = addFixture;
+  window.saveNewFixture = saveNewFixture;
+  window.openFixtureSheet = openFixtureSheet;
+  window.setTab = setTab;
+  window.renderFixtures = renderFixtures;
+  
+  setInterval(async ()=>{
+    if(!isSaving && !USE_LOCAL_FALLBACK){
+      const prevNotifLen = state.notifications.length;
+      await loadState();
+      if(state.notifications.length > prevNotifLen){ hasUnreadNotif = true; updateBellDot(); }
+      if(!document.getElementById('sheetOverlay').classList.contains('open')){ renderCurrentTab(); }
+    }
+  }, 60000);
+}
+init();
+
+})();
+</script>
+</body>
+</html>
