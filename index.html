@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+<!DOCTYPE html>
+<!-- saved from url=(0065)file:///C:/Users/Vikas%20Nagaraj/Desktop/VigilAI_Drive/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>57th Foundation Day · KPCL BTPS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link href="./index_files/css2" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
@@ -201,21 +201,29 @@
     .status-action-row .btn{flex:1;min-width:80px;padding:8px;font-size:11px}
     /* Fixture styles */
     .fixture-bracket{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;border:1px solid #eef1fb;overflow:hidden}
-    .fixture-bracket .stage-title{font-weight:800;font-size:14px;color:#0b1530;padding:8px 12px;background:linear-gradient(135deg,#f8f9fd,#eef1fb);border-radius:8px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .fixture-bracket .stage-title{font-weight:800;font-size:14px;color:#0b1530;padding:8px 12px;background:linear-gradient(135deg,#f8f9fd,#eef1fb);border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
     .fixture-bracket .stage-title .badge{font-size:9px;font-weight:700;color:#525d7a;background:#fff;padding:2px 10px;border-radius:40px}
-    .fixture-match{display:flex;align-items:center;justify-content:space-between;background:#f8f9fd;border-radius:10px;padding:8px 12px;margin-bottom:6px;border-left:4px solid #d0d6e8;transition:.15s}
-    .fixture-match:hover{background:#f0f3fa}
+    .fixture-match{display:flex;align-items:center;justify-content:space-between;background:#f8f9fd;border-radius:10px;padding:8px 12px;margin-bottom:6px;border-left:4px solid #d0d6e8;transition:all .15s;cursor:pointer}
+    .fixture-match:hover{background:#f0f3fa;transform:translateX(4px)}
     .fixture-match .players{display:flex;flex-direction:column;gap:2px;flex:1}
     .fixture-match .player{font-size:12px;font-weight:600;color:#0b1530;display:flex;align-items:center;gap:6px}
-    .fixture-match .player .vs{font-size:9px;color:#8a95bd;font-weight:400}
+    .fixture-match .player .vs{font-size:9px;color:#8a95bd;font-weight:400;margin:0 4px}
     .fixture-match .player .winner-tag{font-size:8px;font-weight:700;color:#1f9d6c;background:#e8f6ee;padding:1px 8px;border-radius:40px}
-    .fixture-match .player .loser-tag{font-size:8px;font-weight:700;color:#9a5a1f;background:#fdf0e8;padding:1px 8px;border-radius:40px}
     .fixture-match .match-status{font-size:9px;font-weight:700;padding:2px 10px;border-radius:40px;white-space:nowrap}
     .fixture-match .match-status.pending{background:#eef1fb;color:#152854}
     .fixture-match .match-status.completed{background:#e8f6ee;color:#1f9d6c}
     .fixture-match .match-status.live{background:#fff0db;color:#b06a06}
     .fixture-match .match-id{font-size:8px;color:#9aa6cc;font-weight:600}
-    .fixture-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+    .filter-btn{padding:8px 18px;border-radius:40px;border:2px solid #e2e6f0;background:#fff;color:#525d7a;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s}
+    .filter-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .filter-btn.active{background:#f5a623;border-color:#f5a623;color:#0b1530;box-shadow:0 4px 12px rgba(245,166,35,.3)}
+    .filter-btn:active{transform:scale(.96)}
+    .fixture-header-card{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:16px;padding:14px 16px;margin-bottom:14px;color:#fff}
+    .fixture-header-card .fixture-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+    .fixture-header-card .fixture-sub{font-size:11px;color:#b6bedd;margin-top:4px}
+    .fixture-header-card .fixture-stats{display:flex;gap:16px;margin-top:8px;font-size:11px;font-weight:600}
+    .fixture-header-card .fixture-stats span{display:flex;align-items:center;gap:4px}
+    .fixture-header-card .fixture-stats .stat-num{color:#f5a623;font-size:15px;font-weight:800}
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
@@ -228,7 +236,7 @@
         <div class="brand-icon"><img src="data:image/png;base64,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" alt="KPCL logo"></div>
         <div class="brand-text">
           <div class="event">57th Foundation Day Sports 2026</div>
-          <div class="sub">Karnataka Power Corporation Ltd, BTPS</div>
+          <div class="sub">KPCL, BTPS</div>
         </div>
       </div>
       <div class="header-actions">
@@ -237,16 +245,16 @@
         </div>
         <div class="icon-btn" id="connStatusBtn" title="Connection status">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"></path><path d="M1.42 9a16 16 0 0121.16 0"></path><path d="M8.53 16.11a6 6 0 016.95 0"></path><circle cx="12" cy="20" r="1" fill="currentColor"></circle></svg>
-          <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
+          <span class="badge-dot" id="connDot" style="display: block; background: rgb(214, 72, 61);"></span>
         </div>
         <div class="icon-btn" id="bellBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
           <span class="badge-dot blink" id="bellDot" style="display: block;"></span>
         </div>
-        <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span> online</div>
+        <div class="sync-indicator" id="syncIndicator"><span style="color:#d6483d">●</span> offline</div>
       </div>
     </div>
-    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏏 Carrom Tournament underway! Groups A-H<span class="sep">★</span>🎯 78 players competing<span class="sep">★</span>🏆 Winners advance to Quarterfinals</span></div></div>
+    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏏 Carrom: 2/47 | Chess: 0/31 matches done<span class="sep">★</span>🎯 47 Carrom matches | ♟️ 31 Chess matches<span class="sep">★</span>📅 62 matches pending<span class="sep">★</span>🏏 Carrom: 2/47 | Chess: 0/31 matches done<span class="sep">★</span>🎯 47 Carrom matches | ♟️ 31 Chess matches<span class="sep">★</span>📅 62 matches pending</span></div></div>
     <div class="tabs" id="tabs">
       <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg><span>Home</span></div>
       <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg><span>Events</span></div>
@@ -257,7 +265,137 @@
     </div>
   </div>
 
-  <div class="content" id="content"><!-- Content rendered by JavaScript --></div>
+  <div class="content" id="content"><div class="hero-stats">
+    <div class="hero-stat" id="cricketStat"><span class="emoji">🏏</span><div class="num">12</div><div class="lbl">Cricket</div></div>
+    <div class="hero-stat"><span class="emoji">🏆</span><div class="num">14</div><div class="lbl">Completed</div></div>
+    <div class="hero-stat"><span class="emoji">📅</span><div class="num">6</div><div class="lbl">Upcoming</div></div>
+  </div><div style="background:#fff;border-radius:16px;padding:12px 14px;border:1px solid #eef1fb;margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;">
+      <span>🎯 Carrom</span>
+      <span>2/47</span>
+    </div>
+    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
+      <div style="height:100%;width:4%;background:#f5a623;border-radius:4px;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;margin-top:8px;">
+      <span>♟️ Chess</span>
+      <span>0/31</span>
+    </div>
+    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
+      <div style="height:100%;width:0%;background:#4c7cf0;border-radius:4px;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:#8a95bd;margin-top:6px;">
+      <span>Total: 2/78 matches</span>
+      <span>3% complete</span>
+    </div>
+  </div><div class="fun-fact"><span class="icon">💡</span><span class="text">💪 "Play with heart, win with pride"</span></div><div class="progress-ring">
+    <div class="ring"><svg><circle class="bg" cx="30" cy="30" r="24"></circle><circle class="fg" cx="30" cy="30" r="24" stroke-dasharray="150.79644737231007" stroke-dashoffset="101.03361973944773"></circle></svg><div class="center">33<small>%</small></div></div>
+    <div class="ring-text"><div class="pct">14 of 42 events done</div><div class="sub">🔴 2 live now</div></div>
+  </div><div class="breakdown-card">
+    <div class="breakdown-title">🎽 Participation Breakdown</div>
+    <div class="breakdown-grid">
+      <div class="breakdown-tile men" data-grp="men"><span class="icon">🙋‍♂️</span><div class="num">10</div><div class="lbl">Men's</div></div>
+      <div class="breakdown-tile women" data-grp="women"><span class="icon">🙋‍♀️</span><div class="num">4</div><div class="lbl">Women's</div></div>
+      <div class="breakdown-tile children" data-grp="children"><span class="icon">🧒</span><div class="num">4</div><div class="lbl">Kids</div></div>
+      <div class="breakdown-tile open" data-grp="open"><span class="icon">🤝</span><div class="num">24</div><div class="lbl">Open</div></div>
+    </div>
+    <div class="breakdown-bar">
+      <span class="seg-men" style="width:23.8%"></span>
+      <span class="seg-women" style="width:9.5%"></span>
+      <span class="seg-children" style="width:9.5%"></span>
+      <span class="seg-open" style="width:57.1%"></span>
+    </div>
+  </div><div class="section-title">🔥 Today's Events <small id="todayCount" style="cursor:pointer;color:#b06a06;">2 · view all →</small></div><div class="card card-cricket" data-id="cr-9">
+    <div class="card-header"><div><div class="card-title">🏅 Royal Civil vs CHP-2 <span class="today-badge">🔥 TODAY</span></div><div class="card-cat">Cricket</div></div>
+    <span class="status live">🔴 LIVE</span></div>
+    <div class="meta"><span>📅 Wed, 1 Jul</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
+    </div>
+  </div><div class="card card-cricket" data-id="cr-10">
+    <div class="card-header"><div><div class="card-title">🏅 SE (O)-3 vs SE (MM-1) <span class="today-badge">🔥 TODAY</span></div><div class="card-cat">Cricket</div></div>
+    <span class="status live">🔴 LIVE</span></div>
+    <div class="meta"><span>📅 Wed, 1 Jul</span><span>⏱ 2:00 PM</span><span>📍 BTPS Cricket Ground</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
+    </div>
+  </div><div class="section-title">📅 Coming up <small>6</small></div><div class="card card-cricket" data-id="cr-11">
+    <div class="card-header"><div><div class="card-title">🏅 SE (MM-2) vs CHP-1 </div><div class="card-cat">Cricket</div></div>
+    <span class="status upcoming">📅 UPCOMING</span></div>
+    <div class="meta"><span>📅 Thu, 2 Jul</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
+    </div>
+  </div><div class="card card-cricket" data-id="cr-12">
+    <div class="card-header"><div><div class="card-title">🏅 CHP (I&amp;C) vs SE (O)-2 </div><div class="card-cat">Cricket</div></div>
+    <span class="status upcoming">📅 UPCOMING</span></div>
+    <div class="meta"><span>📅 Thu, 2 Jul</span><span>⏱ 2:00 PM</span><span>📍 BTPS Cricket Ground</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
+    </div>
+  </div><div class="card " data-id="ath-7">
+    <div class="card-header"><div><div class="card-title">🔱 Javelin Throw (Men) </div><div class="card-cat">Athletics</div></div>
+    <span class="status upcoming">📅 UPCOMING</span></div>
+    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 1:00 PM</span><span>📍 RYMEC Ground, Ballari</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      
+    </div>
+  </div><div class="card " data-id="ath-2">
+    <div class="card-header"><div><div class="card-title">🏃 200m Men (Below 45) </div><div class="card-cat">Athletics</div></div>
+    <span class="status upcoming">📅 UPCOMING</span></div>
+    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      
+    </div>
+  </div><div class="card " data-id="w-6">
+    <div class="card-header"><div><div class="card-title">🐸 Frog Jump (Boys U6) </div><div class="card-cat">Children's Events</div></div>
+    <span class="status upcoming">📅 UPCOMING</span></div>
+    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:00 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      
+    </div>
+  </div><div class="card " data-id="ath-4">
+    <div class="card-header"><div><div class="card-title">🏃 200m Men (Above 45) </div><div class="card-cat">Athletics</div></div>
+    <span class="status upcoming">📅 UPCOMING</span></div>
+    <div class="meta"><span>📅 Sun, 5 Jul</span><span>⏱ 10:30 AM</span><span>📍 RYMEC Ground, Ballari</span></div>
+    
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      
+    </div>
+  </div><div style="background:linear-gradient(135deg,#0b1530,#1a306a);border-radius:16px;padding:14px;text-align:center;margin-top:10px;cursor:pointer;" onclick="setTab(&#39;fixtures&#39;)">
+      <div style="color:#f5a623;font-size:20px;">🏆</div>
+      <div style="color:#fff;font-weight:700;font-size:13px;">View Tournament Fixtures</div>
+      <div style="color:#9aa6cc;font-size:10px;">2/78 matches completed</div>
+    </div><div class="section-title">🏏 Recent Cricket Results <small style="cursor:pointer;color:#1f9d6c;" id="viewAllCricket">View all →</small></div><div class="card card-cricket" data-id="cr-1">
+    <div class="card-header"><div><div class="card-title">🏅 Electrical vs CHP (I&amp;C) </div><div class="card-cat">Cricket</div></div>
+    <span class="status completed">✅ DONE</span></div>
+    <div class="meta"><span>📅 Tue, 23 Jun</span><span>⏱ 10:00 AM</span><span>📍 BTPS Cricket Ground</span></div>
+    <div class="scorecard">
+      <div class="sc-row"><span class="sc-team">🏆 Electrical</span><span class="sc-runs">81/1</span></div>
+      <div class="sc-vs">vs</div>
+      <div class="sc-row"><span class="sc-team">CHP (I&amp;C)</span><span class="sc-runs">77/7</span></div>
+      <div class="sc-result">🏆 Electrical won</div>
+    </div>
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <span class="participant-pill">👤 0 registered</span>
+      <div class="click-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg> tap for details</div>
+    </div>
+  </div></div>
 
   <div class="footer">
     Developed by <b>Vikas N</b> · <span class="dev">Viraj Software Solutions</span>
@@ -285,7 +423,7 @@
 <script>
 (function(){
 const ADMIN_PW = "KPCL57th";
-let isAdmin = false, currentTab = 'dashboard', activeFilter='all';
+let isAdmin = false, currentTab = 'dashboard', activeFilter = 'all';
 let state = { events: [], notifications: [], fixtures: [], stageResults: [] };
 let lastSeenNotif = 0;
 let backendOk = false;
@@ -297,8 +435,8 @@ const TODAY = new Date();
 const TODAY_STR = TODAY.toISOString().slice(0,10);
 
 // IMPORTANT: Replace YOUR_DEPLOYMENT_ID with your actual AppScript deployment ID
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbwuPlyyiOS3hFhK3xNqOZM_hO5WzrX668hF40LKxMyPPGOsl5BSnGUOv6ssxMr0TTEe/exec";
-const USE_LOCAL_FALLBACK = false; // Set to false when using real backend
+const BACKEND_URL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+const USE_LOCAL_FALLBACK = true; // Set to false when using real backend
 
 function uid(p){ return p+'-'+Math.random().toString(36).slice(2,7); }
 function fmtDate(d){ if(!d)return ''; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}); }
@@ -412,66 +550,109 @@ function rowsToNotifs(rows){
   }));
 }
 
-// SEED DATA - Carrom Fixtures (All Groups)
+// ============================================================
+// SEED DATA - Carrom Fixtures (ev-1)
+// ============================================================
 const SEED_FIXTURES = [
-  // Group A
+  // Carrom - Group A (5 matches)
   {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a1', player1Id:'7', player1Name:'Shrikanth', player2Id:'42', player2Name:'Lokesh M PCM', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a2', player1Id:'25', player1Name:'Satish', player2Id:'41', player2Name:'Maruthi G.H.', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a3', player1Id:'74', player1Name:'GOPALKRISHNA. V', player2Id:'5', player2Name:'Nandeesh Kumar', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a4', player1Id:'11', player1Name:'Nawaz', player2Id:'20', player2Name:'Parashuram', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group A', matchId:'ev-1-a5', player1Id:'3', player1Name:'Deepak shastri', player2Id:'13', player2Name:'Khaleel Ahmed', winnerId:'', winnerName:'', nextMatchId:'ev-1-a-winner', status:'pending'},
-  // Group B
+  // Carrom - Group B
   {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b1', player1Id:'28', player1Name:'T. Yariswamy', player2Id:'1', player2Name:'Raghavendra B.G.', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b2', player1Id:'47', player1Name:'Maqbool', player2Id:'30', player2Name:'Sadiq Ali', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b3', player1Id:'16', player1Name:'Devendra B', player2Id:'24', player2Name:'Mallikarjun', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b4', player1Id:'6', player1Name:'Mallaiha', player2Id:'71', player2Name:'Shashikant', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group B', matchId:'ev-1-b5', player1Id:'32', player1Name:'Vinuth.', player2Id:'10', player2Name:'Rajashekhar M', winnerId:'', winnerName:'', nextMatchId:'ev-1-b-winner', status:'pending'},
-  // Group C
+  // Carrom - Group C
   {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c1', player1Id:'72', player1Name:'Ashok Kumar', player2Id:'55', player2Name:'Chandrashekhar B.', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c2', player1Id:'61', player1Name:'Shivan Gouda Patil', player2Id:'52', player2Name:'Meghanath', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c3', player1Id:'12', player1Name:'Lokesh P.S.', player2Id:'43', player2Name:'Omprakash EE', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c4', player1Id:'62', player1Name:'Vinod Achari', player2Id:'29', player2Name:'Virupaxappa', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group C', matchId:'ev-1-c5', player1Id:'57', player1Name:'Anil Kumar V.K.', player2Id:'68', player2Name:'Gopayya', winnerId:'', winnerName:'', nextMatchId:'ev-1-c-winner', status:'pending'},
-  // Group D
+  // Carrom - Group D
   {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d1', player1Id:'50', player1Name:'Mariswamy', player2Id:'21', player2Name:'Samarth', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d2', player1Id:'18', player1Name:'Hanumappa', player2Id:'9', player2Name:'Lokesha M.', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d3', player1Id:'27', player1Name:'Basavalingappa', player2Id:'45', player2Name:'Sudhakar G', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d4', player1Id:'60', player1Name:'Deepak S. Shastri', player2Id:'22', player2Name:'Ajith Patil', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group D', matchId:'ev-1-d5', player1Id:'37', player1Name:'Pradeep Shastri', player2Id:'63', player2Name:'Pandurang', winnerId:'', winnerName:'', nextMatchId:'ev-1-d-winner', status:'pending'},
-  // Group E
+  // Carrom - Group E
   {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e1', player1Id:'69', player1Name:'Manjunath', player2Id:'49', player2Name:'Mohan', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e2', player1Id:'70', player1Name:'Bharat GD', player2Id:'54', player2Name:'Praveen Kumar KV', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e3', player1Id:'39', player1Name:'Honnur Swamy', player2Id:'76', player2Name:'Pramod', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e4', player1Id:'26', player1Name:'Suresh E.E', player2Id:'8', player2Name:'K Lingamurthy', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group E', matchId:'ev-1-e5', player1Id:'33', player1Name:'Raghavendra G.S', player2Id:'77', player2Name:'Shivana Gouda', winnerId:'', winnerName:'', nextMatchId:'ev-1-e-winner', status:'pending'},
-  // Group F
+  // Carrom - Group F
   {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f1', player1Id:'59', player1Name:'Sandeep K', player2Id:'46', player2Name:'Naveed Mulla', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f2', player1Id:'19', player1Name:'Rajashekhar Chaudri', player2Id:'48', player2Name:'Deepak', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f3', player1Id:'14', player1Name:'Shrinivas', player2Id:'23', player2Name:'K. G. Manjunath', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f4', player1Id:'4', player1Name:'Shivamusthy', player2Id:'40', player2Name:'Chennabasava', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group F', matchId:'ev-1-f5', player1Id:'53', player1Name:'Ikram', player2Id:'78', player2Name:'Lokesh', winnerId:'', winnerName:'', nextMatchId:'ev-1-f-winner', status:'pending'},
-  // Group G
+  // Carrom - Group G
   {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g1', player1Id:'64', player1Name:'Ameeth', player2Id:'66', player2Name:'Rajesh JE Safty', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g2', player1Id:'2', player1Name:'Shrinivas Babu', player2Id:'17', player2Name:'Hanumanth Raj', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g3', player1Id:'67', player1Name:'Prashant Kumar', player2Id:'65', player2Name:'Nitin Kumar', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g4', player1Id:'73', player1Name:'Vinod Kumar', player2Id:'58', player2Name:'Basavaraj Lamani', winnerId:'', winnerName:'', nextMatchId:'ev-1-g-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group G', matchId:'ev-1-g5', player1Id:'31', player1Name:'Harish', player2Id:'', player2Name:'BYE', winnerId:'31', winnerName:'Harish', nextMatchId:'ev-1-g-winner', status:'completed'},
-  // Group H
+  // Carrom - Group H
   {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h1', player1Id:'51', player1Name:'Jagadish', player2Id:'15', player2Name:'Manjunath', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h2', player1Id:'44', player1Name:'Abhishek', player2Id:'34', player2Name:'Mallikarjun H.M.', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h3', player1Id:'56', player1Name:'Ashok Kumar P.M', player2Id:'38', player2Name:'Vinayak Desai', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h4', player1Id:'75', player1Name:'Sundeep', player2Id:'36', player2Name:'Rajesh Patil', winnerId:'', winnerName:'', nextMatchId:'ev-1-h-winner', status:'pending'},
   {eventId:'ev-1', stage:'Group H', matchId:'ev-1-h5', player1Id:'35', player1Name:'Lankesh', player2Id:'', player2Name:'BYE', winnerId:'35', winnerName:'Lankesh', nextMatchId:'ev-1-h-winner', status:'completed'},
-  // Quarterfinals
+  // Carrom - Quarterfinals
   {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf1', player1Id:'', player1Name:'Group A Winner', player2Id:'', player2Name:'Group H Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf1', status:'pending'},
   {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf2', player1Id:'', player1Name:'Group B Winner', player2Id:'', player2Name:'Group G Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf1', status:'pending'},
   {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf3', player1Id:'', player1Name:'Group C Winner', player2Id:'', player2Name:'Group F Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf2', status:'pending'},
   {eventId:'ev-1', stage:'Quarterfinal', matchId:'ev-1-qf4', player1Id:'', player1Name:'Group D Winner', player2Id:'', player2Name:'Group E Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-sf2', status:'pending'},
-  // Semifinals
+  // Carrom - Semifinals
   {eventId:'ev-1', stage:'Semifinal', matchId:'ev-1-sf1', player1Id:'', player1Name:'QF1 Winner', player2Id:'', player2Name:'QF2 Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-final', status:'pending'},
   {eventId:'ev-1', stage:'Semifinal', matchId:'ev-1-sf2', player1Id:'', player1Name:'QF3 Winner', player2Id:'', player2Name:'QF4 Winner', winnerId:'', winnerName:'', nextMatchId:'ev-1-final', status:'pending'},
-  // Final
-  {eventId:'ev-1', stage:'Final', matchId:'ev-1-final', player1Id:'', player1Name:'SF1 Winner', player2Id:'', player2Name:'SF2 Winner', winnerId:'', winnerName:'', nextMatchId:'', status:'pending'}
+  // Carrom - Final
+  {eventId:'ev-1', stage:'Final', matchId:'ev-1-final', player1Id:'', player1Name:'SF1 Winner', player2Id:'', player2Name:'SF2 Winner', winnerId:'', winnerName:'', nextMatchId:'', status:'pending'},
+
+  // ============================================================
+  // Chess - Group A (6 matches)
+  // ============================================================
+  {eventId:'ev-2', stage:'Group A', matchId:'ev-2-a1', player1Id:'1', player1Name:'Anilkumar V.K', player2Id:'2', player2Name:'Manjunath', winnerId:'', winnerName:'', nextMatchId:'ev-2-a-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group A', matchId:'ev-2-a2', player1Id:'3', player1Name:'Sudhakar G', player2Id:'4', player2Name:'Ashok Kumar', winnerId:'', winnerName:'', nextMatchId:'ev-2-a-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group A', matchId:'ev-2-a3', player1Id:'5', player1Name:'Raghavendra B.G.', player2Id:'6', player2Name:'Mohan', winnerId:'', winnerName:'', nextMatchId:'ev-2-a-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group A', matchId:'ev-2-a4', player1Id:'7', player1Name:'Virupakshappa', player2Id:'8', player2Name:'Shrinivas babu', winnerId:'', winnerName:'', nextMatchId:'ev-2-a-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group A', matchId:'ev-2-a5', player1Id:'9', player1Name:'Harish', player2Id:'10', player2Name:'Ashok HK', winnerId:'', winnerName:'', nextMatchId:'ev-2-a-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group A', matchId:'ev-2-a6', player1Id:'11', player1Name:'Basavalingappa', player2Id:'12', player2Name:'Samarth', winnerId:'', winnerName:'', nextMatchId:'ev-2-a-winner', status:'pending'},
+  // Chess - Group B
+  {eventId:'ev-2', stage:'Group B', matchId:'ev-2-b1', player1Id:'1', player1Name:'Naresh B', player2Id:'2', player2Name:'Dr. Ashok Kumar', winnerId:'', winnerName:'', nextMatchId:'ev-2-b-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group B', matchId:'ev-2-b2', player1Id:'3', player1Name:'Pradeep shastri', player2Id:'4', player2Name:'Maruthi G.H.', winnerId:'', winnerName:'', nextMatchId:'ev-2-b-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group B', matchId:'ev-2-b3', player1Id:'5', player1Name:'Praveen Kumar', player2Id:'6', player2Name:'K. Vijay Kumar Raju', winnerId:'', winnerName:'', nextMatchId:'ev-2-b-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group B', matchId:'ev-2-b4', player1Id:'7', player1Name:'Huchirappa', player2Id:'8', player2Name:'Prasanna GP', winnerId:'', winnerName:'', nextMatchId:'ev-2-b-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group B', matchId:'ev-2-b5', player1Id:'9', player1Name:'Satish', player2Id:'10', player2Name:'Marriswamy', winnerId:'', winnerName:'', nextMatchId:'ev-2-b-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group B', matchId:'ev-2-b6', player1Id:'11', player1Name:'Mallikarjun', player2Id:'12', player2Name:'Devaraj', winnerId:'', winnerName:'', nextMatchId:'ev-2-b-winner', status:'pending'},
+  // Chess - Group C
+  {eventId:'ev-2', stage:'Group C', matchId:'ev-2-c1', player1Id:'24', player1Name:'Deepak', player2Id:'25', player2Name:'Basavaraj Lamani', winnerId:'', winnerName:'', nextMatchId:'ev-2-c-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group C', matchId:'ev-2-c2', player1Id:'21', player1Name:'Chandrashekhar B', player2Id:'28', player2Name:'K. Shridhar.', winnerId:'', winnerName:'', nextMatchId:'ev-2-c-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group C', matchId:'ev-2-c3', player1Id:'29', player1Name:'Ameeth', player2Id:'4', player2Name:'Deepak Shastri', winnerId:'', winnerName:'', nextMatchId:'ev-2-c-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group C', matchId:'ev-2-c4', player1Id:'37', player1Name:'Premraj', player2Id:'26', player2Name:'Mallikarjun HM', winnerId:'', winnerName:'', nextMatchId:'ev-2-c-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group C', matchId:'ev-2-c5', player1Id:'27', player1Name:'Hemanna K', player2Id:'30', player2Name:'Rajesh Patil', winnerId:'', winnerName:'', nextMatchId:'ev-2-c-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group C', matchId:'ev-2-c6', player1Id:'45', player1Name:'Pramod', player2Id:'47', player2Name:'Jagadesh', winnerId:'', winnerName:'', nextMatchId:'ev-2-c-winner', status:'pending'},
+  // Chess - Group D
+  {eventId:'ev-2', stage:'Group D', matchId:'ev-2-d1', player1Id:'20', player1Name:'Dasharatha', player2Id:'32', player2Name:'Rajesh (JE. Safty)', winnerId:'', winnerName:'', nextMatchId:'ev-2-d-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group D', matchId:'ev-2-d2', player1Id:'15', player1Name:'Ikram', player2Id:'16', player2Name:'Devaraj', winnerId:'', winnerName:'', nextMatchId:'ev-2-d-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group D', matchId:'ev-2-d3', player1Id:'13', player1Name:'Meghanath', player2Id:'5', player2Name:'Khaleel Ahmed', winnerId:'', winnerName:'', nextMatchId:'ev-2-d-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group D', matchId:'ev-2-d4', player1Id:'19', player1Name:'Praveen Kumar KV', player2Id:'38', player2Name:'Pradeep L.', winnerId:'', winnerName:'', nextMatchId:'ev-2-d-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group D', matchId:'ev-2-d5', player1Id:'9', player1Name:'Suresh', player2Id:'2', player2Name:'Rajashekhar M', winnerId:'', winnerName:'', nextMatchId:'ev-2-d-winner', status:'pending'},
+  {eventId:'ev-2', stage:'Group D', matchId:'ev-2-d6', player1Id:'39', player1Name:'Bharat GD', player2Id:'48', player2Name:'Kodle Gouda', winnerId:'', winnerName:'', nextMatchId:'ev-2-d-winner', status:'pending'},
+  // Chess - Quarterfinals
+  {eventId:'ev-2', stage:'Quarterfinal', matchId:'ev-2-qf1', player1Id:'', player1Name:'Group A Winner', player2Id:'', player2Name:'Group D Winner', winnerId:'', winnerName:'', nextMatchId:'ev-2-sf1', status:'pending'},
+  {eventId:'ev-2', stage:'Quarterfinal', matchId:'ev-2-qf2', player1Id:'', player1Name:'Group B Winner', player2Id:'', player2Name:'Group C Winner', winnerId:'', winnerName:'', nextMatchId:'ev-2-sf1', status:'pending'},
+  {eventId:'ev-2', stage:'Quarterfinal', matchId:'ev-2-qf3', player1Id:'', player1Name:'Group C Winner', player2Id:'', player2Name:'Group B Winner', winnerId:'', winnerName:'', nextMatchId:'ev-2-sf2', status:'pending'},
+  {eventId:'ev-2', stage:'Quarterfinal', matchId:'ev-2-qf4', player1Id:'', player1Name:'Group D Winner', player2Id:'', player2Name:'Group A Winner', winnerId:'', winnerName:'', nextMatchId:'ev-2-sf2', status:'pending'},
+  // Chess - Semifinals
+  {eventId:'ev-2', stage:'Semifinal', matchId:'ev-2-sf1', player1Id:'', player1Name:'QF1 Winner', player2Id:'', player2Name:'QF2 Winner', winnerId:'', winnerName:'', nextMatchId:'ev-2-final', status:'pending'},
+  {eventId:'ev-2', stage:'Semifinal', matchId:'ev-2-sf2', player1Id:'', player1Name:'QF3 Winner', player2Id:'', player2Name:'QF4 Winner', winnerId:'', winnerName:'', nextMatchId:'ev-2-final', status:'pending'},
+  // Chess - Final
+  {eventId:'ev-2', stage:'Final', matchId:'ev-2-final', player1Id:'', player1Name:'SF1 Winner', player2Id:'', player2Name:'SF2 Winner', winnerId:'', winnerName:'', nextMatchId:'', status:'pending'}
 ];
 
 const SEED_EVENTS = [
@@ -520,7 +701,7 @@ const SEED_EVENTS = [
 ];
 
 const SEED_NOTIFS = [
-  {id:'n1', title:'Carrom Tournament Started', message:'Carrom tournament with 78 players across 8 groups has begun!', type:'info', time:Date.now()-3600000},
+  {id:'n1', title:'Carrom & Chess Tournaments Started', message:'Carrom (78 players) and Chess (48 players) tournaments are now live! Check fixtures.', type:'info', time:Date.now()-3600000},
   {id:'n2', title:'Chess Registration Open', message:'Chess tournament registrations close 25.06.2026. Sign up now!', type:'alert', time:Date.now()-7200000}
 ];
 
@@ -590,6 +771,21 @@ async function loadState(){
   }
 }
 
+async function saveFixtures() {
+  if (USE_LOCAL_FALLBACK || !backendOk) {
+    toast('💾 Saved locally');
+    return true;
+  }
+  try {
+    await backendSave('saveFixtures', state.fixtures);
+    toast('✅ Synced to sheet');
+    return true;
+  } catch(e) {
+    toast('⚠️ Offline — saved locally');
+    return false;
+  }
+}
+
 function updateConnectionDot(){
   const dot = document.getElementById('connDot');
   const indicator = document.getElementById('syncIndicator');
@@ -614,18 +810,21 @@ function renderTicker(){
   const el=document.getElementById('marqueeText');
   if(!el) return;
   const parts = [];
-  const totalPlayers = 78;
-  const completedMatches = state.fixtures.filter(f => f.status === 'completed' && f.winnerId).length;
-  const totalMatches = state.fixtures.length;
-  parts.push(`🏏 Carrom Tournament · ${totalPlayers} players · ${completedMatches}/${totalMatches} matches done`);
-  const liveMatches = state.fixtures.filter(f => f.status === 'live');
-  if(liveMatches.length){
-    parts.push(`🔴 LIVE: ${liveMatches.map(m => m.player1Name + ' vs ' + m.player2Name).join(', ')}`);
-  }
-  const pending = state.fixtures.filter(f => f.status === 'pending' && f.player1Id && f.player2Id);
+  const carromMatches = state.fixtures.filter(f => f.eventId === 'ev-1');
+  const chessMatches = state.fixtures.filter(f => f.eventId === 'ev-2');
+  const totalCarrom = carromMatches.length;
+  const totalChess = chessMatches.length;
+  const doneCarrom = carromMatches.filter(f => f.status === 'completed' || f.winnerId).length;
+  const doneChess = chessMatches.filter(f => f.status === 'completed' || f.winnerId).length;
+  
+  parts.push(`🏏 Carrom: ${doneCarrom}/${totalCarrom} | Chess: ${doneChess}/${totalChess} matches done`);
+  parts.push(`🎯 ${totalCarrom} Carrom matches | ♟️ ${totalChess} Chess matches`);
+  
+  const pending = state.fixtures.filter(f => f.status === 'pending' && f.player1Id && f.player2Id && f.player1Name !== 'BYE' && f.player2Name !== 'BYE');
   if(pending.length){
     parts.push(`📅 ${pending.length} matches pending`);
   }
+  
   const joined = parts.map(p=>escapeHtml(p)).join('<span class="sep">★</span>');
   el.innerHTML = joined + '<span class="sep">★</span>' + joined;
   const plainLength = parts.join(' ★ ').length;
@@ -704,7 +903,9 @@ function eventCardHtml(e, clickable=true){
   </div>`;
 }
 
-// ============ RENDER FIXTURES ============
+// ============================================================
+// RENDER FIXTURES - Main Function
+// ============================================================
 function renderFixtures() {
   const c = document.getElementById('content');
   if (!state.fixtures || !state.fixtures.length) {
@@ -713,34 +914,60 @@ function renderFixtures() {
     return;
   }
 
-  // Group fixtures by eventId and stage
-  const grouped = {};
-  state.fixtures.forEach(f => {
-    const key = f.eventId || 'unknown';
-    if (!grouped[key]) grouped[key] = [];
-    grouped[key].push(f);
-  });
+  const eventMap = {};
+  state.events.forEach(e => eventMap[e.id] = e.name);
+  
+  const eventIds = [...new Set(state.fixtures.map(f => f.eventId).filter(id => id))];
+  
+  if (!activeFilter || activeFilter === 'all') {
+    activeFilter = eventIds[0] || 'all';
+  }
 
   let html = `<div class="section-title">🏆 Tournament Fixtures <small>${state.fixtures.length} matches</small></div>`;
 
-  // Get event names for reference
-  const eventMap = {};
-  state.events.forEach(e => eventMap[e.id] = e.name);
-
-  // Show filter for events
-  const eventIds = Object.keys(grouped);
-  html += `<div class="chip-group">`;
+  // Sport Filter Buttons
+  html += `<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">`;
+  
+  // All button
+  html += `<button class="filter-btn ${activeFilter === 'all' ? 'active' : ''}" onclick="setFixtureFilter('all')">🏆 All</button>`;
+  
   eventIds.forEach(id => {
     const label = eventMap[id] || id;
-    html += `<span class="chip ${activeFilter === id ? 'active' : ''}" data-filter="${id}">${getEventIcon(label)} ${label.substring(0,20)}</span>`;
+    const icon = id === 'ev-1' ? '🎯' : id === 'ev-2' ? '♟️' : '🏅';
+    const isActive = activeFilter === id;
+    const count = state.fixtures.filter(f => f.eventId === id).length;
+    html += `<button class="filter-btn ${isActive ? 'active' : ''}" onclick="setFixtureFilter('${id}')">
+      ${icon} ${label} <span style="font-size:9px;opacity:0.7;">(${count})</span>
+    </button>`;
   });
+  
   html += `</div>`;
 
-  // Filter
   let filteredFixtures = state.fixtures;
-  if (activeFilter !== 'all' && activeFilter !== '') {
+  if (activeFilter !== 'all') {
     filteredFixtures = filteredFixtures.filter(f => f.eventId === activeFilter);
   }
+
+  const currentEventName = activeFilter === 'all' ? 'All Events' : (eventMap[activeFilter] || activeFilter);
+  const currentEventIcon = activeFilter === 'all' ? '🏆' : (activeFilter === 'ev-1' ? '🎯' : activeFilter === 'ev-2' ? '♟️' : '🏅');
+
+  // Header card
+  const totalMatches = filteredFixtures.length;
+  const completedMatches = filteredFixtures.filter(f => f.status === 'completed' || f.winnerId).length;
+  const progressPct = totalMatches ? Math.round((completedMatches/totalMatches)*100) : 0;
+
+  html += `<div class="fixture-header-card">
+    <div class="fixture-title">${currentEventIcon} ${currentEventName}</div>
+    <div class="fixture-sub">${totalMatches} total matches · ${completedMatches} completed</div>
+    <div class="fixture-stats">
+      <span>📊 Progress <span class="stat-num">${progressPct}%</span></span>
+      <span>✅ Done <span class="stat-num">${completedMatches}</span></span>
+      <span>⏳ Pending <span class="stat-num">${totalMatches - completedMatches}</span></span>
+    </div>
+    <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:4px;margin-top:8px;overflow:hidden;">
+      <div style="height:100%;width:${progressPct}%;background:#f5a623;border-radius:4px;transition:width .5s;"></div>
+    </div>
+  </div>`;
 
   // Group by stage
   const stages = {};
@@ -749,7 +976,6 @@ function renderFixtures() {
     stages[f.stage].push(f);
   });
 
-  // Order: Groups A-H, Quarterfinals, Semifinals, Final
   const stageOrder = ['Group A', 'Group B', 'Group C', 'Group D', 'Group E', 'Group F', 'Group G', 'Group H', 'Quarterfinal', 'Semifinal', 'Final'];
   const sortedStages = Object.keys(stages).sort((a, b) => {
     const idxA = stageOrder.indexOf(a);
@@ -766,16 +992,16 @@ function renderFixtures() {
 
   sortedStages.forEach(stage => {
     const matches = stages[stage];
-    // Sort matches by matchId
     matches.sort((a, b) => a.matchId.localeCompare(b.matchId));
 
     const completed = matches.filter(m => m.status === 'completed' || m.winnerId).length;
     const total = matches.length;
+    const pct = total ? Math.round((completed/total)*100) : 0;
 
     html += `<div class="fixture-bracket">
       <div class="stage-title">
         ${getStageIcon(stage)} ${stage}
-        <span class="badge">${completed}/${total} done</span>
+        <span class="badge">${completed}/${total} done (${pct}%)</span>
       </div>`;
 
     matches.forEach(m => {
@@ -789,7 +1015,6 @@ function renderFixtures() {
       let p1Display = p1Name;
       let p2Display = p2Name;
       
-      // Highlight winners
       if (m.winnerName && m.winnerName !== '') {
         if (m.player1Name === m.winnerName || m.player1Id === m.winnerId) {
           p1Display = `🏆 ${p1Name}`;
@@ -803,7 +1028,6 @@ function renderFixtures() {
           <div class="player">
             <span>${escapeHtml(p1Display)}</span>
             ${m.winnerName && m.winnerName === m.player1Name ? '<span class="winner-tag">Winner</span>' : ''}
-            ${m.winnerId && m.winnerId !== '' && m.winnerId !== m.player1Id && m.winnerId !== m.player2Id && m.winnerId !== '31' && m.winnerId !== '35' ? '<span class="loser-tag">Lost</span>' : ''}
           </div>
           <div class="player" style="color:#8a95bd;">
             <span class="vs">vs</span>
@@ -837,14 +1061,20 @@ function getStageIcon(stage) {
   return '🎯';
 }
 
-// ============ OPEN FIXTURE SHEET ============
+function setFixtureFilter(filter) {
+  activeFilter = filter;
+  renderFixtures();
+}
+
+// ============================================================
+// FIXTURE SHEET FUNCTIONS
+// ============================================================
 function openFixtureSheet(matchId) {
   const match = state.fixtures.find(f => f.matchId === matchId);
   if (!match) { toast('Match not found'); return; }
 
   const sheet = document.getElementById('sheet');
-  const isCompleted = match.status === 'completed' || match.winnerId;
-
+  
   let html = `<div class="sheet-handle"></div>
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3 style="font-size:17px">${escapeHtml(match.stage)} - ${escapeHtml(match.matchId)}</h3>
@@ -860,7 +1090,6 @@ function openFixtureSheet(matchId) {
       <div style="text-align:center;margin-top:4px;font-size:11px;color:#8a95bd;">Status: ${match.status || 'pending'}</div>
     </div>`;
 
-  // Show next match info
   if (match.nextMatchId) {
     const nextMatch = state.fixtures.find(f => f.matchId === match.nextMatchId);
     if (nextMatch) {
@@ -872,23 +1101,17 @@ function openFixtureSheet(matchId) {
     }
   }
 
-  // Admin controls
   if (isAdmin) {
+    const isCompleted = match.status === 'completed' || match.winnerId;
     html += `<div style="margin-top:12px;font-weight:700;font-size:12px;">✎ Update Match</div>`;
 
-    // Player selection for winner
-    if (!isCompleted) {
-      html += `<div style="display:flex;gap:6px;margin-top:6px;">`;
-      if (match.player1Name && match.player1Name !== '' && match.player1Name !== 'BYE') {
-        html += `<button class="btn" style="background:#1f9d6c;color:#fff;padding:8px;font-size:11px;" onclick="setWinner('${match.matchId}','${match.player1Id}','${match.player1Name}')">🏆 ${escapeHtml(match.player1Name)} wins</button>`;
-      }
-      if (match.player2Name && match.player2Name !== '' && match.player2Name !== 'BYE') {
-        html += `<button class="btn" style="background:#1f9d6c;color:#fff;padding:8px;font-size:11px;" onclick="setWinner('${match.matchId}','${match.player2Id}','${match.player2Name}')">🏆 ${escapeHtml(match.player2Name)} wins</button>`;
-      }
-      html += `</div>`;
+    if (!isCompleted && match.player1Name && match.player1Name !== '' && match.player1Name !== 'BYE' && match.player2Name && match.player2Name !== '' && match.player2Name !== 'BYE') {
+      html += `<div style="display:flex;gap:6px;margin-top:6px;">
+        <button class="btn" style="background:#1f9d6c;color:#fff;padding:8px;font-size:11px;" onclick="setWinner('${match.matchId}','${match.player1Id}','${match.player1Name}')">🏆 ${escapeHtml(match.player1Name)} wins</button>
+        <button class="btn" style="background:#1f9d6c;color:#fff;padding:8px;font-size:11px;" onclick="setWinner('${match.matchId}','${match.player2Id}','${match.player2Name}')">🏆 ${escapeHtml(match.player2Name)} wins</button>
+      </div>`;
     }
 
-    // Edit players
     html += `<div style="margin-top:8px;display:flex;gap:6px;">
       <input id="editP1" placeholder="Player 1" value="${escapeHtml(match.player1Name)}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;">
       <input id="editP2" placeholder="Player 2" value="${escapeHtml(match.player2Name)}" style="flex:1;padding:6px;border-radius:8px;border:1px solid #e2e6f0;font-size:12px;">
@@ -906,12 +1129,10 @@ function openFixtureSheet(matchId) {
   document.getElementById('sheetOverlay').classList.add('open');
 }
 
-// ============ FIXTURE ACTIONS ============
 async function setWinner(matchId, playerId, playerName) {
   const match = state.fixtures.find(f => f.matchId === matchId);
   if (!match) return;
 
-  // Check if player is BYE
   if (playerName === 'BYE' || playerName === '') {
     toast('Cannot set BYE as winner');
     return;
@@ -921,20 +1142,19 @@ async function setWinner(matchId, playerId, playerName) {
   match.winnerName = playerName;
   match.status = 'completed';
 
-  // Check if there's a next match - update it with this winner
   if (match.nextMatchId && match.nextMatchId !== '') {
     const nextMatch = state.fixtures.find(f => f.matchId === match.nextMatchId);
     if (nextMatch) {
-      if (!nextMatch.player1Id || nextMatch.player1Id === '' || nextMatch.player1Name === 'TBD' || nextMatch.player1Name === '') {
+      if (!nextMatch.player1Id || nextMatch.player1Id === '' || nextMatch.player1Name === 'TBD' || nextMatch.player1Name === '' || nextMatch.player1Name.includes('Winner')) {
         nextMatch.player1Id = playerId;
         nextMatch.player1Name = playerName;
         toast(`✅ ${playerName} advanced to ${nextMatch.stage}!`);
-      } else if (!nextMatch.player2Id || nextMatch.player2Id === '' || nextMatch.player2Name === 'TBD' || nextMatch.player2Name === '') {
+      } else if (!nextMatch.player2Id || nextMatch.player2Id === '' || nextMatch.player2Name === 'TBD' || nextMatch.player2Name === '' || nextMatch.player2Name.includes('Winner')) {
         nextMatch.player2Id = playerId;
         nextMatch.player2Name = playerName;
         toast(`✅ ${playerName} advanced to ${nextMatch.stage}!`);
       } else {
-        toast(`⚠️ Next match ${nextMatch.matchId} already has both players. Winner not auto-assigned.`);
+        toast(`⚠️ Next match ${nextMatch.matchId} already has both players.`);
       }
     }
   }
@@ -959,7 +1179,6 @@ async function updateFixture(matchId) {
   if (winner) match.winnerName = winner.value.trim();
   if (status) match.status = status.value.trim();
 
-  // If winner name is set, auto-set winnerId
   if (match.winnerName && match.winnerName !== '') {
     if (match.player1Name === match.winnerName) {
       match.winnerId = match.player1Id;
@@ -986,10 +1205,12 @@ async function deleteFixture(matchId) {
 
 function addFixture() {
   const sheet = document.getElementById('sheet');
+  const eventOptions = state.events.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+  
   sheet.innerHTML = `<div class="sheet-handle"></div>
     <h3 style="font-size:17px">➕ Add Fixture</h3>
     <select id="newEventId" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
-      ${state.events.map(e => `<option value="${e.id}">${e.name}</option>`).join('')}
+      ${eventOptions}
     </select>
     <input id="newStage" placeholder="Stage (e.g. Group A, Quarterfinal)" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
     <input id="newP1" placeholder="Player 1 Name" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e2e6f0;margin:6px 0;">
@@ -1033,22 +1254,9 @@ async function saveNewFixture() {
   renderFixtures();
 }
 
-async function saveFixtures() {
-  if (USE_LOCAL_FALLBACK || !backendOk) {
-    toast('💾 Saved locally');
-    return true;
-  }
-  try {
-    await backendSave('saveFixtures', state.fixtures);
-    toast('✅ Synced to sheet');
-    return true;
-  } catch(e) {
-    toast('⚠️ Offline — saved locally');
-    return false;
-  }
-}
-
-// ============ RENDER DASHBOARD ============
+// ============================================================
+// RENDER DASHBOARD
+// ============================================================
 function renderDashboard() {
   const c = document.getElementById('content');
   const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
@@ -1059,10 +1267,12 @@ function renderDashboard() {
   const circumference = 2 * Math.PI * 24;
   const offset = circumference * (1 - pct/100);
   
-  // Fixture stats
   const totalMatches = state.fixtures.length;
   const completedMatches = state.fixtures.filter(f => f.status === 'completed' || f.winnerId).length;
   const fixturePct = totalMatches ? Math.round((completedMatches/totalMatches)*100) : 0;
+
+  const carromMatches = state.fixtures.filter(f => f.eventId === 'ev-1').length;
+  const chessMatches = state.fixtures.filter(f => f.eventId === 'ev-2').length;
 
   let html='';
   if(!backendOk && !USE_LOCAL_FALLBACK){
@@ -1082,15 +1292,22 @@ function renderDashboard() {
   // Fixture progress
   html+=`<div style="background:#fff;border-radius:16px;padding:12px 14px;border:1px solid #eef1fb;margin-bottom:14px;">
     <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;">
-      <span>🎯 Carrom Tournament</span>
-      <span>${completedMatches}/${totalMatches} matches</span>
+      <span>🎯 Carrom</span>
+      <span>${state.fixtures.filter(f=>f.eventId==='ev-1' && (f.status==='completed'||f.winnerId)).length}/${carromMatches}</span>
     </div>
-    <div style="height:6px;background:#f0f3fa;border-radius:6px;margin-top:6px;overflow:hidden;">
-      <div style="height:100%;width:${fixturePct}%;background:linear-gradient(90deg,#f5a623,#f5c518);border-radius:6px;transition:width .5s;"></div>
+    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
+      <div style="height:100%;width:${carromMatches?Math.round((state.fixtures.filter(f=>f.eventId==='ev-1'&&(f.status==='completed'||f.winnerId)).length/carromMatches)*100):0}%;background:#f5a623;border-radius:4px;"></div>
     </div>
-    <div style="display:flex;justify-content:space-between;font-size:9px;color:#8a95bd;margin-top:4px;">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;margin-top:8px;">
+      <span>♟️ Chess</span>
+      <span>${state.fixtures.filter(f=>f.eventId==='ev-2' && (f.status==='completed'||f.winnerId)).length}/${chessMatches}</span>
+    </div>
+    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
+      <div style="height:100%;width:${chessMatches?Math.round((state.fixtures.filter(f=>f.eventId==='ev-2'&&(f.status==='completed'||f.winnerId)).length/chessMatches)*100):0}%;background:#4c7cf0;border-radius:4px;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:#8a95bd;margin-top:6px;">
+      <span>Total: ${completedMatches}/${totalMatches} matches</span>
       <span>${fixturePct}% complete</span>
-      <span>${totalMatches - completedMatches} remaining</span>
     </div>
   </div>`;
 
@@ -1154,10 +1371,10 @@ function renderDashboard() {
 
   c.innerHTML=html;
   document.getElementById('cricketStat')?.addEventListener('click', ()=>setTab('cricket'));
-  document.getElementById('todayCount')?.addEventListener('click', ()=>openTodaySheet());
-  document.getElementById('seeMoreToday')?.addEventListener('click', ()=>openTodaySheet());
+  document.getElementById('todayCount')?.addEventListener('click', ()=>toast('📅 Today\'s events'));
+  document.getElementById('seeMoreToday')?.addEventListener('click', ()=>toast('📅 Today\'s events'));
   document.querySelectorAll('.breakdown-tile').forEach(t=>{
-    t.addEventListener('click', ()=>openGroupSheet(t.dataset.grp));
+    t.addEventListener('click', ()=>toast('📊 ' + t.dataset.grp + ' events'));
   });
   document.getElementById('viewAllCricket')?.addEventListener('click', ()=>setTab('cricket'));
   document.getElementById('retrySyncBtn')?.addEventListener('click', async ()=>{ toast('🔄 Attempting to reconnect...'); await loadState(); renderCurrentTab(); });
@@ -1166,15 +1383,12 @@ function renderDashboard() {
 }
 
 function bindCards(){
-  document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>openSheet(el.dataset.id); });
+  document.querySelectorAll('.card[data-id]').forEach(el=>{ el.onclick=()=>toast('📋 ' + el.dataset.id); });
 }
 
-function openSheet(id){ toast('Opening ' + id); }
-
-function openTodaySheet(){ toast('Today\'s events'); }
-function openGroupSheet(grp){ toast('Group: ' + grp); }
-
-// ============ RENDER EVENTS ============
+// ============================================================
+// RENDER EVENTS
+// ============================================================
 function renderEvents(){
   const c=document.getElementById('content');
   const cats = ['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
@@ -1221,7 +1435,9 @@ function renderEvents(){
   bindCards(); renderTicker();
 }
 
-// ============ RENDER CRICKET ============
+// ============================================================
+// RENDER CRICKET
+// ============================================================
 function renderCricket(){
   const c=document.getElementById('content');
   const matches=state.events.filter(e=>e.category==='Cricket').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
@@ -1236,7 +1452,9 @@ function renderCricket(){
   renderTicker();
 }
 
-// ============ RENDER ORGANISERS ============
+// ============================================================
+// RENDER ORGANISERS
+// ============================================================
 function renderOrganisers(){
   const c=document.getElementById('content');
   const withCoords=state.events.filter(e=>e.coordinators&&e.coordinators.length);
@@ -1269,7 +1487,9 @@ function renderOrganisers(){
   renderTicker();
 }
 
-// ============ RENDER ALERTS ============
+// ============================================================
+// RENDER ALERTS
+// ============================================================
 function renderAlerts(){
   const c=document.getElementById('content');
   markNotifsRead();
@@ -1303,11 +1523,21 @@ function renderAlerts(){
   renderTicker();
 }
 
-// ============ TAB MANAGEMENT ============
+// ============================================================
+// TAB MANAGEMENT
+// ============================================================
 function setTab(tab){
   currentTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   document.getElementById('fabAdd').classList.toggle('show', isAdmin && (tab==='events'||tab==='cricket'||tab==='fixtures'));
+  
+  if (tab === 'fixtures') {
+    const eventIds = [...new Set(state.fixtures.map(f => f.eventId).filter(id => id))];
+    if (eventIds.length > 0 && (!activeFilter || activeFilter === 'all')) {
+      activeFilter = eventIds[0];
+    }
+  }
+  
   if(tab==='dashboard') renderDashboard();
   else if(tab==='events') renderEvents();
   else if(tab==='cricket') renderCricket();
@@ -1318,7 +1548,9 @@ function setTab(tab){
 
 function renderCurrentTab(){ setTab(currentTab); }
 
-// ============ INIT ============
+// ============================================================
+// INIT
+// ============================================================
 document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
 document.getElementById('calendarBtn').onclick=()=>toast('📅 Calendar view');
 document.getElementById('bellBtn').onclick=()=>{ setTab('alerts'); markNotifsRead(); };
@@ -1342,18 +1574,20 @@ document.getElementById('fabAdd').onclick=()=>{
   }
 };
 
+// Make functions globally accessible
+window.setWinner = setWinner;
+window.updateFixture = updateFixture;
+window.deleteFixture = deleteFixture;
+window.addFixture = addFixture;
+window.saveNewFixture = saveNewFixture;
+window.openFixtureSheet = openFixtureSheet;
+window.setTab = setTab;
+window.setFixtureFilter = setFixtureFilter;
+window.renderFixtures = renderFixtures;
+
 async function init(){
   await loadState();
   renderCurrentTab();
-  // Make functions globally accessible for onclick handlers
-  window.setWinner = setWinner;
-  window.updateFixture = updateFixture;
-  window.deleteFixture = deleteFixture;
-  window.addFixture = addFixture;
-  window.saveNewFixture = saveNewFixture;
-  window.openFixtureSheet = openFixtureSheet;
-  window.setTab = setTab;
-  window.renderFixtures = renderFixtures;
   
   setInterval(async ()=>{
     if(!isSaving && !USE_LOCAL_FALLBACK){
@@ -1368,5 +1602,5 @@ init();
 
 })();
 </script>
-</body>
-</html>
+
+</body></html>
