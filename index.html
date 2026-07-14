@@ -290,8 +290,15 @@
     .dg-name{font-size:10.5px;font-weight:800;color:#0b1530;margin-top:5px;line-height:1.25;min-height:26px}
     .dg-group{font-size:8px;color:#9a7000;font-weight:800;text-transform:uppercase;margin-top:3px;letter-spacing:.3px}
 
-    .win-cat-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin:2px 0 4px;-webkit-overflow-scrolling:touch}
-    .win-cat-strip::-webkit-scrollbar{display:none}
+    .win-cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 16px}
+    .win-cat-tile{background:#fff;border:1.5px solid #eef1fb;border-radius:16px;padding:11px 4px 9px;text-align:center;cursor:pointer;transition:transform .12s,box-shadow .12s,border-color .12s;box-shadow:0 2px 6px rgba(0,0,0,.03)}
+    .win-cat-tile:active{transform:scale(.96)}
+    .win-cat-tile .wct-icon{font-size:19px;display:block;line-height:1}
+    .win-cat-tile .wct-label{display:block;font-size:9px;font-weight:800;color:#525d7a;margin-top:5px;line-height:1.25;text-transform:uppercase;letter-spacing:.2px}
+    .win-cat-tile .wct-count{display:inline-block;margin-top:4px;font-size:8.5px;font-weight:800;color:#8a95bd;background:#f4f6fc;padding:1px 8px;border-radius:20px}
+    .win-cat-tile.active{border-color:var(--wc-accent,#f5a623);background:linear-gradient(155deg,#fff,var(--wc-accent-bg,#fff8e0));box-shadow:0 4px 14px rgba(0,0,0,.08)}
+    .win-cat-tile.active .wct-label{color:var(--wc-accent,#b06a06)}
+    .win-cat-tile.active .wct-count{background:var(--wc-accent,#f5a623);color:#fff}
 
     .win-event-card{background:#fff;border-radius:16px;padding:13px 14px 11px;margin-bottom:10px;border:1px solid #eef1fb;box-shadow:0 2px 10px rgba(0,0,0,.04)}
     .win-event-title{font-size:13px;font-weight:800;color:#0b1530;margin-bottom:7px;display:flex;align-items:center;gap:6px}
@@ -1029,16 +1036,20 @@ function renderPointsTable() {
 // ============================================================
 function renderCricket(){
   const c = document.getElementById('content');
-  const matches = state.events.filter(e => e.category === 'Cricket').sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
+  const matches = state.events.filter(e => e.category === 'Cricket' && (e.name.includes('Semifinal') || e.name.includes('Final'))).sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
   
-  let html = `<div class="section-title">🏏 BTPS Cricket Tournament 2026 <small>${matches.length} matches</small></div>
+  let html = `<div class="section-title">🏏 BTPS Cricket Tournament 2026 <small>Knockout stage</small></div>
   <div style="background:#fff;border-radius:14px;padding:12px;border:1px solid #eef1fb;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
     <a href="https://cricheroes.com" target="_blank" style="background:#0b1530;color:#fff;padding:6px 16px;border-radius:40px;font-size:11px;font-weight:700;text-decoration:none">🔗 Live on CricHeroes</a>
     ${isAdmin ? `<button class="btn" style="width:auto;padding:6px 16px;background:#f5a623;color:#0b1530;font-size:11px" id="addCricketBtn">+ Add Match</button>` : ''}
     <button class="btn" style="width:auto;padding:6px 16px;background:#1f9d6c;color:#fff;font-size:11px" onclick="setTab('points')">📊 Points Table</button>
   </div>`;
   
-  matches.forEach(e => html += eventCardHtml(e, true));
+  if(!matches.length){
+    html += `<div class="empty">🏅 Semifinal &amp; Final fixtures haven't been scheduled yet. Check back soon!</div>`;
+  } else {
+    matches.forEach(e => html += eventCardHtml(e, true));
+  }
   c.innerHTML = html;
   bindCards();
   renderTicker();
@@ -1769,10 +1780,15 @@ function renderWinners(){
   });
   html += `</div>`;
 
-  html += `<div class="win-cat-strip" id="winCatNav">
-    <span class="chip ${winnersFilter==='all'?'active':''}" data-wc="all">🏆 All</span>`;
+  html += `<div class="section-title">📂 Browse by Category</div>
+  <div class="win-cat-grid" id="winCatNav">
+    <div class="win-cat-tile ${winnersFilter==='all'?'active':''}" data-wc="all" style="--wc-accent:#f5a623;--wc-accent-bg:#fff0d0">
+      <span class="wct-icon">🏆</span><span class="wct-label">All</span><span class="wct-count">${totalEvents}</span>
+    </div>`;
   WINNERS_DATA.forEach(g=>{
-    html += `<span class="chip ${winnersFilter===g.id?'active':''}" data-wc="${g.id}">${g.icon} ${g.title}</span>`;
+    html += `<div class="win-cat-tile ${winnersFilter===g.id?'active':''}" data-wc="${g.id}" style="--wc-accent:${g.accent};--wc-accent-bg:${g.accent}22">
+      <span class="wct-icon">${g.icon}</span><span class="wct-label">${escapeHtml(g.title)}</span><span class="wct-count">${g.events.length}</span>
+    </div>`;
   });
   html += `</div>`;
 
@@ -1802,7 +1818,7 @@ function renderWinners(){
   </div>`;
 
   c.innerHTML = html;
-  document.querySelectorAll('#winCatNav .chip').forEach(el=>{
+  document.querySelectorAll('#winCatNav .win-cat-tile').forEach(el=>{
     el.onclick = () => { winnersFilter = el.dataset.wc; renderWinners(); };
   });
 }
