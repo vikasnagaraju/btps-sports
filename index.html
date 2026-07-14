@@ -32,7 +32,7 @@
     .marquee-text .sep{color:#f5a623;margin:0 16px;font-weight:800}
     @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
     @media (prefers-reduced-motion: reduce){.marquee-text{animation:none;padding-left:0}}
-    .tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:14px;padding:0 2px}
+    .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-top:14px;padding:0 2px}
     .tab{flex-shrink:0;padding:6px 2px;font-size:9px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;transition:color .15s;border-radius:8px 8px 0 0}
     .tab.active{color:#fff;border-bottom-color:#f5a623;background:rgba(245,166,35,.08)}
     .tab svg{width:14px;height:14px;flex-shrink:0}
@@ -271,6 +271,58 @@
     .cricket-progress .cp-stage.active{background:#f5a623;color:#0b1530}
     .cricket-progress .cp-stage.completed{background:#e8f6ee;color:#1f9d6c}
     
+    /* ===================== WINNERS TAB ===================== */
+    .win-hero{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:22px;padding:18px 16px;color:#fff;margin-bottom:16px;box-shadow:0 8px 20px rgba(11,21,48,.25);position:relative;overflow:hidden}
+    .win-hero::after{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(245,166,35,.25),transparent 70%)}
+    .win-hero-top{display:flex;align-items:center;gap:12px;position:relative}
+    .win-hero-trophy{font-size:36px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+    .win-hero-title{font-size:17px;font-weight:800;color:#f5a623;letter-spacing:.2px}
+    .win-hero-sub{font-size:11px;color:#b6bedd;font-weight:700;margin-top:2px;text-transform:uppercase;letter-spacing:.3px}
+    .win-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;position:relative}
+    .win-hero-stats div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:9px 4px;text-align:center}
+    .win-hero-stats b{display:block;font-family:'Oswald',sans-serif;font-size:19px;color:#fff;line-height:1.1}
+    .win-hero-stats span{font-size:8px;text-transform:uppercase;color:#b6bedd;font-weight:700;letter-spacing:.3px;display:block;margin-top:2px}
+
+    .dg-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin-bottom:4px;-webkit-overflow-scrolling:touch}
+    .dg-strip::-webkit-scrollbar{display:none}
+    .dg-card{flex-shrink:0;width:112px;background:linear-gradient(155deg,#fff8e0,#fff0c2);border:1px solid #ffe89e;border-radius:16px;padding:12px 8px;text-align:center;box-shadow:0 2px 8px rgba(245,166,35,.12)}
+    .dg-medal{font-size:17px;letter-spacing:-2px}
+    .dg-name{font-size:10.5px;font-weight:800;color:#0b1530;margin-top:5px;line-height:1.25;min-height:26px}
+    .dg-group{font-size:8px;color:#9a7000;font-weight:800;text-transform:uppercase;margin-top:3px;letter-spacing:.3px}
+
+    .win-cat-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin:2px 0 4px;-webkit-overflow-scrolling:touch}
+    .win-cat-strip::-webkit-scrollbar{display:none}
+
+    .win-event-card{background:#fff;border-radius:16px;padding:13px 14px 11px;margin-bottom:10px;border:1px solid #eef1fb;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .win-event-title{font-size:13px;font-weight:800;color:#0b1530;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+    .medal-row{display:flex;align-items:flex-start;gap:10px;padding:7px 9px;border-radius:11px;margin-top:5px}
+    .medal-row.gold{background:linear-gradient(120deg,#fff6e0,#fff0c8)}
+    .medal-row.silver{background:linear-gradient(120deg,#f3f5fa,#e8eaf3)}
+    .medal-row.bronze{background:linear-gradient(120deg,#fdf0e4,#f8e1cb)}
+    .medal-badge{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;box-shadow:0 2px 5px rgba(0,0,0,.12)}
+    .medal-badge.gold{background:linear-gradient(155deg,#ffd873,#f5a623)}
+    .medal-badge.silver{background:linear-gradient(155deg,#e6eaf2,#b9c1d9)}
+    .medal-badge.bronze{background:linear-gradient(155deg,#e3a877,#c98247)}
+    .winner-name{font-size:12.5px;font-weight:800;color:#0b1530;line-height:1.35}
+    .winner-sub{font-size:9.5px;font-weight:800;color:#a3760a;text-transform:uppercase;margin-top:2px;letter-spacing:.3px}
+    .medal-row.silver .winner-sub{color:#5a6488}
+    .medal-row.bronze .winner-sub{color:#9a5a1f}
+    .medal-row.gold .winner-name{color:#5a3d00}
+
+    .roster-table-wrap{overflow-x:auto;border-radius:12px;border:1px solid #eef1fb;-webkit-overflow-scrolling:touch}
+    .roster-table{width:100%;border-collapse:collapse;font-size:11px}
+    .roster-table thead th{padding:8px 8px;font-size:10px;font-weight:800;text-align:left;white-space:nowrap;color:#0b1530}
+    .roster-table thead th.rt-gold{background:linear-gradient(120deg,#fff6e0,#ffe6a3);color:#8a5d04}
+    .roster-table thead th.rt-silver{background:linear-gradient(120deg,#f3f5fa,#dfe3ee);color:#3d4562}
+    .roster-table thead th.rt-num{background:#f4f6fc;width:26px;text-align:center;color:#8a95bd}
+    .roster-table tbody td{padding:7px 8px;border-top:1px solid #eef1fb;font-weight:700;color:#0b1530;font-size:11.5px}
+    .roster-table tbody td.rt-num{text-align:center;color:#8a95bd;font-weight:800;font-size:10px}
+    .roster-table tbody tr:nth-child(even) td{background:#fafbfe}
+
+    .pending-card{background:#f4f6fc;border-radius:16px;padding:14px;border:1.5px dashed #c7cede;margin-bottom:18px}
+    .pending-title{font-size:12px;font-weight:800;color:#152854;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+    .pending-text{font-size:11.5px;color:#525d7a;font-weight:600;line-height:1.5}
+
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
@@ -313,13 +365,12 @@
         <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span> online</div>
       </div>
     </div>
-    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏏 Cricket League Completed! Semifinals on July 3<span class="sep">★</span>🎯 Carrom & ♟️ Chess Tournaments underway<span class="sep">★</span>🏆 Finals on July 4</span></div></div>
+    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏆 Winners announced across Athletics, Kids & Team events<span class="sep">★</span>🏏 Cricket semifinals coming up<span class="sep">★</span>🎯 Carrom &amp; ♟️ Chess results updating soon</span></div></div>
     <div class="tabs" id="tabs">
       <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg><span>Home</span></div>
-      <div class="tab" data-tab="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg><span>Events</span></div>
+      <div class="tab" data-tab="winners"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"></path><path d="M7 6H4a1 1 0 00-1 1c0 2.5 1.5 4 4 4M17 6h3a1 1 0 011 1c0 2.5-1.5 4-4 4"></path></svg><span>Winners</span></div>
       <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M5 19L19 5"></path></svg><span>Cricket</span></div>
       <div class="tab" data-tab="points"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg><span>Points</span></div>
-      <div class="tab" data-tab="fixtures"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18M15 3v18"></path></svg><span>Fixtures</span></div>
       <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg><span>Org</span></div>
       <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg><span>Alerts</span></div>
     </div>
@@ -353,7 +404,7 @@
 <script>
 (function(){
 const ADMIN_PW = "KPCL57th";
-let isAdmin = false, currentTab = 'dashboard', activeFilter = 'all';
+let isAdmin = false, currentTab = 'dashboard', activeFilter = 'all', winnersFilter = 'all';
 let state = { events: [], notifications: [], fixtures: [], stageResults: [], pointsTable: [] };
 let lastSeenNotif = 0;
 let backendOk = false;
@@ -587,6 +638,104 @@ const SEED_EVENTS = [];
 const SEED_NOTIFS = [];
 
 // ============================================================
+// WINNERS DATA — Results announced so far (57th Foundation Day)
+// Update this list as more results are confirmed. Carrom, Chess
+// and Cricket are tracked separately and will be added once final.
+// ============================================================
+const WINNERS_DATA = [
+  {
+    id: 'gents-individual', title: 'Gents · Individual', icon: '🏃‍♂️', accent: '#1a4fc4',
+    events: [
+      { name: '100m Run – Above 45', gold: 'Sadanand Mirashi', silver: 'Lachamayya' },
+      { name: '100m Run – Below 45', gold: 'Harish S/o Sadanand Mirashi', silver: 'Raghavendra B.G.' },
+      { name: '200m Run – Below 45', gold: 'Harish S/o Sadanand Mirashi', silver: 'Basalingappa' },
+      { name: 'Shot Put – Above 45', gold: 'Rajashekhar Choudri', silver: 'Sadanand Mirashi' },
+      { name: 'Shot Put – Below 45', gold: 'Parashurama (Tech CHP)', silver: 'Mahesh B.L.' },
+      { name: 'Discus Throw – Above 45', gold: 'Sadanand Mirashi', silver: 'Rajashekhar Choudri' },
+      { name: 'Discus Throw – Below 45', gold: 'Mahesh B.L.', silver: 'Harish S/o Sadanand Mirashi' },
+      { name: 'Javelin Throw – Above 45', gold: 'Thipperudra G.S.', silver: 'Shashikant Patil' },
+      { name: 'Javelin Throw – Below 45', gold: 'Naveen S.', silver: 'Harish S/o Sadanand Mirashi' }
+    ]
+  },
+  {
+    id: 'gents-team', title: 'Gents · Team Events', icon: '🏐', accent: '#1f9d6c',
+    events: [
+      { name: 'Volleyball', roster: true,
+        goldTeam: ['Hariprasad', 'Viruthu', 'Rajashekhar Choudry', 'Munni', 'Lokesh M. (PCM)', 'Rama', 'Naveen'],
+        silverTeam: ['R. Loni', 'Raghavendra B.G.', 'Hanumanappa', 'Chandrashekhar Choudri', 'Mallikarjun', 'Chandu', 'Satish', 'Vined Yeddy', 'Prashanth Kumar'] }
+    ]
+  },
+  {
+    id: 'womens-cricket', title: "Women's Cricket", icon: '🏏', accent: '#0d9488',
+    events: [
+      { name: "Women's Cricket – Final", roster: true,
+        goldTeam: ['Vani D.', 'Rani', 'Rajarajeshwari', 'Ashwini P.K.', 'Aneesha', 'Sneha G.S.', 'Madhu', 'Sai Durga', 'Bhuvaneshwari'],
+        silverTeam: ['Anusha', 'Chaudri', 'Kamala', 'Ratneswari / Vanji', 'Zakeera', 'Pushpa', 'Sangama', 'Aishwarya', 'Soumya A.C.'] }
+    ]
+  },
+  {
+    id: 'ladies-individual', title: 'Ladies · Individual', icon: '🏃‍♀️', accent: '#c4257a',
+    events: [
+      { name: '100m Run – Below 45', gold: 'Indira Naik', silver: 'Sampita W/o Krishnamurthy' },
+      { name: 'Shot Put – Above 45', gold: 'Bharathi W/o Yatriswamy', silver: 'Geeta Patil W/o Shashikant Patil' },
+      { name: 'Shot Put – Below 45', gold: 'Shilpa H. (Unit 3 & 2)', silver: 'Soumy W/o Goutam (Technician)' },
+      { name: 'Discus Throw – Below 45', gold: 'Sampita W/o Krishnamurthy', silver: 'Soumya W/o Ajith' },
+      { name: 'Javelin Throw – Below 45', gold: 'Sampita W/o Krishnamurthy', silver: 'Nadevi Hosur' },
+      { name: 'Lemon Spoon – Above 45', gold: 'Geeta S. Patil W/o Shashikant Patil', silver: 'Saroja W/o Veerabhadrappa' },
+      { name: 'Lemon Spoon – Below 45', gold: 'Rekha H.M. W/o Kottresh H.M.', silver: 'Rajarajeshwari Villhooti' }
+    ]
+  },
+  {
+    id: 'tug-of-war', title: 'Tug of War', icon: '💪', accent: '#9a5a1f',
+    events: [
+      { name: 'Tug of War', team: true,
+        gold: 'Ashla, Chitra + team', silver: 'Vaishnavi, Sampita + team',
+        note: 'Full team rosters to be updated' }
+    ]
+  },
+  {
+    id: 'kids-boys', title: 'Kids · Boys', icon: '🧒', accent: '#4c7cf0',
+    events: [
+      { name: '3–6 Yrs: Frog Jump', gold: 'Bhargav S/o Guruprashant', silver: 'Reetham S/o Siddeshwar', bronze: 'S/o Moulasab' },
+      { name: '3–6 Yrs: Wicket Fall', gold: 'Shivana Gouda S/o Mallanaj Gouda', silver: 'Shivian S/o Amith', bronze: 'Vihan S/o Shivan Gouda' },
+      { name: '3–6 Yrs: 30m Run', gold: 'Bhargav S/o Guruprashant', silver: 'Yashith S/o Ravikumar', bronze: 'Theohil S/o Ravikumar' },
+      { name: '6–10 Yrs: 50m Run', gold: 'Aryan K. S/o Karthik', silver: 'Siddarth K.N. S/o Maralayya', bronze: 'Anirudh S/o Sachin Maladurg' },
+      { name: '6–10 Yrs: Musical Chair', gold: 'Siddarth K.N. S/o Maralayya', silver: 'Atharva C. S/o Chandrashekhar M.', bronze: 'Mohan S/o Sridhar' },
+      { name: '6–10 Yrs: Wicket Fall', gold: 'Rushel S/o Sharathbabu', silver: 'Kushal S/o Sandeep Kumar', bronze: 'Mohan S/o Virupakshappa' },
+      { name: '10–14 Yrs: 100m Run', gold: 'Mallinath S/o Chandrashekhar', silver: 'Uday Kumar S/o Suresh', bronze: 'S/o Virupaksha' },
+      { name: '10–14 Yrs: Lemon Spoon', gold: 'Mallinath S/o Chandrashekhar', silver: 'Suprith S/o A.M. Mallappa', bronze: 'Akshankith S/o Praveen A.R.' }
+    ]
+  },
+  {
+    id: 'kids-girls', title: 'Kids · Girls', icon: '👧', accent: '#ec5a96',
+    events: [
+      { name: '3–6 Yrs: Frog Jump', gold: 'Aditi D/o Chetan Kumar K.G.', silver: 'Sanvi H.M. D/o Kottresh H.M.', bronze: 'D/o Veeranna' },
+      { name: '3–6 Yrs: Wicket Fall', gold: 'Sarita', silver: 'Abhishekri Chaitra', bronze: 'Hrishika Nadle Gouda' },
+      { name: '3–6 Yrs: 30m Run', gold: 'Aditi D/o Chetan Kumar K.G.', silver: 'Sanvi H.M. D/o Kottresh', bronze: 'Nidhi D/o Yogendra' },
+      { name: '6–10 Yrs: 50m Run', gold: 'Supriya D/o Chetan Kumar', silver: 'Kousthika H.M. D/o Kottresh H.M.', bronze: 'Rashi M. D/o Mallikarjun' },
+      { name: '6–10 Yrs: Musical Chair', gold: 'Aarina Ameen D/o Sadiq', silver: 'Haritha H.M. D/o Maralayya H.M.', bronze: 'Kousthika H.M. D/o Kottresh H.M.' },
+      { name: '6–10 Yrs: Wicket Fall', gold: 'Shradha D/o Praveen', silver: 'Aavi D/o Dhananjay', bronze: 'Pushpita' },
+      { name: '10–14 Yrs: 100m Run', gold: 'Poorvika D/o Naveen S.', silver: 'Shravya D/o Kumarendra', bronze: 'Housika D/o Chetan Kumar C.' },
+      { name: '10–14 Yrs: Lemon Spoon', gold: 'Tanishka D/o Gangappa', silver: 'Hitha', bronze: 'Sevi' },
+      { name: '14–18 Yrs: 100m Run', gold: 'Ankita D/o Ravi K.', silver: 'Pallavi D/o Parameshwar', bronze: 'Nidhi S. Patil D/o Shashikant Patil' }
+    ]
+  }
+];
+
+// People with 2 or more individual gold medals — "Double Gold Champions"
+const DOUBLE_GOLD = [
+  { name: 'Sadanand Mirashi', group: 'Gents' },
+  { name: 'Harish S/o Sadanand Mirashi', group: 'Gents' },
+  { name: 'Sampita W/o Krishnamurthy', group: 'Ladies' },
+  { name: 'Bhargav S/o Guruprashant', group: 'Kids Boys' },
+  { name: 'Mallinath S/o Chandrashekhar', group: 'Kids Boys' },
+  { name: 'Aditi D/o Chetan Kumar K.G.', group: 'Kids Girls' }
+];
+
+// Categories awaiting results
+const PENDING_CATEGORIES = ['🎯 Carrom Singles & Doubles', '♟️ Chess', '🏸 Badminton (all categories)', '🏃 Cross Country', '🏐 Ladies Volleyball & Throw Ball', '🥏 Tennikoit'];
+
+// ============================================================
 // BACKEND FUNCTIONS
 // ============================================================
 async function backendGetAll(){
@@ -712,21 +861,19 @@ function renderTicker(){
   const el=document.getElementById('marqueeText');
   if(!el) return;
   const parts = [];
+  const winnersDecided = WINNERS_DATA.reduce((s,g)=>s+g.events.length,0);
+  parts.push(`🏆 Winners: ${winnersDecided} events decided`);
+
   const cricketMatches = state.events.filter(e => e.category === 'Cricket');
   const completedCricket = cricketMatches.filter(e => e.status === 'completed').length;
   const totalCricket = cricketMatches.length;
-  parts.push(`🏏 Cricket: ${completedCricket}/${totalCricket} matches done`);
-  
-  const carromMatches = state.fixtures.filter(f => f.eventId === 'ev-1');
-  const chessMatches = state.fixtures.filter(f => f.eventId === 'ev-2');
-  const doneCarrom = carromMatches.filter(f => f.status === 'completed' || f.winnerId).length;
-  const doneChess = chessMatches.filter(f => f.status === 'completed' || f.winnerId).length;
-  if(carromMatches.length) parts.push(`🎯 Carrom: ${doneCarrom}/${carromMatches.length}`);
-  if(chessMatches.length) parts.push(`♟️ Chess: ${doneChess}/${chessMatches.length}`);
-  
+  if(totalCricket) parts.push(`🏏 Cricket: ${completedCricket}/${totalCricket} matches done`);
+
+  parts.push(`🎯 Carrom & ♟️ Chess results updating soon`);
+
   const semifinals = state.events.filter(e => e.name.includes('Semifinal') && e.category === 'Cricket');
-  if(semifinals.length){ parts.push(`🏆 Semifinals: ${semifinals.filter(e=>e.status==='completed').length}/${semifinals.length} done`); }
-  
+  if(semifinals.length){ parts.push(`🏅 Semifinals: ${semifinals.filter(e=>e.status==='completed').length}/${semifinals.length} done`); }
+
   const joined = parts.map(p=>escapeHtml(p)).join('<span class="sep">★</span>');
   el.innerHTML = joined + '<span class="sep">★</span>' + joined;
 }
@@ -1461,10 +1608,7 @@ function renderDashboard() {
   const circumference = 2 * Math.PI * 24;
   const offset = circumference * (1 - pct/100);
   
-  const totalMatches = state.fixtures.length;
-  const completedMatches = state.fixtures.filter(f => f.status === 'completed' || f.winnerId).length;
-  const carromMatches = state.fixtures.filter(f => f.eventId === 'ev-1').length;
-  const chessMatches = state.fixtures.filter(f => f.eventId === 'ev-2').length;
+  const winnersDecided = WINNERS_DATA.reduce((s,g)=>s+g.events.length,0);
 
   let html='';
   if(!backendOk && !USE_LOCAL_FALLBACK){
@@ -1481,28 +1625,22 @@ function renderDashboard() {
     <div class="hero-stat"><span class="emoji">📅</span><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
   </div>`;
 
-  html+=`<div style="background:#fff;border-radius:16px;padding:12px 14px;border:1px solid #eef1fb;margin-bottom:14px;">
+  html+=`<div style="background:#fff;border-radius:16px;padding:12px 14px;border:1px solid #eef1fb;margin-bottom:14px;cursor:pointer" onclick="setTab('winners')">
     <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;">
+      <span>🏆 Winners announced</span>
+      <span>${winnersDecided} events</span>
+    </div>
+    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
+      <div style="height:100%;width:100%;background:linear-gradient(90deg,#f5a623,#1f9d6c);border-radius:4px;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;margin-top:8px;">
       <span>🏏 Cricket</span>
       <span>${state.events.filter(e=>e.category==='Cricket' && e.status==='completed').length}/${state.events.filter(e=>e.category==='Cricket').length}</span>
     </div>
     <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
       <div style="height:100%;width:${state.events.filter(e=>e.category==='Cricket').length?Math.round((state.events.filter(e=>e.category==='Cricket'&&e.status==='completed').length/state.events.filter(e=>e.category==='Cricket').length)*100):0}%;background:#1f9d6c;border-radius:4px;"></div>
     </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;margin-top:8px;">
-      <span>🎯 Carrom</span>
-      <span>${state.fixtures.filter(f=>f.eventId==='ev-1' && (f.status==='completed'||f.winnerId)).length}/${carromMatches}</span>
-    </div>
-    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
-      <div style="height:100%;width:${carromMatches?Math.round((state.fixtures.filter(f=>f.eventId==='ev-1'&&(f.status==='completed'||f.winnerId)).length/carromMatches)*100):0}%;background:#f5a623;border-radius:4px;"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;margin-top:8px;">
-      <span>♟️ Chess</span>
-      <span>${state.fixtures.filter(f=>f.eventId==='ev-2' && (f.status==='completed'||f.winnerId)).length}/${chessMatches}</span>
-    </div>
-    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
-      <div style="height:100%;width:${chessMatches?Math.round((state.fixtures.filter(f=>f.eventId==='ev-2'&&(f.status==='completed'||f.winnerId)).length/chessMatches)*100):0}%;background:#4c7cf0;border-radius:4px;"></div>
-    </div>
+    <div style="font-size:9.5px;color:#8a95bd;font-weight:600;margin-top:8px;">🎯 Carrom &amp; ♟️ Chess results — updating soon</div>
   </div>`;
 
   const facts = ['🔥 "Champions are made when no one is watching"','💪 "Play with heart, win with pride"','🏅 "Every game is a new opportunity"','🌟 "KPCL family — united in sport"','🎯 "Focus. Execute. Celebrate."'];
@@ -1532,14 +1670,18 @@ function renderDashboard() {
   }
 
   // Quick links
-  html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
-    <div style="background:linear-gradient(135deg,#0b1530,#1a306a);border-radius:14px;padding:12px;text-align:center;cursor:pointer;" onclick="setTab('points')">
-      <div style="color:#f5a623;font-size:18px;">📊</div>
-      <div style="color:#fff;font-weight:700;font-size:11px;">Points Table</div>
+  html+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;">
+    <div style="background:linear-gradient(135deg,#b06a06,#f5a623);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;" onclick="setTab('winners')">
+      <div style="color:#fff;font-size:18px;">🏆</div>
+      <div style="color:#fff;font-weight:700;font-size:10.5px;">Winners</div>
     </div>
-    <div style="background:linear-gradient(135deg,#1f9d6c,#0b7a4a);border-radius:14px;padding:12px;text-align:center;cursor:pointer;" onclick="setTab('cricket')">
+    <div style="background:linear-gradient(135deg,#0b1530,#1a306a);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;" onclick="setTab('points')">
+      <div style="color:#f5a623;font-size:18px;">📊</div>
+      <div style="color:#fff;font-weight:700;font-size:10.5px;">Points Table</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#1f9d6c,#0b7a4a);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;" onclick="setTab('cricket')">
       <div style="color:#fff;font-size:18px;">🏏</div>
-      <div style="color:#fff;font-weight:700;font-size:11px;">Cricket Matches</div>
+      <div style="color:#fff;font-weight:700;font-size:10.5px;">Cricket</div>
     </div>
   </div>`;
 
@@ -1559,52 +1701,110 @@ function bindCards(){
 }
 
 // ============================================================
-// RENDER EVENTS
+// RENDER WINNERS
 // ============================================================
-function renderEvents(){
-  const c=document.getElementById('content');
-  const cats = ['all', ...new Set(state.events.filter(e=>e.category!=='Cricket').map(e=>e.category))];
-  let filtered = activeFilter==='all' ? state.events.filter(e=>e.category!=='Cricket') : state.events.filter(e=>e.category===activeFilter);
-  filtered = filtered.sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+function medalRow(place, name, isTeam, note){
+  const cls = place===1?'gold':place===2?'silver':'bronze';
+  const icon = place===1?'🥇':place===2?'🥈':'🥉';
+  const label = place===1?'1st Place':place===2?'2nd Place':'3rd Place';
+  if(isTeam){
+    const members = name.split(',').map(s=>s.trim()).filter(Boolean);
+    return `<div class="medal-row ${cls}">
+      <div class="medal-badge ${cls}">${icon}</div>
+      <div style="flex:1;min-width:0">
+        <div class="winner-sub">${label}</div>
+        <div class="winner-name" style="font-weight:700">${members.map(m=>escapeHtml(m)).join(' • ')}</div>
+        ${note?`<div class="winner-sub" style="text-transform:none;color:#8a95bd;margin-top:3px">${escapeHtml(note)}</div>`:''}
+      </div>
+    </div>`;
+  }
+  return `<div class="medal-row ${cls}">
+    <div class="medal-badge ${cls}">${icon}</div>
+    <div style="flex:1;min-width:0">
+      <div class="winner-name">${escapeHtml(name)}</div>
+      <div class="winner-sub">${label}</div>
+    </div>
+  </div>`;
+}
 
-  let html = `<div class="chip-group">`;
-  cats.forEach(cat=>{ html+=`<span class="chip ${activeFilter===cat?'active':''}" data-cat="${cat}">${cat==='all'?'🏆 All':getCategoryIcon(cat)+' '+cat}</span>`; });
-  html+=`</div>`;
+function rosterTable(ev){
+  const gold = ev.goldTeam || [];
+  const silver = ev.silverTeam || [];
+  const rows = Math.max(gold.length, silver.length);
+  let body = '';
+  for(let i=0;i<rows;i++){
+    body += `<tr><td class="rt-num">${i+1}</td><td>${gold[i]?escapeHtml(gold[i]):'—'}</td><td>${silver[i]?escapeHtml(silver[i]):'—'}</td></tr>`;
+  }
+  return `<div class="roster-table-wrap">
+    <table class="roster-table">
+      <thead><tr><th class="rt-num">#</th><th class="rt-gold">🥇 ${escapeHtml(ev.goldLabel||'Winning Team')}</th><th class="rt-silver">🥈 ${escapeHtml(ev.silverLabel||'Runner-up')}</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+  </div>`;
+}
 
-  if(!filtered.length){ html+=`<div class="empty">No events in this category</div>`; }
-  else {
-    const grouped = {};
-    filtered.forEach(e=>{ if(!grouped[e.category]) grouped[e.category] = []; grouped[e.category].push(e); });
-    Object.keys(grouped).forEach(cat=>{
-      if(categoryState[cat] === undefined) categoryState[cat] = true;
-      const isOpen = categoryState[cat];
-      html+=`<div class="category-group">
-        <div class="category-header" data-cat="${cat}">
-          <span class="cat-name">${getCategoryIcon(cat)} ${cat}</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="cat-count">${grouped[cat].length} events</span>
-            <span class="cat-arrow ${isOpen?'open':''}">▼</span>
-          </div>
-        </div>
-        <div class="category-body" style="display:${isOpen?'block':'none'}">
-          ${grouped[cat].map(e=>eventCardHtml(e)).join('')}
-        </div>
+function renderWinners(){
+  const c = document.getElementById('content');
+  const totalEvents = WINNERS_DATA.reduce((s,g)=>s+g.events.length,0);
+
+  let html = `<div class="win-hero">
+    <div class="win-hero-top">
+      <span class="win-hero-trophy">🏆</span>
+      <div>
+        <div class="win-hero-title">Winners' Circle</div>
+        <div class="win-hero-sub">57th Foundation Day Sports 2026</div>
+      </div>
+    </div>
+    <div class="win-hero-stats">
+      <div><b>${totalEvents}</b><span>Events Decided</span></div>
+      <div><b>${DOUBLE_GOLD.length}</b><span>Double Gold Stars</span></div>
+      <div><b>${WINNERS_DATA.length}</b><span>Categories</span></div>
+    </div>
+  </div>`;
+
+  html += `<div class="section-title">🌟 Double Gold Champions <small>2 golds each</small></div>
+  <div class="dg-strip">`;
+  DOUBLE_GOLD.forEach(p=>{
+    html += `<div class="dg-card"><div class="dg-medal">🥇🥇</div><div class="dg-name">${escapeHtml(p.name)}</div><div class="dg-group">${escapeHtml(p.group)}</div></div>`;
+  });
+  html += `</div>`;
+
+  html += `<div class="win-cat-strip" id="winCatNav">
+    <span class="chip ${winnersFilter==='all'?'active':''}" data-wc="all">🏆 All</span>`;
+  WINNERS_DATA.forEach(g=>{
+    html += `<span class="chip ${winnersFilter===g.id?'active':''}" data-wc="${g.id}">${g.icon} ${g.title}</span>`;
+  });
+  html += `</div>`;
+
+  const groupsToShow = winnersFilter==='all' ? WINNERS_DATA : WINNERS_DATA.filter(g=>g.id===winnersFilter);
+
+  groupsToShow.forEach(g=>{
+    html += `<div class="section-title" style="color:${g.accent}">${g.icon} ${g.title} <small>${g.events.length} event${g.events.length>1?'s':''} decided</small></div>`;
+    g.events.forEach(ev=>{
+      html += `<div class="win-event-card">
+        <div class="win-event-title">${getEventIcon(ev.name)} ${escapeHtml(ev.name)}</div>
+        ${ev.roster ? rosterTable(ev) : `
+          ${medalRow(1, ev.gold, ev.team, ev.note)}
+          ${ev.silver ? medalRow(2, ev.silver, ev.team) : ''}
+          ${ev.bronze ? medalRow(3, ev.bronze, ev.team) : ''}
+        `}
       </div>`;
     });
-  }
-
-  c.innerHTML=html;
-  document.querySelectorAll('.category-header').forEach(el=>{
-    el.onclick=()=>{
-      const cat = el.dataset.cat;
-      categoryState[cat] = !categoryState[cat];
-      const body = el.nextElementSibling;
-      body.style.display = categoryState[cat] ? 'block' : 'none';
-      el.querySelector('.cat-arrow').classList.toggle('open');
-    };
   });
-  document.querySelectorAll('.chip').forEach(el=>{ el.onclick=()=>{ activeFilter=el.dataset.cat; renderEvents(); }; });
-  bindCards(); renderTicker();
+
+  html += `<div class="section-title">⏳ Results Awaited</div>
+  <div class="pending-card">
+    <div class="pending-title">📋 Coming up in the Winners' Circle</div>
+    <div class="pending-text">Carrom, Chess and a few other categories will be announced here as soon as they're finalised. Men's Cricket League/Semifinals/Final can be tracked live on the 🏏 Cricket tab.</div>
+    <div class="chip-group" style="margin-top:10px">
+      ${PENDING_CATEGORIES.map(p=>`<span class="chip" style="cursor:default">${escapeHtml(p)}</span>`).join('')}
+    </div>
+  </div>`;
+
+  c.innerHTML = html;
+  document.querySelectorAll('#winCatNav .chip').forEach(el=>{
+    el.onclick = () => { winnersFilter = el.dataset.wc; renderWinners(); };
+  });
 }
 
 // ============================================================
@@ -1712,20 +1912,12 @@ function renderAlerts(){
 function setTab(tab){
   currentTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
-  document.getElementById('fabAdd').classList.toggle('show', isAdmin && (tab==='events'||tab==='cricket'||tab==='fixtures'));
-  
-  if (tab === 'fixtures') {
-    const eventIds = [...new Set(state.fixtures.map(f => f.eventId).filter(id => id))];
-    if (eventIds.length > 0 && (!activeFilter || activeFilter === 'all')) {
-      activeFilter = eventIds[0];
-    }
-  }
-  
+  document.getElementById('fabAdd').classList.toggle('show', isAdmin && tab==='cricket');
+
   if(tab==='dashboard') renderDashboard();
-  else if(tab==='events') renderEvents();
+  else if(tab==='winners') renderWinners();
   else if(tab==='cricket') renderCricket();
   else if(tab==='points') renderPointsTable();
-  else if(tab==='fixtures') renderFixtures();
   else if(tab==='organisers') renderOrganisers();
   else if(tab==='alerts') renderAlerts();
 }
@@ -1751,12 +1943,10 @@ document.getElementById('loginSubmit').onclick=()=>{
 document.getElementById('adminPw').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginSubmit').click(); });
 
 document.getElementById('fabAdd').onclick=()=>{
-  if(currentTab === 'fixtures') {
-    addFixture();
-  } else if(currentTab === 'cricket') {
+  if(currentTab === 'cricket') {
     openAddCricket();
   } else {
-    toast('Switch to Fixtures or Cricket tab to add');
+    toast('Switch to the Cricket tab to add a match');
   }
 };
 
