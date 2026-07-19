@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>57th Foundation Day · KPCL BTPS</title>
+  <title>57th Foundation Day Celebration 2026 · KPCL BTPS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
     .app{max-width:500px;margin:0 auto;padding:12px 14px 20px}
-    .header{background:linear-gradient(145deg,#0b1530,#1a306a);border-radius:28px;padding:18px 16px 12px;color:#fff;box-shadow:0 8px 20px rgba(11,21,48,.25)}
+    .header{background:linear-gradient(145deg,rgba(11,21,48,.93),rgba(26,48,106,.9)),url('assets/btps-plant.jpg') center 30%/cover no-repeat;border-radius:28px;padding:18px 16px 12px;color:#fff;box-shadow:0 8px 20px rgba(11,21,48,.25)}
     .top-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
     .brand-icon{width:42px;height:42px;background:#fff;border-radius:11px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);flex-shrink:0;padding:4px}
@@ -32,11 +32,14 @@
     .marquee-text .sep{color:#f5a623;margin:0 16px;font-weight:800}
     @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
     @media (prefers-reduced-motion: reduce){.marquee-text{animation:none;padding-left:0}}
-    .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-top:14px;padding:0 2px}
-    .tab{flex-shrink:0;padding:6px 2px;font-size:9px;font-weight:700;color:#9aa6cc;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;transition:color .15s;border-radius:8px 8px 0 0}
-    .tab.active{color:#fff;border-bottom-color:#f5a623;background:rgba(245,166,35,.08)}
-    .tab svg{width:14px;height:14px;flex-shrink:0}
-    .tab span{font-size:7px;letter-spacing:.2px}
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:14px;padding:3px;background:rgba(255,255,255,.05);border-radius:14px}
+    .tab{flex-shrink:0;padding:7px 2px 8px;font-size:9px;font-weight:700;color:#9aa6cc;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;transition:.18s ease;border-radius:11px;position:relative}
+    .tab:active{transform:scale(.94)}
+    .tab.active{color:#fff;background:linear-gradient(155deg,rgba(245,166,35,.22),rgba(245,166,35,.1));box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .tab.active svg{stroke:#f5a623}
+    .tab svg{width:15px;height:15px;flex-shrink:0;transition:.18s}
+    .tab span{font-size:7.5px;letter-spacing:.15px}
+    .tab.active span{color:#f5a623}
     .content{margin-top:14px}
     .section-title{font-size:15px;font-weight:800;margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
     .section-title small{font-size:11px;font-weight:600;color:#525d7a}
@@ -330,6 +333,88 @@
     .pending-title{font-size:12px;font-weight:800;color:#152854;margin-bottom:5px;display:flex;align-items:center;gap:6px}
     .pending-text{font-size:11.5px;color:#525d7a;font-weight:600;line-height:1.5}
 
+    .cult-details{background:#fff;border-radius:16px;border:1px solid #eef1fb;padding:12px 14px;margin-bottom:16px}
+    .cult-details summary{font-size:12px;font-weight:800;color:#152854;cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+    .cult-details summary::-webkit-details-marker{display:none}
+    .cult-details[open] summary{margin-bottom:4px}
+    .cult-details .roster-table td, .cult-details .roster-table th{font-size:10.5px}
+    .cult-hero{position:relative;overflow:hidden;background:linear-gradient(155deg,#2a0845,#5b1a8f 45%,#c026d3 110%);border-radius:22px;padding:18px 16px;color:#fff;margin-bottom:16px;box-shadow:0 12px 28px rgba(91,26,143,.3)}
+    .cult-hero::after{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,214,102,.3),transparent 70%)}
+    .cult-hero-top{display:flex;align-items:center;gap:10px;position:relative}
+    .cult-hero-top span{font-size:26px}
+    .cult-hero-title{font-family:'Oswald',sans-serif;font-size:19px;font-weight:700}
+    .cult-hero-sub{font-size:11px;font-weight:600;color:#f0dcff;margin-top:2px}
+    .cult-hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px;position:relative}
+    .cult-hero-stats div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:11px;padding:8px 3px;text-align:center}
+    .cult-hero-stats b{display:block;font-size:15px;font-family:'Oswald',sans-serif}
+    .cult-hero-stats span{font-size:8px;font-weight:700;color:#f0dcff;text-transform:uppercase;letter-spacing:.2px}
+    .cult-type-row{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 6px;margin-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
+    .cult-type-row::-webkit-scrollbar{display:none}
+    .cult-type-chip{flex-shrink:0;padding:7px 14px;border-radius:40px;font-size:11px;font-weight:700;background:#fff;border:1.5px solid #eef1fb;color:#525d7a;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px}
+    .cult-type-chip.active{background:var(--ct-accent,#7c3aed);border-color:var(--ct-accent,#7c3aed);color:#fff}
+    .cult-card{background:#fff;border-radius:14px;padding:11px 14px;margin-bottom:8px;border:1px solid #eef1fb;border-left:5px solid var(--ct-accent,#7c3aed);display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+    .cult-card .cc-num{width:26px;height:26px;border-radius:50%;background:var(--ct-accent,#7c3aed);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .cult-card .cc-icon{font-size:20px;flex-shrink:0}
+    .cult-card .cc-body{flex:1;min-width:0}
+    .cult-card .cc-name{font-size:12.5px;font-weight:800;color:#0b1530;line-height:1.3}
+    .cult-card .cc-item{font-size:11px;color:#525d7a;font-weight:600;margin-top:1px}
+    .cult-card .cc-type{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;color:var(--ct-accent,#7c3aed);background:color-mix(in srgb, var(--ct-accent,#7c3aed) 12%, #fff);padding:2px 8px;border-radius:20px;flex-shrink:0;white-space:nowrap}
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeScaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+    @keyframes heroShine{0%{transform:translateX(-120%) rotate(8deg)}100%{transform:translateX(220%) rotate(8deg)}}
+    @keyframes softPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
+    @keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,.35)}50%{box-shadow:0 0 0 8px rgba(245,166,35,0)}}
+    @keyframes contentIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    #content{animation:contentIn .32s ease}
+    .anim-in{opacity:0;animation:fadeSlideUp .5s cubic-bezier(.2,.8,.2,1) forwards}
+    .anim-pop{opacity:0;animation:fadeScaleIn .4s cubic-bezier(.2,.8,.2,1) forwards}
+    .hero-shine-wrap{position:relative;overflow:hidden}
+    .hero-shine-wrap .shine{position:absolute;top:-40%;left:0;width:36%;height:180%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent);animation:heroShine 3.4s ease-in-out infinite;pointer-events:none}
+    .upcoming-pill{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);padding:4px 10px;border-radius:20px}
+    .upcoming-pill .dot{width:6px;height:6px;border-radius:50%;background:#ffd873;animation:softPulse 1.4s ease-in-out infinite}
+    .cult-card.upcoming{position:relative}
+    .cult-card.upcoming:hover{transform:translateX(3px);box-shadow:0 4px 14px rgba(124,58,237,.15)}
+    .cult-card{transition:transform .18s ease,box-shadow .18s ease}
+    .win-event-card, .hero-stat, .dg-card{transition:transform .18s ease,box-shadow .18s ease}
+    .hero-stat:hover, .dg-card:hover{transform:translateY(-3px)}
+    .win-event-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+    .stat-flip b, .stat-num{display:inline-block}
+    .results-divider{display:flex;align-items:center;gap:10px;margin:18px 0 10px;color:#8a95bd;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+    .results-divider::before,.results-divider::after{content:'';flex:1;height:1px;background:#e2e6f0}
+
+    .invite-footer-card{background:linear-gradient(150deg,rgba(58,13,92,.88),rgba(124,58,237,.82) 55%,rgba(192,38,211,.72)),url('assets/btps-plant.jpg') center/cover no-repeat;border-radius:20px;padding:18px 16px;color:#fff;text-align:center;margin-bottom:10px;box-shadow:0 10px 24px rgba(124,58,237,.25);position:relative;overflow:hidden}
+    .invite-footer-card::before{content:'✨';position:absolute;top:8px;left:14px;font-size:16px;opacity:.6}
+    .invite-footer-card::after{content:'✨';position:absolute;bottom:10px;right:16px;font-size:16px;opacity:.6}
+    .ifc-badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:3px 12px;border-radius:20px;font-size:9.5px;font-weight:800;letter-spacing:.6px;margin-bottom:8px}
+    .ifc-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px}
+    .ifc-row{font-size:11px;font-weight:600;line-height:1.6;color:#f0e6ff}
+
+    /* ===================== INVITATION HERO (Dashboard) ===================== */
+    .invite-hero{position:relative;overflow:hidden;background:linear-gradient(155deg,rgba(42,8,69,.85),rgba(91,26,143,.82) 45%,rgba(192,38,211,.65) 110%),url('assets/btps-plant.jpg') center/cover no-repeat;border-radius:22px;padding:20px 16px 18px;color:#fff;margin-bottom:16px;box-shadow:0 12px 28px rgba(91,26,143,.3)}
+    .invite-hero-glow{position:absolute;top:-60px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,214,102,.35),transparent 70%);pointer-events:none}
+    .invite-hero-badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:4px 12px;border-radius:20px;font-size:9.5px;font-weight:800;letter-spacing:.6px;position:relative}
+    .invite-hero-title{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;margin-top:10px;position:relative;text-shadow:0 2px 10px rgba(0,0,0,.2)}
+    .invite-hero-sub{font-size:12px;font-weight:700;color:#f0dcff;margin-top:2px;position:relative;letter-spacing:.2px}
+    .invite-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;position:relative}
+    .ihg-item{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:13px;padding:9px 10px;display:flex;gap:8px;align-items:flex-start}
+    .ihg-item span{font-size:15px;line-height:1.2}
+    .ihg-item b{display:block;font-size:10.5px;font-weight:800;line-height:1.3}
+    .ihg-item small{display:block;font-size:8.5px;font-weight:600;color:#e6d4f5;margin-top:2px;line-height:1.3}
+    .invite-hero-cta{margin-top:14px;background:linear-gradient(135deg,#ffd873,#f5a623);color:#3a0d5c;text-align:center;font-weight:800;font-size:12px;padding:10px;border-radius:40px;cursor:pointer;position:relative;box-shadow:0 4px 12px rgba(245,166,35,.35)}
+
+    /* ===================== BUS ROUTES ===================== */
+    .icon-btn.bus-btn{font-size:15px}
+    .bus-table-wrap{background:#fff;border-radius:14px;border:1px solid #eef1fb;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+    .bus-table-wrap .bt-head{background:linear-gradient(135deg,#0b1530,#1a306a);color:#fff;padding:9px 14px;display:flex;justify-content:space-between;align-items:center}
+    .bus-table-wrap .bt-route{font-weight:800;font-size:13px}
+    .bus-table-wrap .bt-count{font-size:9.5px;color:#b6bedd;font-weight:600}
+    table.bus-table{width:100%;border-collapse:collapse}
+    table.bus-table td{padding:8px 14px;font-size:12px;color:#0b1530;font-weight:600;border-bottom:1px solid #f0f3fa}
+    table.bus-table tr:last-child td{border-bottom:none}
+    table.bus-table td.bt-num{width:26px;color:#8a95bd;font-weight:700;font-size:10.5px;text-align:center}
+    table.bus-table tr.bt-venue td{background:#fff8ec;color:#b06a06;font-weight:800}
+
     @media (min-width:600px){.app{max-width:600px}}
   </style>
 </head>
@@ -353,7 +438,7 @@
       <div class="brand">
         <div class="brand-icon"><img src="data:image/png;base64,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" alt="KPCL logo"></div>
         <div class="brand-text">
-          <div class="event">57th Foundation Day Sports 2026</div>
+          <div class="event">57th Foundation Day Celebration 2026</div>
           <div class="sub">Karnataka Power Corporation Ltd, BTPS</div>
         </div>
       </div>
@@ -361,6 +446,7 @@
         <div class="icon-btn" id="calendarBtn" title="Calendar view">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
         </div>
+        <div class="icon-btn bus-btn" id="busBtn" title="Bus routes to venue">🚌</div>
         <div class="icon-btn" id="connStatusBtn" title="Connection status">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"></path><path d="M1.42 9a16 16 0 0121.16 0"></path><path d="M8.53 16.11a6 6 0 016.95 0"></path><circle cx="12" cy="20" r="1" fill="currentColor"></circle></svg>
           <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
@@ -372,13 +458,12 @@
         <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span> online</div>
       </div>
     </div>
-    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏆 Winners announced across Athletics, Kids & Team events<span class="sep">★</span>🏏 Cricket semifinals coming up<span class="sep">★</span>🎯 Carrom &amp; ♟️ Chess results updating soon</span></div></div>
+    <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏆 Winners announced across Athletics, Kids & Team events<span class="sep">★</span>🎭 22 Cultural performances lit up the stage<span class="sep">★</span>🎉 Foundation Day celebration — Monday, 20 July, 10:30 AM</span></div></div>
     <div class="tabs" id="tabs">
       <div class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg><span>Home</span></div>
       <div class="tab" data-tab="winners"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"></path><path d="M7 6H4a1 1 0 00-1 1c0 2.5 1.5 4 4 4M17 6h3a1 1 0 011 1c0 2.5-1.5 4-4 4"></path></svg><span>Winners</span></div>
-      <div class="tab" data-tab="cricket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M5 19L19 5"></path></svg><span>Cricket</span></div>
-      <div class="tab" data-tab="points"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg><span>Points</span></div>
-      <div class="tab" data-tab="organisers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg><span>Org</span></div>
+      <div class="tab" data-tab="cultural"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg><span>Cultural</span></div>
+      <div class="tab" data-tab="busroutes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2.5"></rect><path d="M3 11h18M7 3v2M17 3v2"></path><circle cx="7.5" cy="19.5" r="1.5" fill="currentColor" stroke="none"></circle><circle cx="16.5" cy="19.5" r="1.5" fill="currentColor" stroke="none"></circle></svg><span>Buses</span></div>
       <div class="tab" data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg><span>Alerts</span></div>
     </div>
   </div>
@@ -411,7 +496,7 @@
 <script>
 (function(){
 const ADMIN_PW = "KPCL57th";
-let isAdmin = false, currentTab = 'dashboard', activeFilter = 'all', winnersFilter = 'all';
+let isAdmin = false, currentTab = 'dashboard', activeFilter = 'all', winnersFilter = 'all', culturalFilter = 'all';
 let state = { events: [], notifications: [], fixtures: [], stageResults: [], pointsTable: [] };
 let lastSeenNotif = 0;
 let backendOk = false;
@@ -434,7 +519,24 @@ function uid(p){ return p+'-'+Math.random().toString(36).slice(2,7); }
 function fmtDate(d){ if(!d)return ''; const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}); }
 function initials(n){ return n.trim().split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase(); }
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+function animateCounts(scope){
+  const els = (scope||document).querySelectorAll('.stat-num[data-count]');
+  els.forEach(el=>{
+    const target = parseInt(el.dataset.count, 10) || 0;
+    const dur = 700;
+    const start = performance.now();
+    function step(now){
+      const p = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  });
+}
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2500); }
+
 
 function normalizeDate(v){
   if(!v) return '';
@@ -645,102 +747,182 @@ const SEED_EVENTS = [];
 const SEED_NOTIFS = [];
 
 // ============================================================
-// WINNERS DATA — Results announced so far (57th Foundation Day)
-// Update this list as more results are confirmed. Carrom, Chess
-// and Cricket are tracked separately and will be added once final.
+// WINNERS DATA — 57th Foundation Day, KPCL/BTPS Kudatini
+// Sourced from the official Gents / Ladies / Kids Boys / Kids Girls
+// / Cultural Committee winner lists (verified 18–20 July 2026).
 // ============================================================
 const WINNERS_DATA = [
   {
-    id: 'gents-individual', title: 'Gents · Individual', icon: '🏃‍♂️', accent: '#1a4fc4',
+    id: 'gents-individual', title: 'Gents · Track & Field', icon: '🏃‍♂️', accent: '#1a4fc4',
     events: [
       { name: '100m Run – Above 45', gold: 'Sadanand Mirashi', silver: 'Lachamayya' },
       { name: '100m Run – Below 45', gold: 'Harish S/o Sadanand Mirashi', silver: 'Raghavendra B.G.' },
-      { name: '200m Run – Below 45', gold: 'Harish S/o Sadanand Mirashi', silver: 'Basalingappa' },
+      { name: '200m Run – Below 45', gold: 'Harish S/o Sadanand Mirashi', silver: 'Basavalingappa' },
       { name: 'Shot Put – Above 45', gold: 'Rajashekhar Choudri', silver: 'Sadanand Mirashi' },
-      { name: 'Shot Put – Below 45', gold: 'Parashurama (Tech CHP)', silver: 'Mahesh B.L.' },
+      { name: 'Shot Put – Below 45', gold: 'Parashurama', silver: 'Mahesh B.L.' },
       { name: 'Discus Throw – Above 45', gold: 'Sadanand Mirashi', silver: 'Rajashekhar Choudri' },
       { name: 'Discus Throw – Below 45', gold: 'Mahesh B.L.', silver: 'Harish S/o Sadanand Mirashi' },
-      { name: 'Javelin Throw – Above 45', gold: 'Thipperudra G.S.', silver: 'Shashikant Patil' },
+      { name: 'Javelin Throw – Above 45', gold: 'Tipperudra G.S.', silver: 'Shashikant Patil' },
       { name: 'Javelin Throw – Below 45', gold: 'Naveen S.', silver: 'Harish S/o Sadanand Mirashi' }
     ]
   },
   {
-    id: 'gents-team', title: 'Gents · Team Events', icon: '🏐', accent: '#1f9d6c',
+    id: 'ladies-individual', title: 'Ladies · Track & Field', icon: '🏃‍♀️', accent: '#c4257a',
     events: [
-      { name: 'Volleyball', roster: true,
-        goldTeam: ['Hariprasad', 'Viruthu', 'Rajashekhar Choudry', 'Munni', 'Lokesh M. (PCM)', 'Rama', 'Naveen'],
-        silverTeam: ['R. Loni', 'Raghavendra B.G.', 'Hanumanappa', 'Chandrashekhar Choudri', 'Mallikarjun', 'Chandu', 'Satish', 'Vined Yeddy', 'Prashanth Kumar'] }
-    ]
-  },
-  {
-    id: 'womens-cricket', title: "Women's Cricket", icon: '🏏', accent: '#0d9488',
-    events: [
-      { name: "Women's Cricket – Final", roster: true,
-        goldTeam: ['Vani D.', 'Rani', 'Rajarajeshwari', 'Ashwini P.K.', 'Aneesha', 'Sneha G.S.', 'Madhu', 'Sai Durga', 'Bhuvaneshwari'],
-        silverTeam: ['Anusha', 'Chaudri', 'Kamala', 'Ratneswari / Vanji', 'Zakeera', 'Pushpa', 'Sangama', 'Aishwarya', 'Soumya A.C.'] }
-    ]
-  },
-  {
-    id: 'ladies-individual', title: 'Ladies · Individual', icon: '🏃‍♀️', accent: '#c4257a',
-    events: [
-      { name: '100m Run – Below 45', gold: 'Indira Naik', silver: 'Sampita W/o Krishnamurthy' },
-      { name: 'Shot Put – Above 45', gold: 'Bharathi W/o Yatriswamy', silver: 'Geeta Patil W/o Shashikant Patil' },
-      { name: 'Shot Put – Below 45', gold: 'Shilpa H. (Unit 3 & 2)', silver: 'Soumy W/o Goutam (Technician)' },
-      { name: 'Discus Throw – Below 45', gold: 'Sampita W/o Krishnamurthy', silver: 'Soumya W/o Ajith' },
-      { name: 'Javelin Throw – Below 45', gold: 'Sampita W/o Krishnamurthy', silver: 'Nadevi Hosur' },
-      { name: 'Lemon Spoon – Above 45', gold: 'Geeta S. Patil W/o Shashikant Patil', silver: 'Saroja W/o Veerabhadrappa' },
-      { name: 'Lemon Spoon – Below 45', gold: 'Rekha H.M. W/o Kottresh H.M.', silver: 'Rajarajeshwari Villhooti' }
-    ]
-  },
-  {
-    id: 'tug-of-war', title: 'Tug of War', icon: '💪', accent: '#9a5a1f',
-    events: [
-      { name: 'Tug of War', team: true,
-        gold: 'Ashla, Chitra + team', silver: 'Vaishnavi, Sampita + team',
-        note: 'Full team rosters to be updated' }
+      { name: '100m Run – Above 45', gold: 'Bharati W/o T. Yarriswamy', silver: 'Naseema S.B.' },
+      { name: '100m Run – Below 45', gold: 'Indira Nayak', silver: 'Samprita W/o Krishnamurthy' },
+      { name: 'Shot Put – Above 45', gold: 'Bharati W/o T. Yarriswamy', silver: 'Geeta Patil W/o Shashikant Patil' },
+      { name: 'Shot Put – Below 45', gold: 'Shilpa H.', silver: 'Soumya W/o Goutam' },
+      { name: 'Discus Throw – Below 45', gold: 'Samprita W/o Krishnamurthy', silver: 'Soumya W/o Ajith' },
+      { name: 'Javelin Throw – Below 45', gold: 'Samprita W/o Krishnamurthy', silver: 'Nandini Hosur' },
+      { name: 'Lemon Spoon – Above 45', gold: 'Geeta Patil W/o Shashikant Patil', silver: 'Saroja W/o Veerabhadrappa' },
+      { name: 'Lemon Spoon – Below 45', gold: 'Rekha W/o Kottresh H.M.', silver: 'Rajarajeshwari Vibhooti' }
     ]
   },
   {
     id: 'kids-boys', title: 'Kids · Boys', icon: '🧒', accent: '#4c7cf0',
     events: [
-      { name: '3–6 Yrs: Frog Jump', gold: 'Bhargav S/o Guruprashant', silver: 'Reetham S/o Siddeshwar', bronze: 'S/o Moulasab' },
-      { name: '3–6 Yrs: Wicket Fall', gold: 'Shivana Gouda S/o Mallanaj Gouda', silver: 'Shivian S/o Amith', bronze: 'Vihan S/o Shivan Gouda' },
-      { name: '3–6 Yrs: 30m Run', gold: 'Bhargav S/o Guruprashant', silver: 'Yashith S/o Ravikumar', bronze: 'Theohil S/o Ravikumar' },
-      { name: '6–10 Yrs: 50m Run', gold: 'Aryan K. S/o Karthik', silver: 'Siddarth K.N. S/o Maralayya', bronze: 'Anirudh S/o Sachin Maladurg' },
-      { name: '6–10 Yrs: Musical Chair', gold: 'Siddarth K.N. S/o Maralayya', silver: 'Atharva C. S/o Chandrashekhar M.', bronze: 'Mohan S/o Sridhar' },
-      { name: '6–10 Yrs: Wicket Fall', gold: 'Rushel S/o Sharathbabu', silver: 'Kushal S/o Sandeep Kumar', bronze: 'Mohan S/o Virupakshappa' },
-      { name: '10–14 Yrs: 100m Run', gold: 'Mallinath S/o Chandrashekhar', silver: 'Uday Kumar S/o Suresh', bronze: 'S/o Virupaksha' },
-      { name: '10–14 Yrs: Lemon Spoon', gold: 'Mallinath S/o Chandrashekhar', silver: 'Suprith S/o A.M. Mallappa', bronze: 'Akshankith S/o Praveen A.R.' }
+      { name: 'Frog Jump – 3 to 6 Yrs', gold: 'Bhargav S/o Gurushant', silver: 'Preetham S/o Siddeshwar', bronze: 'Md. Chaveesh S/o Moulasab' },
+      { name: 'Wicket Fall – 3 to 6 Yrs', gold: 'Shivanagouda S/o Maharajgouda', silver: 'Shrihan S/o Ameeth', bronze: 'Vihan S/o Shivanagouda' },
+      { name: '30m Run – 3 to 6 Yrs', gold: 'Bhargav S/o Gurushant', silver: 'Ishaan S/o Nandini H.', bronze: 'Thoshit S/o Ravi Kumar' },
+      { name: '50m Run – 6 to 10 Yrs', gold: 'Aryan S/o Karthik', silver: 'Siddharth K.N. S/o Marulayya', bronze: 'Anirudh S/o Sachin Mahapurush' },
+      { name: 'Musical Chair – 6 to 10 Yrs', gold: 'Siddharth K.N. S/o Maralayya', silver: 'Atharva S/o Chandrashekhar', bronze: 'Vishan S/o Shreedhar' },
+      { name: 'Wicket Fall – 6 to 10 Yrs', gold: 'Pushkal S/o Sharat Babu', silver: 'Kushal S/o Santhosh Kumar', bronze: 'Vihan S/o Virupaxappa' },
+      { name: '100m Run – 10 to 14 Yrs', gold: 'Mallinath S/o Chandrashekhar', silver: 'Uday Kiran S/o Suresh', bronze: 'Tanmay S/o Virpaxappa' },
+      { name: 'Lemon Spoon – 10 to 14 Yrs', gold: 'Mallinath S/o Chandrashekhar', silver: 'Farahan S/o Arif Makhandar', bronze: 'Nishkarshit S/o Prasanna G.P.' }
     ]
   },
   {
     id: 'kids-girls', title: 'Kids · Girls', icon: '👧', accent: '#ec5a96',
     events: [
-      { name: '3–6 Yrs: Frog Jump', gold: 'Aditi D/o Chetan Kumar K.G.', silver: 'Sanvi H.M. D/o Kottresh H.M.', bronze: 'D/o Veeranna' },
-      { name: '3–6 Yrs: Wicket Fall', gold: 'Sarita', silver: 'Abhishekri Chaitra', bronze: 'Hrishika Nadle Gouda' },
-      { name: '3–6 Yrs: 30m Run', gold: 'Aditi D/o Chetan Kumar K.G.', silver: 'Sanvi H.M. D/o Kottresh', bronze: 'Nidhi D/o Yogendra' },
-      { name: '6–10 Yrs: 50m Run', gold: 'Supriya D/o Chetan Kumar', silver: 'Kousthika H.M. D/o Kottresh H.M.', bronze: 'Rashi M. D/o Mallikarjun' },
-      { name: '6–10 Yrs: Musical Chair', gold: 'Aarina Ameen D/o Sadiq', silver: 'Haritha H.M. D/o Maralayya H.M.', bronze: 'Kousthika H.M. D/o Kottresh H.M.' },
-      { name: '6–10 Yrs: Wicket Fall', gold: 'Shradha D/o Praveen', silver: 'Aavi D/o Dhananjay', bronze: 'Pushpita' },
-      { name: '10–14 Yrs: 100m Run', gold: 'Poorvika D/o Naveen S.', silver: 'Shravya D/o Kumarendra', bronze: 'Housika D/o Chetan Kumar C.' },
-      { name: '10–14 Yrs: Lemon Spoon', gold: 'Tanishka D/o Gangappa', silver: 'Hitha', bronze: 'Sevi' },
-      { name: '14–18 Yrs: 100m Run', gold: 'Ankita D/o Ravi K.', silver: 'Pallavi D/o Parameshwar', bronze: 'Nidhi S. Patil D/o Shashikant Patil' }
+      { name: 'Frog Jump – 3 to 6 Yrs', gold: 'Adhiti D/o Chetan Kumar K.G.', silver: 'Sonica H.M. D/o Kottresh H.M.', bronze: 'Drithi D/o Yoganand' },
+      { name: 'Wicket Fall – 3 to 6 Yrs', gold: 'Sonica H.M. D/o Kottresh H.M.', silver: 'Akanksha D/o Goutham', bronze: 'Thrishika D/o Moodle Gouda' },
+      { name: '30m Run – 3 to 6 Yrs', gold: 'Adhiti D/o Chetan Kumar K.G.', silver: 'Sonica H.M. D/o Kottresh H.M.', bronze: 'Drithi D/o Yoganand' },
+      { name: '50m Run – 6 to 10 Yrs', gold: 'Supriya D/o Chetan Kumar', silver: 'Kruthika H.M. D/o Kotresh H.M.', bronze: 'Roohi M. D/o Mabusab' },
+      { name: 'Musical Chair – 6 to 10 Yrs', gold: 'Aaira Aiman D/o Sadhiq', silver: 'Likhita K.M. D/o Marulayya K.M.', bronze: 'Kruthika H.M. D/o Kotresh H.M.' },
+      { name: 'Wicket Fall – 6 to 10 Yrs', gold: 'Shraddha D/o Praveen', silver: 'Advi D/o Dhananjay', bronze: 'Rukhaya D/o Rahamiya' },
+      { name: '100m Run – 10 to 14 Yrs', gold: 'Poorvika D/o Naveen S.', silver: 'Shravya D/o Kumar Ramesh Babu', bronze: 'Hausica D/o Chetan Kumar C.' },
+      { name: 'Lemon Spoon – 10 to 14 Yrs', gold: 'Tanishka D/o Gopayya Kavali', silver: 'Hitha D/o Ajith S. Rai' },
+      { name: '100m Run – 14 to 18 Yrs', gold: 'Likhita D/o Rani K.', silver: 'Pallavi D/o Parameshwar', bronze: 'Nidhi Patil D/o Shashikant Patil' }
+    ]
+  },
+  {
+    id: 'gents-team', title: 'Gents · Team Events', icon: '🏐', accent: '#1f9d6c',
+    events: [
+      { name: 'Volleyball – Final', roster: true, goldLabel: 'Winning Team', silverLabel: 'Runner-up',
+        goldTeam: ['Hariprasad H B', 'Vinuth Kumar', 'Rajashekhar Choudri', 'Muruli', 'Lokesh M.', 'Rama', 'Naveen', 'Parameshwar', 'Mahesh'],
+        silverTeam: ['Mohan', 'Raghavendra B.G.', 'Hanamappa', 'Chandrakant Choudri', 'Mallikarjun', 'Chandru', 'Satish', 'Vinod Reddy', 'Prashant Kumar N.'] },
+      { name: "Men's Cricket – Final", roster: true, goldLabel: 'Royal CIVIL BTPS (RCB)', silverLabel: 'SE(O)-3',
+        goldTeam: ['Raghavendra B.G. (C)', 'Hariprasad H B', 'Nawaj', 'Devaraj', 'Virupaxappa', 'Hanumantappa Y', 'Harish V', 'Vinuth', 'Harish', 'Lokesh M.', 'Vikas', 'Bharath G D', 'Lokesha M', 'Arun', 'Sundeep'],
+        silverTeam: ['Lalasab Lattannavar', 'Chandrashekhar H', 'Gowtham K A', 'Huliraj', 'Lokesh', 'Manjunath', 'Moulasab', 'Nagesh', 'Panduranga', 'Sharanabasava', 'Shivu Patil', 'Mallikarjun Hiremath', 'Ram Yadav', 'Shivaraj A', 'Girish Bevoor'] }
+    ]
+  },
+  {
+    id: 'ladies-team', title: 'Ladies · Team Events', icon: '🏏', accent: '#0d9488',
+    events: [
+      { name: "Women's Cricket – Final", roster: true, goldLabel: 'Winning Team', silverLabel: 'Runner-up',
+        goldTeam: ['Vani D.', 'Rani K.', 'Rajarajeshwari', 'Ashwini K.', 'AnaghaDevi', 'Sneha G.S.', 'Madhuri', 'Sai Durga', 'Bhuvaneshwari'],
+        silverTeam: ['Anusha', 'Ishwari', 'Komala', 'Basavarajeshwari', 'Zakeera', 'Pushpa', 'Soujanya', 'Asha Rani', 'Sowmya A.C.'] },
+      { name: 'Throw Ball – Final', roster: true, goldLabel: 'Winning Team', silverLabel: 'Runner-up',
+        goldTeam: ['Vedavathi', 'Yogeshwari B.', 'Shilpa H.', 'Lalita M.', 'Komala', 'Padmabhayi', 'Ashwini', 'Ambreen', 'Nagarathna'],
+        silverTeam: ['Rani K.', 'Vani D.', 'Anusha', 'Madhuri', 'Deepika', 'Mythri', 'Asharani', 'Sowmya', 'Anagha Devi'] },
+      { name: 'Tug of War – Final', roster: true, goldLabel: 'Winning Team', silverLabel: 'Runner-up',
+        goldTeam: ['Asha', 'Chaitra P.M.', 'Neelima', 'Basavarajeswari', 'Geeta Patil W/o Shashikant Patil', 'Shweta W/o Basavalingappa', 'H.M. Rekha', 'Shalini W/o Sandeep', 'Sandhya W/o Chandrashekar Hemkar', 'Madhushree W/o Veeresh', 'Lingamma W/o Lankesh', 'Pavitra W/o Sagar D.M.'],
+        silverTeam: ['Vaishnavi', 'Samprita W/o Krishnamurthy', 'Zakira Begum', 'Rajeshwari P.', 'Sunanda W/o Marulaiah', 'Amruta P. W/o Chetan Kumar K.J.', 'Archana W/o Sachin Mahapurush', 'Arpita W/o Basavaraj', 'Reshma P. W/o Mabusabu', 'Devi W/o Laxmikant', 'Bhagya W/o Rajesh', 'Bhavya W/o Rajesh Patil'] }
+    ]
+  },
+  {
+    id: 'indoor-gents', title: 'Gents · Indoor Games', icon: '🎯', accent: '#9a5a1f',
+    events: [
+      { name: 'Carrom – Singles', gold: 'Raghavendra B.G.', silver: 'Raghavendra G.S.' },
+      { name: 'Chess', gold: 'Virupaxappa', silver: 'Rajesh J.' },
+      { name: 'Jackpot', gold: 'Hanamappa U.', silver: 'Shivalal Naik' },
+      { name: 'Badminton (Singles) – Below 45', gold: 'Kumar Ramesh Baabu', silver: 'Naresh' },
+      { name: 'Badminton (Doubles) – Above 45', roster: true, goldLabel: 'Winning Pair', silverLabel: 'Runner-up',
+        goldTeam: ['Mallikarjun B.M.', 'Rajshekhar Chowdary'], silverTeam: ['Tipperudra G.S.', 'K.G. Manjunath'] },
+      { name: 'Badminton (Doubles) – Below 45', roster: true, goldLabel: 'Winning Pair', silverLabel: 'Runner-up',
+        goldTeam: ['Kumar Ramesh Baabu', 'Krishnamurthy'], silverTeam: ['Anil Kumar V.K.', 'Basavaraj Lamani'] }
+    ]
+  },
+  {
+    id: 'indoor-ladies', title: 'Ladies · Indoor Games', icon: '♟️', accent: '#b0227a',
+    events: [
+      { name: 'Carrom – Singles', gold: 'Vani D.', silver: 'Asha' },
+      { name: 'Carrom – Doubles', roster: true, goldLabel: 'Winning Pair', silverLabel: 'Runner-up',
+        goldTeam: ['Vani D.', 'Ambika'], silverTeam: ['Spoorti Sali', 'Lalita'] },
+      { name: 'Chess', gold: 'Sushma C.D.', silver: 'Asha S.' },
+      { name: 'Badminton (Singles) – Above 45', gold: 'Noorunnisa Begum', silver: 'Yogeshwari B.' },
+      { name: 'Badminton (Singles) – Below 45', gold: 'Spoorti Sali', silver: 'Pushpa' },
+      { name: 'Badminton (Doubles) – Above 45', roster: true, goldLabel: 'Winning Pair', silverLabel: 'Runner-up',
+        goldTeam: ['Noorunnisa Begum', 'Sharadha K.'], silverTeam: ['Vedavathi', 'Naseema S.B.'] },
+      { name: 'Badminton (Doubles) – Below 45', roster: true, goldLabel: 'Winning Pair', silverLabel: 'Runner-up',
+        goldTeam: ['Madhuri H.R.', 'Pushpa'], silverTeam: ['Basavarajeshwari', 'Ambika'] },
+      { name: 'Tennikoit', roster: true, goldLabel: 'Winning Pair', silverLabel: 'Runner-up',
+        goldTeam: ['Chaitra P.M.', 'Madhuri H.R.'], silverTeam: ['Lalita M.', 'Rani K.'] }
+    ]
+  },
+  {
+    id: 'cultural', title: 'Cultural Competitions', icon: '🎤', accent: '#7c3aed',
+    events: [
+      { name: 'Karaoke-less Singing – Kannada Film Songs (Employees)', gold: 'Navya K.R.', silver: 'Ravikumar B.M.', bronze: 'Mahadevaprasad' },
+      { name: 'Karaoke-less Singing – Bhavageethe / Folk / Devotional (Employees)', gold: 'Gangadhar G.', silver: 'Ravikumar B.M.', bronze: 'Navya K.R.' },
+      { name: 'Quiz (Rasaprashne) – Committee Members', gold: 'Tipperudra G.S.', silver: 'Santosh Yalasangi', bronze: 'Shashikant M. Patil' },
+      { name: 'Quiz (Rasaprashne) – All Employees', gold: 'Sunil Y.', silver: 'Chaitra P.M.', bronze: 'Gopayya Kavali' },
+      { name: 'Karaoke-less Singing – Family (12+ Yrs)', gold: 'Aparna D/o Shivayogi', silver: 'Spoorti W/o Suryateja', bronze: 'Sunanda W/o Marulayya' },
+      { name: 'Karaoke-less Singing – Kids (Below 12 Yrs)', gold: 'Avani D/o Chetan Kumar', silver: 'Sai D/o Kumar Ramesh Babu', bronze: 'Roohi M. D/o Mabusab' },
+      { name: 'Rangoli Competition (All Employees)', team: true,
+        gold: 'Komala G.S., Supriya', silver: 'Ramyashree, Veena Choudala', bronze: 'Padmabhayi, Bharathi T.' }
     ]
   }
+];
+
+// Employee bus routes for 57th Foundation Day (per circular EE(S&P)/Vahan, dated 18.07.2026)
+// Departure: 9:30 AM from first stop on each route; buses return after the programme concludes.
+const BUS_ROUTES = [
+  { id: 1, stops: ['MG Automobiles', 'Housing Board Colony', 'Raghavendra Matha', 'SN Pet / Aradhana Hospital', 'Sangam Circle', 'Royal Circle', 'Mothi Circle', 'Ranga Mandira'] },
+  { id: 2, stops: ['Nehru Colony', 'Basaveswar Nagar', 'KEB Circle', 'JDS Office', 'Gandinagar Market', "Women's Hostel Cross", 'Karvy Finpolis', 'Durgamma Temple', 'Ranga Mandira'] },
+  { id: 3, stops: ['Vidya Nagar', 'Indira Nagar', 'Fire Station', 'S P Circle', 'Sony Show Room', 'Durgamma Temple', 'Ranga Mandira'] },
+  { id: 4, stops: ['Kuvempu Nagar', 'TB Sanitorium', 'Belagal Cross', 'Ex-Serviceman Colony', 'Ganesha Temple', 'Cowl Bazar', '1st Gate', 'Ranga Mandira'] },
+  { id: 5, stops: ['BTPS', 'Kudathini', 'Sudha Cross', 'Vasavi School (Infantry Road)', 'Ranga Mandira'] },
+  { id: 6, stops: ['Kudathini', 'Radio Park', 'St. Joseph School', 'Ranga Mandira'] }
 ];
 
 // People with 2 or more individual gold medals — "Double Gold Champions"
 const DOUBLE_GOLD = [
   { name: 'Sadanand Mirashi', group: 'Gents' },
   { name: 'Harish S/o Sadanand Mirashi', group: 'Gents' },
-  { name: 'Sampita W/o Krishnamurthy', group: 'Ladies' },
-  { name: 'Bhargav S/o Guruprashant', group: 'Kids Boys' },
+  { name: 'Bharati W/o T. Yarriswamy', group: 'Ladies' },
+  { name: 'Samprita W/o Krishnamurthy', group: 'Ladies' },
+  { name: 'Bhargav S/o Gurushant', group: 'Kids Boys' },
   { name: 'Mallinath S/o Chandrashekhar', group: 'Kids Boys' },
-  { name: 'Aditi D/o Chetan Kumar K.G.', group: 'Kids Girls' }
+  { name: 'Adhiti D/o Chetan Kumar K.G.', group: 'Kids Girls' }
 ];
 
-// Categories awaiting results
-const PENDING_CATEGORIES = ['🎯 Carrom Singles & Doubles', '♟️ Chess', '🏸 Badminton (all categories)', '🏃 Cross Country', '🏐 Ladies Volleyball & Throw Ball', '🥏 Tennikoit'];
+// Cultural program — performance line-up for the Foundation Day celebration (20.07.2026, upcoming)
+const CULTURAL_PROGRAM = [
+  { name: 'Libita D/o Marulayya', type: 'Solo Dance', item: 'Bharatanatyam' },
+  { name: 'Sumukh S/o Sandeep', type: 'Song', item: 'Bana Dariyalli Surya Jarikoda' },
+  { name: 'Vihaan S/o Sridhar & Team', type: 'Group Dance', item: 'Nammoora Santhelli' },
+  { name: 'Poornika Gouravi D/o Naveen S.', type: 'Solo Dance', item: 'Navami Navami' },
+  { name: 'Aparna D/o Shivayogi', type: 'Song', item: 'Aakasha Deepavu Neenu' },
+  { name: 'Anirudh S/o Sachin M. & Team', type: 'Group Dance', item: 'Movie Mix Song' },
+  { name: 'Narendra Rao Kulkarni', type: 'Song', item: '—' },
+  { name: 'Bhoomika D/o Nandish Kumar', type: 'Solo Dance', item: '—' },
+  { name: 'Kalyan & Gopayya', type: 'Song', item: 'Jagave Ondu Rana Ranga' },
+  { name: 'Akanksha D/o Anand M.', type: 'Solo Dance', item: 'Durandhara (Film)' },
+  { name: 'Girish Bevoor', type: 'Song', item: 'Laali Suvvali' },
+  { name: 'Tippeswamy', type: 'Group Song', item: '—' },
+  { name: 'Maruti', type: 'Solo Dance', item: 'Chitru Chitru' },
+  { name: 'Someshekhar', type: 'Solo Song', item: 'Karunada Thayi' },
+  { name: 'Praveena', type: 'Solo Dance', item: 'Pasoori Album (Mix Songs)' },
+  { name: 'Gangadhar G.', type: 'Song', item: 'Megha Bantu Megha' },
+  { name: 'Asha S. & Team', type: 'Group Dance', item: 'Barso Re Megha (Mix Song)' },
+  { name: 'Navya', type: 'Song', item: 'Nodayya Kyata Lingave' },
+  { name: 'Sharath Team', type: 'Group Dance', item: 'Sharath / Tagaru / Monica Songs' },
+  { name: 'Rukayya & Ayisha', type: 'Group Dance', item: 'Boomro Song' },
+  { name: 'Asha Rani T.S.', type: 'Song', item: 'Aaha Entha Aa Kshana' },
+  { name: 'Gopayya', type: 'Song', item: 'Andavo Andavu Kannadanaadu' }
+];
 
 // ============================================================
 // BACKEND FUNCTIONS
@@ -876,13 +1058,28 @@ function renderTicker(){
   const totalCricket = cricketMatches.length;
   if(totalCricket) parts.push(`🏏 Cricket: ${completedCricket}/${totalCricket} matches done`);
 
-  parts.push(`🎯 Carrom & ♟️ Chess results updating soon`);
+  const cultCount = (typeof CULTURAL_PROGRAM !== 'undefined' && CULTURAL_PROGRAM.length)
+    ? CULTURAL_PROGRAM.length : null;
+  if(cultCount) parts.push(`🎭 ${cultCount} Cultural performances registered`);
+  else parts.push(`🎯 Carrom & ♟️ Chess results updating soon`);
 
   const semifinals = state.events.filter(e => e.name.includes('Semifinal') && e.category === 'Cricket');
   if(semifinals.length){ parts.push(`🏅 Semifinals: ${semifinals.filter(e=>e.status==='completed').length}/${semifinals.length} done`); }
 
+  parts.push(`🚌 ${BUS_ROUTES.length} free bus routes to venue — 9:30 AM pickup, see Bus Routes tab`);
+  parts.push(`🎉 57th Foundation Day Celebration — Monday, 20 July, 10:30 AM`);
+
   const joined = parts.map(p=>escapeHtml(p)).join('<span class="sep">★</span>');
   el.innerHTML = joined + '<span class="sep">★</span>' + joined;
+
+  // Scroll speed must scale with actual text length, or the two looped
+  // copies overlap/collide when there's more (or less) content than usual.
+  requestAnimationFrame(() => {
+    const singleCopyWidth = el.scrollWidth / 2;
+    const PIXELS_PER_SECOND = 55; // constant readable scroll speed
+    const duration = Math.max(10, singleCopyWidth / PIXELS_PER_SECOND);
+    el.style.animationDuration = duration.toFixed(1) + 's';
+  });
 }
 
 function isToday(dateStr){ return dateStr === TODAY_STR; }
@@ -901,13 +1098,23 @@ function getEventIcon(name){
   if(/final/.test(n)) return '🏆';
   if(/cricket/.test(n)) return '🏏';
   if(/kabaddi/.test(n)) return '🤼';
-  if(/run|walk|100m|200m/.test(n)) return '🏃';
-  if(/shot put/.test(n)) return '⚪';
+  if(/badminton/.test(n)) return '🏸';
+  if(/table tennis/.test(n)) return '🏓';
+  if(/jackpot/.test(n)) return '🎰';
+  if(/tennikoit/.test(n)) return '🥏';
+  if(/tug.of.war/.test(n)) return '💪';
+  if(/throw ball/.test(n)) return '🤾';
+  if(/lemon spoon/.test(n)) return '🥄';
+  if(/frog jump/.test(n)) return '🐸';
+  if(/wicket fall/.test(n)) return '🎳';
+  if(/musical chair/.test(n)) return '🪑';
+  if(/run|walk|100m|200m|30m|50m/.test(n)) return '🏃';
+  if(/shot ?put/.test(n)) return '⚪';
   if(/discus/.test(n)) return '🥏';
   if(/javelin/.test(n)) return '🔱';
-  if(/volleyball/.test(n)) return '🏐';
-  if(/karaoke/.test(n)) return '🎤';
-  if(/quiz/.test(n)) return '🧠';
+  if(/volleyball|volley ball/.test(n)) return '🏐';
+  if(/karaoke|singing/.test(n)) return '🎤';
+  if(/quiz|rasaprashne/.test(n)) return '🧠';
   if(/rangoli/.test(n)) return '🎨';
   return '🏅';
 }
@@ -1611,15 +1818,8 @@ function openSheet(id) {
 // ============================================================
 function renderDashboard() {
   const c = document.getElementById('content');
-  const total=state.events.length, done=state.events.filter(e=>e.status==='completed').length;
-  const liveCount=state.events.filter(e=>e.status==='live').length;
-  const upcoming=state.events.filter(e=>e.status==='upcoming').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,6);
-  const cricketCount = state.events.filter(e=>e.category==='Cricket').length;
-  const pct=total?Math.round((done/total)*100):0;
-  const circumference = 2 * Math.PI * 24;
-  const offset = circumference * (1 - pct/100);
-  
   const winnersDecided = WINNERS_DATA.reduce((s,g)=>s+g.events.length,0);
+  const medalCount = WINNERS_DATA.reduce((s,g)=>s+g.events.reduce((s2,ev)=>s2+1+(ev.silver||ev.silverTeam?1:0)+(ev.bronze?1:0),0),0);
 
   let html='';
   if(!backendOk && !USE_LOCAL_FALLBACK){
@@ -1629,79 +1829,71 @@ function renderDashboard() {
     </div>`;
   }
   if(isAdmin) html+=`<div class="admin-banner">🔑 Admin mode — edits sync to all employees</div>`;
-  
+
+  html += `<div class="invite-hero hero-shine-wrap"><div class="shine"></div>
+    <div class="invite-hero-glow"></div>
+    <div class="invite-hero-badge">🎉 TOMORROW · 20 JULY</div>
+    <div class="invite-hero-title">You're Invited!</div>
+    <div class="invite-hero-sub">57th Foundation Day Celebration</div>
+    <div class="invite-hero-grid">
+      <div class="ihg-item"><span>📅</span><div><b>Mon, 20 Jul 2026</b><small>10:30 AM onwards</small></div></div>
+      <div class="ihg-item"><span>📍</span><div><b>Dr. Jolarashi Doddanagowda Rangamandira</b><small>Near KSRTC Police Bus Stand, Ballari</small></div></div>
+      <div class="ihg-item"><span>👤</span><div><b>Sri K R Gangadharaiah</b><small>Chairman · Executive Director, BTPS</small></div></div>
+      <div class="ihg-item"><span>🏆</span><div><b>Prize Distribution</b><small>All Sports &amp; Cultural winners felicitated</small></div></div>
+      <div class="ihg-item" style="cursor:pointer" onclick="setTab('busroutes')"><span>🚌</span><div><b>6 Bus Routes</b><small>Free pickup from Ballari · 9:30 AM</small></div></div>
+    </div>
+    <div class="invite-hero-cta" onclick="setTab('winners')">🏅 View All Winners →</div>
+  </div>`;
+
   html+=`<div class="hero-stats">
-    <div class="hero-stat" id="cricketStat"><span class="emoji">🏏</span><div class="num">${cricketCount}</div><div class="lbl">Cricket</div></div>
-    <div class="hero-stat"><span class="emoji">🏆</span><div class="num">${done}</div><div class="lbl">Completed</div></div>
-    <div class="hero-stat"><span class="emoji">📅</span><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+    <div class="hero-stat anim-pop" style="animation-delay:.05s" onclick="setTab('winners')"><span class="emoji">🏆</span><div class="num stat-num" data-count="${winnersDecided}">0</div><div class="lbl">Events Decided</div></div>
+    <div class="hero-stat anim-pop" style="animation-delay:.15s" onclick="setTab('winners')"><span class="emoji">🥇</span><div class="num stat-num" data-count="${medalCount}">0</div><div class="lbl">Medals Won</div></div>
+    <div class="hero-stat anim-pop" style="animation-delay:.25s" onclick="setTab('cultural')"><span class="emoji">🎭</span><div class="num stat-num" data-count="${CULTURAL_PROGRAM.length}">0</div><div class="lbl">Performances</div></div>
   </div>`;
 
-  html+=`<div style="background:#fff;border-radius:16px;padding:12px 14px;border:1px solid #eef1fb;margin-bottom:14px;cursor:pointer" onclick="setTab('winners')">
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;">
-      <span>🏆 Winners announced</span>
-      <span>${winnersDecided} events</span>
-    </div>
-    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
-      <div style="height:100%;width:100%;background:linear-gradient(90deg,#f5a623,#1f9d6c);border-radius:4px;"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#525d7a;margin-top:8px;">
-      <span>🏏 Cricket</span>
-      <span>${state.events.filter(e=>e.category==='Cricket' && e.status==='completed').length}/${state.events.filter(e=>e.category==='Cricket').length}</span>
-    </div>
-    <div style="height:4px;background:#f0f3fa;border-radius:4px;margin-top:4px;overflow:hidden;">
-      <div style="height:100%;width:${state.events.filter(e=>e.category==='Cricket').length?Math.round((state.events.filter(e=>e.category==='Cricket'&&e.status==='completed').length/state.events.filter(e=>e.category==='Cricket').length)*100):0}%;background:#1f9d6c;border-radius:4px;"></div>
-    </div>
-    <div style="font-size:9.5px;color:#8a95bd;font-weight:600;margin-top:8px;">🎯 Carrom &amp; ♟️ Chess results — updating soon</div>
-  </div>`;
-
-  const facts = ['🔥 "Champions are made when no one is watching"','💪 "Play with heart, win with pride"','🏅 "Every game is a new opportunity"','🌟 "KPCL family — united in sport"','🎯 "Focus. Execute. Celebrate."'];
+  const facts = ['🔥 "Champions are made when no one is watching"','💪 "Play with heart, win with pride"','🏅 "Every game is a new opportunity"','🌟 "KPCL family — united in sport and celebration"','🎯 "Focus. Execute. Celebrate."'];
   const fact = facts[Math.floor(Math.random() * facts.length)];
   html+=`<div class="fun-fact"><span class="icon">💡</span><span class="text">${fact}</span></div>`;
 
-  html+=`<div class="progress-ring">
-    <div class="ring"><svg><circle class="bg" cx="30" cy="30" r="24"/><circle class="fg" cx="30" cy="30" r="24" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/></svg><div class="center">${pct}<small>%</small></div></div>
-    <div class="ring-text"><div class="pct">${done} of ${total} events done</div><div class="sub">${liveCount > 0 ? `🔴 ${liveCount} live now` : '🏁 Keep going!'}</div></div>
-  </div>`;
+  html += `<div class="section-title">🌟 Double Gold Champions <small>2 golds each</small></div>
+  <div class="dg-strip">`;
+  DOUBLE_GOLD.forEach((p,i)=>{
+    html += `<div class="dg-card anim-pop" style="animation-delay:${(i*0.06).toFixed(2)}s"><div class="dg-medal">🥇🥇</div><div class="dg-name">${escapeHtml(p.name)}</div><div class="dg-group">${escapeHtml(p.group)}</div></div>`;
+  });
+  html += `</div>`;
 
-  // Gender breakdown removed for brevity - can be added back
-
-  const todaysEvents = state.events.filter(e=>isToday(e.date) && e.status !== 'postponed').sort((a,b)=>(a.time||'').localeCompare(b.time||''));
-
-  if(todaysEvents.length){
-    html+=`<div class="section-title">🔥 Today's Events <small id="todayCount" style="cursor:pointer;color:#b06a06;">${todaysEvents.length} · view all →</small></div>`;
-    todaysEvents.slice(0,4).forEach(e=>html+=eventCardHtml(e));
-    if(todaysEvents.length > 4){
-      html += `<button id="seeMoreToday" style="width:100%;background:#fff;border:1.5px solid #f5a623;color:#b06a06;padding:9px;border-radius:11px;font-size:12px;font-weight:700;margin-bottom:14px;cursor:pointer;">View all ${todaysEvents.length} today's events →</button>`;
-    }
-  }
-
-  if(upcoming.length){
-    html+=`<div class="section-title">📅 Coming up <small>${upcoming.length}</small></div>`;
-    upcoming.forEach(e=>html+=eventCardHtml(e));
-  }
+  // Tomorrow's cultural performance line-up preview
+  const previewCount = 5;
+  html += `<div class="section-title">🎬 Tomorrow's Cultural Line-up <span class="upcoming-pill" style="background:#f4f0ff;border-color:#e2d4ff;color:#5b1a8f"><span class="dot" style="background:#7c3aed"></span> Live 20 July</span></div>`;
+  CULTURAL_PROGRAM.slice(0, previewCount).forEach((p,i)=>{
+    const m = cultMeta(p.type);
+    html += `<div class="cult-card upcoming anim-in" style="--ct-accent:${m.accent};animation-delay:${(i*0.05).toFixed(2)}s" onclick="setTab('cultural')">
+      <div class="cc-num">${i+1}</div>
+      <div class="cc-icon">${m.icon}</div>
+      <div class="cc-body">
+        <div class="cc-name">${escapeHtml(p.name)}</div>
+        <div class="cc-item">${p.item && p.item!=='—' ? escapeHtml(p.item) : 'Performance item not listed'}</div>
+      </div>
+      <div class="cc-type">${escapeHtml(p.type)}</div>
+    </div>`;
+  });
+  html += `<div style="text-align:center;margin:2px 0 14px;cursor:pointer;font-size:11.5px;font-weight:800;color:#7c3aed" onclick="setTab('cultural')">View all ${CULTURAL_PROGRAM.length} performances →</div>`;
 
   // Quick links
-  html+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;">
-    <div style="background:linear-gradient(135deg,#b06a06,#f5a623);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;" onclick="setTab('winners')">
-      <div style="color:#fff;font-size:18px;">🏆</div>
-      <div style="color:#fff;font-weight:700;font-size:10.5px;">Winners</div>
+  html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+    <div style="background:linear-gradient(135deg,#b06a06,#f5a623);border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;" onclick="setTab('winners')">
+      <div style="color:#fff;font-size:20px;">🏆</div>
+      <div style="color:#fff;font-weight:700;font-size:11px;margin-top:2px;">All Winners</div>
     </div>
-    <div style="background:linear-gradient(135deg,#0b1530,#1a306a);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;" onclick="setTab('points')">
-      <div style="color:#f5a623;font-size:18px;">📊</div>
-      <div style="color:#fff;font-weight:700;font-size:10.5px;">Points Table</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#1f9d6c,#0b7a4a);border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;" onclick="setTab('cricket')">
-      <div style="color:#fff;font-size:18px;">🏏</div>
-      <div style="color:#fff;font-weight:700;font-size:10.5px;">Cricket</div>
+    <div style="background:linear-gradient(135deg,#5b1a8f,#c026d3);border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;" onclick="setTab('cultural')">
+      <div style="color:#fff;font-size:20px;">🎭</div>
+      <div style="color:#fff;font-weight:700;font-size:11px;margin-top:2px;">Cultural Program</div>
     </div>
   </div>`;
 
   c.innerHTML=html;
-  document.getElementById('cricketStat')?.addEventListener('click', ()=>setTab('cricket'));
-  document.getElementById('todayCount')?.addEventListener('click', ()=>toast('📅 Today\'s events'));
-  document.getElementById('seeMoreToday')?.addEventListener('click', ()=>toast('📅 Today\'s events'));
   document.getElementById('retrySyncBtn')?.addEventListener('click', async ()=>{ toast('🔄 Attempting to reconnect...'); await loadState(); renderCurrentTab(); });
-  bindCards();
+  animateCounts(c);
   renderTicker();
 }
 
@@ -1758,25 +1950,25 @@ function renderWinners(){
   const c = document.getElementById('content');
   const totalEvents = WINNERS_DATA.reduce((s,g)=>s+g.events.length,0);
 
-  let html = `<div class="win-hero">
+  let html = `<div class="win-hero hero-shine-wrap"><div class="shine"></div>
     <div class="win-hero-top">
       <span class="win-hero-trophy">🏆</span>
       <div>
         <div class="win-hero-title">Winners' Circle</div>
-        <div class="win-hero-sub">57th Foundation Day Sports 2026</div>
+        <div class="win-hero-sub">57th Foundation Day · All Events Concluded</div>
       </div>
     </div>
     <div class="win-hero-stats">
-      <div><b>${totalEvents}</b><span>Events Decided</span></div>
-      <div><b>${DOUBLE_GOLD.length}</b><span>Double Gold Stars</span></div>
-      <div><b>${WINNERS_DATA.length}</b><span>Categories</span></div>
+      <div><b class="stat-num" data-count="${totalEvents}">0</b><span>Events Decided</span></div>
+      <div><b class="stat-num" data-count="${DOUBLE_GOLD.length}">0</b><span>Double Gold Stars</span></div>
+      <div><b class="stat-num" data-count="${WINNERS_DATA.length}">0</b><span>Categories</span></div>
     </div>
   </div>`;
 
   html += `<div class="section-title">🌟 Double Gold Champions <small>2 golds each</small></div>
   <div class="dg-strip">`;
-  DOUBLE_GOLD.forEach(p=>{
-    html += `<div class="dg-card"><div class="dg-medal">🥇🥇</div><div class="dg-name">${escapeHtml(p.name)}</div><div class="dg-group">${escapeHtml(p.group)}</div></div>`;
+  DOUBLE_GOLD.forEach((p,i)=>{
+    html += `<div class="dg-card anim-pop" style="animation-delay:${(i*0.06).toFixed(2)}s"><div class="dg-medal">🥇🥇</div><div class="dg-name">${escapeHtml(p.name)}</div><div class="dg-group">${escapeHtml(p.group)}</div></div>`;
   });
   html += `</div>`;
 
@@ -1796,8 +1988,8 @@ function renderWinners(){
 
   groupsToShow.forEach(g=>{
     html += `<div class="section-title" style="color:${g.accent}">${g.icon} ${g.title} <small>${g.events.length} event${g.events.length>1?'s':''} decided</small></div>`;
-    g.events.forEach(ev=>{
-      html += `<div class="win-event-card">
+    g.events.forEach((ev,i)=>{
+      html += `<div class="win-event-card anim-in" style="animation-delay:${(Math.min(i,10)*0.05).toFixed(2)}s">
         <div class="win-event-title">${getEventIcon(ev.name)} ${escapeHtml(ev.name)}</div>
         ${ev.roster ? rosterTable(ev) : `
           ${medalRow(1, ev.gold, ev.team, ev.note)}
@@ -1808,19 +2000,164 @@ function renderWinners(){
     });
   });
 
-  html += `<div class="section-title">⏳ Results Awaited</div>
-  <div class="pending-card">
-    <div class="pending-title">📋 Coming up in the Winners' Circle</div>
-    <div class="pending-text">Carrom, Chess and a few other categories will be announced here as soon as they're finalised. Men's Cricket League/Semifinals/Final can be tracked live on the 🏏 Cricket tab.</div>
-    <div class="chip-group" style="margin-top:10px">
-      ${PENDING_CATEGORIES.map(p=>`<span class="chip" style="cursor:default">${escapeHtml(p)}</span>`).join('')}
-    </div>
+  html += `<div class="invite-hero-cta" style="margin-bottom:16px" onclick="setTab('cultural')">🎭 See the full Cultural Program (${CULTURAL_PROGRAM.length} performances) →</div>`;
+
+  html += `<div class="invite-footer-card">
+    <div class="ifc-badge">🎉 TOMORROW</div>
+    <div class="ifc-title">57th Foundation Day Celebration</div>
+    <div class="ifc-row">📅 Monday, 20 July 2026 &nbsp;·&nbsp; 🕥 10:30 AM</div>
+    <div class="ifc-row">📍 Dr. Jolarashi Doddanagowda Rangamandira, near KSRTC Police Bus Stand, Ballari</div>
+    <div class="ifc-row" style="opacity:.85">Prize distribution for all winners above will take place at the ceremony. See you there! 🏆</div>
   </div>`;
 
   c.innerHTML = html;
   document.querySelectorAll('#winCatNav .win-cat-tile').forEach(el=>{
     el.onclick = () => { winnersFilter = el.dataset.wc; renderWinners(); };
   });
+  animateCounts(c);
+}
+
+// ============================================================
+// RENDER CULTURAL PROGRAM
+// ============================================================
+const CULT_TYPE_META = {
+  'Solo Dance':  { icon:'💃', accent:'#c026d3' },
+  'Group Dance': { icon:'🕺', accent:'#7c3aed' },
+  'Song':        { icon:'🎤', accent:'#f5a623' },
+  'Solo Song':   { icon:'🎵', accent:'#ec5a96' },
+  'Group Song':  { icon:'🎶', accent:'#1a4fc4' }
+};
+function cultMeta(type){ return CULT_TYPE_META[type] || { icon:'🎭', accent:'#7c3aed' }; }
+
+function renderCultural(){
+  const c = document.getElementById('content');
+  const types = [...new Set(CULTURAL_PROGRAM.map(p=>p.type))];
+  const danceCount = CULTURAL_PROGRAM.filter(p=>/dance/i.test(p.type)).length;
+  const songCount = CULTURAL_PROGRAM.filter(p=>/song/i.test(p.type)).length;
+  const groupCount = CULTURAL_PROGRAM.filter(p=>/^group/i.test(p.type)).length;
+
+  let html = `<div class="cult-hero hero-shine-wrap"><div class="shine"></div>
+    <div class="cult-hero-top">
+      <span>🎭</span>
+      <div>
+        <div class="cult-hero-title">Cultural Extravaganza</div>
+        <div class="cult-hero-sub">On stage tomorrow · Mon, 20 July 2026</div>
+      </div>
+    </div>
+    <div class="upcoming-pill" style="margin-top:10px"><span class="dot"></span> Not yet performed</div>
+    <div class="cult-hero-stats">
+      <div><b class="stat-num" data-count="${CULTURAL_PROGRAM.length}">0</b><span>Performances</span></div>
+      <div><b class="stat-num" data-count="${danceCount}">0</b><span>Dances</span></div>
+      <div><b class="stat-num" data-count="${songCount}">0</b><span>Songs</span></div>
+      <div><b class="stat-num" data-count="${groupCount}">0</b><span>Group Acts</span></div>
+    </div>
+  </div>`;
+
+  html += `<div class="cult-type-row" id="cultTypeNav">
+    <div class="cult-type-chip ${culturalFilter==='all'?'active':''}" data-ct="all" style="--ct-accent:#7c3aed">🎭 All</div>`;
+  types.forEach(t=>{
+    const m = cultMeta(t);
+    html += `<div class="cult-type-chip ${culturalFilter===t?'active':''}" data-ct="${escapeHtml(t)}" style="--ct-accent:${m.accent}">${m.icon} ${escapeHtml(t)}</div>`;
+  });
+  html += `</div>`;
+
+  const list = culturalFilter==='all' ? CULTURAL_PROGRAM : CULTURAL_PROGRAM.filter(p=>p.type===culturalFilter);
+
+  html += `<div class="section-title">🎬 Tomorrow's Performance Line-up <small>${list.length} of ${CULTURAL_PROGRAM.length}</small></div>`;
+  list.forEach((p)=>{
+    const i = CULTURAL_PROGRAM.indexOf(p);
+    const m = cultMeta(p.type);
+    const delay = (Math.min(i,16)*0.035).toFixed(3);
+    html += `<div class="cult-card upcoming anim-in" style="--ct-accent:${m.accent};animation-delay:${delay}s">
+      <div class="cc-num">${i+1}</div>
+      <div class="cc-icon">${m.icon}</div>
+      <div class="cc-body">
+        <div class="cc-name">${escapeHtml(p.name)}</div>
+        <div class="cc-item">${p.item && p.item!=='—' ? escapeHtml(p.item) : 'Performance item not listed'}</div>
+      </div>
+      <div class="cc-type">${escapeHtml(p.type)}</div>
+    </div>`;
+  });
+
+  const culturalWinners = WINNERS_DATA.find(g=>g.id==='cultural');
+  if(culturalWinners){
+    html += `<div class="results-divider">Already Concluded</div>`;
+    html += `<div class="section-title" style="color:${culturalWinners.accent}">✅ Cultural Competition Results <small>${culturalWinners.events.length} events decided</small></div>`;
+    culturalWinners.events.forEach((ev,i)=>{
+      const delay = (Math.min(i,10)*0.05).toFixed(3);
+      html += `<div class="win-event-card anim-in" style="animation-delay:${delay}s">
+        <div class="win-event-title">${getEventIcon(ev.name)} ${escapeHtml(ev.name)}</div>
+        ${medalRow(1, ev.gold, ev.team, ev.note)}
+        ${ev.silver ? medalRow(2, ev.silver, ev.team) : ''}
+        ${ev.bronze ? medalRow(3, ev.bronze, ev.team) : ''}
+      </div>`;
+    });
+  }
+
+  html += `<div class="invite-footer-card">
+    <div class="ifc-badge">🎉 TOMORROW</div>
+    <div class="ifc-title">57th Foundation Day Celebration</div>
+    <div class="ifc-row">📅 Monday, 20 July 2026 &nbsp;·&nbsp; 🕥 10:30 AM</div>
+    <div class="ifc-row">📍 Dr. Jolarashi Doddanagowda Rangamandira, near KSRTC Police Bus Stand, Ballari</div>
+    <div class="ifc-row" style="opacity:.85">Prize distribution for all winners will take place at the ceremony. See you there! 🏆</div>
+  </div>`;
+
+  c.innerHTML = html;
+  document.querySelectorAll('#cultTypeNav .cult-type-chip').forEach(el=>{
+    el.onclick = () => { culturalFilter = el.dataset.ct; renderCultural(); };
+  });
+  animateCounts(c);
+}
+
+// ============================================================
+// RENDER BUS ROUTES
+// ============================================================
+function renderBusRoutes(){
+  const c = document.getElementById('content');
+  const totalStops = BUS_ROUTES.reduce((s,r)=>s+r.stops.length, 0);
+
+  let html = `<div class="win-hero hero-shine-wrap"><div class="shine"></div>
+    <div class="win-hero-top">
+      <span class="win-hero-trophy">🚌</span>
+      <div>
+        <div class="win-hero-title">Bus Routes to Venue</div>
+        <div class="win-hero-sub">57th Foundation Day · Free pickup for staff &amp; family</div>
+      </div>
+    </div>
+    <div class="win-hero-stats">
+      <div><b class="stat-num" data-count="${BUS_ROUTES.length}">0</b><span>Routes</span></div>
+      <div><b>9:30 AM</b><span>Pickup Time</span></div>
+      <div><b class="stat-num" data-count="${totalStops}">0</b><span>Total Stops</span></div>
+    </div>
+  </div>`;
+
+  html += `<div class="section-title">🗺️ Route-wise Stop Schedule <small>${BUS_ROUTES.length} routes</small></div>`;
+
+  BUS_ROUTES.forEach(r => {
+    html += `<div class="bus-table-wrap">
+      <div class="bt-head"><span class="bt-route">Route ${r.id}</span><span class="bt-count">${r.stops.length} stops</span></div>
+      <table class="bus-table"><tbody>`;
+    r.stops.forEach((stop, i) => {
+      const isVenue = i === r.stops.length - 1;
+      html += `<tr class="${isVenue ? 'bt-venue' : ''}"><td class="bt-num">${i + 1}</td><td>${isVenue ? '📍 ' : ''}${escapeHtml(stop)}</td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+  });
+
+  html += `<div style="font-size:10.5px;color:#8a95bd;text-align:center;margin:6px 0 14px;line-height:1.5">
+    Buses depart 9:30 AM sharp from the first stop on each route and return after the programme concludes.<br>Per circular EE(S&amp;P)/Vahan dated 18.07.2026.
+  </div>`;
+
+  html += `<div class="invite-footer-card">
+    <div class="ifc-badge">🎉 TOMORROW</div>
+    <div class="ifc-title">57th Foundation Day Celebration</div>
+    <div class="ifc-row">📅 Monday, 20 July 2026 &nbsp;·&nbsp; 🕥 10:30 AM</div>
+    <div class="ifc-row">📍 Dr. Jolarashi Doddanagowda Rangamandira, near KSRTC Police Bus Stand, Ballari</div>
+    <div class="ifc-row" style="opacity:.85">Catch your route bus at 9:30 AM sharp — see you there! 🚌</div>
+  </div>`;
+
+  c.innerHTML = html;
+  animateCounts(c);
 }
 
 // ============================================================
@@ -1928,13 +2265,12 @@ function renderAlerts(){
 function setTab(tab){
   currentTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
-  document.getElementById('fabAdd').classList.toggle('show', isAdmin && tab==='cricket');
+  document.getElementById('fabAdd').classList.remove('show');
 
   if(tab==='dashboard') renderDashboard();
   else if(tab==='winners') renderWinners();
-  else if(tab==='cricket') renderCricket();
-  else if(tab==='points') renderPointsTable();
-  else if(tab==='organisers') renderOrganisers();
+  else if(tab==='cultural') renderCultural();
+  else if(tab==='busroutes') renderBusRoutes();
   else if(tab==='alerts') renderAlerts();
 }
 
@@ -1945,6 +2281,7 @@ function renderCurrentTab(){ setTab(currentTab); }
 // ============================================================
 document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
 document.getElementById('calendarBtn').onclick=()=>toast('📅 Calendar view');
+document.getElementById('busBtn').onclick=()=>setTab('busroutes');
 document.getElementById('bellBtn').onclick=()=>{ setTab('alerts'); markNotifsRead(); };
 
 document.getElementById('adminToggleBtn').onclick=()=>{
@@ -1958,13 +2295,7 @@ document.getElementById('loginSubmit').onclick=()=>{
 };
 document.getElementById('adminPw').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginSubmit').click(); });
 
-document.getElementById('fabAdd').onclick=()=>{
-  if(currentTab === 'cricket') {
-    openAddCricket();
-  } else {
-    toast('Switch to the Cricket tab to add a match');
-  }
-};
+document.getElementById('fabAdd').onclick=()=>{};
 
 // Make functions globally accessible
 window.setWinner = setWinner;
