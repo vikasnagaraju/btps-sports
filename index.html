@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>57th Foundation Day Celebration 2026 · BTPS KPCL</title>
+  <title>57th Foundation Day Celebration 2026 · Ballari Thermal Power Station, KPCL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
@@ -12,16 +12,18 @@
     body{background:#f0f3fa;font-family:'Inter',sans-serif;color:#0b1530;padding-bottom:80px}
     .app{max-width:500px;margin:0 auto;padding:12px 14px 20px}
     .header{background:linear-gradient(145deg,rgba(11,21,48,.93),rgba(26,48,106,.9)),url('assets/btps-plant.jpg') center 30%/cover no-repeat;border-radius:28px;padding:18px 16px 12px;color:#fff;box-shadow:0 8px 20px rgba(11,21,48,.25)}
-    .top-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+    .top-row{display:flex;align-items:center;justify-content:space-between;gap:6px 10px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 100%;overflow:hidden}
     .brand-icon{width:42px;height:42px;background:#fff;border-radius:11px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);flex-shrink:0;padding:4px}
     .brand-icon img{width:100%;height:100%;object-fit:contain;display:block}
-    .brand-text{line-height:1.25;min-width:0}
+    .brand-text{line-height:1.25;min-width:0;overflow:hidden}
     .brand-text .event{font-size:13px;font-weight:800;color:#f5a623;letter-spacing:.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .brand-text .sub{font-size:10px;font-weight:700;color:#b6bedd;margin-top:2px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .header-actions{display:flex;gap:6px;align-items:center}
-    .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+    .header-actions{display:flex;gap:6px;align-items:center;flex-shrink:0;flex-wrap:nowrap;flex:0 0 auto;margin-left:auto}
+    .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;flex-shrink:0}
     .badge-dot{width:8px;height:8px;background:#d6483d;border-radius:50%;position:absolute;top:-2px;right:-2px;border:2px solid #0b1530}
+    .icon-btn-circular{background:rgba(245,166,35,.18);border-color:rgba(245,166,35,.45);animation:circularGlow 2.4s ease-in-out infinite;font-size:13px}
+    @keyframes circularGlow{0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,.35)}50%{box-shadow:0 0 0 5px rgba(245,166,35,0)}}
     .badge-dot.blink{animation:blinkAlert 1s ease-in-out infinite}
     @keyframes blinkAlert{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.7)}}
     .marquee{background:rgba(255,255,255,.06);border-radius:40px;padding:6px 0 6px 10px;margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.08);overflow:hidden}
@@ -181,8 +183,14 @@
     .event-sq .sq-status.completed{background:#e8f6ee;color:#1f9d6c}
     .event-sq .sq-status.postponed{background:#fdf0e8;color:#9a5a1f}
     .event-sq.today{border-color:#f5a623;box-shadow:0 0 0 1px #f5a623 inset}
-    .sync-indicator{display:flex;align-items:center;gap:4px;font-size:8px;color:#9aa6cc;font-weight:600}
+    .sync-indicator{display:flex;align-items:center;gap:4px;font-size:8px;color:#9aa6cc;font-weight:600;flex-shrink:0;white-space:nowrap}
     .sync-indicator .spinner{width:10px;height:10px;border:2px solid rgba(255,255,255,.1);border-top-color:#f5a623;border-radius:50%;animation:spin .8s linear infinite}
+    @media (max-width:380px){
+      .header-actions{gap:3px}
+      .icon-btn{width:27px;height:27px}
+      .icon-btn-circular{font-size:11px}
+      .sync-indicator .sync-label{display:none}
+    }
     @keyframes spin{to{transform:rotate(360deg)}}
     .click-hint{font-size:8px;color:#9aa6cc;margin-top:4px;display:flex;align-items:center;gap:3px}
     .click-hint svg{width:10px;height:10px}
@@ -457,11 +465,15 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0"></path><path d="M1.42 9a16 16 0 0121.16 0"></path><path d="M8.53 16.11a6 6 0 016.95 0"></path><circle cx="12" cy="20" r="1" fill="currentColor"></circle></svg>
           <span class="badge-dot" id="connDot" style="display:none;background:#d6483d;"></span>
         </div>
+        <div class="icon-btn icon-btn-circular" id="circularBtn" title="Official Circular">
+          📜
+          <span class="badge-dot blink" style="background:#f5a623"></span>
+        </div>
         <div class="icon-btn" id="bellBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
           <span class="badge-dot blink" id="bellDot" style="display: block;"></span>
         </div>
-        <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span> online</div>
+        <div class="sync-indicator" id="syncIndicator"><span style="color:#1f9d6c">●</span><span class="sync-label"> online</span></div>
       </div>
     </div>
     <div class="marquee"><span class="live"></span><div class="marquee-track"><span class="marquee-text" id="marqueeText" style="animation-duration: 16s;">🏆 Winners announced across Athletics, Kids & Team events<span class="sep">★</span>🎭 22 Cultural performances lit up the stage<span class="sep">★</span>🎉 Foundation Day celebration — Monday, 20 July, 10:30 AM</span></div></div>
@@ -514,6 +526,48 @@ let broadcastTimeout = null;
 
 const TODAY = new Date();
 const TODAY_STR = TODAY.toISOString().slice(0,10);
+
+// ============================================================
+// EVENT DAY LABEL — TOMORROW / TODAY / CONCLUDED, computed live
+// ============================================================
+const EVENT_DATETIME = new Date('2026-07-20T10:30:00+05:30'); // Foundation Day, 10:30 AM IST
+function eventDayPhase(){
+  const now = new Date();
+  const eventMidnight = new Date(EVENT_DATETIME); eventMidnight.setHours(0,0,0,0);
+  const todayMidnight = new Date(now); todayMidnight.setHours(0,0,0,0);
+  const diffDays = Math.round((eventMidnight - todayMidnight) / 86400000);
+  if (diffDays > 1) return { phase:'future', diffDays };
+  if (diffDays === 1) return { phase:'tomorrow', diffDays };
+  if (diffDays === 0) return { phase: now < EVENT_DATETIME ? 'today' : 'live', diffDays:0 };
+  return { phase:'past', diffDays };
+}
+// Long badge used in hero banners, e.g. "🎉 TOMORROW · 20 JULY"
+function eventHeroBadge(){
+  const { phase, diffDays } = eventDayPhase();
+  if (phase==='future') return `🎉 IN ${diffDays} DAYS · 20 JULY`;
+  if (phase==='tomorrow') return '🎉 TOMORROW · 20 JULY';
+  if (phase==='today') return '🎉 TODAY · 20 JULY';
+  if (phase==='live') return '🔴 HAPPENING NOW';
+  return '✅ CONCLUDED · 20 JULY';
+}
+// Short badge used in the small footer cards, e.g. "TOMORROW"
+function eventShortBadge(){
+  const { phase, diffDays } = eventDayPhase();
+  if (phase==='future') return `🎉 IN ${diffDays} DAYS`;
+  if (phase==='tomorrow') return '🎉 TOMORROW';
+  if (phase==='today') return '🎉 TODAY';
+  if (phase==='live') return '🔴 HAPPENING NOW';
+  return '✅ CONCLUDED';
+}
+// Word used inline, e.g. "Today's Cultural Line-up" / "On stage today"
+function eventDayWord(){
+  const { phase, diffDays } = eventDayPhase();
+  if (phase==='future') return `In ${diffDays} days`;
+  if (phase==='tomorrow') return 'Tomorrow';
+  if (phase==='today') return 'Today';
+  if (phase==='live') return 'Live now';
+  return 'Concluded';
+}
 
 // ============================================================
 // IMPORTANT: Replace YOUR_DEPLOYMENT_ID with your actual AppScript deployment ID
@@ -924,7 +978,7 @@ const CULTURAL_PROGRAM = [
   { name: 'Gangadhar G.', type: 'Song', item: 'Megha Bantu Megha' },
   { name: 'Asha S. & Team', type: 'Group Dance', item: 'Barso Re Megha (Mix Song)' },
   { name: 'Navya', type: 'Song', item: 'Nodayya Kyata Lingave' },
-  { name: 'Sharath Team', type: 'Group Dance', item: 'Sharath / Tagaru / Monica Songs' },
+  { name: 'Shararath Dance Team', type: 'Group Dance', item: 'Dhurandhar Shararath / Tagaru / Monica Songs' },
   { name: 'Rukayya & Ayisha', type: 'Group Dance', item: 'Boomro Song' },
   { name: 'Asha Rani T.S.', type: 'Song', item: 'Aaha Entha Aa Kshana' },
   { name: 'Gopayya', type: 'Song', item: 'Andavo Andavu Kannadanaadu' }
@@ -1032,10 +1086,10 @@ function updateConnectionDot(){
   const indicator = document.getElementById('syncIndicator');
   if(backendOk && !USE_LOCAL_FALLBACK){
     dot.style.display = 'none';
-    indicator.innerHTML = '<span style="color:#1f9d6c">●</span> online';
+    indicator.innerHTML = '<span style="color:#1f9d6c">●</span><span class="sync-label"> online</span>';
   }else{
     dot.style.display = 'block';
-    indicator.innerHTML = '<span style="color:#d6483d">●</span> offline';
+    indicator.innerHTML = '<span style="color:#d6483d">●</span><span class="sync-label"> offline</span>';
   }
 }
 
@@ -1635,6 +1689,45 @@ async function saveNewFixture() {
 // ============================================================
 // OPEN SHEET - Event Details (Cricket, Participants, etc.)
 // ============================================================
+function openCircularSheet() {
+  const sheet = document.getElementById('sheet');
+  const html = `<div class="sheet-handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="font-size:16px">📜 Official Circular</h3>
+      <button class="sheet-close" id="sheetClose">✕</button>
+    </div>
+    <div style="margin-top:10px;font-size:12.5px;line-height:1.8;color:#2c3454;text-align:justify;white-space:pre-line;font-family:'Inter',sans-serif;">ಸುತ್ತೋಲೆ
+ಕರ್ನಾಟಕ ವಿದ್ಯುತ್ ನಿಗಮ ನಿಯಮಿತ
+ಸಂಖ್ಯೆ:ಎ3ಪಿ1ಎ/557
+ದಿನಾಂಕ: 18.07.2026
+
+ವಿಷಯ: ಕರ್ನಾಟಕ ವಿದ್ಯುತ್ ನಿಗಮ ನಿಯಮಿತದ 57ನೇ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆಯ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ ಭಾಗವಹಿಸುವ-ಕುರಿತು.
+
+*****
+
+ಮೇಲಿನ ವಿಷಯಕ್ಕೆ ಸಂಬಂಧಿಸಿದಂತೆ, ಪ್ರತಿ ವರ್ಷದಂತೆ ಈ ವರ್ಷವೂ ಸಹ ಕರ್ನಾಟಕ ವಿದ್ಯುತ್ ನಿಗಮ ನಿಯಮಿತದ 57ನೇ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆಯ ಕಾರ್ಯಕ್ರಮದ ಅಂಗವಾಗಿ ಬಿಟಿಪಿಎಸ್ ಯೋಜನಾ ಪ್ರದೇಶದಲ್ಲಿಯೂ ಸಹ 57ನೇ ಸಂಸ್ಥಾಪನಾ ದಿನಾಚರಣೆಯ ವೇದಿಕೆ ಕಾರ್ಯಕ್ರಮವನ್ನು ವಿಜ್ಯಂಭಣೆಯಿಂದ ಆಚರಿಸುವ ಸಂಬಂಧ ಬಳ್ಳಾರಿಯ ಡಾ. ಜೋಳದರಾಶಿ ದೊಡ್ಡನಗೌಡ ರಂಗಮಂದಿರ, ಕೆ.ಎಸ್.ಆರ್.ಟಿ.ಸಿ ಹೊಸ ಬಸ್ ನಿಲ್ದಾಣ ಹತ್ತಿರ, ದಿನಾಂಕ: 20.07.2026 ರಂದು 10:30 ಗಂಟೆಗೆ ಹಮ್ಮಿಕೊಳ್ಳಲಾಗಿದೆ.
+
+ಈ ಕಾರ್ಯಕ್ರಮಕ್ಕೆ ನಿಗಮದ ಎಲ್ಲಾ ಅಧಿಕಾರಿಗಳು/ಉದ್ಯೋಗಿಗಳು, ಸಂಘ-ಸಂಸ್ಥೆಗಳ ಪದಾಧಿಕಾರಿಗಳು, ಕರ್ನಾಟಕ ರಾಜ್ಯ ಕೈಗಾರಿಕಾ ಭದ್ರತಾ ದಳದ ಅಧಿಕಾರಿಗಳು ಮತ್ತು ಸಿಬ್ಬಂದಿಗಳು, ಅಗ್ನಿಶಾಮಕ ದಳದ ಸಿಬ್ಬಂದಿಗಳು, ಶಿಕ್ಷಿತ್ರುಗಳು, ಹೋಂಗಾರ್ಡ್ ಸಿಬ್ಬಂದಿಗಳು, ಗುತ್ತಿಗೆದಾರರು ಹಾಗೂ ಗುತ್ತಿಗೆ ಕಾರ್ಮಿಕರು ಭಾಗವಹಿಸಿ ಕಾರ್ಯಕ್ರಮವನ್ನು ಯಶಸ್ವಿಗೊಳಿಸಲು ಈ ಮೂಲಕ ಕೋರಲಾಗಿದೆ.
+
+ಪ್ರಯುಕ್ತ ಸದರಿ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ ಎಲ್ಲಾ ಅಧಿಕಾರಿ/ಉದ್ಯೋಗಿಗಳಿಗೆ ದಿನಾಂಕ: 20.07.2026 ರ ಅನುಪಸ್ಥಿತಿಯನ್ನು ಅನ್ಯಕಾರ್ಯ ನಿಮಿತ್ತ ಎಂದು ಪರಿಗಣಿಸಲಾಗುವುದು. ಪಾಳಿ ಮತ್ತು ತುರ್ತು ಕೆಲಸಗಳನ್ನು ನಿರ್ವಹಿಸುವ ಸಿಬ್ಬಂದಿಗಳು/ಅಧಿಕಾರಿಗಳು ತುರ್ತು ಸಂದರ್ಭದಲ್ಲಿ ಕೆಲಸಕ್ಕೆ ಹಾಜರಾಗುತ್ತಿರುವುದು.
+
+ಇದನ್ನು ಇಡಿ[ಬಿಟಿಪಿಎಸ್] ರವರ ನಿರ್ದೇಶನದ ಮೇರೆಗೆ ಹೊರಡಿಸಲಾಗಿದೆ.
+
+ಡಿಜಿಎಂ[ಹೆಚ್ಆರ್ಡಿ]ಬಿಟಿಪಿಎಸ್
+
+ಪ್ರತಿ : ಇಡಿ[ಬಿಟಿಪಿಎಸ್] ರವರ ದಯಾಪರ ಮಾಹಿತಿಗಾಗಿ
+: ಸಿಎ[ಸಿ]/ಸಿಎ[ಒಟಿಎಂ]/ಸಿಎ[ಎಫ್ಎಂ]/ಜಿಎಂ[ಎಫ್]ಬಿಟಿಪಿಎಸ್ ರವರ ದಯಾಪರ ಮಾಹಿತಿಗಾಗಿ
+: ಎಲ್ಲಾ ಅಧೀಕ್ಷಕ ಅಭಿಯಂತರರು ಮತ್ತು ತತ್ಸಮಾನ ಹುದ್ದೆಯ ಅಧಿಕಾರಿಗಳು ರವರ-ಮಾಹಿತಿಗಾಗಿ,
+: ಸಹಾಯಕ ಕಮಾಂಡೆಂಟ್[ಕೆಎಸ್ಐಎಸ್ಎಫ್]ರವರ-ಮಾಹಿತಿಗಾಗಿ
+: ಎಲ್ಲಾ ವಿಭಾಗದ ಮುಖಸ್ಥರ-ಮಾಹಿತಿಗಾಗಿ ಹಾಗೂ ತಮ್ಮ ಅಧೀನದಲ್ಲಿ ಕೆಲಸ ನಿರ್ವಹಿಸುತ್ತಿರುವ ಉದ್ಯೋಗಿಗಳ-ಗುತ್ತಿಗೆ ಕಾರ್ಮಿಕರ ಗಮನಕ್ಕೆ ತಂದು ಸದರಿ ಕಾರ್ಯಕ್ರಮದಲ್ಲಿ ಭಾಗವಹಿಸುವಂತೆ ಸೂಚಿಸಲು ಕೋರಿ
+: ಅಧ್ಯಕ್ಷರು/ಕಾರ್ಯದರ್ಶಿಗಳು, ಎಲ್ಲಾ ಸಂಘ-ಸಂಸ್ಥೆಯ ಪದಾಧಿಕಾರಿಗಳ ಮಾಹಿತಿಗಾಗಿ
+: ಎಲ್ಲಾ ಕಛೇರಿಯ ಸೂಚನಾ ಫಲಕಕ್ಕೆ</div>`;
+  sheet.innerHTML = html;
+  document.getElementById('sheetClose').onclick = () => document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('sheetOverlay').classList.add('open');
+}
+window.openCircularSheet = openCircularSheet;
+
 function openSheet(id) {
   const ev = state.events.find(e => e.id === id);
   if (!ev) {
@@ -1838,7 +1931,7 @@ function renderDashboard() {
 
   html += `<div class="invite-hero hero-shine-wrap"><div class="shine"></div>
     <div class="invite-hero-glow"></div>
-    <div class="invite-hero-badge">🎉 TOMORROW · 20 JULY</div>
+    <div class="invite-hero-badge">${eventHeroBadge()}</div>
     <div class="invite-hero-title">You're Invited!</div>
     <div class="invite-hero-sub">57th Foundation Day Celebration</div>
     <div class="invite-hero-grid">
@@ -1874,9 +1967,9 @@ function renderDashboard() {
   });
   html += `</div>`;
 
-  // Tomorrow's cultural performance line-up preview
+  // Cultural performance line-up preview (label auto-updates: tomorrow → today → concluded)
   const previewCount = 5;
-  html += `<div class="section-title">🎬 Tomorrow's Cultural Line-up <span class="upcoming-pill" style="background:#f4f0ff;border-color:#e2d4ff;color:#5b1a8f"><span class="dot" style="background:#7c3aed"></span> Live 20 July</span></div>`;
+  html += `<div class="section-title">🎬 ${eventDayWord()}'s Cultural Line-up <span class="upcoming-pill" style="background:#f4f0ff;border-color:#e2d4ff;color:#5b1a8f"><span class="dot" style="background:#7c3aed"></span> Live 20 July</span></div>`;
   CULTURAL_PROGRAM.slice(0, previewCount).forEach((p,i)=>{
     const m = cultMeta(p.type);
     html += `<div class="cult-card upcoming anim-in" style="--ct-accent:${m.accent};animation-delay:${(i*0.05).toFixed(2)}s" onclick="setTab('cultural')">
@@ -2015,7 +2108,7 @@ function renderWinners(){
   html += `<div class="invite-hero-cta" style="margin-bottom:16px" onclick="setTab('cultural')">🎭 See the full Cultural Program (${CULTURAL_PROGRAM.length} performances) →</div>`;
 
   html += `<div class="invite-footer-card">
-    <div class="ifc-badge">🎉 TOMORROW</div>
+    <div class="ifc-badge">${eventShortBadge()}</div>
     <div class="ifc-title">57th Foundation Day Celebration</div>
     <div class="ifc-row">📅 Monday, 20 July 2026 &nbsp;·&nbsp; 🕥 10:30 AM</div>
     <div class="ifc-row">📍 Dr. Jolarashi Doddanagowda Rangamandira, near KSRTC Police Bus Stand, Ballari</div>
@@ -2053,7 +2146,7 @@ function renderCultural(){
       <span>🎭</span>
       <div>
         <div class="cult-hero-title">Cultural Extravaganza</div>
-        <div class="cult-hero-sub">On stage tomorrow · Mon, 20 July 2026</div>
+        <div class="cult-hero-sub">On stage ${eventDayWord().toLowerCase()} · Mon, 20 July 2026</div>
       </div>
     </div>
     <div class="upcoming-pill" style="margin-top:10px"><span class="dot"></span> Not yet performed</div>
@@ -2081,7 +2174,7 @@ function renderCultural(){
 
   const list = culturalFilter==='all' ? CULTURAL_PROGRAM : CULTURAL_PROGRAM.filter(p=>p.type===culturalFilter);
 
-  html += `<div class="section-title">🎬 Tomorrow's Performance Line-up <small>${list.length} of ${CULTURAL_PROGRAM.length}</small></div>`;
+  html += `<div class="section-title">🎬 ${eventDayWord()}'s Performance Line-up <small>${list.length} of ${CULTURAL_PROGRAM.length}</small></div>`;
   list.forEach((p)=>{
     const i = CULTURAL_PROGRAM.indexOf(p);
     const m = cultMeta(p.type);
@@ -2113,7 +2206,7 @@ function renderCultural(){
   }
 
   html += `<div class="invite-footer-card">
-    <div class="ifc-badge">🎉 TOMORROW</div>
+    <div class="ifc-badge">${eventShortBadge()}</div>
     <div class="ifc-title">57th Foundation Day Celebration</div>
     <div class="ifc-row">📅 Monday, 20 July 2026 &nbsp;·&nbsp; 🕥 10:30 AM</div>
     <div class="ifc-row">📍 Dr. Jolarashi Doddanagowda Rangamandira, near KSRTC Police Bus Stand, Ballari</div>
@@ -2167,7 +2260,7 @@ function renderBusRoutes(){
   </div>`;
 
   html += `<div class="invite-footer-card">
-    <div class="ifc-badge">🎉 TOMORROW</div>
+    <div class="ifc-badge">${eventShortBadge()}</div>
     <div class="ifc-title">57th Foundation Day Celebration</div>
     <div class="ifc-row">📅 Monday, 20 July 2026 &nbsp;·&nbsp; 🕥 10:30 AM</div>
     <div class="ifc-row">📍 Dr. Jolarashi Doddanagowda Rangamandira, near KSRTC Police Bus Stand, Ballari</div>
@@ -2300,6 +2393,7 @@ function renderCurrentTab(){ setTab(currentTab); }
 document.querySelectorAll('.tab').forEach(el=>el.onclick=()=>setTab(el.dataset.tab));
 document.getElementById('calendarBtn').onclick=()=>toast('📅 Calendar view');
 document.getElementById('busBtn').onclick=()=>setTab('busroutes');
+document.getElementById('circularBtn').onclick=()=>openCircularSheet();
 document.getElementById('bellBtn').onclick=()=>{ setTab('alerts'); markNotifsRead(); };
 
 document.getElementById('adminToggleBtn').onclick=()=>{
